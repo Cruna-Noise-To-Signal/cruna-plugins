@@ -1,0 +1,10 @@
+{
+  "extraKnownMarketplaces": {
+    "cruna-development-plugins": {
+      "source": { "source": "github", "repo": "Cruna-Noise-To-Signal/cruna-development-plugins" }
+    }
+  },
+  "enabledPlugins": {
+    "cruna-core@cruna-development-plugins": true
+  }
+}
