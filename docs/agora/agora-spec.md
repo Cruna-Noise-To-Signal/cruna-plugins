@@ -1,4 +1,4 @@
-# Shared Interests — Design Spec
+# Agora — Design Spec
 
 Status: locked (2026-10-28). Source: design interview on the original vision notes.
 
@@ -137,7 +137,7 @@ Files are referenced by path, never by Drive file ID. Read raw content via downl
 - Offboarding: revoke Drive and calendar access, disconnect the client, update `org.md`.
 - **System calendar**: one per root. Event title `[interest/instance] title`; description links the instance folder and diary entry. Colors (max 11 in Google Calendar) are optional, assigned per interest in `org.md`. Everything that must be remembered goes through the calendar.
 
-## Plugin: `shared-interests`
+## Plugin: `agora`
 
 Shipped in English and Italian, for Claude and ChatGPT with the same design (full connector parity assumed).
 
