@@ -40,7 +40,14 @@ People tell the AI what happened; the AI files it on Google Drive, keeps a curre
 /plugin install agora-ita@cruna-plugins    # Italiano
 ```
 
-**ChatGPT**: install `agora` or `agora-ita` from the Plugins page. In a workspace, an admin installs and publishes it first.
+**ChatGPT**: upload the plugin as a zip. From a clone of this repo:
+
+```
+bin/cruna-zip agora        # writes agora.zip in the current folder
+bin/cruna-zip agora-ita    # writes agora-ita.zip
+```
+
+Then upload the zip from ChatGPT's Plugins page. In a workspace, an admin uploads and publishes it. To type just `cruna-zip agora`, add the repo's `bin/` to your `PATH` (`export PATH="$PWD/bin:$PATH"` from the repo root).
 
 Then say **"Set up Agora"** (or **"Configura Agora"**).
 
@@ -52,6 +59,7 @@ Then say **"Set up Agora"** (or **"Configura Agora"**).
 | [`cruna-plugin-ita/`](cruna-plugin-ita/) | Italian plugins, same layout, plugin names end in `-ita` |
 | [`.claude-plugin/marketplace.json`](.claude-plugin/marketplace.json) | Claude marketplace catalog |
 | [`.agents/plugins/marketplace.json`](.agents/plugins/marketplace.json) | ChatGPT / Codex marketplace catalog |
+| [`bin/cruna-zip`](bin/cruna-zip) | Bundles a plugin into `<plugin-name>.zip` for upload |
 | [`docs/agora/`](docs/agora/) | Agora design docs (below) |
 | [`AGENTS.md`](AGENTS.md) | Rules for anyone (human or AI) changing this repo |
 

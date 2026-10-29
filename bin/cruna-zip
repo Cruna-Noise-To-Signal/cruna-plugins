@@ -1,0 +1,56 @@
+#!/usr/bin/env python3
+"""Bundle a plugin from this repo into <plugin-name>.zip, ready to upload.
+
+Usage: cruna-zip <plugin-name>
+       cruna-zip            (lists the plugins)
+
+The plugin is looked up by name in the Claude marketplace catalog. The zip
+holds the plugin folder's contents at its root (plugin.json, .claude-plugin/,
+skills/, ...) and is written to the current directory. Standard library only.
+"""
+import json
+import sys
+import zipfile
+from pathlib import Path
+
+REPO = Path(__file__).resolve().parent.parent
+CATALOG = REPO / ".claude-plugin" / "marketplace.json"
+SKIP = {".DS_Store", "__pycache__", ".git"}
+
+
+def plugins() -> dict[str, Path]:
+    catalog = json.loads(CATALOG.read_text())
+    return {p["name"]: (REPO / p["source"]).resolve() for p in catalog["plugins"]}
+
+
+def main() -> int:
+    available = plugins()
+    if len(sys.argv) != 2 or sys.argv[1] in ("-h", "--help"):
+        print(__doc__.strip().splitlines()[2], file=sys.stderr)
+        print("Plugins: " + ", ".join(sorted(available)), file=sys.stderr)
+        return 2
+
+    name = sys.argv[1]
+    source = available.get(name)
+    if source is None:
+        print(f"cruna-zip: no plugin named '{name}'. Plugins: {', '.join(sorted(available))}", file=sys.stderr)
+        return 1
+    if not (source / "plugin.json").is_file():
+        print(f"cruna-zip: {source} has no plugin.json", file=sys.stderr)
+        return 1
+
+    out = Path.cwd() / f"{name}.zip"
+    files = sorted(
+        f for f in source.rglob("*")
+        if f.is_file() and not SKIP.intersection(f.relative_to(source).parts)
+    )
+    with zipfile.ZipFile(out, "w", zipfile.ZIP_DEFLATED) as zf:
+        for f in files:
+            zf.write(f, f.relative_to(source).as_posix())
+
+    print(f"{out} ({len(files)} files)")
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())
