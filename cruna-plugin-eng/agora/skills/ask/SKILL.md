@@ -1,6 +1,6 @@
 ---
 name: ask
-description: Answers questions from what Agora has on file, the shared Drive notes, documents and calendar of a family or small business. Use when a member asks about a person, client, job or topic Agora tracks ("when is Nina's next vaccine?", "what's pending with client Rossi?", "what happened with the boiler?"), or about what is coming up ("what do we have this week?").
+description: Answers questions from what Agora has on file, the shared Drive notes, documents and calendar of a family or small business. Use when a member asks about a person, client, job or topic Agora tracks ("when is Nina's next vaccine?", "what's pending with client Rossi?", "how many feeds today?"), or about what is coming up ("what do we have this week?").
 ---
 
 # Ask
@@ -19,7 +19,7 @@ Done when: `org.md` is read, you know the member's slug, and their memories are 
 
 ### 2. Locate
 
-Read the root `index.md` and match the question to interests: a name, a client, a topic, read through the layout convention in `org.md` ("Nina" is the `nina` interest in a per-person layout). For each matching interest, read its `index.md` and pick the instances whose description fits.
+Read the root `index.md` and match the question to interests: a name, a client, a topic, read through the layout convention in `org.md` ("Nina" is the `nina` interest in a per-person layout). For each matching interest, read its `index.md` and pick the instances whose description fits. A question about something a Convention routes to a tracker ("how many poos today?") goes straight to that instance and tracker (rules → Conventions).
 
 - **Time questions with no subject** ("what do we have this week?", "anything due tomorrow?"): the whole root is in scope; go straight to the root `status.md` and the calendar (step 4). For a full summary of a day, week or month ("give me the week ahead"), use the `review` skill instead.
 - **Questions that span interests** ("what's pending with everyone?"): every interest is in scope; plan to roll up (step 5).
@@ -31,7 +31,7 @@ Done when: you hold a list of candidate instances (or "whole root"), each one ba
 
 Read each candidate instance's `status.md`. With more than three candidates, read their interests' `status.md` first (they roll up the instances) and descend only into the instances that look relevant.
 
-A status answers the question when it covers it **and** is current: its Last updated is no older than the newest diary entry or document in its instance `index.md`. A stale status is a pointer, not an answer; open the sources.
+A status answers the question when it covers it **and** is current: its Last updated is no older than the newest diary entry or document in its instance `index.md`. A stale status is a pointer, not an answer; open the sources. Tracker rows reach the status only through the daily summary, so counting and "when was the last" questions always go to the tracker.
 
 Done when: every candidate status is read and you know, for each, whether it answers the question or which sources to open.
 
@@ -41,6 +41,7 @@ Open only what the question needs, newest first:
 
 - **Diary entries**: pick them from the Diary table of the instance `index.md` by date and summary.
 - **Documents**: pick them from the Documents table; read PDFs, images and Office files through the text-extraction view (rules → Working with Drive).
+- **Working files**: pick them from the Maintained table and download them (rules → File kinds). A **tracker** answers counting and time questions: filter its rows by date, time and the other columns, then count, sum or take the latest ("4 poos today, the last at 15:20"; "last feed at 06:10"). A **list** is read as it stands.
 - **Calendar**: list the events on the system calendar for the window the question implies (default: from today, the next 30 days), or search by the `[interest/instance]` title prefix. For "what do we have" questions, add the member's personal calendar when `org.md` records it as shared with full details.
 
 Apply rules → Status update rule while reading: a newer entry that settles, cancels or reschedules something overrides the older one.
@@ -65,6 +66,7 @@ Writing belongs to other skills. When the conversation produces something to kee
 - "note that", "save that", new facts or a decision → the `log` skill.
 - "remind me", an appointment, a deadline → the `schedule` skill.
 - a file to keep → the `file-document` skill.
+- a memo, list or printable made from what you found ("make that a list I can print") → the `log` skill, to save it as a List working file (rules → File kinds), when the member wants it kept and updated; when they only want to read it, write it in your answer.
 
 Done when: every save request in the conversation was handed to its skill, or there was none.
 

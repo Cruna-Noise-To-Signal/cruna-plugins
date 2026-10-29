@@ -42,6 +42,8 @@ Propose a starter set from the convention and what the user has said (for a fami
 
 Keep it small: three to six interests is plenty; more can be added any time with "start tracking…".
 
+Ask whether they already keep track of anything in a sheet or a note (feeds, nappies, expenses, a shopping list). Recommend "no" unless they mentioned one. For each yes, note what it is, where it lives and which instance it belongs to: after the build it is offered for import (setup Output).
+
 ## Closing summary
 
 Show the user one compact summary (members, root name, language, timezone, calendar name, layout, interests and instances) and ask for a final yes. Corrections go back into the matching round.

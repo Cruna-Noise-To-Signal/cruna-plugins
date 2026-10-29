@@ -128,6 +128,7 @@ A short message in the root's language, no technical terms. Offboard: one line s
 
 1. One line: the Agora is ready (or: this person is now part of it), with the root name.
 2. Anything still pending, as a to-do with who does it ("Marta: accept the calendar invitation").
+   When the interview found a sheet or note they already keep, offer to bring it in now, one question per sheet (the `file-document` skill, Import).
 3. **What you can do now**, four or five lines with an example sentence each, drawn from their own interests:
    - Tell me news: "Nina's blood test came back fine." (`log`)
    - Add a file: drop it in the `landing` folder and tell me. (`file-document`)

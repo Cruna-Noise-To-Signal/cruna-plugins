@@ -20,7 +20,7 @@ Agora is a shared knowledge base kept by the AI on Google Drive (files) and Goog
 1. Search Drive for files named `org.md`; keep those whose front-matter has `agora: root`.
 2. None found: the user has no Agora yet. Offer the `setup` skill.
 3. More than one: ask which root, unless the conversation already names it.
-4. Read `org.md` before anything else. It holds the members, layout convention, language, timezone and calendar.
+4. Read `org.md` before anything else. It holds the members, layout convention, language, timezone, calendar and Conventions.
 
 Write all content in the language set in `org.md`. Folder names, file names and section headings stay in English exactly as written here.
 
@@ -42,19 +42,36 @@ Write all content in the language set in `org.md`. Folder names, file names and 
         ├── status.md
         ├── diary/       <slug>-YYYYMMDD_HHMM.md
         └── documents/   <slug>-YYYYMMDD_HHMM_<original-name>.<ext>
+                         <name>.csv | <name>.md   (working files)
 ```
 
-The root folder and the system calendar are named after the root's display name unless the user picks other names. Interest and instance folder names are lowercase, hyphenated, ASCII (`nina`, `swimming-pool`). Timestamps use the root's timezone; when a diary or document name is already taken, use the next free minute.
+The root folder and the system calendar are named after the root's display name unless the user picks other names. Interest and instance folder names are lowercase, hyphenated, ASCII (`nina`, `swimming-pool`). Timestamps use the root's timezone; when a diary or document name is already taken, use the next free minute. Diary entries written by the `review` routine use `routine` in place of a member slug.
 
 ## File kinds
 
-Every file is one of three kinds; the kind decides how it may change.
+Every file is one of four kinds; the kind decides how it may change.
 
-- **Source**: `diary/` entries and `documents/`. Append-only: create, never edit. A correction is a new diary entry that says what it corrects.
+- **Source**: `diary/` entries and uploaded `documents/`. Append-only: create, never edit. A correction is a new diary entry that says what it corrects.
 - **Derived**: every `status.md` and `index.md`. Rebuilt from the sources below them, never hand-edited, always safe to rebuild. A rebuild replaces the whole file.
 - **Curated**: `org.md`, `memories/`, `reviews/`. Edited in place by replacing the file; keep `org.md` and `memories/` short by updating lines rather than appending forever. Reviews are append-only: an update replaces the file with the old content verbatim plus the new section.
+- **Working**: a file in `documents/` that the AI maintains for the members, with a fixed name and no timestamp (`greta-diapers.csv`, `packing-list.md`). Updated by replacing it in full (rules → Replace). Two shapes:
+  - **Tracker**: CSV, header row then one row per event (`date,time,author,…`), oldest first. For frequent events a Convention routes here instead of the diary. A tracker row is source data: change rows only to correct them, at a member's request.
+  - **List**: Markdown the AI writes or regenerates on request (a printable list, a memo, a checklist). It may be rewritten freely.
+  Every working file was created with a diary entry that lists it in `documents:` and says `Maintained: documents/<name>`; an index rebuild lists every such file under Maintained.
 
 Templates for every file: [references/templates.md](references/templates.md).
+
+## Conventions
+
+The defaults in these rules and in every skill hold unless `org.md` → Conventions says otherwise. Before applying a default to an instance, check Conventions for a line whose Where matches it (`greta/health`, `greta`, or `*`); the most specific line wins. A Convention is written only when a member asks for it or answers a suggestion, with the date and who answered. A declined suggestion is recorded too ("declined"), so it isn't suggested again.
+
+### Suggest
+
+Suggest a working file or Convention when you notice a pattern: several similar entries in one instance within a day, a request for a list, memo or something printable, or a member keeping their own sheet or note for something Agora tracks. One short question with the concrete proposal ("Want me to keep Greta's nappies in a tracker file instead of one diary entry each?"); on yes, create the working file, write the Convention, and log one diary entry saying so.
+
+### Frequent events
+
+Events routed to a tracker get no diary entry each. The daily `review` writes one summary entry per day for that instance (counts, anything unusual), so status and history stay readable.
 
 ## Working with Drive
 
@@ -71,13 +88,19 @@ Drive cannot overwrite a file's content, and allows two files with the same name
 2. Create the new version in the same folder.
 3. Trash every older file with that name in that folder.
 
-Duplicates found at any time: for a derived or curated file, keep the newest and trash the rest; for a source file (diary, documents), keep all and flag them.
+Duplicates found at any time:
+- derived or curated file, or a list: keep the newest, trash the rest;
+- tracker: merge all copies into one (every distinct row, in date/time order), then trash the rest;
+- `routine-` diary entries with identical content: keep one, trash the rest;
+- any other source file (diary, uploaded documents): keep all and flag them.
 
 ## Status update rule
 
 A status describes the situation **now**. When rebuilding, read the sources newest first and let recent entries outweigh old ones: a newer entry that settles, cancels or reschedules something overrides the older one. Old facts survive only while they still matter (a standing allergy, an unpaid invoice).
 
 Every `status.md`, at every level, has the same sections in this order: Last updated, Needs attention, Summary, Done, Pending, Next. At root and interest level each section rolls up the level below, one line per child that has something to say.
+
+Tracker rows reach status through the daily summary entry; propagate on a row only when it changes something status-worthy.
 
 **Propagate** after any change to an instance: rebuild its `status.md`, then its interest's `status.md`, then the root `status.md`. Rebuild the instance `index.md` on every change to the instance. Rebuild an interest or root `index.md` only when its list of children or a child's description changed; the `review` tidy-up refreshes their Last activity column.
 

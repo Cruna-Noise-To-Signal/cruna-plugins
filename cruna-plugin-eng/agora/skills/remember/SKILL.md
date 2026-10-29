@@ -31,10 +31,11 @@ A memory is durable: it will still be true next month and shapes how you help. S
 
 - **Memory**: "Simona handles school stuff", "I prefer short answers", "Marco pays the client invoices on the 10th". Keep it.
 - **Diary fact**: an event in an instance ("Nina's lesson moved to Thursday"). Hand it to the `log` skill instead.
+- **Convention**: how Agora handles data, not who someone is ("from now on put Greta's feeds in a file", "don't log every nappy"). It belongs in `org.md` → Conventions (rules → Conventions): hand it to the `log` skill. Memories stay about people.
 - **Both**: a standing fact that also belongs to an instance's history ("Nina is allergic to penicillin"). Keep it here, and also log it to the instance (`nina/health`) with the `log` skill.
 - **Secret**: passwords, PINs, card numbers, security codes, recovery codes. Keep these out of Agora entirely: Drive files are readable by every member. Tell the member to keep it in a password manager.
 
-Done when: every fact is a memory, handed to `log`, or turned away as a secret.
+Done when: every fact is a memory, handed to `log` (as a diary fact or a Convention), or turned away as a secret.
 
 ### 4. Pick the file
 

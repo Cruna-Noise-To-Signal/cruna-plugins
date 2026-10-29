@@ -22,6 +22,22 @@ If you forget step 3, the next daily review picks it up. You can also upload str
 
 The AI can read a file you attach in the chat, but it can't save that file to Drive: that's a limit of the apps today. Upload it to the `landing` folder from the Drive app (see above) and tell Agora. Meanwhile, Agora can read the attachment and note what it says.
 
+## Can you keep track of something that happens many times a day?
+
+Yes. Say "track Greta's nappies in a file" (or feeds, expenses, medicine). Agora agrees a name and columns with you and keeps a table file in that topic's `documents` folder, one row per time you tell it ("poo at 9:15"), instead of a note each. Each morning's review writes one summary note for the day. Ask "how many today?" or "when was the last one?" any time. Already using a Google Sheet for it? Say so, and Agora copies it in once and leaves your sheet as it is.
+
+## Can you make a list I can print?
+
+Yes: "make a packing list for the holiday", "add milk to the shopping list", "write up a memo of Greta's vaccines". Agora keeps it as a file in that topic's `documents` folder and updates it whenever you ask. Open it from the Drive app to read, share or print it.
+
+## Where is the tracker or list file?
+
+In the topic it belongs to: `<root name>` → `<interest>` → `<instance>` → `documents`, under a plain name like `greta-diapers.csv` or `packing-list.md`. That topic's `index.md` lists it under **Maintained**. Or ask Agora "where is the packing list?".
+
+## How do I change how Agora handles something?
+
+Tell it, starting with "from now on": "from now on, put Greta's feeds in a file", "stop tracking nappies in the file, log them as notes again", "add a column for the amount". Agora says back the change, and on your yes writes it in the **Conventions** table of `org.md`, which it checks every time. You can read that table there.
+
 ## How do the routines work?
 
 Each member has three scheduled tasks in their AI app, created during setup:
@@ -38,7 +54,7 @@ Say "add <name> to Agora". Agora walks you through it: adding them to `org.md`, 
 
 ## Can I edit the files myself?
 
-You can add files and read everything. Notes in `diary` are never changed: to correct one, tell Agora what's wrong and it saves a correction. `status.md` and `index.md` are rewritten by Agora, so any change you make there disappears; tell Agora instead. `org.md` and the `memories` files are yours to edit if you like.
+You can add files and read everything. Notes in `diary` are never changed: to correct one, tell Agora what's wrong and it saves a correction. `status.md` and `index.md` are rewritten by Agora, so any change you make there disappears; tell Agora instead. `org.md` and the `memories` files are yours to edit if you like. Tracker and list files are too: Agora reads them before every change, so your edits stay.
 
 ## What if two of us talk to Agora at the same time?
 

@@ -29,6 +29,12 @@ layout: <what an interest is, e.g. "one interest per person, plus `family` for s
 |---|---|---|
 | nina | Peacock | Everything about Nina |
 
+## Conventions
+
+| Where | Convention | Since |
+|---|---|---|
+| greta/health | Nappies: one row per change in `documents/greta-diapers.csv` (date,time,author,type,notes); no diary entry per change; daily summary entry | 2026-10-29, simona |
+
 ## Access
 
 | Member | Drive | System calendar | Client connected | Notes |
@@ -58,6 +64,12 @@ Instance level lists documents and diary entries, newest first:
 | File | Description | From entry |
 |---|---|---|
 | documents/simone-20261028_1430_blood-test.pdf | Blood test results, all normal | diary/simone-20261028_1430.md |
+
+## Maintained
+
+| File | What it is | Updated |
+|---|---|---|
+| documents/greta-diapers.csv | Nappy tracker, one row per change | 2026-10-29 |
 
 ## Diary
 
@@ -119,6 +131,28 @@ events: [<"[interest/instance] title" of events created or changed, or empty>]
 
 ## Entry
 <What the member said or pushed, in their words; light cleanup only>
+```
+
+## Tracker (working)
+
+File: `<interest>/<instance>/documents/<name>.csv`. Header row with the columns agreed when it was created; `date,time,author` always first.
+
+```csv
+date,time,author,type,notes
+2026-10-29,07:40,simona,pee,
+2026-10-29,09:15,simone,poo,soft
+```
+
+## List (working)
+
+File: `<interest>/<instance>/documents/<name>.md`
+
+```markdown
+# <Title>
+
+**Updated:** <YYYY-MM-DD HH:MM> by <slug>
+
+- [ ] <item>
 ```
 
 ## Memory file (curated)

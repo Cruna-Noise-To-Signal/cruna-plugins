@@ -1,6 +1,6 @@
 ---
 name: file-document
-description: Files a document into Agora — names it, moves it into the right instance's documents folder, links it from the diary and puts its dates on the calendar. Use when a member says they uploaded or dropped a file into Agora ("I put the blood test in Nina's health folder", "there's an invoice in landing"), attaches a file in the chat for Agora to keep, or when the review routine finds files nobody announced.
+description: Files a document into Agora — names it, moves it into the right instance's documents folder, links it from the diary and puts its dates on the calendar. Use when a member says they uploaded or dropped a file into Agora ("I put the blood test in Nina's health folder", "there's an invoice in landing"), attaches a file in the chat for Agora to keep, has a sheet or file they already use to track something ("we have a sheet for Greta's nappies"), or when the review routine finds files nobody announced.
 ---
 
 # File document
@@ -10,6 +10,10 @@ To **file** a document is to give it its Agora name, put it in exactly one insta
 - **(a) In place**: the member uploaded it to an instance's `documents/` folder and tells you.
 - **(b) Landing**: the member uploaded it to the root `landing/` folder and tells you.
 - **(c) Unannounced (found by review)**: the `review` skill's tidy-up found a file in `landing/`, or in a `documents/` folder but missing from that instance's `index.md`. `review` hands you the file path, the member's slug, the period, and whether its run is unattended. You return your flags to `review` instead of writing them, and stop propagating at the interest level (step 8).
+
+- **(d) Import**: the member already tracks something in a Google Sheet or a file of their own ("we have a sheet for Greta's nappies"). Follow **Import** below instead of the Steps.
+
+**Working files** (rules → File kinds) are not yours to file: never rename or move a file listed under Maintained in its instance `index.md`.
 
 Separately, a run is **attended** or **unattended**. Cases (a) and (b) are always attended. Case (c) is attended when a member asked for the review: ask them as in (b). Unattended, nobody is there to ask: act only on what is unambiguous and flag the rest (rules → Unattended runs, rules → Flag).
 
@@ -25,7 +29,7 @@ Done when: `org.md` is read, you know the member's slug, and their memories are 
 
 ### 2. Find the file
 
-- (a): list the instance's `documents/` folder and pick the files not yet in its `index.md` Documents table.
+- (a): list the instance's `documents/` folder and pick the files in neither its `index.md` Documents table nor its Maintained table.
 - (b): list `landing/`.
 - (c): `review` hands you the file path.
 
@@ -102,6 +106,21 @@ Attended only: follow rules → Memory step.
 
 Done when: anything durable you learned is in `memories/`, or you found nothing new, or the run is unattended.
 
+## Import
+
+Bring an existing tracking sheet into Agora once, as a tracker working file. Always attended.
+
+1. **Load and identify**: step 1 above.
+2. **Find the sheet**: search Drive by the name the member gives, or list `landing/` and the instance's `documents/` when they uploaded a file. When more than one could be it, ask which.
+3. **Read it**: download a Google Sheet exported as CSV (one tab per download; ask which tab when there are several); download a CSV as it is; read an Office spreadsheet through text extraction (rules → Working with Drive). Note its columns, how many rows, and the first and last date.
+4. **Place it** in one instance, as in step 4 (b).
+5. **Map the columns** onto `date,time,author` plus the rest, and propose the mapping in one question with a recommended answer ("Date → date, Ora → time, Tipo → type, everything else → notes; author: simona, who kept the sheet?"). Rows with no author take the slug of the member who kept the sheet.
+6. **Create the tracker** with the `log` skill's working-file procedure (its `references/working-files.md` → Create), handing it the instance, the agreed name and columns, and the imported rows oldest first, without a Convention yet.
+7. **Leave the original untouched**. A Google Sheet elsewhere in Drive stays where it is. A file uploaded to `landing/` or `documents/` is filed as an uploaded document through steps 5–8, so the index shows where the tracker came from.
+8. **Offer the Convention** (rules → Conventions → Suggest): from now on, each event goes to the tracker as a row. On yes, the `log` skill writes it (`references/working-files.md` → Change a Convention).
+
+Done when: the tracker exists once with every row of the original, mapped as agreed; the original is unchanged (or filed, when it was uploaded to Agora); and the Convention was offered.
+
 ## Output
 
 Cases (a) and (b), one short message in the root's language:
@@ -110,5 +129,7 @@ Cases (a) and (b), one short message in the root's language:
 - Calendar changes, one line each, if any.
 - Anything that needs the member: a file you couldn't move and what to do in the Drive app, a question still open.
 - The `remember` line, if any.
+
+Import: how many rows came in and from which dates, where the tracker lives, that the original sheet is untouched and can be retired, and the Convention question.
 
 Case (c): no message of your own; return to `review` the files filed (with destination and summary) and the flags raised.

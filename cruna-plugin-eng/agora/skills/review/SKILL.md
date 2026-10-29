@@ -47,27 +47,32 @@ Done when: `org.md` is read, the member's slug is known and listed in `org.md`, 
 
 The tidy-up is **idempotent**: a second run on an unchanged root changes nothing, so members' routines running at the same time are harmless. Walk the root once, listing each folder's children, and use that listing for every check below.
 
-1. **Duplicates.** Wherever two files in one folder share a name: for derived and curated files (`status.md`, `index.md`, `org.md`, `memories/`, `reviews/`) keep the newest and trash the rest (rules → Replace). Source files (`diary/`, `documents/`) stay untouched; flag them.
-2. **Unfiled documents.** Every file in `landing/`, and every file in an instance `documents/` folder missing from that instance's `index.md`, goes to the `file-document` skill one at a time as case (c), with the file path, the member's slug, the period, and whether the run is unattended. Attended, it may ask the member; unattended, it files what is unambiguous and flags the rest. It propagates up to the interest level only and returns its flags to you instead of writing them.
-3. **Stale derived files.** Rebuild, bottom-up (rules → Status update rule), every derived file that is older than its sources:
+1. **Duplicates.** Wherever two files in one folder share a name: for derived and curated files (`status.md`, `index.md`, `org.md`, `memories/`, `reviews/`) keep the newest and trash the rest (rules → Replace). A duplicated tracker comes from two members writing at once: write one version holding every distinct row of all copies in date and time order, then trash the copies. A duplicated list: keep the newest. Source files (`diary/`, uploaded `documents/`) stay untouched; flag them.
+2. **Unfiled documents.** Working files are filed already: leave every file listed under Maintained in its instance `index.md` as it is, name included. A `.csv` or `.md` file with a fixed-style name (lowercase, hyphenated, no timestamp) missing from Maintained is a working file when a diary entry of its instance says `Maintained: documents/<name>`: its index is stale (item 4). With no such entry, flag it ("`greta/health/documents/feeds.csv` looks like a working file nobody created: keep it as a tracker or file it as a document?"). Every other file in `landing/`, and every file in an instance `documents/` folder missing from that instance's `index.md`, goes to the `file-document` skill one at a time as case (c), with the file path, the member's slug, the period, and whether the run is unattended. Attended, it may ask the member; unattended, it files what is unambiguous and flags the rest. It propagates up to the interest level only and returns its flags to you instead of writing them.
+3. **Tracker summaries** (daily period only). For every Convention in `org.md` that routes events to a tracker, write one summary diary entry in its instance for the day looked back on (rules → Conventions → Frequent events). This is unambiguous, so unattended runs do it too:
+   - The entry is `diary/routine-YYYYMMDD_2359.md`, dated that day. When it exists already, another run wrote it: skip. A day with no rows gets no entry.
+   - Fill the Diary entry template (rules → File kinds → templates) with `author: routine`, `created` that day at 23:59, `documents: [documents/<tracker>]`, `events: []`. **Summary**: the counts in one line ("12 nappies: 7 pees, 5 poos"). **Entry**: counts by type, first and last time, and anything unusual: a long gap, a note a member wrote, a count far from the days before.
+   - A missing or unreadable tracker: flag it instead.
+   Item 4 then picks up each instance this touched and propagates it.
+4. **Stale derived files.** Rebuild, bottom-up (rules → Status update rule), every derived file that is older than its sources:
    - an instance `status.md` whose Last updated is older than its newest diary entry or document (the timestamp in the file name);
-   - an instance `index.md` whose rows differ from the files in its `diary/` and `documents/`;
+   - an instance `index.md` whose rows differ from the files in its `diary/` and `documents/`, including its Maintained table (every working file listed, with the date it last changed);
    - an interest `status.md` older than any of its instances' `status.md` Last updated;
    - an interest or root `index.md` whose rows differ from its child folders, or whose Last activity differs from a child's newest entry.
    Write `routine` as the author of the Last updated line in unattended runs. The root `status.md` is rebuilt once, in step 3.
-4. **Old daily reviews.** Trash every `reviews/*-daily.md` dated more than 30 days before today. Weekly and monthly reviews are the long-term record and stay.
+5. **Old daily reviews.** Trash every `reviews/*-daily.md` dated more than 30 days before today. Weekly and monthly reviews are the long-term record and stay.
 
 Collect every flag you raise in this step, and every flag `file-document` returns, for the root's Needs attention (step 3.4).
 
-Done when: every folder has been walked; no derived or curated file has a duplicate; every file in `landing/` and every unindexed document is either filed or flagged; no instance or interest derived file is older than its sources; no daily review is older than 30 days.
+Done when: every folder has been walked; no derived, curated or working file has a duplicate; every file in `landing/` and every unindexed document is either filed or flagged, and no working file was renamed or moved; on a daily run, every tracker with rows on the day looked back on has its summary entry; no instance or interest derived file is older than its sources; no daily review is older than 30 days.
 
 ### 3. Write the shared review
 
 1. **Find** the period's file in `reviews/`.
 2. **New period** (no file yet): gather, then create the file from the Review template (rules → File kinds → templates):
-   - **Looking back**: diary entries created in the look-back window (their file names carry the time) and the Done items they produced, grouped by interest, one line each.
+   - **Looking back**: diary entries created in the look-back window (their file names carry the time) and the Done items they produced, grouped by interest, one line each. Tracker summaries count as diary entries; on weekly and monthly runs, add one line per tracker with the period's totals when they tell something (fewer feeds than usual, spending up).
    - **Still open**: Pending items from the instance statuses, each with who or what it waits on.
-   - **Looking ahead**: system calendar events in the look-ahead window, plus Next items dated inside it, in date order, with their event titles.
+   - **Looking ahead**: system calendar events in the look-ahead window, plus Next items dated inside it, in date order, with their event titles, and a List working file that matters for one of them (the packing list before a trip).
    - **Needs attention**: the flags from step 2 plus every Needs attention item in the instance statuses.
    - **Written**: now, `by routine (<slug>)` unattended, `by <slug>, by hand` attended.
 3. **Existing file**: read it. Its last write time is the latest `## Update HH:MM` heading, else Written. If diary entries were created after that time, add one `## Update <HH:MM>` section at the end listing what they changed, one line each, by interest. The earlier text stays exactly as it was: write the file by replace (rules → Replace) with the old content verbatim followed by the new section. No newer diary entries: leave the file untouched.

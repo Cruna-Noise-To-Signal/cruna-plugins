@@ -123,6 +123,22 @@ The Drive connector cannot overwrite file content and Drive allows duplicate nam
 
 Files are referenced by path, never by Drive file ID. Read raw content via download, not the "read" view (which escapes Markdown). Trashed versions stay recoverable for 30 days.
 
+### Working files
+
+A fourth file kind, next to source, derived and curated: a document in an instance's `documents/` that the AI **maintains** and updates in place (by replacing it in full).
+
+- Fixed name, no timestamp: `documents/<name>.<csv|md>` (`greta-diapers.csv`, `packing-list.md`).
+- Kinds: **trackers** (CSV, one row per event, for frequent events: nappies, feeds, expenses) and **lists/memos** (Markdown, regenerated from the diary on request, e.g. a printable list).
+- Listed in the instance `index.md` as maintained.
+- CSV for now; Google Sheets is a future extension. An existing Google Sheet can be imported once into a CSV tracker.
+
+### Conventions
+
+The defaults hold unless `org.md` says otherwise. User-requested exceptions live in a **Conventions** table in `org.md` (where, convention, since), which every skill reads before applying a default. Memories are about people; conventions are about how data is handled.
+
+- **Frequent events**: when a convention routes events to a tracker, each event is a tracker row, not a diary entry. The daily review writes one summary diary entry per day for that instance.
+- **Proactive**: the AI suggests a working file or convention when it notices a pattern (several similar entries in a day, a "list" or "printable" request). It writes the convention only after the user confirms; a declined suggestion is recorded so it isn't repeated.
+
 ## Accounts and calendar
 
 - **Assistant account is a role.**
@@ -232,6 +248,4 @@ Require the assistant account:
 
 ## Out of scope (future extensions)
 
-- Routine that reflects on past conversations to extract memories.
-- Interests backed by git repositories (status and memories aligned with commits, PRs, issues).
-- Roots on a local filesystem.
+See [future-extensions.md](future-extensions.md): Google Sheets trackers, memory reflection routine, git-backed interests, local filesystem roots.
