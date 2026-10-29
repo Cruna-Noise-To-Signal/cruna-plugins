@@ -1,0 +1,3 @@
+interface:
+  display_name: "Add Interest"
+  short_description: "Start tracking a new person, client or topic"

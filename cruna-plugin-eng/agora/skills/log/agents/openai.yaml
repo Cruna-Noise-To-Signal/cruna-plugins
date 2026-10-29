@@ -1,0 +1,3 @@
+interface:
+  display_name: "Log"
+  short_description: "Save news about a person, client or topic"

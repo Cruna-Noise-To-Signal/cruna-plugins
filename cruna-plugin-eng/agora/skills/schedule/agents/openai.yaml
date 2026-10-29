@@ -1,0 +1,3 @@
+interface:
+  display_name: "Schedule"
+  short_description: "Add, move or cancel events on the shared calendar"

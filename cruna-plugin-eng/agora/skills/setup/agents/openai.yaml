@@ -1,0 +1,3 @@
+interface:
+  display_name: "Setup"
+  short_description: "Start Agora, add a member, or switch accounts"

@@ -1,0 +1,3 @@
+interface:
+  display_name: "File Document"
+  short_description: "File an uploaded document where it belongs"

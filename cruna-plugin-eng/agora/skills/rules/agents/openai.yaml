@@ -1,0 +1,3 @@
+interface:
+  display_name: "Agora rules"
+  short_description: "Data model and file rules for Agora"

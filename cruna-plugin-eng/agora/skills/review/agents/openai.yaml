@@ -1,0 +1,3 @@
+interface:
+  display_name: "Review"
+  short_description: "Tidy up and sum up the day, week or month"

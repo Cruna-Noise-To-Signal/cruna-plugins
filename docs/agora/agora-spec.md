@@ -143,7 +143,8 @@ Shipped in English and Italian, for Claude and ChatGPT with the same design (ful
 
 | Skill | Responsibility |
 |---|---|
-| `setup` | Prerequisites check (real calls), interview (members/org chart, layout, first interests), build folders and calendar, guide routine creation. Also: solo → dedicated account migration, new member onboarding. |
+| `rules` | Shared reference every other skill loads first: vocabulary, layout, file kinds, Drive file protocol, status update rule, "ask, never assume", calendar conventions, memory step. Holds the templates and the prerequisites checklist. |
+| `setup` | Prerequisites check (real calls), interview (members/org chart, layout, first interests), build folders and calendar, guide routine creation. Also: solo → dedicated account migration, new member onboarding (Join), member offboarding. |
 | `add-interest` | Create an interest or instance from the template; update indexes. |
 | `log` | Push a diary entry; rebuild status up the tree. |
 | `file-document` | Index a file already in `documents/`, or move one from `landing/` (move → else copy and remove → else flag); link it to a diary entry. |
@@ -155,7 +156,7 @@ Shipped in English and Italian, for Claude and ChatGPT with the same design (ful
 
 "Push artifacts from a pull session" is `ask` followed by `log` or `schedule`, not a separate skill.
 
-Shared references, written once and used by every skill:
+Shared references, written once in the `rules` skill (skills can only link files inside their own folder, so shared material lives in a skill the others load):
 
 - **Rules**: file formats, status update rule, file update protocol, "ask, don't assume".
 - **Prerequisites checklist**: used by `setup` and `help`; any skill hitting a missing connector or permission error points to it.
@@ -171,7 +172,7 @@ Shared references, written once and used by every skill:
 5. Sharing: root folder shared with members as editors; system calendar shared with members; personal calendars shared with the assistant.
 6. Scheduled tasks: where to create them on each platform (done at the end of setup).
 
-New members joining later run steps 1–3 and 6.
+New members joining later run steps 1–3, 5 (their own sharing) and 6.
 
 ### Push flows
 
@@ -195,6 +196,8 @@ Plugins cannot ship scheduled tasks on either platform; `setup` guides each pers
 | Daily | Morning | Yesterday in review + today ahead |
 | Weekly | Sunday evening | Week in review + week ahead |
 | Monthly | 1st of the month | Month in review + month ahead |
+
+Each scheduled task's prompt is one line: `Run Agora review: <daily | weekly | monthly> for <slug> in <root name>`. A prompt in this shape is an unattended run.
 
 Each run:
 
