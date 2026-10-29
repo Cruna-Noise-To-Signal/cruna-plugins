@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "agora",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "A shared, AI-kept knowledge base on Google Drive and Calendar for families and small teams",
   "extensions": {
     "com.openai": {

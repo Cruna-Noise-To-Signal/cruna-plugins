@@ -11,7 +11,7 @@ name: <Root display name>
 language: <en | it | …>
 timezone: <Europe/Rome>
 assistant_account: <assistant@gmail.com | owner's own account>
-calendar: <System calendar name>
+calendar: <assistant account email: its primary calendar is the system calendar>
 layout: <what an interest is, e.g. "one interest per person, plus `family` for shared things">
 ---
 

@@ -24,7 +24,6 @@ Record the email in the member's Email column and the app in their Access row.
 - **Display name** (recommend the family surname or the business name: "Fabiole family").
 - **Language** for all content (recommend the language the user is writing in).
 - **Timezone** (recommend the one implied by their city or calendar).
-- **System calendar name** (recommend the display name).
 
 ## Round 3: Layout convention
 
@@ -46,4 +45,4 @@ Ask whether they already keep track of anything in a sheet or a note (feeds, nap
 
 ## Closing summary
 
-Show the user one compact summary (members, root name, language, timezone, calendar name, layout, interests and instances) and ask for a final yes. Corrections go back into the matching round.
+Show the user one compact summary (members, root name, language, timezone, layout, interests and instances) and ask for a final yes. Corrections go back into the matching round.

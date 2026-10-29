@@ -8,7 +8,7 @@ In a Google Drive folder called `<root name>`, owned by `<assistant account>` an
 
 ## Who can see what?
 
-Everyone in `<root name>` can see everything in the folder and on the `<calendar>` calendar, including the notes Agora keeps about each person's preferences (`memories`). Your own Google calendar stays yours: Agora sees it only if you shared it, and only at the level you chose (busy times only, or full details). The folder and calendar are shared only with the members listed in `org.md`.
+Everyone in `<root name>` can see everything in the folder and on the shared Agora calendar, including the notes Agora keeps about each person's preferences (`memories`). Your own Google calendar stays yours: Agora sees it only if you shared it, and only at the level you chose (busy times only, or full details). The folder and calendar are shared only with the members listed in `org.md`.
 
 ## How do I add a document from my phone?
 

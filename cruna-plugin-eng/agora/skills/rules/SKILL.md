@@ -15,6 +15,10 @@ Agora is a shared knowledge base kept by the AI on Google Drive (files) and Goog
 - **Member**: a person in `org.md`. Their **slug** is their first name, lowercase, ASCII (`simone`).
 - **Assistant account**: the Google account the Drive and Calendar connectors are logged in as. A dedicated account when the root has several members; the owner's own account when solo.
 
+## Connectors only
+
+Every read and write on Drive and Calendar goes through the tools of the Google Drive and Google Calendar connectors. A browser is never a way in: no opening drive.google.com or calendar.google.com, no browsing or computer-use tools, even when a connector call fails or a tool seems missing. What a connector tool offers, you do, retrying a failed call. What no connector tool offers (sharing a calendar, for one) becomes click steps for the user, signed in as the account the step names.
+
 ## Finding the root
 
 1. Search Drive for files named `org.md`; keep those whose front-matter has `agora: root`.
@@ -45,7 +49,7 @@ Write all content in the language set in `org.md`. Folder names, file names and 
                          <name>.csv | <name>.md   (working files)
 ```
 
-The root folder and the system calendar are named after the root's display name unless the user picks other names. Interest and instance folder names are lowercase, hyphenated, ASCII (`nina`, `swimming-pool`). Timestamps use the root's timezone; when a diary or document name is already taken, use the next free minute. Diary entries written by the `review` routine use `routine` in place of a member slug.
+The root folder is named after the root's display name unless the user picks another name. Interest and instance folder names are lowercase, hyphenated, ASCII (`nina`, `swimming-pool`). Timestamps use the root's timezone; when a diary or document name is already taken, use the next free minute. Diary entries written by the `review` routine use `routine` in place of a member slug.
 
 ## File kinds
 
@@ -124,7 +128,7 @@ Add a line under Needs attention in the root `status.md` saying what was found a
 
 ## Calendar conventions
 
-- Use only the root's **system calendar** named in `org.md` for writes. Members' personal calendars, when shared, are read-only: use them to find free time.
+- The root's **system calendar** is the assistant account's primary calendar (`calendar` in `org.md`, the account's email). Write only there. Members' personal calendars, when shared, are read-only: use them to find free time.
 - Event title: `[<interest>/<instance>] <title>` (`[nina/health] Blood test`).
 - Event description: the instance path and the diary entry that caused the event.
 - Color: the interest's color from `org.md`, when one is set.

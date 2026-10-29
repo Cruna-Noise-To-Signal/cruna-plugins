@@ -11,7 +11,7 @@ name: <Nome visualizzato della radice>
 language: <it | en | …>
 timezone: <Europe/Rome>
 assistant_account: <assistente@gmail.com | account del proprietario>
-calendar: <Nome del calendario di sistema>
+calendar: <email dell'account dell'assistente: il suo calendario principale è il calendario di sistema>
 layout: <che cosa è un interesse, es. "un interesse per persona, più `famiglia` per le cose condivise">
 ---
 

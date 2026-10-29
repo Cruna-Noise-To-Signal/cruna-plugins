@@ -58,7 +58,7 @@ Structure names (folders, file names, section headings) are in English in both t
 - Members: name, role, birthday, how they interact with the system, personal calendar sharing level.
 - Layout convention (what an interest is), offered as the default when creating new interests.
 - Assistant account (dedicated, or the owner's own account).
-- System calendar name; optional color per interest.
+- System calendar (the assistant account's email, whose primary calendar it is); optional color per interest.
 - Language.
 - Access list: who has Drive and calendar access (used for offboarding).
 
@@ -142,7 +142,7 @@ The defaults hold unless `org.md` says otherwise. User-requested exceptions live
 ## Accounts and calendar
 
 - **Assistant account is a role.**
-  - Multi-member root: a dedicated Google account owns the root folder and system calendar.
+  - Multi-member root: a dedicated Google account owns the root folder; its primary calendar is the system calendar.
   - Solo root: the owner's own account plays the role. A migrate step in `setup` moves to a dedicated account when someone joins.
 - Every member's AI client connects **Google Drive** and **Google Calendar** as the assistant account.
 - Each member:
@@ -151,7 +151,9 @@ The defaults hold unless `org.md` says otherwise. User-requested exceptions live
   - shares their personal calendar with the assistant account, free/busy only or full details (their choice, recorded in `org.md`).
 - Assistant account recovery uses a real member's phone and email. Mind the 15 GB free storage.
 - Offboarding: revoke Drive and calendar access, disconnect the client, update `org.md`.
-- **System calendar**: one per root. Event title `[interest/instance] title`; description links the instance folder and diary entry. Colors (max 11 in Google Calendar) are optional, assigned per interest in `org.md`. Everything that must be remembered goes through the calendar.
+- **Connectors only**: the AI acts on Drive and Calendar exclusively through the connectors' tools, never through a browser (no web interface, browsing or computer-use tools). What no connector tool offers is click steps for the user.
+- **Connector reach**: the Drive connector shares the root folder, so setup does it itself and retries until the folder's permissions list every member. The Calendar connector can't share calendars: sharing the system calendar and personal calendars is always click steps, and setup says so at the start.
+- **System calendar**: one per root, the assistant account's primary calendar (never a separate calendar to create or find). Event title `[interest/instance] title`; description links the instance folder and diary entry. Colors (max 11 in Google Calendar) are optional, assigned per interest in `org.md`. Everything that must be remembered goes through the calendar.
 
 ## Plugin: `agora`
 
@@ -185,7 +187,7 @@ Shared references, written once in the `rules` skill (skills can only link files
 2. The plugin installed.
 3. Connectors: what a connector is, which two are needed (Google Drive, Google Calendar), how to enable them, and that they log in as the assistant account (or the owner's own account when solo).
 4. Assistant account created, with recovery set up.
-5. Sharing: root folder shared with members as editors; system calendar shared with members; personal calendars shared with the assistant.
+5. Sharing: root folder shared with members as editors (by the AI, through the Drive connector); system calendar shared with members and personal calendars shared with the assistant (by hand).
 6. Scheduled tasks: where to create them on each platform (done at the end of setup).
 
 New members joining later run steps 1–3, 5 (their own sharing) and 6.

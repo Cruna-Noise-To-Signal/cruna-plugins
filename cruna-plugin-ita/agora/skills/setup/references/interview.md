@@ -24,7 +24,6 @@ Registra l'email nella colonna Email del membro e l'app nella sua riga Access.
 - **Nome della radice** (consiglia il cognome della famiglia o il nome dell'attività: "Famiglia Fabiole").
 - **Lingua** di tutti i contenuti (consiglia la lingua in cui scrive l'utente).
 - **Fuso orario** (consiglia quello che si ricava dalla sua città o dal suo calendario).
-- **Nome del calendario di sistema** (consiglia il nome della radice).
 
 ## Giro 3: Convenzione di struttura
 
@@ -46,4 +45,4 @@ Chiedi se tengono già traccia di qualcosa in un foglio o in una nota (poppate, 
 
 ## Riepilogo finale
 
-Mostra all'utente un unico riepilogo compatto (membri, nome della radice, lingua, fuso orario, nome del calendario, struttura, interessi e istanze) e chiedi un sì finale. Le correzioni tornano al giro corrispondente.
+Mostra all'utente un unico riepilogo compatto (membri, nome della radice, lingua, fuso orario, struttura, interessi e istanze) e chiedi un sì finale. Le correzioni tornano al giro corrispondente.

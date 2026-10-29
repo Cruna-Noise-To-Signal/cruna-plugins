@@ -10,7 +10,7 @@
     {
       "name": "agora",
       "description": "A shared, AI-kept knowledge base on Google Drive and Calendar for families and small teams",
-      "version": "0.2.0",
+      "version": "0.2.1",
       "author": {
         "name": "Cruna"
       },
@@ -20,7 +20,7 @@
     {
       "name": "agora-ita",
       "description": "Una base di conoscenza condivisa, tenuta dall'AI su Google Drive e Calendar, per famiglie e piccoli team",
-      "version": "0.2.0",
+      "version": "0.2.1",
       "author": {
         "name": "Cruna"
       },

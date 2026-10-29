@@ -70,6 +70,7 @@ Pointers are written `rules → <heading>` using exactly these Italian headings.
 | English heading | Italian heading |
 |---|---|
 | Vocabulary | Vocabolario |
+| Connectors only | Solo connettori |
 | Finding the root | Trovare la radice |
 | Layout | Struttura |
 | File kinds | Tipi di file |

@@ -15,6 +15,10 @@ Agora è una base di conoscenza condivisa tenuta dall'AI su Google Drive (file) 
 - **Membro**: una persona in `org.md`. Il suo **slug** è il nome di battesimo, minuscolo, ASCII (`simone`).
 - **Account dell'assistente**: l'account Google con cui sono collegati i connettori di Drive e Calendar. Un account dedicato quando la radice ha più membri; l'account del proprietario quando è da solo.
 
+## Solo connettori
+
+Ogni lettura e scrittura su Drive e Calendar passa dagli strumenti dei connettori Google Drive e Google Calendar. Il browser non è mai una strada: niente apertura di drive.google.com o calendar.google.com, niente strumenti di navigazione o di uso del computer, anche quando una chiamata al connettore fallisce o uno strumento sembra mancare. Ciò che uno strumento del connettore offre, lo fai tu, riprovando una chiamata fallita. Ciò che nessuno strumento del connettore offre (condividere un calendario, per esempio) diventa una serie di passi da cliccare per l'utente, con l'accesso all'account indicato nel passo.
+
 ## Trovare la radice
 
 1. Cerca su Drive i file chiamati `org.md`; tieni quelli il cui front-matter contiene `agora: root`.
@@ -45,7 +49,7 @@ Scrivi tutti i contenuti nella lingua indicata in `org.md`. Nomi di cartelle, no
                          <name>.csv | <name>.md   (file di lavoro)
 ```
 
-La cartella radice e il calendario di sistema prendono il nome visualizzato della radice, a meno che l'utente non scelga altri nomi. I nomi delle cartelle di interessi e istanze sono minuscoli, con trattini, ASCII (`nina`, `piscina`). Gli orari usano il fuso orario della radice; quando il nome di una voce di diario o di un documento è già occupato, usa il primo minuto libero successivo. Le voci di diario scritte dalla routine `review` usano `routine` al posto dello slug di un membro.
+La cartella radice prende il nome visualizzato della radice, a meno che l'utente non ne scelga un altro. I nomi delle cartelle di interessi e istanze sono minuscoli, con trattini, ASCII (`nina`, `piscina`). Gli orari usano il fuso orario della radice; quando il nome di una voce di diario o di un documento è già occupato, usa il primo minuto libero successivo. Le voci di diario scritte dalla routine `review` usano `routine` al posto dello slug di un membro.
 
 ## Tipi di file
 
@@ -124,7 +128,7 @@ Aggiungi una riga sotto Needs attention nello `status.md` della radice che dica 
 
 ## Convenzioni del calendario
 
-- Per le scritture usa solo il **calendario di sistema** della radice indicato in `org.md`. I calendari personali dei membri, quando condivisi, sono in sola lettura: usali per trovare il tempo libero.
+- Il **calendario di sistema** della radice è il calendario principale dell'account dell'assistente (`calendar` in `org.md`, l'email dell'account). Scrivi solo lì. I calendari personali dei membri, quando condivisi, sono in sola lettura: usali per trovare il tempo libero.
 - Titolo dell'evento: `[<interest>/<instance>] <title>` (`[nina/salute] Esame del sangue`).
 - Descrizione dell'evento: il percorso dell'istanza e la voce di diario che ha originato l'evento.
 - Colore: il colore dell'interesse indicato in `org.md`, quando è impostato.

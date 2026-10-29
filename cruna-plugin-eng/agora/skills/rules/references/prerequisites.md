@@ -2,7 +2,7 @@
 
 What must be true for Agora to work, how to check each item, and how to fix it. `setup` walks the list top to bottom (a member joining an existing root walks items 1–3, 5 and 6); `help` and any failing skill jump to the item that matches the failure.
 
-**Check with a real call** wherever one exists. Each item ends **ready** (the check passed) or **blocked** (it failed, the fix is given, and the user is waiting on it). Never mark an item ready on the user's word alone when a call can confirm it.
+**Check with a real call** wherever one exists. Each item ends **ready** (the check passed) or **blocked** (it failed, the fix is given, and the user is waiting on it). Never mark an item ready on the user's word alone when a call can confirm it. Blocked is only for a fix the user must do by hand (clicks, a password, a plan); a fix the connectors can do is yours: retry a failed call until the check passes.
 
 Menu names change between app versions. If a path below doesn't match what the user sees, tell them what to look for (the word "Connectors", "Apps" or "Scheduled") rather than insisting on the exact path.
 
@@ -25,7 +25,7 @@ A **connector** is a permission that lets the AI app act inside another service 
 - **Need**: two connectors, **Google Drive** and **Google Calendar**, both logged in as the **assistant account** named in `org.md` (or as the owner's own account in a solo root). A connector logged in as the wrong Google account is the most common failure: the AI then sees a different Drive.
 - **Check**:
   - Drive: search Drive for `org.md` (or, before setup, list recent files). Success means the Drive connector works; confirm the file owner matches the assistant account.
-  - Calendar: list calendars. Success means the Calendar connector works; confirm the system calendar from `org.md` is in the list and writable.
+  - Calendar: list calendars. Success means the Calendar connector works; confirm the primary calendar carries the assistant account's email (`calendar` in `org.md`): that is the system calendar.
 - **Fix**:
   - Claude: Settings → Connectors → Google Drive → Connect; same for Google Calendar. Sign in with the assistant account.
   - ChatGPT: Settings → Apps (Connectors) → Google Drive → Connect; same for Google Calendar. Sign in with the assistant account.
@@ -34,7 +34,7 @@ A **connector** is a permission that lets the AI app act inside another service 
 
 ## 4. Assistant account
 
-- **Need** (multi-member roots only): a Google account dedicated to this root that owns the root folder and the system calendar. Solo roots skip this item and use the owner's account.
+- **Need** (multi-member roots only): a Google account dedicated to this root that owns the root folder; its primary calendar is the system calendar. Solo roots skip this item and use the owner's account.
 - **Check**: the Drive and Calendar checks in item 3 return the assistant account as owner. Before `org.md` exists, list calendars: the primary calendar carries the connected account's email.
 - **Fix**: create a free Google account (accounts.google.com → Create account → For my personal use), named after the root (`fabiole.agora@gmail.com`). Set its recovery phone and email to a member's, so the root is never lost with a forgotten password. Free accounts hold 15 GB across Drive and Gmail; that is plenty for documents, but say so.
 - **Sharing the login**: every member's AI client connects as this account, so each member needs its password once, at connect time. Store it in the family's or team's password manager.
@@ -43,12 +43,12 @@ A **connector** is a permission that lets the AI app act inside another service 
 
 - **Need**:
   - The root folder shared with every member's personal Google account as **Editor**, so they can upload and browse from their own Drive.
-  - The system calendar shared with every member's personal Google account with **Make changes to events**, so events appear on their phones.
+  - The system calendar (the assistant account's primary calendar) shared with every member's personal Google account with **Make changes to events**, so events appear on their phones.
   - Optionally, each member's personal calendar shared with the assistant account, at **See only free/busy** or **See all event details** (the member's choice, recorded in `org.md`).
-- **Check**: read the root folder's permissions and confirm each member listed in `org.md` is an editor. List calendars and confirm each shared personal calendar is visible.
+- **Check**: read the root folder's permissions and confirm each member listed in `org.md` is an editor. List calendars and confirm each shared personal calendar is visible. System calendar sharing can't be read through the connector: the member confirms the calendar shows on their phone.
 - **Fix**:
-  - Folder: in Drive (as the assistant account), right-click the root folder → Share → add each member's email as Editor.
-  - System calendar: Google Calendar (as the assistant account) → Settings → the calendar → Share with specific people → add each member, Make changes to events.
+  - Folder: the Drive connector can share it; do it yourself, with each member's email as Editor, and retry until the permissions list them. By hand, as the assistant account: in Drive, right-click the root folder → Share → add each member's email as Editor.
+  - System calendar: always by hand, since the calendar connector can't share calendars. Google Calendar (as the assistant account) → Settings → under "Settings for my calendars", the assistant account's name → Share with specific people or groups → Add people → each member's email, Make changes to events → Send. The member opens the invitation email and adds the calendar.
   - Personal calendar: each member, in their own Google Calendar → Settings → their calendar → Share with specific people → add the assistant account.
 
 ## 6. Scheduled routines

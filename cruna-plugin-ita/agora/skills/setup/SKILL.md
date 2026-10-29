@@ -26,15 +26,18 @@ Fatto quando il ramo è scelto e, per una radice trovata, sai chi sta parlando.
 
 La checklist dei prerequisiti è il file `references/prerequisites.md` della skill `rules`; "voce N" qui sotto indica le sue sezioni numerate. Percorri ogni voce con chiamate reali e chiudila **pronta** o **bloccata**, come dice quel file. Una voce bloccata ferma il ramo finché la sua soluzione non è applicata, tranne la voce 5 (condivisione) per qualcuno che non è presente: registrala e vai avanti.
 
+**Insisti**, solo tramite i connettori (rules → Solo connettori). Tutto ciò che setup chiede ai connettori è alla loro portata: creare cartelle e file, e condividere la cartella radice con i membri. Una chiamata fallita è un intoppo da riprovare, mai un motivo per fermarti, per dichiarare bloccata una voce o per passare il lavoro all'utente. Solo i passi indicati come clic spettano all'utente.
+
 ## 2. Nuova radice
 
 ### 2a. Prerequisiti
 
-1. Chiedi: "Qualcun altro lo userà con te?"
+1. Di' all'utente, in due frasi semplici, che cosa farà a mano lungo il percorso: il connettore del calendario non può condividere calendari, quindi condividere il calendario di Agora con ogni membro (e il calendario di ogni membro con Agora) richiede qualche clic in Google Calendar, che guiderai passo passo. Tutto il resto lo fai tu.
+2. Chiedi: "Qualcun altro lo userà con te?"
    - Sì → tutto appartiene a un **account dell'assistente** dedicato (si applica la voce 4).
    - No → **solitaria**: l'account personale dell'utente fa da assistente; salta la voce 4. Digli che potrà passare a un account dedicato più avanti, quando entrerà qualcuno.
-2. Percorri la voce 1, la voce 2, poi (solo se dedicato) la voce 4, poi la voce 3. L'account dell'assistente deve esistere prima che i connettori vi si colleghino.
-3. Per la voce 3, verifica con quale account sono collegati i connettori: il calendario principale nella lista dei calendari riporta l'indirizzo email dell'account. Deve essere l'account dell'assistente (o quello dell'utente, se la radice è solitaria).
+3. Percorri la voce 1, la voce 2, poi (solo se dedicato) la voce 4, poi la voce 3. L'account dell'assistente deve esistere prima che i connettori vi si colleghino.
+4. Per la voce 3, verifica con quale account sono collegati i connettori: il calendario principale nella lista dei calendari riporta l'indirizzo email dell'account. Deve essere l'account dell'assistente (o quello dell'utente, se la radice è solitaria).
 
 Fatto quando le voci 1–4 sono tutte pronte (la voce 4 è saltata se la radice è solitaria).
 
@@ -54,17 +57,23 @@ Costruisci in quest'ordine, scrivendo ogni file dal suo modello (rules → Tipi 
 4. La tabella Interests in `org.md`, con ogni interesse dell'intervista, la sua descrizione e il suo colore (colori come al passo 5 di `add-interest`), scritta una volta sola (rules → Sostituire).
 5. Ogni interesse e istanza dell'intervista, costruiti con il passo 4 della skill `add-interest`, poi il livello interesse del suo passo 6 (`index.md` e `status.md` di ogni interesse, riassunti dalle sue istanze). Hai già la radice e le risposte, quindi salta le sue domande.
 6. `index.md` e `status.md` della radice, ricostruiti una volta alla fine della costruzione così da riassumere tutto ciò che sta sotto.
-7. Il **calendario di sistema**, con il nome registrato in `org.md` e il fuso orario di `org.md`. Se il connettore del calendario può creare calendari, crealo. Se non può, dai all'utente questi passi, da fare con l'accesso a Google Calendar come account dell'assistente: a sinistra, accanto ad "Altri calendari" (Other calendars), fai clic su **+** → **Crea nuovo calendario** (Create new calendar) → scrivi il nome → **Crea calendario** (Create calendar). Poi elenca i calendari finché non compare.
+7. Il **calendario di sistema** è il calendario principale dell'account dell'assistente (rules → Convenzioni del calendario): niente da creare né da cercare. Elenca i calendari e conferma che quello principale riporti l'email dell'account dell'assistente e il fuso orario di `org.md`. Un fuso orario diverso si corregge con un clic dell'utente, con l'accesso a Google Calendar come account dell'assistente: **Impostazioni** (Settings) → **Generali** (General) → **Fuso orario** (Time zone).
 
-Fatto quando ogni elemento qui sopra esiste esattamente una volta e il calendario compare nella lista dei calendari.
+Fatto quando ogni elemento qui sopra esiste esattamente una volta e la lista dei calendari mostra il calendario principale dell'account dell'assistente nel fuso orario della radice.
 
 ### 2d. Condivisione
 
-Percorri la voce 5 per ogni membro. Puoi condividere tu la cartella radice quando il connettore di Drive può condividere; i passi del calendario sono clic per chi ha l'accesso come account dell'assistente. Chiedi a ogni membro di condividere il proprio calendario personale al livello registrato in `org.md`. Aggiorna la tabella Access in `org.md` con ciò che ora è vero.
+Percorri la voce 5 per ogni membro:
+
+1. **Cartella radice**: condividila tu tramite il connettore di Drive, come editor, con l'email di ogni membro. Quando una chiamata fallisce, leggi i permessi della cartella e condividi di nuovo, un membro alla volta, finché i permessi non elencano ogni membro.
+2. **Calendario di sistema**: il connettore del calendario non può condividerlo, quindi dai i passi da cliccare della voce 5 a chi ha l'accesso come account dell'assistente, un membro alla volta, e aspetta che ognuno sia fatto.
+3. **Calendari personali**: chiedi a ogni membro di condividere il proprio al livello registrato in `org.md`, con i passi da cliccare della voce 5.
+
+Aggiorna la tabella Access in `org.md` con ciò che ora è vero.
 
 Radici solitarie: niente da condividere; segna la riga del proprietario come proprietario.
 
-Fatto quando la tabella Access mostra l'accesso reale di ogni membro a Drive e al calendario, e ogni cosa ancora in sospeso è indicata per il messaggio finale.
+Fatto quando i permessi della cartella radice, letti con una chiamata reale, elencano come editor ogni membro con un'email; la tabella Access mostra l'accesso reale di ogni membro a Drive e al calendario; e la condivisione del calendario ancora in sospeso per chi non è presente è indicata per il messaggio finale.
 
 ### 2e. Routine
 
@@ -80,15 +89,15 @@ Per un nuovo membro, o per un membro esistente su una nuova app. Eseguilo nell'a
 
 1. Percorri le voci 1, 2 e 3. I connettori si collegano come l'account dell'assistente indicato in `org.md`; la persona riceve la password da chi la custodisce.
 2. Trova la radice (rules → Trovare la radice) e segui rules → Identità.
-3. **Solo nuovo membro**: intervistalo con il giro Membri di [references/interview.md](references/interview.md) (solo per sé). Aggiungilo a Members e Access in `org.md`, crea `memories/<slug>.md` e percorri la voce 5 per lui: condividi la cartella radice e il calendario di sistema con il suo account Google personale, e il suo calendario personale con l'account dell'assistente al livello che sceglie.
+3. **Solo nuovo membro**: intervistalo con il giro Membri di [references/interview.md](references/interview.md) (solo per sé). Aggiungilo a Members e Access in `org.md`, crea `memories/<slug>.md` e percorri la voce 5 per lui come al passo 2d: condividi tu la cartella radice finché i suoi permessi non lo elencano, poi guida i passi da cliccare che condividono il calendario di sistema con il suo account Google personale e il suo calendario personale con l'account dell'assistente al livello che sceglie.
 4. **Membro esistente, nuova app**: aggiorna la sua riga Access ("Client connected").
 5. Dagli le sue routine da [references/routines.md](references/routines.md) e percorri la voce 6.
 
-Fatto quando la persona è in Members e Access con il suo accesso reale, ha un file in `memories/` e la voce 6 è pronta o bloccata. Vai al passo 6.
+Fatto quando la persona è in Members e Access con il suo accesso reale, i permessi della cartella radice la elencano come editor (nuovo membro), ha un file in `memories/` e la voce 6 è pronta o bloccata. Vai al passo 6.
 
 ## 4. Migra (da solitaria ad account dedicato)
 
-Eseguilo con il proprietario della radice, prima che entri il nuovo arrivato. Segui [references/migration.md](references/migration.md): crea l'account dell'assistente, passagli la cartella radice e il calendario, ricollega i connettori del proprietario e aggiorna `org.md`.
+Eseguilo con il proprietario della radice, prima che entri il nuovo arrivato. Segui [references/migration.md](references/migration.md): crea l'account dell'assistente, passagli la cartella radice e gli eventi di Agora, ricollega i connettori del proprietario e aggiorna `org.md`.
 
 Fatto quando vale il criterio di completamento della migrazione stessa. Poi esegui **Unisciti** per il nuovo arrivato.
 
@@ -112,7 +121,8 @@ Controlla la radice con chiamate reali, mai a memoria di ciò che hai costruito:
 - Esistono `index.md` e `status.md` della radice, `landing/`, `reviews/`, `memories/shared.md` e un `memories/<slug>.md` per membro.
 - Ogni interesse in `org.md` e nell'`index.md` della radice ha una cartella con `index.md` e `status.md`; ogni istanza ha `index.md`, `status.md`, `diary/` e `documents/`.
 - Nessun nome di file compare due volte nella stessa cartella (rules → Sostituire).
-- Il calendario di sistema indicato in `org.md` è nella lista dei calendari.
+- Il calendario principale nella lista dei calendari riporta l'email dell'account dell'assistente, come `calendar` in `org.md`.
+- I permessi della cartella radice elencano come editor ogni membro con un'email (un membro rimosso: per niente).
 
 Correggi ciò che fallisce e controlla di nuovo. Fatto quando ogni riga passa.
 

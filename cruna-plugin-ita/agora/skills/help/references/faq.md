@@ -8,7 +8,7 @@ In una cartella di Google Drive chiamata `<nome della radice>`, di proprietà di
 
 ## Chi vede cosa?
 
-Tutti in `<nome della radice>` vedono tutto nella cartella e nel calendario `<calendario>`, comprese le note che Agora tiene sulle preferenze di ciascuno (`memories`). Il tuo calendario Google personale resta tuo: Agora lo vede solo se l'hai condiviso, e solo al livello che hai scelto (solo gli orari occupati, o tutti i dettagli). La cartella e il calendario sono condivisi solo con i membri elencati in `org.md`.
+Tutti in `<nome della radice>` vedono tutto nella cartella e nel calendario condiviso di Agora, comprese le note che Agora tiene sulle preferenze di ciascuno (`memories`). Il tuo calendario Google personale resta tuo: Agora lo vede solo se l'hai condiviso, e solo al livello che hai scelto (solo gli orari occupati, o tutti i dettagli). La cartella e il calendario sono condivisi solo con i membri elencati in `org.md`.
 
 ## Come aggiungo un documento dal telefono?
 
