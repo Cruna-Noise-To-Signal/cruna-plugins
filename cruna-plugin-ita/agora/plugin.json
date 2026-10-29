@@ -1,0 +1,14 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "agora-ita",
+  "version": "0.2.0",
+  "description": "Una base di conoscenza condivisa, tenuta dall'AI su Google Drive e Calendar, per famiglie e piccoli team",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Agora (Italiano)",
+        "category": "Productivity"
+      }
+    }
+  }
+}

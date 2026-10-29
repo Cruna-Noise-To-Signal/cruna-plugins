@@ -1,0 +1,3 @@
+interface:
+  display_name: "Revisione"
+  short_description: "Riordina e riassumi il giorno, la settimana o il mese"

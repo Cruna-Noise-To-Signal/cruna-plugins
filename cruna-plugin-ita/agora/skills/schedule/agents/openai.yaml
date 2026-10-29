@@ -1,0 +1,3 @@
+interface:
+  display_name: "Calendario"
+  short_description: "Aggiungi, sposta o annulla eventi nel calendario condiviso"

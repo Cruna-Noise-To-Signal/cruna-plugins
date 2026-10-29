@@ -2,15 +2,30 @@
   "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
   "name": "cruna-plugins",
   "description": "Cruna's public plugins for Claude and ChatGPT, in English and Italian",
-  "owner": { "name": "Cruna", "email": "filo@crunasignal.com" },
+  "owner": {
+    "name": "Cruna",
+    "email": "filo@crunasignal.com"
+  },
   "plugins": [
     {
       "name": "agora",
       "description": "A shared, AI-kept knowledge base on Google Drive and Calendar for families and small teams",
       "version": "0.2.0",
-      "author": { "name": "Cruna" },
+      "author": {
+        "name": "Cruna"
+      },
       "category": "productivity",
       "source": "./cruna-plugin-eng/agora"
+    },
+    {
+      "name": "agora-ita",
+      "description": "Una base di conoscenza condivisa, tenuta dall'AI su Google Drive e Calendar, per famiglie e piccoli team",
+      "version": "0.2.0",
+      "author": {
+        "name": "Cruna"
+      },
+      "category": "productivity",
+      "source": "./cruna-plugin-ita/agora"
     }
   ]
 }

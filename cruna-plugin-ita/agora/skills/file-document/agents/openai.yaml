@@ -1,0 +1,3 @@
+interface:
+  display_name: "Archivia documento"
+  short_description: "Archivia un documento caricato al posto giusto"

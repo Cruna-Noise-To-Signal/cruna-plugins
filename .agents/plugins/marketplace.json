@@ -1,11 +1,31 @@
 {
   "name": "cruna-plugins",
-  "interface": { "displayName": "Cruna plugins" },
+  "interface": {
+    "displayName": "Cruna plugins"
+  },
   "plugins": [
     {
       "name": "agora",
-      "source": { "source": "local", "path": "./cruna-plugin-eng/agora" },
-      "policy": { "installation": "AVAILABLE", "authentication": "ON_INSTALL" },
+      "source": {
+        "source": "local",
+        "path": "./cruna-plugin-eng/agora"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    },
+    {
+      "name": "agora-ita",
+      "source": {
+        "source": "local",
+        "path": "./cruna-plugin-ita/agora"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
       "category": "Productivity"
     }
   ]

@@ -3,7 +3,7 @@ This repo publishes Cruna's public plugins for Claude and ChatGPT. Every plugin 
 ## Layout
 
 - `cruna-plugin-eng/<plugin>/`: English version, plugin name `<plugin>`.
-- `cruna-plugin-ita/<plugin>/`: Italian version, plugin name `<plugin>-ita`. A translation of the English version; change English first, then carry the change over.
+- `cruna-plugin-ita/<plugin>/`: Italian version, plugin name `<plugin>-ita`. A translation of the English version; change English first, then carry the change over. Translate with the plugin's fixed glossary, `docs/<plugin>/glossary-it.md`, and add new terms to it.
 - `.claude-plugin/marketplace.json` and `.agents/plugins/marketplace.json`: one catalog per vendor, both listing every plugin in both languages.
 - `docs/<plugin>/`: design spec (`<plugin>-spec.md`) and working notes for each plugin.
 

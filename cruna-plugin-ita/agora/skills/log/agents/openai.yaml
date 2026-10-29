@@ -1,0 +1,3 @@
+interface:
+  display_name: "Registra"
+  short_description: "Salva novità su una persona, un cliente o un argomento"
