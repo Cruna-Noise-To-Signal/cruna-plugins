@@ -60,6 +60,7 @@ Le soluzioni stanno nella checklist dei prerequisiti della skill `rules` (rules 
 | La mia revisione giornaliera / settimanale / mensile non è mai arrivata | 6, poi 1 |
 | Agora non c'è nella mia app | 2 |
 | Un nuovo membro non riesce a usarlo | quel membro percorre le voci 1–3, 5 e 6: proponi il ramo **Unisciti** della skill `setup` |
+| La configurazione è rimasta a metà, o `setup.md` dice `state: todo` | nessuna: proponi la skill `setup`, che riprende dalla prima casella non spuntata |
 
 1. Esegui il **controllo** di ogni voce corrispondente con una chiamata reale, esattamente come lo descrive la checklist.
 2. Ogni voce finisce **pronta** o **bloccata**. Per una voce bloccata, chiedi quale app e quale dispositivo usa il membro se non lo sai, poi dai la soluzione per quella piattaforma, passo per passo.

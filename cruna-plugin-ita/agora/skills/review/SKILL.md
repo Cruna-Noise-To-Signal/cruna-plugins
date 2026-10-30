@@ -1,27 +1,27 @@
 ---
 name: review
-description: Fa la revisione di una radice Agora, a orari pianificati o su richiesta: riordina la cartella Drive condivisa e riassume cosa è successo e cosa arriva per la famiglia o il team. Usala quando una routine pianificata dice "Esegui revisione Agora", o quando un membro chiede ad Agora un riepilogo del giorno, della settimana o del mese ("fammi la revisione della settimana", "dimmi la settimana che arriva", "cosa abbiamo fatto questo mese", "revisione giornaliera").
+description: Fa la revisione di una radice Agora, a orari pianificati o su richiesta: riordina la cartella Drive condivisa e riassume cosa è successo e cosa arriva per la famiglia o il team, per tutti o per un membro. Usala quando una routine pianificata dice "Esegui revisione Agora", o quando un membro chiede ad Agora un riepilogo del giorno, della settimana o del mese ("fammi la revisione della settimana", "dimmi la settimana che arriva", "cosa abbiamo fatto questo mese", "la mia settimana", "revisione giornaliera").
 ---
 
 # Revisione
 
-Una **revisione** è il corpo di ogni routine pianificata. Prima **riordina** la radice così che ogni file sia al suo posto e ogni stato sia aggiornato, poi scrive la **revisione condivisa** del periodo in `reviews/`, poi invia **un messaggio personale** al membro per cui gira.
+Una **revisione** è il corpo di ogni routine pianificata. Prima **riordina** la radice così che ogni file sia al suo posto e ogni stato sia aggiornato, poi scrive la **revisione condivisa** del periodo in `reviews/`, poi invia **un messaggio**: un messaggio **generale** che copre tutti, seguito da un breve aggiornamento per ogni membro; oppure, quando è indicato un membro, un messaggio **personale** per quel membro.
 
 ## Input
 
 Il prompt di una routine pianificata è una riga:
 
 ```
-Esegui revisione Agora: <giornaliera | settimanale | mensile> per <slug> [in <nome della radice>]
+Esegui revisione Agora: <giornaliera | settimanale | mensile> [per <slug>] [in <nome della radice>]
 ```
 
 - **Periodo**: `giornaliera`, `settimanale` o `mensile`.
-- **Membro**: lo slug del membro a cui è destinato il messaggio. Stabilisce l'identità: non si fa nessuna domanda.
+- **Membro** (facoltativo): lo slug del membro a cui è destinato il messaggio, che lo rende personale. Senza, il messaggio è generale.
 - **Radice** (facoltativa): il nome visualizzato della radice da `org.md`, necessario solo quando l'account dell'assistente vede più radici.
 
 Un prompt in questa forma indica un'**esecuzione non presidiata**: non c'è nessuno a rispondere, quindi segui rules → Esecuzioni non presidiate (agisci solo su ciò che è inequivocabile, segnala il resto) e salta il passo memoria.
 
-Un membro che chiede in conversazione indica un'**esecuzione presidiata**: l'identità viene da rules → Identità, il periodo dalle sue parole ("oggi" → giornaliera, "la settimana" → settimanale, "il mese" → mensile), e un'ambiguità diventa una domanda invece che una segnalazione. Quando le sue parole indicano una finestra che i periodi qui sotto non coprono ("finora questo mese"), trattala come una **finestra personalizzata**: esegui ogni passo per quella finestra, ma salta i passi 3.1–3.3 (nessun file di revisione) e costruisci il messaggio personale dagli stati, dalle voci di diario e dagli eventi di calendario dentro la finestra.
+Un membro che chiede in conversazione indica un'**esecuzione presidiata**: il periodo viene dalle sue parole ("oggi" → giornaliera, "la settimana" → settimanale, "il mese" → mensile), e un'ambiguità diventa una domanda invece che una segnalazione. Il messaggio è generale a meno che le sue parole non indichino un membro ("la mia settimana" → chi sta parlando, "cosa c'è per Nina"); chiedi chi sta parlando solo in quel caso, e solo quando non è ancora noto. Quando le sue parole indicano una finestra che i periodi qui sotto non coprono ("finora questo mese"), trattala come una **finestra personalizzata**: esegui ogni passo per quella finestra, ma salta i passi 3.1–3.3 (nessun file di revisione) e costruisci il messaggio dagli stati, dalle voci di diario e dagli eventi di calendario dentro la finestra.
 
 ## Periodi
 
@@ -39,9 +39,9 @@ Tutte le date sono nel fuso orario della radice. Le settimane sono settimane ISO
 
 ### 1. Carica le regole, trova la radice, sappi chi sta parlando
 
-Carica la skill `rules` e segui rules → Trovare la radice. In un'esecuzione non presidiata, usa la radice indicata nel prompt; quando esistono più radici e nessuna è indicata, fermati e restituisci una riga che dica al membro di aggiungere il nome della radice al prompt di questa routine. Prendi il membro dal prompt (non presidiata) o da rules → Identità (presidiata). Leggi `memories/<slug>.md` e `memories/shared.md`.
+Carica la skill `rules` e segui rules → Trovare la radice. In un'esecuzione non presidiata, usa la radice indicata nel prompt; quando esistono più radici e nessuna è indicata, fermati e restituisci una riga che dica al membro di aggiungere il nome della radice al prompt di questa routine. Messaggio personale: prendi il membro dal prompt (non presidiata) o dalle sue parole e da rules → Identità (presidiata), e leggi `memories/<slug>.md`. Ogni esecuzione legge `memories/shared.md`.
 
-Fatto quando: hai letto `org.md`, conosci lo slug del membro e risulta elencato in `org.md`, hai letto le sue memorie, e hai il periodo, il nome del file ed entrambe le finestre dalla tabella qui sopra.
+Fatto quando: hai letto `org.md`; per un messaggio personale, conosci lo slug del membro, risulta elencato in `org.md` e hai letto le sue memorie; e hai il periodo, il nome del file ed entrambe le finestre dalla tabella qui sopra.
 
 ### 2. Riordina
 
@@ -74,23 +74,31 @@ Fatto quando: hai percorso ogni cartella; nessun file derivato, curato o di lavo
    - **Still open**: gli elementi Pending dagli stati delle istanze, ciascuno con chi o cosa aspetta.
    - **Looking ahead**: gli eventi del calendario di sistema nella finestra dello sguardo avanti, più gli elementi Next datati al suo interno, in ordine di data, con i titoli degli eventi, e un file di lavoro di tipo Lista che conti per uno di essi (la lista per la valigia prima di un viaggio).
    - **Needs attention**: le segnalazioni del passo 2 più ogni elemento Needs attention negli stati delle istanze.
-   - **Written**: adesso, `da routine (<slug>)` se non presidiata, `da <slug>, a mano` se presidiata.
+   - **Written**: adesso; se non presidiata `da routine (<slug>)`, o `da routine` senza membro; se presidiata `da <slug>, a mano`, o `a mano` quando non si sa chi sta parlando.
 3. **File esistente**: leggilo. Il momento della sua ultima scrittura è l'ultimo titolo `## Update HH:MM`, altrimenti Written. Se dopo quel momento sono state create voci di diario, aggiungi in fondo una sezione `## Update <HH:MM>` che elenchi cosa hanno cambiato, una riga ciascuna, per interesse. Il testo precedente resta esattamente com'era: scrivi il file per sostituzione (rules → Sostituire) con il vecchio contenuto parola per parola seguito dalla nuova sezione. Nessuna voce di diario più recente: lascia il file intatto.
-4. **Stato della radice.** Ricostruisci lo `status.md` della radice (rules → Regola di aggiornamento dello stato) dagli stati degli interessi. Sotto Needs attention, tieni ogni segnalazione precedente la cui condizione vale ancora (il file è ancora in `landing/`, il duplicato esiste ancora), togli quelle risolte, e aggiungi le nuove segnalazioni di questa esecuzione. Sotto Latest reviews, collega i file giornaliero, settimanale e mensile più recenti in `reviews/`.
+4. **Stato della radice.** Ricostruisci lo `status.md` della radice (rules → Regola di aggiornamento dello stato) dagli stati degli interessi. Sotto Needs attention, tieni ogni segnalazione precedente la cui condizione vale ancora (il file è ancora in `landing/`, il duplicato esiste ancora), togli quelle risolte, e aggiungi le nuove segnalazioni di questa esecuzione. Quando `setup.md` dice `state: todo`, tieni una segnalazione che elenchi le sue caselle non spuntate, ognuna con chi la fa ("Configurazione non finita: Marta deve accettare l'invito al calendario. Di' 'finisci la configurazione'."). Sotto Latest reviews, collega i file giornaliero, settimanale e mensile più recenti in `reviews/`.
 
 Fatto quando: il file di revisione del periodo esiste, scritto una volta e da allora cambiato solo con sezioni Update aggiunte in fondo (finestra personalizzata: nessun file); e lo `status.md` della radice ha il Last updated di oggi, ogni segnalazione ancora aperta, e i collegamenti alla revisione più recente di ogni periodo.
 
-### 4. Scrivi il messaggio personale
+### 4. Scrivi il messaggio
 
-Un solo messaggio per il membro, costruito dalla revisione e dagli stati, in quest'ordine:
+Costruito dalla revisione e dagli stati. Gli **elementi** di un membro sono quelli assegnati a lui o in attesa di lui, e gli eventi nella finestra dello sguardo avanti che coinvolgono lui o un interesse che lo riguarda (in una struttura per persona, l'interesse che porta il suo nome).
 
-1. **Per te**: gli elementi assegnati al membro o in attesa di lui, gli eventi nella finestra dello sguardo avanti che coinvolgono lui o un interesse che lo riguarda (in una struttura per persona, l'interesse che porta il suo nome), e gli eventi del suo calendario personale quando `org.md` lo indica come condiviso con tutti i dettagli.
+**Generale** (nessun membro indicato), in quest'ordine:
+
+1. **Tutti**: i punti salienti di Looking back e Looking ahead, una riga ciascuno.
+2. **Richiede attenzione**: tutto ciò che richiede una decisione o un'azione, con la domanda che la risolve.
+3. **Una breve sezione per membro**, con il suo nome come titolo, con i suoi elementi. Gli eventi dei calendari personali restano fuori: appartengono al messaggio personale di quel membro.
+
+**Personale** (un membro indicato), in quest'ordine:
+
+1. **Per te**: gli elementi del membro, più gli eventi del suo calendario personale quando `org.md` lo indica come condiviso con tutti i dettagli.
 2. **Tutti gli altri**: gli altri punti salienti di Looking back e Looking ahead, una riga ciascuno.
-3. **Richiede attenzione**: tutto ciò che richiede una decisione o un'azione, con la domanda che la risolve.
+3. **Richiede attenzione**: come sopra.
 
-Scrivilo per essere letto su un telefono: righe brevi, date come giorno della settimana e giorno ("mar 3 nov"), niente di vuoto, nessun percorso tranne quello del file di revisione alla fine. Usa la lingua della radice e il tono che chiedono le memorie del membro.
+Scrivilo per essere letto su un telefono: righe brevi, date come giorno della settimana e giorno ("mar 3 nov"), niente di vuoto (un membro senza elementi non ha sezione), nessun percorso tranne quello del file di revisione alla fine. Usa la lingua della radice e, per un messaggio personale, il tono che chiedono le memorie del membro.
 
-Fatto quando: ogni elemento per il membro è in **Per te**, ogni elemento Needs attention della revisione (finestra personalizzata: dello `status.md` della radice) è nel messaggio, e il messaggio sta in una schermata di telefono (circa 15 righe). Per una finestra personalizzata, inoltre: ogni voce di diario ed evento di calendario dentro la finestra è nel messaggio o raccolto in una delle sue righe.
+Fatto quando: gli elementi di ogni membro sono nella sua sezione (generale) o in **Per te** (personale); ogni elemento Needs attention della revisione (finestra personalizzata: dello `status.md` della radice) è nel messaggio; e il messaggio sta in una schermata di telefono (circa 15 righe), più fino a quattro righe per ogni sezione di membro in un messaggio generale. Per una finestra personalizzata, inoltre: ogni voce di diario ed evento di calendario dentro la finestra è nel messaggio o raccolto in una delle sue righe.
 
 ### 5. Passo memoria
 
@@ -100,4 +108,4 @@ Fatto quando: ciò che di duraturo hai imparato è in `memories/`, oppure non ha
 
 ## Output
 
-Il messaggio personale del passo 4, che termina con il percorso della revisione (`Revisione completa: reviews/2026-W45-weekly.md`; nessuno per una finestra personalizzata), più la riga di `remember`, se c'è. In un'esecuzione pianificata è la notifica della routine, quindi sta in piedi da solo, senza saluti sull'esecuzione di un'attività. Quando qualcosa non ha funzionato (rules → Quando qualcosa non funziona), il messaggio dice in una frase cosa non ha funzionato e di chiedere aiuto ad Agora.
+Il messaggio del passo 4, che termina con il percorso della revisione (`Revisione completa: reviews/2026-W45-weekly.md`; nessuno per una finestra personalizzata), più la riga di `remember`, se c'è. In un'esecuzione pianificata è la notifica della routine, quindi sta in piedi da solo, senza saluti sull'esecuzione di un'attività. Quando qualcosa non ha funzionato (rules → Quando qualcosa non funziona), il messaggio dice in una frase cosa non ha funzionato e di chiedere aiuto ad Agora.

@@ -10,7 +10,7 @@ Ogni membro ha tre attività pianificate nella propria app. Ognuna esegue la ski
 
 ## Prompt
 
-Ogni prompt è esattamente una riga, nella forma che la skill `review` si aspetta. Lo slug dice a un'esecuzione non presidiata per chi personalizzare la revisione.
+Ogni prompt è esattamente una riga, nella forma che la skill `review` si aspetta. Lo slug dice a un'esecuzione non presidiata per chi personalizzare la revisione; un membro che preferisce ricevere la revisione generale, con l'aggiornamento di ogni membro, toglie `per <slug>`.
 
 Giornaliera:
 

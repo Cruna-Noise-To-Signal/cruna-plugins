@@ -1,27 +1,27 @@
 ---
 name: review
-description: Reviews an Agora root on a schedule or on request, tidying the shared Drive folder and summing up what happened and what's coming for the family or team. Use when a scheduled routine says "Run Agora review", or when a member asks for a summary of the day, week or month in Agora ("give me the week ahead", "what did we do this month", "daily review").
+description: Reviews an Agora root on a schedule or on request, tidying the shared Drive folder and summing up what happened and what's coming for the family or team, for everyone or for one member. Use when a scheduled routine says "Run Agora review", or when a member asks for a summary of the day, week or month in Agora ("give me the week ahead", "what did we do this month", "my week", "daily review").
 ---
 
 # Review
 
-A **review** is the body of every scheduled routine. It first **tidies** the root so every file is where it belongs and every status is current, then writes the **shared review** for the period into `reviews/`, then sends **one personal message** to the member it runs for.
+A **review** is the body of every scheduled routine. It first **tidies** the root so every file is where it belongs and every status is current, then writes the **shared review** for the period into `reviews/`, then sends **one message**: a **general** message covering everyone, followed by a short update for each member; or, when a member is named, a **personal** message for that member.
 
 ## Input
 
 A scheduled routine's prompt is one line:
 
 ```
-Run Agora review: <daily | weekly | monthly> for <slug> [in <root name>]
+Run Agora review: <daily | weekly | monthly> [for <slug>] [in <root name>]
 ```
 
 - **Period**: `daily`, `weekly` or `monthly`.
-- **Member**: the slug of the member the message is for. It sets identity: no question is asked.
+- **Member** (optional): the slug of the member the message is for, making it personal. Without it, the message is general.
 - **Root** (optional): the root's display name from `org.md`, needed only when the assistant account sees several roots.
 
 A prompt in this shape means an **unattended run**: nobody is there to answer, so follow rules → Unattended runs (act only on what is unambiguous, flag the rest) and skip the memory step.
 
-A member asking in conversation means an **attended run**: identity comes from rules → Identity, the period from their words ("today" → daily, "the week" → weekly, "the month" → monthly), and an ambiguity becomes a question instead of a flag. When their words name a window the periods below don't cover ("so far this month"), treat it as a **custom window**: run every step for that window, but skip steps 3.1–3.3 (no review file) and build the personal message from the statuses, the diary entries and the calendar events inside the window.
+A member asking in conversation means an **attended run**: the period comes from their words ("today" → daily, "the week" → weekly, "the month" → monthly), and an ambiguity becomes a question instead of a flag. The message is general unless their words name a member ("my week" → whoever is talking, "what's on for Nina"); ask who is talking only then, and only when it isn't known yet. When their words name a window the periods below don't cover ("so far this month"), treat it as a **custom window**: run every step for that window, but skip steps 3.1–3.3 (no review file) and build the personal message from the statuses, the diary entries and the calendar events inside the window.
 
 ## Periods
 
@@ -39,9 +39,9 @@ All dates are in the root's timezone. Weeks are ISO weeks (Monday to Sunday) nam
 
 ### 1. Load the rules, find the root, know who is talking
 
-Load the `rules` skill and follow rules → Finding the root. In an unattended run, use the root named in the prompt; when several roots exist and none is named, stop and output one line telling the member to add the root name to this routine's prompt. Take the member from the prompt (unattended) or from rules → Identity (attended). Read `memories/<slug>.md` and `memories/shared.md`.
+Load the `rules` skill and follow rules → Finding the root. In an unattended run, use the root named in the prompt; when several roots exist and none is named, stop and output one line telling the member to add the root name to this routine's prompt. Personal message: take the member from the prompt (unattended) or from their words and rules → Identity (attended), and read `memories/<slug>.md`. Every run reads `memories/shared.md`.
 
-Done when: `org.md` is read, the member's slug is known and listed in `org.md`, their memories are read, and you have the period, the file name and both windows from the table above.
+Done when: `org.md` is read; for a personal message, the member's slug is known and listed in `org.md` and their memories are read; and you have the period, the file name and both windows from the table above.
 
 ### 2. Tidy up
 
@@ -74,23 +74,31 @@ Done when: every folder has been walked; no derived, curated or working file has
    - **Still open**: Pending items from the instance statuses, each with who or what it waits on.
    - **Looking ahead**: system calendar events in the look-ahead window, plus Next items dated inside it, in date order, with their event titles, and a List working file that matters for one of them (the packing list before a trip).
    - **Needs attention**: the flags from step 2 plus every Needs attention item in the instance statuses.
-   - **Written**: now, `by routine (<slug>)` unattended, `by <slug>, by hand` attended.
+   - **Written**: now; unattended `by routine (<slug>)`, or `by routine` with no member; attended `by <slug>, by hand`, or `by hand` when who is talking isn't known.
 3. **Existing file**: read it. Its last write time is the latest `## Update HH:MM` heading, else Written. If diary entries were created after that time, add one `## Update <HH:MM>` section at the end listing what they changed, one line each, by interest. The earlier text stays exactly as it was: write the file by replace (rules → Replace) with the old content verbatim followed by the new section. No newer diary entries: leave the file untouched.
-4. **Root status.** Rebuild the root `status.md` (rules → Status update rule) from the interest statuses. Under Needs attention, keep each earlier flag whose condition still holds (the file is still in `landing/`, the duplicate still exists), drop the ones that are resolved, and add this run's new flags. Under Latest reviews, link the newest daily, weekly and monthly files in `reviews/`.
+4. **Root status.** Rebuild the root `status.md` (rules → Status update rule) from the interest statuses. Under Needs attention, keep each earlier flag whose condition still holds (the file is still in `landing/`, the duplicate still exists), drop the ones that are resolved, and add this run's new flags. When `setup.md` says `state: todo`, keep one flag naming its unticked boxes, each with who does it ("Setup not finished: Marta to accept the calendar invitation. Say 'finish setup'."). Under Latest reviews, link the newest daily, weekly and monthly files in `reviews/`.
 
 Done when: the period's review file exists, written once and changed since only by appended Update sections (custom window: no file); and the root `status.md` carries today's Last updated, every flag still open, and links to the newest review of each period.
 
-### 4. Write the personal message
+### 4. Write the message
 
-One message for the member, built from the review and the statuses, in this order:
+Built from the review and the statuses. A member's **items** are the items assigned to them or waiting on them, and the events in the look-ahead window that involve them or an interest about them (in a per-person layout, the interest named after them).
 
-1. **Yours**: items assigned to the member or waiting on them, events in the look-ahead window that involve them or an interest about them (in a per-person layout, the interest named after them), and their personal calendar events when `org.md` records it as shared with full details.
+**General** (no member named), in this order:
+
+1. **Everyone**: the highlights from Looking back and Looking ahead, one line each.
+2. **Needs attention**: anything that needs a decision or an action, with the question that settles it.
+3. **One short section per member**, headed with their name, holding their items. Personal calendar events stay out: they belong in that member's personal message.
+
+**Personal** (a member named), in this order:
+
+1. **Yours**: the member's items, plus their personal calendar events when `org.md` records it as shared with full details.
 2. **Everyone else**: the other highlights from Looking back and Looking ahead, one line each.
-3. **Needs attention**: anything that needs a decision or an action, with the question that settles it.
+3. **Needs attention**: as above.
 
-Write it to be read on a phone: short lines, dates as weekday and day ("Tue 3 Nov"), nothing that is empty, no paths except the review file at the end. Use the root's language and the tone the member's memories ask for.
+Write it to be read on a phone: short lines, dates as weekday and day ("Tue 3 Nov"), nothing that is empty (a member with no items gets no section), no paths except the review file at the end. Use the root's language and, for a personal message, the tone the member's memories ask for.
 
-Done when: every item for the member is in **Yours**, every Needs attention item from the review (custom window: from the root `status.md`) is in the message, and it fits on one phone screen (about 15 lines). For a custom window, also: every diary entry and calendar event inside the window is in the message or rolled into one of its lines.
+Done when: every member's items are in their section (general) or in **Yours** (personal); every Needs attention item from the review (custom window: from the root `status.md`) is in the message; and the message fits on one phone screen (about 15 lines), plus up to four lines per member section in a general message. For a custom window, also: every diary entry and calendar event inside the window is in the message or rolled into one of its lines.
 
 ### 5. Memory step
 
@@ -100,4 +108,4 @@ Done when: anything durable you learned is in `memories/`, or you found nothing 
 
 ## Output
 
-The personal message from step 4, ending with the review's path (`Full review: reviews/2026-W45-weekly.md`; none for a custom window), plus the `remember` line, if any. In a scheduled run it is the routine's notification, so it stands alone without any greeting about running a task. When something failed (rules → When something fails), the message says in one sentence what failed and to ask Agora for help.
+The message from step 4, ending with the review's path (`Full review: reviews/2026-W45-weekly.md`; none for a custom window), plus the `remember` line, if any. In a scheduled run it is the routine's notification, so it stands alone without any greeting about running a task. When something failed (rules → When something fails), the message says in one sentence what failed and to ask Agora for help.

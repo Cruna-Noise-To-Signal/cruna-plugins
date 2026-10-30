@@ -36,6 +36,7 @@ Users only push information to the AI client (messages, PDFs, images, ...). The 
 ```
 ROOT/
 ├── org.md        members, layout convention, assistant account, calendar, language, interest colors, access list
+├── setup.md      onboarding checklist: state todo/done, boxes per root step and per member
 ├── index.md      one row per interest
 ├── status.md     roll-up of interests + links to the latest reviews
 ├── landing/      general drop zone for uploads
@@ -61,6 +62,16 @@ Structure names (folders, file names, section headings) are in English in both t
 - System calendar (the assistant account's email, whose primary calendar it is); optional color per interest.
 - Language.
 - Access list: who has Drive and calendar access (used for offboarding).
+
+### `setup.md`
+
+The onboarding checklist, so a setup left halfway resumes where it stopped (in any app). Front-matter `agora: setup` and `state: todo | done` (done when every box is ticked).
+
+- **Root** boxes: prerequisites, interview, build, verify.
+- One **Member** section per member who uses the root: connectors and plugin, in `org.md` with a memories file, root folder shared, system calendar shared, personal calendar shared, routines.
+- The interview answers, round by round, until the build is done; a Migration section while a migration runs.
+
+`setup` creates it as soon as the root name is confirmed (with the root folder), ticks each box when its step is done, and resumes at the first unticked box. Finding the root also looks for `setup.md`, so a root without `org.md` yet is found as an unfinished setup. The review flags unticked boxes under Needs attention. Only `setup` writes it.
 
 ### Diary entry
 
@@ -110,7 +121,7 @@ At instance level: documents (description, source diary entry) and diary entries
 
 - **Source of truth, append-only**: `diary/`, `documents/`.
 - **Derived, always rebuildable**: `status.md`, `index.md` at every level. Never hand-edited. A lost concurrent write is fixed by the next rebuild.
-- **Curated**: `org.md`, `memories/`. Kept small; the AI updates entries instead of appending forever.
+- **Curated**: `org.md`, `setup.md`, `memories/`. Kept small; the AI updates entries instead of appending forever.
 
 ### File update protocol
 
@@ -162,7 +173,7 @@ Shipped in English and Italian, for Claude and ChatGPT with the same design (ful
 | Skill | Responsibility |
 |---|---|
 | `rules` | Shared reference every other skill loads first: vocabulary, layout, file kinds, Drive file protocol, status update rule, "ask, never assume", calendar conventions, memory step. Holds the templates and the prerequisites checklist. |
-| `setup` | Prerequisites check (real calls), interview (members/org chart, layout, first interests), build folders and calendar, guide routine creation. Also: solo → dedicated account migration, new member onboarding (Join), member offboarding. |
+| `setup` | Prerequisites check (real calls), interview (members/org chart, layout, first interests), build folders and calendar, guide routine creation. Also: solo → dedicated account migration, new member onboarding (Join), member offboarding. Records progress in `setup.md` and resumes from it. |
 | `add-interest` | Create an interest or instance from the template; update indexes. |
 | `log` | Push a diary entry; rebuild status up the tree. |
 | `file-document` | Index a file already in `documents/`, or move one from `landing/` (move → else copy and remove → else flag); link it to a diary entry. |
@@ -215,12 +226,12 @@ Plugins cannot ship scheduled tasks on either platform; `setup` guides each pers
 | Weekly | Sunday evening | Week in review + week ahead |
 | Monthly | 1st of the month | Month in review + month ahead |
 
-Each scheduled task's prompt is one line: `Run Agora review: <daily | weekly | monthly> for <slug> in <root name>`. A prompt in this shape is an unattended run.
+Each scheduled task's prompt is one line: `Run Agora review: <daily | weekly | monthly> [for <slug>] [in <root name>]`. A prompt in this shape is an unattended run. Setup gives each member routines with their slug; without one the review is general.
 
 Each run:
 
 1. **Tidy-up**: rebuild stale status and index files, clean duplicates, process `landing/` and unindexed documents (only when unambiguous; otherwise flag under root Needs attention), trash daily reviews older than 30 days. Idempotent, so concurrent runs by different members are harmless.
-2. **Review**: the first run of a period writes the shared review to `reviews/`. Later runs read it, add an `## Update hh:mm` section only if new diary entries arrived, and personalize the chat message for their person (their items first).
+2. **Review**: the first run of a period writes the shared review to `reviews/`. Later runs read it and add an `## Update hh:mm` section only if new diary entries arrived. The chat message is **general** by default: everyone's highlights and what needs attention, followed by a short update for each member. When a member is named (the routine's slug, or "my week" in conversation) it is **personal** instead: their items first, then everyone else's. A review asked in conversation doesn't ask who is talking unless a member is named.
 
 Weekly and monthly reviews are kept as the long-term record.
 

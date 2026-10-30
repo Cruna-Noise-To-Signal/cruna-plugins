@@ -60,6 +60,7 @@ The fixes live in the `rules` skill's prerequisites checklist (rules → When so
 | My daily / weekly / monthly review never arrived | 6, then 1 |
 | Agora isn't in my app | 2 |
 | A new member can't use it | that member runs items 1–3, 5 and 6: offer the `setup` skill's **Join** branch |
+| Setup was left halfway, or `setup.md` says `state: todo` | none: offer the `setup` skill, which resumes at the first unticked box |
 
 1. Run each matching item's **check** with a real call, exactly as the checklist describes.
 2. Each item ends **ready** or **blocked**. For a blocked item, ask which app and device the member uses if you don't know, then give that platform's fix, step by step.

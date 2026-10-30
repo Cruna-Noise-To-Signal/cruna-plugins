@@ -10,7 +10,7 @@ Every member gets three scheduled tasks in their own app. Each one runs Agora's 
 
 ## Prompts
 
-Each prompt is exactly one line, in the shape the `review` skill expects. The slug tells an unattended run whose review to personalize.
+Each prompt is exactly one line, in the shape the `review` skill expects. The slug tells an unattended run whose review to personalize; a member who would rather get the general review, with every member's update, drops `for <slug>`.
 
 Daily:
 

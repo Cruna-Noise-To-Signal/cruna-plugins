@@ -42,6 +42,42 @@ layout: <che cosa è un interesse, es. "un interesse per persona, più `famiglia
 | simone | editor | può modificare | Claude | routine attive |
 ```
 
+## `setup.md` (radice, curato)
+
+Una sezione `## Member: <slug>` per ogni membro che usa la radice (un bambino solo seguito non ne ha). Le etichette delle caselle restano in inglese come i titoli. In una radice solitaria, spunta le due caselle di condivisione con "(solo)". Le caselle non spuntate dicono chi le fa quando non sei tu.
+
+```markdown
+---
+agora: setup
+state: <todo | done>
+---
+
+# Setup: <Nome della radice>
+
+**Updated:** <YYYY-MM-DD HH:MM> da <slug>
+
+## Root
+- [x] Prerequisites
+- [ ] Interview
+- [ ] Build
+- [ ] Verify
+
+## Member: simone
+- [x] Connectors and plugin
+- [ ] In Members and Access, with a memories file
+- [ ] Root folder shared
+- [ ] System calendar shared (simone accetta l'invito)
+- [ ] Personal calendar shared (libero/occupato)
+- [ ] Routines
+
+## Interview
+
+### The root
+- <risposte confermate, una riga ciascuna>
+```
+
+La sezione Interview contiene ogni giro confermato sotto il suo titolo (The root, Members, Layout convention, First interests and instances) finché la casella Build non è spuntata; poi viene tolta. Mentre è in corso una migrazione, una sezione `## Migration` elenca i suoi sette passi come caselle.
+
 ## `index.md` (derivato)
 
 La radice elenca gli interessi; un interesse elenca le sue istanze.
@@ -172,7 +208,7 @@ File: `reviews/YYYY-MM-DD-daily.md`, `reviews/YYYY-Www-weekly.md` o `reviews/YYY
 ```markdown
 # <Daily | Weekly | Monthly> review: <periodo>
 
-**Written:** <YYYY-MM-DD HH:MM> da <routine (<slug>) | <slug>, a mano>
+**Written:** <YYYY-MM-DD HH:MM> da <routine | routine (<slug>) | <slug>, a mano | a mano>
 
 ## Looking back
 - <Che cosa è successo e che cosa è stato fatto, per interesse>

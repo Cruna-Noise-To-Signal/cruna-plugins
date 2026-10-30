@@ -4,7 +4,13 @@ Gather what `org.md` and the first interests need. Ask in rounds of two to four 
 
 Keep the user's own words for names and descriptions. Ask in the language the user is writing in; once the language is settled, use it.
 
-## Round 1: Members
+## Round 1: The root
+
+- **Display name** (recommend the family surname or the business name: "Fabiole family").
+- **Language** for all content (recommend the language the user is writing in).
+- **Timezone** (recommend the one implied by their city or calendar).
+
+## Round 2: Members
 
 For each person who will use or be tracked by the root:
 
@@ -18,12 +24,6 @@ For each person who will use or be tracked by the root:
 Recommend: list the people the user has already mentioned and ask only for what's missing.
 
 Record the email in the member's Email column and the app in their Access row.
-
-## Round 2: The root
-
-- **Display name** (recommend the family surname or the business name: "Fabiole family").
-- **Language** for all content (recommend the language the user is writing in).
-- **Timezone** (recommend the one implied by their city or calendar).
 
 ## Round 3: Layout convention
 

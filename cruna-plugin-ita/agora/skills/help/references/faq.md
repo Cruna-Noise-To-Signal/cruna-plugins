@@ -46,7 +46,11 @@ Ogni membro ha tre attività pianificate nella sua app di AI, create durante la 
 - **Settimanale**, la domenica sera: la settimana in revisione e la settimana che viene.
 - **Mensile**, il primo del mese: il mese in revisione e il mese che viene.
 
-Ogni esecuzione prima riordina la cartella (archivia ciò che è stato caricato, aggiorna i riepiloghi), poi scrive una revisione condivisa nella cartella `reviews` e ti manda un breve messaggio con le tue cose per prime. Per cambiare un orario, modifica l'attività nella pagina delle attività pianificate della tua app. Senza un piano a pagamento, chiedi "dammi la settimana che viene" quando vuoi.
+Ogni esecuzione prima riordina la cartella (archivia ciò che è stato caricato, aggiorna i riepiloghi), poi scrive una revisione condivisa nella cartella `reviews` e ti manda un breve messaggio con le tue cose per prime. Per cambiare un orario, modifica l'attività nella pagina delle attività pianificate della tua app. Senza un piano a pagamento, chiedi "dammi la settimana che viene" quando vuoi: ricevi il riepilogo per tutti, poi qualche riga per ogni persona. Chiedi "la mia settimana" per avere solo la tua.
+
+## Ho lasciato la configurazione a metà. Devo ricominciare?
+
+No. Agora tiene una checklist della configurazione in `setup.md`, nella cartella `<nome della radice>`. Di' "finisci la configurazione" e riprende dalla prima cosa ancora da fare. Finché non è tutto fatto, la revisione giornaliera ti ricorda cosa manca e chi lo fa.
 
 ## Come aggiungo una persona?
 

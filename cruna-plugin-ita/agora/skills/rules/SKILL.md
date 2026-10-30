@@ -21,10 +21,11 @@ Ogni lettura e scrittura su Drive e Calendar passa dagli strumenti dei connettor
 
 ## Trovare la radice
 
-1. Cerca su Drive i file chiamati `org.md`; tieni quelli il cui front-matter contiene `agora: root`.
+1. Cerca su Drive i file chiamati `org.md` il cui front-matter contiene `agora: root`, e i file chiamati `setup.md` il cui front-matter contiene `agora: setup`. Ogni cartella che ne contiene uno è una radice.
 2. Nessuno trovato: l'utente non ha ancora un Agora. Proponi la skill `setup`.
 3. Più di uno: chiedi quale radice, a meno che la conversazione non la indichi già.
 4. Leggi `org.md` prima di qualsiasi altra cosa. Contiene i membri, la convenzione di struttura, la lingua, il fuso orario, il calendario e le Convenzioni.
+5. Una radice con `setup.md` ma senza `org.md` è una configurazione lasciata a metà: proponi la skill `setup` per finirla, e non scrivere nient'altro lì.
 
 Scrivi tutti i contenuti nella lingua indicata in `org.md`. Nomi di cartelle, nomi di file e titoli di sezione restano in inglese esattamente come scritti qui.
 
@@ -33,6 +34,7 @@ Scrivi tutti i contenuti nella lingua indicata in `org.md`. Nomi di cartelle, no
 ```
 <root>/
 ├── org.md
+├── setup.md
 ├── index.md
 ├── status.md
 ├── landing/
@@ -57,13 +59,17 @@ Ogni file è di uno di quattro tipi; il tipo decide come può cambiare.
 
 - **Sorgente**: le voci in `diary/` e i documenti caricati in `documents/`. Solo aggiunta: crea, non modificare mai. Una correzione è una nuova voce di diario che dice che cosa corregge.
 - **Derivato**: ogni `status.md` e `index.md`. Ricostruito dalle sorgenti sottostanti, mai modificato a mano, sempre ricostruibile senza rischi. Una ricostruzione sostituisce l'intero file.
-- **Curato**: `org.md`, `memories/`, `reviews/`. Modificato sul posto sostituendo il file; tieni `org.md` e `memories/` brevi aggiornando le righe invece di aggiungerne all'infinito. Le revisioni sono solo aggiunta: un aggiornamento sostituisce il file con il vecchio contenuto parola per parola più la nuova sezione.
+- **Curato**: `org.md`, `setup.md`, `memories/`, `reviews/`. Modificato sul posto sostituendo il file; tieni `org.md` e `memories/` brevi aggiornando le righe invece di aggiungerne all'infinito. Le revisioni sono solo aggiunta: un aggiornamento sostituisce il file con il vecchio contenuto parola per parola più la nuova sezione.
 - **Di lavoro**: un file in `documents/` che l'AI mantiene per i membri, con un nome fisso e senza timestamp (`greta-pannolini.csv`, `lista-valigia.md`). Si aggiorna sostituendolo per intero (rules → Sostituire). Due forme:
   - **Registro**: CSV, riga di intestazione e poi una riga per evento (`date,time,author,…`), dal più vecchio. Per gli eventi frequenti una Convenzione li indirizza qui invece che nel diario. Una riga del registro è un dato sorgente: modifica le righe solo per correggerle, su richiesta di un membro.
   - **Lista**: Markdown che l'AI scrive o rigenera su richiesta (una lista da stampare, un promemoria, una checklist). Può essere riscritta liberamente.
   Ogni file di lavoro è stato creato insieme a una voce di diario che lo elenca in `documents:` e dice `Maintained: documents/<name>`; una ricostruzione dell'indice elenca ognuno di questi file sotto Maintained.
 
 Modelli per ogni file: [references/templates.md](references/templates.md).
+
+## Checklist di configurazione
+
+`setup.md` registra la configurazione della radice e di ogni membro come una checklist, così una configurazione lasciata a metà riprende da dove si era fermata. Il suo `state` nel front-matter è `done` quando ogni casella è spuntata, altrimenti `todo`. Solo la skill `setup` lo scrive. La skill `review` segnala le sue caselle non spuntate; ogni altra skill lo lascia stare. Una radice configurata prima che esistesse la checklist non ha `setup.md` finché `setup` non vi gira di nuovo.
 
 ## Convenzioni
 

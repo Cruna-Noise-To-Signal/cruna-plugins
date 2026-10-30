@@ -42,6 +42,42 @@ layout: <what an interest is, e.g. "one interest per person, plus `family` for s
 | simone | editor | can edit | Claude | routines on |
 ```
 
+## `setup.md` (root, curated)
+
+One `## Member: <slug>` section per member who uses the root (a child only tracked gets none). In a solo root, tick the two sharing boxes with "(solo)". Unticked boxes say who does them when it isn't you.
+
+```markdown
+---
+agora: setup
+state: <todo | done>
+---
+
+# Setup: <Root display name>
+
+**Updated:** <YYYY-MM-DD HH:MM> by <slug>
+
+## Root
+- [x] Prerequisites
+- [ ] Interview
+- [ ] Build
+- [ ] Verify
+
+## Member: simone
+- [x] Connectors and plugin
+- [ ] In Members and Access, with a memories file
+- [ ] Root folder shared
+- [ ] System calendar shared (simone accepts the invitation)
+- [ ] Personal calendar shared (free/busy)
+- [ ] Routines
+
+## Interview
+
+### The root
+- <confirmed answers, one line each>
+```
+
+The Interview section holds each confirmed round under its own heading (The root, Members, Layout convention, First interests and instances) until the Build box is ticked; then it is removed. While a migration runs, a `## Migration` section lists its seven steps as boxes.
+
 ## `index.md` (derived)
 
 Root lists interests; an interest lists its instances.
@@ -172,7 +208,7 @@ File: `reviews/YYYY-MM-DD-daily.md`, `reviews/YYYY-Www-weekly.md` or `reviews/YY
 ```markdown
 # <Daily | Weekly | Monthly> review: <period>
 
-**Written:** <YYYY-MM-DD HH:MM> by <routine (<slug>) | <slug>, by hand>
+**Written:** <YYYY-MM-DD HH:MM> by <routine | routine (<slug>) | <slug>, by hand | hand>
 
 ## Looking back
 - <What happened and what got done, by interest>

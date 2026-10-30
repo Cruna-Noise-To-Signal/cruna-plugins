@@ -4,7 +4,13 @@ Raccogli ciò che serve a `org.md` e ai primi interessi. Chiedi a giri di due–
 
 Usa le parole dell'utente per nomi e descrizioni. Chiedi nella lingua in cui scrive l'utente; una volta stabilita la lingua, usa quella.
 
-## Giro 1: Membri
+## Giro 1: La radice
+
+- **Nome della radice** (consiglia il cognome della famiglia o il nome dell'attività: "Famiglia Fabiole").
+- **Lingua** di tutti i contenuti (consiglia la lingua in cui scrive l'utente).
+- **Fuso orario** (consiglia quello che si ricava dalla sua città o dal suo calendario).
+
+## Giro 2: Membri
 
 Per ogni persona che userà la radice o che vi sarà seguita:
 
@@ -18,12 +24,6 @@ Per ogni persona che userà la radice o che vi sarà seguita:
 Consiglia: elenca le persone che l'utente ha già nominato e chiedi solo ciò che manca.
 
 Registra l'email nella colonna Email del membro e l'app nella sua riga Access.
-
-## Giro 2: La radice
-
-- **Nome della radice** (consiglia il cognome della famiglia o il nome dell'attività: "Famiglia Fabiole").
-- **Lingua** di tutti i contenuti (consiglia la lingua in cui scrive l'utente).
-- **Fuso orario** (consiglia quello che si ricava dalla sua città o dal suo calendario).
 
 ## Giro 3: Convenzione di struttura
 

@@ -7,9 +7,9 @@ Fixed translations for `cruna-plugin-ita/agora`. Every Italian skill uses these 
 These are identifiers shared by both language versions and by the files on Drive. Never translate them.
 
 - Skill names: `rules`, `setup`, `add-interest`, `log`, `file-document`, `schedule`, `ask`, `review`, `remember`, `help`. Referred to as "la skill `log`".
-- Folder and file names: `org.md`, `index.md`, `status.md`, `landing/`, `memories/`, `reviews/`, `diary/`, `documents/`, `shared.md`, review file names (`…-daily.md`, `…-weekly.md`, `…-monthly.md`), and reference files inside skills (`references/templates.md`, `references/prerequisites.md`, …).
-- Headings and section names **inside Drive files** (templates): `Needs attention`, `Summary`, `Done`, `Pending`, `Next`, `Last updated`, `Latest reviews`, `Members`, `Interests`, `Conventions`, `Access`, `Documents`, `Maintained`, `Diary`, `Looking back`, `Still open`, `Looking ahead`, `Update HH:MM`, `Entry`, `Written`, `Updated`, and their table column names.
-- Front-matter keys (`agora: root`, `author`, `created`, `interest`, `instance`, `documents`, `events`, `language`, …), the author `routine`, CSV column names, the event title format `[interest/instance] title`, the line `Maintained: documents/<name>`.
+- Folder and file names: `org.md`, `setup.md`, `index.md`, `status.md`, `landing/`, `memories/`, `reviews/`, `diary/`, `documents/`, `shared.md`, review file names (`…-daily.md`, `…-weekly.md`, `…-monthly.md`), and reference files inside skills (`references/templates.md`, `references/prerequisites.md`, …).
+- Headings and section names **inside Drive files** (templates): `Needs attention`, `Summary`, `Done`, `Pending`, `Next`, `Last updated`, `Latest reviews`, `Members`, `Interests`, `Conventions`, `Access`, `Documents`, `Maintained`, `Diary`, `Looking back`, `Still open`, `Looking ahead`, `Update HH:MM`, `Entry`, `Written`, `Updated`, and their table column names. In `setup.md`: the headings `Root`, `Member: <slug>`, `Interview` (and its rounds `The root`, `Members`, `Layout convention`, `First interests and instances`), `Migration`, and the box labels (`Prerequisites`, `Connectors and plugin`, `Routines`, …).
+- Front-matter keys and values (`agora: root`, `agora: setup`, `state: todo | done`, `author`, `created`, `interest`, `instance`, `documents`, `events`, `language`, …), the author `routine`, CSV column names, the event title format `[interest/instance] title`, the line `Maintained: documents/<name>`.
 
 Content written into those files is in the root's language (`it` for this plugin's default).
 
@@ -58,7 +58,11 @@ Content written into those files is in the root's language (`it` for this plugin
 | file-document Import branch | Importa |
 | pending / removed (values in `org.md`) | in attesa / rimosso |
 | declined (Convention value) | rifiutato |
-| "by" in template lines (`Last updated`, `Updated`, `Written`) | da (`… da <slug>`, `… da <slug>, a mano`) |
+| setup checklist | checklist di configurazione |
+| box / tick / unticked | casella / spuntare / non spuntata |
+| general / personal message (review) | messaggio generale / personale |
+| finish setup (user phrase) | finisci la configurazione |
+| "by" in template lines (`Last updated`, `Updated`, `Written`) | da (`… da <slug>`, `… da <slug>, a mano`); `by hand` alone → `a mano` |
 | branch / parent folder | ramo / cartella madre |
 
 Interest and instance slugs and working-file names are content, so they follow the root's language (`famiglia`, `nina/salute`, `greta-pannolini.csv`).
@@ -85,6 +89,7 @@ Pointers are written `rules → <heading>` using exactly these Italian headings.
 | Unattended runs | Esecuzioni non presidiate |
 | Flag | Segnalare |
 | Calendar conventions | Convenzioni del calendario |
+| Setup checklist | Checklist di configurazione |
 | Memory step | Passo memoria |
 | When something fails | Quando qualcosa non funziona |
 | templates (File kinds → templates) | modelli (Tipi di file → modelli) |
@@ -95,7 +100,7 @@ Prerequisite items keep their numbers ("voce 3").
 ## Routine prompt (contract between `setup` and `review`)
 
 ```
-Esegui revisione Agora: <giornaliera | settimanale | mensile> per <slug> in <nome della radice>
+Esegui revisione Agora: <giornaliera | settimanale | mensile> [per <slug>] [in <nome della radice>]
 ```
 
 `giornaliera` → `…-daily.md`, `settimanale` → `…-weekly.md`, `mensile` → `…-monthly.md`.

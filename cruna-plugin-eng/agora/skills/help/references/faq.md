@@ -46,7 +46,11 @@ Each member has three scheduled tasks in their AI app, created during setup:
 - **Weekly**, Sunday evening: the week in review and the week ahead.
 - **Monthly**, on the 1st: the month in review and the month ahead.
 
-Each run first tidies the folder (files what was uploaded, brings summaries up to date), then writes a shared review in the `reviews` folder and sends you a short message with your things first. To change a time, edit the task in your app's scheduled tasks page. Without a paid plan, ask "give me the week ahead" whenever you like.
+Each run first tidies the folder (files what was uploaded, brings summaries up to date), then writes a shared review in the `reviews` folder and sends you a short message with your things first. To change a time, edit the task in your app's scheduled tasks page. Without a paid plan, ask "give me the week ahead" whenever you like: you get the summary for everyone, then a few lines for each person. Ask "my week" for just yours.
+
+## I stopped setup halfway. Do I start again?
+
+No. Agora keeps a checklist of setup in `setup.md`, in the `<root name>` folder. Say "finish setup" and it carries on from the first thing still to do. Until everything is done, the daily review reminds you what's left and who does it.
 
 ## How do I add a person?
 

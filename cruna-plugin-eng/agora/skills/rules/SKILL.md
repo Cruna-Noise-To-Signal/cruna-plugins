@@ -21,10 +21,11 @@ Every read and write on Drive and Calendar goes through the tools of the Google 
 
 ## Finding the root
 
-1. Search Drive for files named `org.md`; keep those whose front-matter has `agora: root`.
+1. Search Drive for files named `org.md` whose front-matter has `agora: root`, and for files named `setup.md` whose front-matter has `agora: setup`. Every folder holding either is a root.
 2. None found: the user has no Agora yet. Offer the `setup` skill.
 3. More than one: ask which root, unless the conversation already names it.
 4. Read `org.md` before anything else. It holds the members, layout convention, language, timezone, calendar and Conventions.
+5. A root with `setup.md` but no `org.md` is a setup left halfway: offer the `setup` skill to finish it, and write nothing else there.
 
 Write all content in the language set in `org.md`. Folder names, file names and section headings stay in English exactly as written here.
 
@@ -33,6 +34,7 @@ Write all content in the language set in `org.md`. Folder names, file names and 
 ```
 <root>/
 ├── org.md
+├── setup.md
 ├── index.md
 ├── status.md
 ├── landing/
@@ -57,13 +59,17 @@ Every file is one of four kinds; the kind decides how it may change.
 
 - **Source**: `diary/` entries and uploaded `documents/`. Append-only: create, never edit. A correction is a new diary entry that says what it corrects.
 - **Derived**: every `status.md` and `index.md`. Rebuilt from the sources below them, never hand-edited, always safe to rebuild. A rebuild replaces the whole file.
-- **Curated**: `org.md`, `memories/`, `reviews/`. Edited in place by replacing the file; keep `org.md` and `memories/` short by updating lines rather than appending forever. Reviews are append-only: an update replaces the file with the old content verbatim plus the new section.
+- **Curated**: `org.md`, `setup.md`, `memories/`, `reviews/`. Edited in place by replacing the file; keep `org.md` and `memories/` short by updating lines rather than appending forever. Reviews are append-only: an update replaces the file with the old content verbatim plus the new section.
 - **Working**: a file in `documents/` that the AI maintains for the members, with a fixed name and no timestamp (`greta-diapers.csv`, `packing-list.md`). Updated by replacing it in full (rules → Replace). Two shapes:
   - **Tracker**: CSV, header row then one row per event (`date,time,author,…`), oldest first. For frequent events a Convention routes here instead of the diary. A tracker row is source data: change rows only to correct them, at a member's request.
   - **List**: Markdown the AI writes or regenerates on request (a printable list, a memo, a checklist). It may be rewritten freely.
   Every working file was created with a diary entry that lists it in `documents:` and says `Maintained: documents/<name>`; an index rebuild lists every such file under Maintained.
 
 Templates for every file: [references/templates.md](references/templates.md).
+
+## Setup checklist
+
+`setup.md` records the onboarding of the root and of each member as a checklist, so a setup left halfway resumes where it stopped. Its front-matter `state` is `done` when every box is ticked, else `todo`. Only the `setup` skill writes it. The `review` skill flags its unticked boxes; every other skill leaves it alone. A root set up before the checklist existed has no `setup.md` until `setup` next runs there.
 
 ## Conventions
 
