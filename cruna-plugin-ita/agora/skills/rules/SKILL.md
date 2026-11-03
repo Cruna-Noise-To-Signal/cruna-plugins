@@ -1,6 +1,6 @@
 ---
 name: rules
-description: Il modello dei dati di Agora e le regole sui file che ogni skill Agora segue. Caricala prima di leggere o scrivere qualsiasi cosa in una radice Agora (la cartella condivisa su Google Drive con org.md, interessi, istanze, diario, documenti, file di stato e di indice), nel suo calendario di sistema o nella sua casella dell'assistente.
+description: Il modello dei dati di Agora e le regole sui file che ogni skill Agora segue. Caricala prima di leggere o scrivere qualsiasi cosa in una radice Agora (la cartella condivisa su Google Drive con org.md, interessi, istanze, diario, documenti, file di stato, di indice e dei to-do), nel suo calendario di sistema o nella sua casella dell'assistente.
 ---
 
 # Regole di Agora
@@ -17,6 +17,8 @@ Agora è una base di conoscenza condivisa tenuta dall'AI su Google Drive (file) 
 - **Casella dell'assistente**: la casella Gmail dell'account dell'assistente, l'unica casella che Agora legge. Facoltativa per ogni radice (rules → Email).
 - **Posta dei membri**: un'email il cui indirizzo del mittente è elencato per un membro in `org.md`.
 - **Importanza delle email**: i criteri che decidono quale email richiede attenzione, e lo stato della richiesta di quei criteri (rules → Email).
+- **To-do**: un'azione che qualcuno deve fare, aperta o chiusa, il cui responsabile è un membro o `everyone`, visibile a ogni membro (rules → To-do).
+- **Evento to-do**: un file in `todos/`, solo aggiunta, che registra un cambiamento a un to-do.
 
 ## Solo connettori
 
@@ -41,6 +43,8 @@ Scrivi tutti i contenuti nella lingua indicata in `org.md`. Nomi di cartelle, no
 ├── index.md
 ├── status.md
 ├── inbox.md       (solo con l'email attiva)
+├── todo.md        (la lista dei to-do)
+├── todos/         <slug>-YYYYMMDD_HHMM.md (eventi to-do), archive/YYYY/
 ├── landing/
 ├── memories/      <slug>.md, shared.md
 ├── reviews/       YYYY-MM-DD-daily.md, YYYY-Www-weekly.md, YYYY-MM-monthly.md
@@ -61,8 +65,8 @@ La cartella radice prende il nome visualizzato della radice, a meno che l'utente
 
 Ogni file è di uno di quattro tipi; il tipo decide come può cambiare.
 
-- **Sorgente**: le voci in `diary/` e i documenti caricati in `documents/`. Solo aggiunta: crea, non modificare mai. Una correzione è una nuova voce di diario che dice che cosa corregge.
-- **Derivato**: ogni `status.md` e `index.md`. Ricostruito dalle sorgenti sottostanti, mai modificato a mano, sempre ricostruibile senza rischi. Una ricostruzione sostituisce l'intero file.
+- **Sorgente**: le voci in `diary/`, i documenti caricati in `documents/` e gli eventi to-do in `todos/`. Solo aggiunta: crea, non modificare mai. Una correzione è una nuova voce di diario che dice che cosa corregge; un to-do si corregge con un evento to-do successivo.
+- **Derivato**: ogni `status.md` e `index.md`, e `todo.md`. Ricostruito dalle sorgenti sottostanti, mai modificato a mano, sempre ricostruibile senza rischi. Una ricostruzione sostituisce l'intero file.
 - **Curato**: `org.md`, `setup.md`, `inbox.md`, `memories/`, `reviews/`. Modificato sul posto sostituendo il file; tieni `org.md` e `memories/` brevi aggiornando le righe invece di aggiungerne all'infinito. Le revisioni sono solo aggiunta: un aggiornamento sostituisce il file con il vecchio contenuto parola per parola più la nuova sezione.
 - **Di lavoro**: un file in `documents/` che l'AI mantiene per i membri, con un nome fisso e senza timestamp (`greta-pannolini.csv`, `lista-valigia.md`). Si aggiorna sostituendolo per intero (rules → Sostituire). Due forme:
   - **Registro**: CSV, riga di intestazione e poi una riga per evento (`date,time,author,…`), dal più vecchio. Per gli eventi frequenti una Convenzione li indirizza qui invece che nel diario. Una riga del registro è un dato sorgente: modifica le righe solo per correggerle, su richiesta di un membro.
@@ -115,7 +119,7 @@ Uno stato descrive la situazione **adesso**. Quando lo ricostruisci, leggi le so
 
 Ogni `status.md`, a ogni livello, ha le stesse sezioni in quest'ordine: Last updated, Needs attention, Summary, Done, Pending, Next. A livello di radice e di interesse ogni sezione riassume il livello sottostante, una riga per ogni figlio che ha qualcosa da dire.
 
-Un'istanza con voci email che portano una riga `To file:`: applica anche [references/email.md](references/email.md) → Archiviazione.
+Un'istanza con voci email che portano una riga `To file:`: applica anche [references/email.md](references/email.md) → Archiviazione. Un'istanza con to-do aperti legati a sé li elenca sotto Pending ([references/todos.md](references/todos.md) → Nello stato).
 
 Le righe di un registro arrivano allo stato attraverso la voce di riepilogo giornaliera; propaga su una riga solo quando cambia qualcosa che conta per lo stato.
 
@@ -152,6 +156,12 @@ Aggiungi una riga sotto Needs attention nello `status.md` della radice che dica 
 Una radice ha l'email quando `org.md` dice `email: on`. Con `email` assente o `off`, nessuna skill legge o scrive posta, `inbox.md` non esiste, e tutto funziona senza Gmail. Con l'email attiva, la casella dell'assistente funziona come `landing/`: i membri le inoltrano la posta o la mettono in copia (CC), e l'AI archivia ciò che può collocare senza tirare a indovinare e segnala il resto.
 
 Prima di qualsiasi lavoro sulle email, leggi [references/email.md](references/email.md): le regole sulle email che ogni skill che tocca la casella dell'assistente segue.
+
+## To-do
+
+Un **to-do** si tiene come eventi to-do in `todos/`, ricomposti nel suo stato attuale; `todo.md` è la lista derivata che i membri leggono. I membri cambiano i to-do solo in conversazione, tramite la skill `todo`; le routine suggeriscono soltanto.
+
+Prima di leggere o scrivere qualsiasi to-do, `todo.md` o la sezione To-dos di una revisione, leggi [references/todos.md](references/todos.md): il formato degli eventi, la ricomposizione, responsabile e collocazione, scadenze, suggerimenti, revisioni, rimozione e archivio.
 
 ## Passo memoria
 
