@@ -1,6 +1,6 @@
 ---
 name: rules
-description: The Agora data model and file rules every Agora skill follows. Load before reading or writing anything in an Agora root (the shared Google Drive folder with org.md, interests, instances, diary, documents, status and index files) or its system calendar.
+description: The Agora data model and file rules every Agora skill follows. Load before reading or writing anything in an Agora root (the shared Google Drive folder with org.md, interests, instances, diary, documents, status and index files), its system calendar or its assistant inbox.
 ---
 
 # Agora rules
@@ -13,11 +13,14 @@ Agora is a shared knowledge base kept by the AI on Google Drive (files) and Goog
 - **Interest**: a top-level folder in the root. What an interest *is* (a person, a client, a topic) is the root's **layout convention**, recorded in `org.md`.
 - **Instance**: a folder inside an interest; the unit that holds a diary and documents. Depth is always exactly two: `root/<interest>/<instance>/`. Something smaller than an instance (a single blood test, a single invoice) is a diary entry plus its documents, never a folder.
 - **Member**: a person in `org.md`. Their **slug** is their first name, lowercase, ASCII (`simone`).
-- **Assistant account**: the Google account the Drive and Calendar connectors are logged in as. A dedicated account when the root has several members; the owner's own account when solo.
+- **Assistant account**: the Google account the Drive and Calendar connectors (and Gmail, when email is on) are logged in as. A dedicated account when the root has several members; the owner's own account when solo.
+- **Assistant inbox**: the assistant account's Gmail inbox, the only inbox Agora reads. Optional per root (rules → Email).
+- **Member mail**: an email whose sender address is listed for a member in `org.md`.
+- **Email importance**: the criteria that decide which email needs attention, and the state of asking for them (rules → Email).
 
 ## Connectors only
 
-Every read and write on Drive and Calendar goes through the tools of the Google Drive and Google Calendar connectors. A browser is never a way in: no opening drive.google.com or calendar.google.com, no browsing or computer-use tools, even when a connector call fails or a tool seems missing. What a connector tool offers, you do, retrying a failed call. What no connector tool offers (sharing a calendar, for one) becomes click steps for the user, signed in as the account the step names.
+Every read and write on Drive and Calendar goes through the tools of the Google Drive and Google Calendar connectors, and every read, draft and send of email through the Gmail connector, logged in as the assistant account, in a root with email on. A browser is never a way in: no opening drive.google.com, calendar.google.com or mail.google.com, no browsing or computer-use tools, even when a connector call fails or a tool seems missing. What a connector tool offers, you do, retrying a failed call. What no connector tool offers (sharing a calendar, for one) becomes click steps for the user, signed in as the account the step names.
 
 ## Finding the root
 
@@ -37,6 +40,7 @@ Write all content in the language set in `org.md`. Folder names, file names and 
 ├── setup.md
 ├── index.md
 ├── status.md
+├── inbox.md       (email on only)
 ├── landing/
 ├── memories/      <slug>.md, shared.md
 ├── reviews/       YYYY-MM-DD-daily.md, YYYY-Www-weekly.md, YYYY-MM-monthly.md
@@ -59,7 +63,7 @@ Every file is one of four kinds; the kind decides how it may change.
 
 - **Source**: `diary/` entries and uploaded `documents/`. Append-only: create, never edit. A correction is a new diary entry that says what it corrects.
 - **Derived**: every `status.md` and `index.md`. Rebuilt from the sources below them, never hand-edited, always safe to rebuild. A rebuild replaces the whole file.
-- **Curated**: `org.md`, `setup.md`, `memories/`, `reviews/`. Edited in place by replacing the file; keep `org.md` and `memories/` short by updating lines rather than appending forever. Reviews are append-only: an update replaces the file with the old content verbatim plus the new section.
+- **Curated**: `org.md`, `setup.md`, `inbox.md`, `memories/`, `reviews/`. Edited in place by replacing the file; keep `org.md` and `memories/` short by updating lines rather than appending forever. Reviews are append-only: an update replaces the file with the old content verbatim plus the new section.
 - **Working**: a file in `documents/` that the AI maintains for the members, with a fixed name and no timestamp (`greta-diapers.csv`, `packing-list.md`). Updated by replacing it in full (rules → Replace). Two shapes:
   - **Tracker**: CSV, header row then one row per event (`date,time,author,…`), oldest first. For frequent events a Convention routes here instead of the diary. A tracker row is source data: change rows only to correct them, at a member's request.
   - **List**: Markdown the AI writes or regenerates on request (a printable list, a memo, a checklist). It may be rewritten freely.
@@ -100,8 +104,8 @@ Drive cannot overwrite a file's content, and allows two files with the same name
 
 Duplicates found at any time:
 - derived or curated file, or a list: keep the newest, trash the rest;
-- tracker: merge all copies into one (every distinct row, in date/time order), then trash the rest;
-- `routine-` diary entries with identical content: keep one, trash the rest;
+- tracker, or `inbox.md`: merge all copies into one (every distinct row, in date/time order; `inbox.md` newest first), then trash the rest;
+- `routine-` diary entries with identical content, or diary entries for the same email (same `email` id) with identical content: keep one, trash the rest;
 - any other source file (diary, uploaded documents): keep all and flag them.
 
 ## Status update rule
@@ -139,6 +143,12 @@ Add a line under Needs attention in the root `status.md` saying what was found a
 - Event description: the instance path and the diary entry that caused the event.
 - Color: the interest's color from `org.md`, when one is set.
 - Anything that must be remembered at a date becomes an event: appointments, deadlines, reminders, prep time.
+
+## Email
+
+A root has email when `org.md` says `email: on`. With `email` absent or `off`, no skill reads or writes mail, `inbox.md` does not exist, and everything works without Gmail. With email on, the assistant inbox works like `landing/`: members forward or CC mail to it, and the AI files what it can place without guessing and flags the rest.
+
+Before any email work, read [references/email.md](references/email.md): the sending policy, the sender voice, member mail, filing, the `inbox.md` ledger, email importance and its invitation state, solo roots, and the platform limits. Every email skill follows it.
 
 ## Memory step
 
