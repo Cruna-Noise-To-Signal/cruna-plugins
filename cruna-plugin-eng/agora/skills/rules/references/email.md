@@ -94,7 +94,7 @@ What the `review` skill does with email.
 
 Every review runs it, attended or not, with the ledger read first.
 
-1. **Search** the assistant inbox for mail received (not sent by the assistant account) since the date of the newest ledger row by `routine`, never more than 30 days back: the ledger keeps 60 days, so every email the search returns that was handled before is still listed. Empty ledger: the period's look-back window.
+1. **Search** the assistant inbox for mail received (not sent by the assistant account) since the last tidy-up, the date of the newest ledger row by `routine`, never more than 60 days back: the prune (item 4) keeps 60 days of rows, so every email the search returns that was handled before is still listed. Empty ledger: the period's look-back window. When the last tidy-up is more than 60 days ago, flag the gap under Needs attention (rules → Flag): "Email received between <last tidy-up> and <60 days ago> was not checked: ask me to look through it."
 2. **Skip** every email already in the ledger (The ledger): a second run on the same day handles nothing twice.
 3. **Decide** each remaining email, first match wins, and give it a row by `routine`:
    - Forwarded or CC'd member mail that places in exactly one instance → **file** it (Filing); its dates are flagged, never put on the calendar. In a solo root, skip this case (Solo roots).
