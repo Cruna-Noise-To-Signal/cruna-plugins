@@ -61,7 +61,7 @@ Build in this order from the answers in setup.md → Interview, writing every fi
 
 1. Root folder: it exists since the interview.
 2. `org.md`, with `agora: root` in its front-matter, every member in Members, the layout convention, and one Access row per member (Drive and calendar "pending" until step 2e).
-3. `landing/`, `reviews/`, `memories/` with `shared.md` and one `<slug>.md` per member (title line only, plus anything durable the interview revealed).
+3. `landing/`, `reviews/`, `todos/` (empty: `todo.md` comes with the first to-do), `memories/` with `shared.md` and one `<slug>.md` per member (title line only, plus anything durable the interview revealed).
 4. The Interests table in `org.md`, every interest from the interview with its description and color (colors as in `add-interest` step 5), written once (rules → Replace).
 5. Each interest and instance from the interview, built with step 4 of the `add-interest` skill, then the interest level of its step 6 (each interest's `index.md` and `status.md`, rolled up from its instances). You already hold the root and the answers, so skip its questions.
 6. Root `index.md` and `status.md`, rebuilt once at the end of the build so they roll up everything below.
@@ -140,7 +140,7 @@ Done when the member has no editor access on the folder or calendar, the Members
 Check the root with real calls, never from memory of what you built:
 
 - `org.md` downloads, its front-matter has `agora: root`, and every member has a Members row and an Access row (a removed member's rows say so, and the folder and calendar no longer list them).
-- Root `index.md` and `status.md`, `landing/`, `reviews/`, `memories/shared.md` and one `memories/<slug>.md` per member exist.
+- Root `index.md` and `status.md`, `landing/`, `reviews/`, `todos/`, `memories/shared.md` and one `memories/<slug>.md` per member exist.
 - Every interest in `org.md` and in the root `index.md` has a folder with `index.md` and `status.md`; every instance has `index.md`, `status.md`, `diary/` and `documents/`.
 - No file name appears twice in the same folder (rules → Replace).
 - The calendar list's primary calendar carries the assistant account's email, as `calendar` in `org.md` does.
@@ -168,6 +168,7 @@ A short message in the root's language, no technical terms. Offboard: one line s
    - Add a file: drop it in the `landing` folder and tell me. (`file-document`)
    - Set a reminder or appointment: "Remind us to renew the car insurance on 12 March." (`schedule`)
    - Ask: "What's pending for Nina?" (`ask`)
+   - Keep a to-do: "Add a to-do: renew the car insurance by Friday." (`todo`)
    - Track something new: "Start tracking the house renovation." (`add-interest`)
    - Email on: "Forward me the client's email", "Draft a reply to Mario". (`email`)
 4. When reviews will arrive (each morning, Sunday evening, the 1st), and that "help" explains anything else.
