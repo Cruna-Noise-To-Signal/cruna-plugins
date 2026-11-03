@@ -102,6 +102,7 @@ last_tidy_up: 2026-11-03
 | 18c2f0a9b7e4d311 | 2026-11-03 | Mario Rossi <mario@acme.it> | Quote approved | filed → acme/website-2026/diary/simone-20261103_0912.md | routine |
 | 18c2ef11a0c3b920 | 2026-11-02 | to mario@acme.it | Re: Kickoff date | sent → acme/website-2026/diary/simone-20261102_1640.md | simone |
 | 18c2ee70d1f2a004 | 2026-11-02 | Newsletter <news@shop.com> | Black Friday | ignored | routine |
+| 18c2ed02b4a1c877 | 2026-11-02 | Simone <simone@example.com> | add to my to-dos | to-do → simone-20261102_0805 | routine |
 ```
 
 ## `index.md` (derived)
