@@ -10,12 +10,13 @@ Email in conversation, English plugin (`agora`). Install the plugin from this br
 2. Expect: the AI explains the capability (best for businesses), asks the root importance question, your addresses and your own importance question, and walks the Gmail connector check.
 3. Connect Gmail as the **wrong** account first. Expect: the check fails, naming the address mismatch, and gives the fix.
 4. Reconnect as the assistant account. Expect: check passes.
-5. Verify on Drive: `org.md` has `email: on`, your addresses in the `Emails` column, a Conventions row `important email: …` (unless you said no preference); `inbox.md` at the root with an empty table; `memories/shared.md` and `memories/<you>.md` each have one `Email importance:` line; `setup.md` has the root Email box ticked and an Email box per member (yours ticked, others naming who).
+5. Verify on Drive: `org.md` has `email: on`, your addresses in the `Mail from` column, a Conventions row `important email: …` (unless you said no preference); `inbox.md` at the root with an empty table; `memories/shared.md` and `memories/<you>.md` each have one `Email importance:` line; `setup.md` has the root Email box ticked and an Email box per member (yours ticked, others naming who).
 
 ### 2. Decline email (new root)
 
 1. Set up a fresh family root and answer "no" to email.
 2. Expect: no Gmail step; `org.md` has `email: off`; root Email box ticked "(off)"; no `inbox.md`; no member Email boxes.
+3. Set up a fresh business root with two members (you and one not present) and answer "yes" to email, giving both members' addresses and importance. Expect: both members' `Mail from` cells and `Email importance:` lines written at setup; your Email box ticked, the other member's unticked and naming only Gmail; when that member later joins, they are not asked their addresses again.
 
 ### 3. Forward member mail and file it
 
@@ -27,8 +28,8 @@ Email in conversation, English plugin (`agora`). Install the plugin from this br
 
 ### 4. Ambiguous and non-member mail
 
-1. Forward an email that could fit two instances; ask to file it. Expect: one question offering the likely instances; nothing written until you answer.
-2. From an address not in `Emails` (same display name as a member), send mail to the assistant. Ask "anything new in the inbox?". Expect: it is not treated as member mail; it is answered from, but not filed unless you ask.
+1. Forward an email that could fit two instances; ask to file it. Expect: one question offering the likely instances; nothing written until you answer. Ask again and answer "I don't know": expect it flagged under Needs attention, an `inbox.md` row `flagged`, no diary entry.
+2. From an address not in `Mail from` (same display name as a member), send mail to the assistant. Ask "anything new in the inbox?". Expect: it is not treated as member mail; it is answered from, but not filed unless you ask.
 
 ### 5. Draft and send with confirmation
 
@@ -52,7 +53,7 @@ Email in conversation, English plugin (`agora`). Install the plugin from this br
 
 ### 8. Addresses
 
-1. "I also write from <work address>". Expect: the full list said back, then `org.md` Emails updated after your yes.
+1. "I also write from <work address>". Expect: the full list said back, then `org.md` Mail from updated after your yes.
 
 ### 9. Join and migrate
 

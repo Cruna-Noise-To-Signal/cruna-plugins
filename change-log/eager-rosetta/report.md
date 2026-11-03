@@ -29,3 +29,13 @@ Email in conversation (F1, F2, F3, F5), English version only (`cruna-plugin-eng/
 ### Checks
 
 `check_plugins.py` passes after every slice.
+
+### M1 revision 1
+
+Fixes from review M1 round 1:
+
+- **F5** setup step 2d writes every interviewed member's `Mail from` cell and `Email importance:` line; only the Gmail check and the Email box wait for each member's own app. Migration step 6's Done when names all three changes.
+- **F3** `email` File flags an email still unplaced after one question (`flagged` ledger row); step 1 reads `inbox.md`; Send says only when the Sending rules fire; the intro is a one-line pointer.
+- **F1** the criteria row, the `shared.md` pointer and the draft opt-in are defined once, in rules → Email → Where criteria live; the other sites point there. Members column `Emails` renamed `Mail from`. rules → Email is a one-line pointer.
+- **F2** the app-approval warning lives only in rules → Email → Sending.
+- Not done: the optional Divergent Change (named step targets in setup). Spec/plan still say `Emails`; carry the rename into the spec at F8.
