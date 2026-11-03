@@ -68,3 +68,31 @@ Round 1 should-fix items 1–3 and the File kinds note: all fixed. Renumbered cr
 2. **Rule conflict**: `todos.md → To-do events` names events by the time of the change, while member-mail adds are named by the email's received time. The naming rule should mention or point to the exception.
 3. **Stale wording**: `todos.md` opens with "The `todo` skill creates `todos/` the first time…" as the general case. Reword it as the fallback for roots set up before 0.5.0, since `setup` now creates it.
 4. **Weak completion criterion**: `email/SKILL.md` step 6 gains item 8 "Offer a to-do", but its "Done when" doesn't mention it. Add it.
+
+## Round 3 — final (F1–F7, M1–M3, English and Italian)
+
+Verdict: **PASS** on both axes. No must-fix findings.
+
+### Specs
+
+- (a) Missing or partial: none.
+  - Version 0.5.0 is in all four manifests and the Claude catalog. The OpenAI catalog has no version field, as before.
+  - `agora-spec.md`, `future-extensions.md` (Google Tasks), the READMEs and `glossary-it.md` are all updated.
+  - The manual test `docs/agora/manual-tests/manual-test-agora-v050-todos.md` covers every Testing Decisions bullet, and `manual-test.md` exists.
+  - The Italian version mirrors the English one: same heading and list-item counts per file.
+  - The Round 2 decisions are applied, and `agora-spec.md` states both: the member-mail add is "the only to-do event an unattended run writes", and `todo.md` has no empty member sections.
+- (b) Not asked for: nothing to change. M3 deviations accepted:
+  - Italian "responsabile" for owner and "spostare in archivio" for archive, to avoid glossary clashes;
+  - "finestra dello sguardo indietro/avanti", matching the existing Italian review;
+  - root README 0.3.0 → 0.5.0. It still lacks an `email` row, which predates this request.
+- (c) Minor carry-over: the member-mail duplicate check matches only the base name (Round 2 (c)2). Tidy-up flags any duplicate.
+
+### Standards
+
+- Checker: "Valid for Claude and OpenAI". Versions are consistent, and the spec is updated in the same request.
+- Round 2 standards items 1–4: all fixed, and Specs (c)3 landed too.
+- writing-for-agents: `todo` frontmatter is `name`/`description` only, with one trigger per branch, checkable "Done when" on each step, and rules held in `references/todos.md`. Renumbered cross-references are consistent.
+- Italian mirror: counts match, and terms follow the glossary ("to-do" invariable, "responsabile", "spostare in archivio", no "compito").
+- Smells (judgement calls, none blocking):
+  - possible Shotgun Surgery, which is inherent to a cross-cutting feature and mitigated by hand-offs to `todo` and pointers to `todos.md`;
+  - possible Data Clump: text/owner/due/instance/source travel together in the `log`, `email` and `todo` hand-offs. An optional named "to-do fields" term in `todos.md` would remove the repetition.
