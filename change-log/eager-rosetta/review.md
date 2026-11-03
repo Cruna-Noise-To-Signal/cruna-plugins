@@ -120,3 +120,38 @@ VERDICT: FAIL. Checked `git diff 9c45727...HEAD` (22 commits) against AGENTS.md 
 - **Possible restated rule:** `rules/SKILL.md` → Status update restates the open `To file:` Needs attention behaviour that `references/email.md` → Filing defines.
 - **Imprecise pointer:** `ask`'s Assistant inbox bullet says "to file, draft or send, hand off to the `email` skill (step 6)" — step 6 is File only (draft/send are 4 and 5) — and repeats the hand-off line under "Writing belongs to other skills". Drop the step number or the sentence.
 - **Possible Divergent Change:** `review/SKILL.md` renumbering again; naming items would make insertions cheaper. Optional.
+
+## M2 — round 2
+
+**Result: PASS** (Specs PASS, Standards PASS). Non-blocking findings carried into M3.
+
+### Specs
+
+VERDICT: PASS. Compared `git diff 9c45727...HEAD` against spec.md and plan.md; read the five M2 revision-1 commits (f363d38 to d594cc3) closely.
+
+**Round 1 findings: all resolved** — (c)1 blocker: tidy-up step 3 drafts the reply "on top of filing or flagging it, never in place of either", on its own ledger row; Member mail and The ledger agree; manual-test 15.3/15.4 cover both paths. (c)2: `Attachment of: diary/<entry> (<original name>)` in file-document and Filing. Standards blocker: `inbox.md` merge defined once in The ledger. Judgement calls resolved.
+
+**(a) Missing or partial:** none.
+
+**(b) Scope creep:** the new gap flag. Spec: "read mail received since the last ledger entry". Justified hardening, not a problem.
+
+**(c) Possibly wrong: the gap flag's proxy (not blocking)**
+"Last tidy-up" is "the date of the newest ledger row by `routine`":
+1. A tidy-up that finds no new mail writes no row (also when members handled everything in conversation, or a later member outcome replaces a routine row's by/date). In a quiet or conversation-heavy root, after 60 days the flag fires falsely, on every run until a routine writes a row.
+2. In that run, step 4 prunes the old routine row, leaving a non-empty ledger with no routine row, which step 1 doesn't cover (only "Empty ledger: the period's look-back window").
+
+Acceptable for merge. Cheap fix: "no `routine` row → search 60 days back, no flag"; better, a `last_tidy_up:` front-matter field in `inbox.md` written by every tidy-up, replacing the proxy (changes the spec's data shape). Neither the flag nor its proxy is in the spec, so M3 should add them to the spec or drop them. How a raised gap flag is cleared is undefined.
+
+**Carried to M3:** reconcile the spec's `review` bullet "draft (only under a convention)" with routine drafts for member-mail instructions.
+
+### Standards
+
+VERDICT: PASS. `git diff 9c45727...HEAD` (29 commits), focused on the M2 revision 1 commits, against AGENTS.md, cruna-core `writing-for-agents` and the smell baseline.
+
+**Round 1 findings: all resolved** — `inbox.md` merge single-sourced in The ledger (a duplicated tracker still merges every distinct row); `remember` keeps only the state line and hands the rest to `email` → Criteria; Invitation state and `remember` point to each other without restating; Status update is a plain pointer to Filing; `ask`'s wrong-step hand-off removed; both spec fixes in.
+
+**New issues (judgement calls, not blocking)**
+
+1. **Gap detection rests on a value that doesn't track the last tidy-up** (`rules/references/email.md:98`) — same as Specs (c) above: false flag in a quiet inbox; no rule for a non-empty ledger without a `routine` row. Suggested: fall back to the look-back window when there is no `routine` row, and record the last tidy-up date explicitly or flag only when no review has run.
+2. **Ambiguous sentence** (The ledger, first bullet): with "unless it is the draft a member-mail instruction asks for" inserted, the clause after the colon reads as if it describes the exception. Move the exception to the end or leave it to the second bullet (which already covers it).
+3. **Possible Divergent Change** (carried over, optional): numbered tidy-up items in `review/SKILL.md` referenced by number.
