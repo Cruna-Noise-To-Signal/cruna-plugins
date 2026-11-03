@@ -15,3 +15,10 @@ First stop for any plugin or skill work is the `cruna-development-plugins` plugi
 - Skills are the unit of work; skill frontmatter has only `name` and `description`.
 - Bump the version on every change to a plugin, in both language versions; run the checker before committing.
 - A plugin's behaviour follows its spec in `docs/<plugin>/`. When a change contradicts the spec, update the spec in the same commit.
+
+## Product management
+
+- Requests (bugs, enhancements, features) are GitHub issues in the Project at https://github.com/orgs/Cruna-Noise-To-Signal/projects/3.
+- PM skills (file-request, fast-triage, grill-with-docs, to-spec, implement-loop, release, drop) come from the `cruna-pm-github` plugin.
+- PM config (Project, branches, change-log folder) is in `.github/pm.yml`.
+- Manual setup actions (Project UI settings, repo settings, token permissions) are recorded in the issue labelled `pm-setup`: read it before asking the user for one, and record new ones with `pm manual add`.

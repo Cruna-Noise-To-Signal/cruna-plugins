@@ -1,0 +1,24 @@
+name: Request
+description: A bug, an enhancement, a new feature, or something to inspect
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: Problem, expected behaviour, acceptance criteria if known
+    validations:
+      required: true
+  - type: dropdown
+    id: kind
+    attributes:
+      label: Kind
+      options: [bug, enhancement, feature, inspect]
+    validations:
+      required: true
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority
+      options: [Urgent, High, Medium, Low]
+    validations:
+      required: true

@@ -1,0 +1,23 @@
+# .github/pm.yml: ties this repo to its GitHub Project (cruna-pm-github plugin).
+# Written by `pm init`; commit it. The repo itself is the checkout's origin and
+# is not repeated here. One Project may serve many repos; each repo names it here.
+# Supported YAML: top-level keys and one level of indented keys. Unknown keys are ignored.
+
+project:
+  owner: Cruna-Noise-To-Signal          # login of the user or org that owns the Project (must also own this repo)
+  number: 3        # the Project number in its URL: github.com/orgs/<owner>/projects/<number>
+
+branches:
+  integration: dev   # feature PRs target this and are squash-merged
+  production: main     # must be the repo's default branch; releases merge here
+
+changelog_dir: change-log  # <changelog_dir>/<name-id>/ holds each request's spec, plan, report
+
+release:
+  tag_prefix: v     # tags read v2026.10.30, then v2026.10.30.2 the same day
+
+kinds:                   # org mode only: request kind -> issue type (personal mode uses labels)
+  bug: Bug
+  enhancement: Task
+  feature: Feature
+  inspect: Task          # inspect also gets the label "question"
