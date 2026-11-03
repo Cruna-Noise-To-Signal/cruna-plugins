@@ -155,3 +155,38 @@ VERDICT: PASS. `git diff 9c45727...HEAD` (29 commits), focused on the M2 revisio
 1. **Gap detection rests on a value that doesn't track the last tidy-up** (`rules/references/email.md:98`) — same as Specs (c) above: false flag in a quiet inbox; no rule for a non-empty ledger without a `routine` row. Suggested: fall back to the look-back window when there is no `routine` row, and record the last tidy-up date explicitly or flag only when no review has run.
 2. **Ambiguous sentence** (The ledger, first bullet): with "unless it is the draft a member-mail instruction asks for" inserted, the clause after the colon reads as if it describes the exception. Move the exception to the end or leave it to the second bullet (which already covers it).
 3. **Possible Divergent Change** (carried over, optional): numbered tidy-up items in `review/SKILL.md` referenced by number.
+
+## M3 — round 1
+
+**Result: PASS** (Specs PASS, Standards PASS). Whole feature F1–F8 meets its acceptance criteria; release depends on running the live manual test.
+
+### Specs
+
+VERDICT: PASS. Checked `git diff 9c45727...HEAD` (39 commits), M3 commits after 27b1ce4 closely; spec.md before and after its M3 update against report.md, review.md and plan.md; checker "Valid for Claude and OpenAI"; 0.4.0 in all four manifests and the Claude catalog (the only catalog that carries a version); every English skill file has an Italian counterpart with the same line and heading count.
+
+**M2 carry-over (`last_tidy_up`): resolved.** The ledger and Inbox tidy-up use the `last_tidy_up` front-matter field instead of the "newest `routine` row" proxy; every tidy-up writes it, conversations never do; merged copies keep the latest value; no value → 60 days back, no flag; the gap flag is a status item the next tidy-up drops. Template, setup step 5 and review item 3 match.
+
+**spec.md updates are faithful:** story 27 and the `review` bullet allow routine drafts for member-mail instructions; story 46 and the data shape include the gap flag and `last_tidy_up`; story 23 adds the third-person voice; story 9 (old `setup.md` reads as email off) matches; `Mail from`, `see Conventions`, item 7, `To file:` / `Attachment of:` and the member-mail draft on its own row all match recorded decisions. No requirement quietly dropped.
+
+**(a) Missing or partial:** none in the deliverables. Open plan item: the M3 demo says the manual test "has been run on Claude and on ChatGPT, with results recorded". It has not been run (report.md says so); the user must run it, including the ChatGPT send-limit and reply-to-review-chat checks, before release.
+
+**Manual test** (`docs/agora/manual-tests/manual-test-agora-v040-email.md`): complete and ready; scenarios 1–10 match spec → Testing Decisions one to one, Claude and ChatGPT columns, checks for the gap flag, `last_tidy_up` and the two unverified platform facts, plus an Italian pass (scenario 11).
+
+**F7 Italian:** `email` skill with `agents/openai.yaml`, `rules/references/email.md`, `setup/references/email.md` present; `last_tidy_up` carried everywhere; glossary has the email terms, every `rules → Email` heading and the identifiers that stay in English.
+
+**(b) Scope creep:** nothing to remove. Italian Convention texts translated as content, per "Content follows the root's language".
+
+**(c) Possibly wrong (minor):** glossary renders "look-back window" as "finestra di riepilogo" ("summary window"); "finestra di ricerca" or "periodo considerato" would be more accurate.
+
+### Standards
+
+VERDICT: PASS. Against AGENTS.md and cruna-core `portable-plugins`.
+
+**Versions, manifests and catalogs:** `agora` and `agora-ita` at 0.4.0 in both `.claude-plugin/plugin.json`, both root `plugin.json` and `.claude-plugin/marketplace.json`. `.agents/plugins/marketplace.json` has no version field, which portable-plugins confirms ("The Claude entry carries `version`; the OpenAI entry carries `policy` and `category`"; workflow E bumps only the Claude-side files). Checker run: "Valid for Claude and OpenAI", exit 0.
+
+**Italian mirrors English:** all 15 changed skill files match in line, heading and bullet/step count (e.g. `rules/references/email.md` 139/17/56); headings match the glossary table; `last_tidy_up` at the same lines in both languages and in `agora-spec.md`; glossary used consistently ("protocollo" for ledger, distinct from "registro" for tracker; "riordino della casella"; parsed identifiers in English); Italian README has the `email` row.
+
+**Smell baseline (judgement calls, none blocking):**
+- Possible Duplicated Code: the spec's Email section restates `rules → Email` mechanics; suppressed (the spec describes behaviour), but the next ledger change means editing spec and rules in both languages.
+- Minor glossary drift: `cruna-plugin-ita/agora/skills/setup/SKILL.md:148` "la casella di posta è quella dell'account dell'assistente" vs glossary "casella dell'assistente". Optional.
+- Shotgun Surgery: `last_tidy_up` touched 4+4 files plus the spec; the repo's deliberate structure, suppressed.
