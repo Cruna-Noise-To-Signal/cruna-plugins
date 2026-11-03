@@ -73,7 +73,7 @@ Done when: every touched instance index lists its new entry, and every status fr
 
 ### 8. Offer to-dos
 
-Look through the facts for an **action** someone still has to do with no calendar event for it ("I need to call the accountant", "Nina should book the dentist"). When you find any, ask once, listing each: "Add a to-do: Call the accountant (yours)?". For each yes, hand it to the `todo` skill's Add with its text, owner and due date from the member's words, the entry's instance, and the entry as `source`. No yes, no to-do.
+Look through the facts for an **action** someone still has to do ("I need to call the accountant", "Nina should book the dentist"). When you find any, ask once, listing each: "Add a to-do: Call the accountant (yours)?". For each yes, hand it to the `todo` skill's Add with its text, owner and due date from the member's words, the entry's instance, and the entry as `source`. No yes, no to-do.
 
 Done when: every action in the facts was offered once and is a to-do or declined, or the facts held none.
 
