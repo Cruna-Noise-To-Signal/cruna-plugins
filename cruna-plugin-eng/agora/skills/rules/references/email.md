@@ -50,11 +50,12 @@ Every sent email is logged as a diary entry in the instance it concerns, named `
 `inbox.md` (root, curated) has one row per email the AI handled, newest first: Gmail message id, date, from, subject, outcome, by.
 
 - **Outcome** is one of `filed → <diary path>`, `flagged`, `drafted`, `sent → <diary path>`, `ignored`. **By** is the member slug, or `routine`.
-- A reply or forward to an email in the ledger whose outcome is not `filed` goes on that email's row, unless it is the draft a member-mail instruction asks for: its outcome becomes `drafted`, then `sent → <diary path>`, and the row keeps the original message id.
+- A reply or forward to an email in the ledger whose outcome is not `filed` goes on that email's row: its outcome becomes `drafted`, then `sent → <diary path>`, and the row keeps the original message id. The draft a member-mail instruction asks for is the exception (next bullet).
 - Any other email the AI writes (a new one, a reply to an email that is filed or not in the ledger, or the draft a member-mail instruction asks for) gets its own row, `from` = `to <recipients>`, keyed on its draft id; on send, the row is rekeyed to the sent message's id.
 - An email already in the ledger is already handled: read the ledger before handling any email, and skip what it lists, unless a member asks for it by name. A later outcome for the same email (a flag filed in conversation, a draft sent) replaces that row's outcome, by and date.
+- The front-matter field `last_tidy_up:` holds the date of the latest `review` inbox tidy-up (Reviews → Inbox tidy-up). Only the tidy-up writes it; conversations keep it as they found it.
 - Write it once per conversation or run, at the end, by replace (rules → Replace); when it doesn't exist, create it from its template. Before trashing the old copy, list the root again: a newer copy written meanwhile is merged in. The `review` tidy-up drops rows dated more than 60 days ago.
-- Copies of `inbox.md` (a newer one written meanwhile, or duplicates found at any time) merge into one: every distinct row kept, one row per message id (the latest outcome), newest first; then trash the other copies.
+- Copies of `inbox.md` (a newer one written meanwhile, or duplicates found at any time) merge into one: every distinct row kept, one row per message id (the latest outcome), newest first, and the latest `last_tidy_up`; then trash the other copies.
 - Drafts waiting for approval are the rows with outcome `drafted`.
 
 ## Importance
@@ -95,7 +96,7 @@ What the `review` skill does with email.
 
 Every review runs it, attended or not, with the ledger read first.
 
-1. **Search** the assistant inbox for mail received (not sent by the assistant account) since the last tidy-up, the date of the newest ledger row by `routine`, never more than 60 days back: the prune (item 4) keeps 60 days of rows, so every email the search returns that was handled before is still listed. Empty ledger: the period's look-back window. When the last tidy-up is more than 60 days ago, flag the gap under Needs attention (rules → Flag): "Email received between <last tidy-up> and <60 days ago> was not checked: ask me to look through it."
+1. **Search** the assistant inbox for mail received (not sent by the assistant account) since `last_tidy_up` in `inbox.md`, never more than 60 days back: the prune (item 4) keeps 60 days of rows, so every email the search returns that was handled before is still listed. No `last_tidy_up` (a new ledger, or one written before the field): search 60 days back, with no flag. When `last_tidy_up` is more than 60 days ago, flag the gap under Needs attention (rules → Flag): "Email received between <last tidy-up> and <60 days ago> was not checked: ask me to look through it." The gap flag is a status item, not stored state: it holds until the next tidy-up, which finds `last_tidy_up` recent and drops it.
 2. **Skip** every email already in the ledger (The ledger): a second run on the same day handles nothing twice.
 3. **Decide** each remaining email, first match wins, and give it a row by `routine`:
    - Forwarded or CC'd member mail that places in exactly one instance → **file** it (Filing); its dates are flagged, never put on the calendar. In a solo root, skip this case (Solo roots).
@@ -104,7 +105,7 @@ Every review runs it, attended or not, with the ledger read first.
    - Anything else → **ignored**.
 
    Member mail carrying an instruction also gets the reply it asks for **drafted**, flagged for that member's approval (Member mail), on its own ledger row (The ledger): on top of filing or flagging it, never in place of either. This and the Convention case are the only drafts a routine writes. Judge importance by the root's criteria and by every member's own (Where criteria live); an email important only by one member's criteria is flagged for that member, by name.
-4. **Prune** rows dated more than 60 days ago, then write the ledger (The ledger).
+4. **Prune** rows dated more than 60 days ago, set `last_tidy_up` to today, then write the ledger (The ledger). Every tidy-up writes it, even when it logs no row.
 
 Every flag and routine draft also goes to Needs attention, so important email is listed there as well as in the Email section. Unattended runs never send (Sending).
 

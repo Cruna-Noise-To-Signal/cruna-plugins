@@ -87,11 +87,12 @@ The Interview section holds each confirmed round under its own heading (The root
 
 ## `inbox.md` (root, curated)
 
-Email on only. One row per handled email, newest first (rules → Email → The ledger).
+Email on only. One row per handled email, newest first; `last_tidy_up` is the date of the latest review inbox tidy-up, absent until the first one (rules → Email → The ledger).
 
 ```markdown
 ---
 agora: inbox
+last_tidy_up: 2026-11-03
 ---
 
 # Inbox
