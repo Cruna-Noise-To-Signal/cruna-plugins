@@ -1,6 +1,6 @@
 # Agora prerequisites
 
-What must be true for Agora to work, how to check each item, and how to fix it. `setup` walks the list top to bottom (a member joining an existing root walks items 1–3, 5 and 6); `help` and any failing skill jump to the item that matches the failure.
+What must be true for Agora to work, how to check each item, and how to fix it. `setup` walks the list top to bottom (a member joining an existing root walks items 1–3, 5 and 6), and item 7 only in a root with email on (`email: on` in `org.md`); `help` and any failing skill jump to the item that matches the failure.
 
 **Check with a real call** wherever one exists. Each item ends **ready** (the check passed) or **blocked** (it failed, the fix is given, and the user is waiting on it). Never mark an item ready on the user's word alone when a call can confirm it. Blocked is only for a fix the user must do by hand (clicks, a password, a plan); a fix the connectors can do is yours: retry a failed call until the check passes.
 
@@ -22,7 +22,7 @@ Menu names change between app versions. If a path below doesn't match what the u
 
 A **connector** is a permission that lets the AI app act inside another service on your behalf: here, read and write files in Google Drive and events in Google Calendar. Without them the AI can only talk; with them it can file and schedule.
 
-- **Need**: two connectors, **Google Drive** and **Google Calendar**, both logged in as the **assistant account** named in `org.md` (or as the owner's own account in a solo root). A connector logged in as the wrong Google account is the most common failure: the AI then sees a different Drive.
+- **Need**: two connectors, **Google Drive** and **Google Calendar**, plus **Gmail** when email is on (item 7), all logged in as the **assistant account** named in `org.md` (or as the owner's own account in a solo root). A connector logged in as the wrong Google account is the most common failure: the AI then sees a different Drive.
 - **Check**:
   - Drive: search Drive for `org.md` (or, before setup, list recent files). Success means the Drive connector works; confirm the file owner matches the assistant account.
   - Calendar: list calendars. Success means the Calendar connector works; confirm the primary calendar carries the assistant account's email (`calendar` in `org.md`): that is the system calendar.
@@ -60,6 +60,22 @@ A **connector** is a permission that lets the AI app act inside another service 
   - ChatGPT: open Scheduled (Tasks) → New task, or ask ChatGPT in a chat to schedule it.
   - Confirm the task can use the Drive and Calendar connectors and the Agora plugin. Turn on notifications so the review reaches the member.
 
+## 7. Gmail connector (email on only)
+
+Optional: only a root with `email: on` needs it, and it suits business roots best. A root with email off skips this item.
+
+- **Need**: the **Gmail** connector, logged in as the **assistant account**, so the AI reads the assistant inbox and nobody's personal mail. In a solo root that is the owner's own account.
+- **Check**:
+  1. Search the inbox with a real call (the latest few messages).
+  2. Confirm the mailbox is the assistant account's: from the connector's account or profile details when it offers them, else from the recipient address of a received message. An empty new inbox: ask a member to send a test email to the assistant address, then search for it.
+  The check passes only when the address matches `assistant_account` in `org.md`.
+- **Fix**:
+  - Claude: Settings → Connectors → Gmail → Connect, signed in as the assistant account. On a Team or Enterprise plan, an Owner must first enable the Gmail connector for the organization.
+  - ChatGPT: Settings → Apps (Connectors) → Gmail → Connect, signed in as the assistant account. Sending works only on the web, on a paid plan (Plus, Pro, Business, Enterprise); on Business, a workspace admin must turn on write actions for Gmail. Reading and drafting work everywhere the connector does.
+  - Already connected with the wrong account: disconnect, then connect again with the assistant account.
+  - In a conversation, make sure Gmail is enabled for the chat (the tools or "+" menu).
+- **Limits** to tell the member: the AI sees only the assistant inbox; it can't open attachments, only their names; it doesn't label, archive or delete mail. Before each send the app asks its own approval: approving it completes a send the member already confirmed to Agora.
+
 ## Offboarding a member
 
-Remove their editor access on the root folder and the system calendar (as the assistant account), ask them to disconnect the connectors in their client, change the assistant account password if they knew it, and update the Members and Access tables in `org.md`. Their diary entries and documents stay: they are history.
+Remove their editor access on the root folder and the system calendar (as the assistant account), ask them to disconnect the connectors (Gmail too, when email is on) in their client, change the assistant account password if they knew it, and update the Members and Access tables in `org.md`. Their diary entries and documents stay: they are history.
