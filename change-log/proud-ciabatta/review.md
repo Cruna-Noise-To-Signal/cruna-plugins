@@ -33,3 +33,38 @@ Standards: AGENTS.md, cruna-core `writing-for-agents` and `portable-plugins`, pl
 2. **Possible Duplicated Code**: the ordering rule (overdue, by due, undated) and the 14-day Recently-done window are stated in `todos.md`, again in `templates.md` (~130, ~213) and again in `todo/SKILL.md` step 6. State each rule once in `todos.md` and point to it from the other places.
 3. **Implicit branch flow**: in `todo/SKILL.md`, steps 4, 5 and 7 never say "then step 8", so read in order, Add falls through into Change and Remove. End each branch with its next step, or state it in step 2.
 4. **Minor**: `templates.md` now holds the to-do templates too. That is consistent with the repo convention, so no change.
+
+## Round 2 — M1 + M2 (F1–F5, English)
+
+Verdict: **PASS** on both axes. The Round 1 items are fixed. The should-fix items below go to the M3 run.
+
+### Specs
+
+Round 1: all addressed except one minor item. Spec: "one section per member". `todos.md` still says "per member who owns an open to-do". Decision: keep the implementation (no empty sections) and state it in the `agora-spec.md` update.
+
+(a) Missing or partial: none.
+
+(b) Not asked for:
+1. `log/SKILL.md` step 8 offers a to-do only for an action "with no calendar event for it". Spec: "`log`: when an entry reads as an action, offers to add a to-do". A dated action never gets the offer, and this narrowing was not logged. Decision: drop the clause.
+2. Accepted deviations from report.md M2:
+   - received-time naming of the member-mail `add`;
+   - `to-do → <id>` joins filed/drafted/sent and replaces flagged/ignored on the ledger row;
+   - edits to `email.md` and `templates.md`;
+   - suggestions de-duplicated against existing to-dos;
+   - `setup` Verify expects `todos/`.
+
+(c) Could be tighter:
+1. The unattended member-mail add is justified by the Behaviour contract's single exception and is stated consistently. The M3 `agora-spec.md` update must state this exception explicitly.
+2. The member-mail duplicate check looks only at the base name, not the `-2`/`-3` variants. Concurrent runs can still both create the same name, and tidy-up flags the duplicate. This matches the existing filing trick, so it is minor.
+3. Review step 3.1 says To-dos cover "the look-back and look-ahead windows", while `todos.md → Reviews` says Opened/Done are "since the previous review of the same period". Use one wording.
+
+Verified: tidy-up item 5 (idempotent monthly archive, orphan flags, stale rebuild, duplicates rule); To-dos section and suggestions under Needs attention; the monthly open-30-days list; personal and general ordering; attended confirmation; the `email` hooks (offer, member-mail add, third-party suggest only, ledger); the `log` offer; `ask` (stale fallback, archive only for old); `setup` build, Verify and first steps.
+
+### Standards
+
+Round 1 should-fix items 1–3 and the File kinds note: all fixed. Renumbered cross-references are consistent, and structure matches the house shape. M2 should-fix:
+
+1. **Possible Duplicated Code**: the member-mail add rule appears in `todos.md:39`, in `email.md:26` (same fields plus naming) and in `email/SKILL.md` step 7.2. Keep the exception as one sentence in `todos.md` and point to `email.md → Member mail` for the procedure.
+2. **Rule conflict**: `todos.md → To-do events` names events by the time of the change, while member-mail adds are named by the email's received time. The naming rule should mention or point to the exception.
+3. **Stale wording**: `todos.md` opens with "The `todo` skill creates `todos/` the first time…" as the general case. Reword it as the fallback for roots set up before 0.5.0, since `setup` now creates it.
+4. **Weak completion criterion**: `email/SKILL.md` step 6 gains item 8 "Offer a to-do", but its "Done when" doesn't mention it. Add it.
