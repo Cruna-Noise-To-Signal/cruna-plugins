@@ -123,3 +123,27 @@ Email in reviews and the supporting skills, English plugin (`agora`). Same test 
 1. "What's pending with <client>, and did they answer by email?" Expect: an answer from statuses plus the inbox, each email cited by sender, date and subject. In an email-off root, no inbox read.
 2. "What do you remember about me?" Expect the `Email importance:` line once, undated; change your criteria and check the line is replaced, not duplicated.
 3. "What can you do with email?" / "Agora can't send my email". Expect: the FAQ answer (own inbox only, no attachments, no labels; sends after your yes), and the troubleshooting walk of prerequisites item 7.
+
+## M3
+
+Release-ready: 0.4.0 in both languages. The full release script, with result tables for Claude and ChatGPT, is [docs/agora/manual-tests/manual-test-agora-v040-email.md](../../docs/agora/manual-tests/manual-test-agora-v040-email.md): run it on both platforms and record the results there. The checks below cover what M3 changed.
+
+### 20. Last tidy-up and gap flag (replaces 17.2)
+
+1. In a root with email on, open `inbox.md`. If it was created before M3 it has no `last_tidy_up`. Run a review. Expect: mail of the last 60 days searched, **no** gap flag, and `last_tidy_up: <today>` in the front-matter afterwards.
+2. Run a second review with no new mail. Expect: no new rows, but `last_tidy_up` written again (today).
+3. Edit `last_tidy_up` by hand to 70 days ago; run a review. Expect a Needs attention flag "Email received between <that date> and <60 days ago> was not checked…", and `last_tidy_up` back to today.
+4. Run another review. Expect: the gap flag gone.
+5. Handle an email in conversation (file or draft). Expect: `last_tidy_up` unchanged.
+
+### 21. Italian version
+
+1. Install `agora-ita` 0.4.0. Say "attiva l'email" in an existing Italian root. Expect the same flow as scenario 1, in Italian; `org.md` has `email: on` and a `Mail from` column; `inbox.md` uses the English column names and outcomes.
+2. Forward a member email, ask "archivia l'email che ti ho inoltrato". Expect the diary entry and the ledger row as in scenario 3, content in Italian.
+3. Ask "prepara una risposta a <mittente>" and send it. Expect the signature "Assistente di <radice>, per conto di <tu>" and the confirmation before sending.
+4. Run "revisione giornaliera". Expect a `## Email` section with the parts "Richiedono attenzione", "Bozze in attesa di approvazione", "Inviate", "Archiviate".
+
+### 22. Release
+
+1. Both plugins show version 0.4.0 on Claude and ChatGPT after updating from the marketplace.
+2. `docs/agora/agora-spec.md` reads as a description of what you saw in the tests above; note any difference.
