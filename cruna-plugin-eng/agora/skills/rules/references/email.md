@@ -20,7 +20,7 @@ Mail always goes out from the assistant account. Sign it as the assistant on beh
 
 ## Member mail
 
-- **Member mail** is an email whose sender address matches one of a member's addresses in the `org.md` Members table, Emails column. A matching display name with a different address never counts.
+- **Member mail** is an email whose sender address matches one of a member's addresses in the `org.md` Members table, Mail from column. A matching display name with a different address never counts.
 - Member mail always needs attention, whatever the criteria.
 - Member mail carrying an instruction ("reply saying we accept") → draft the reply it asks for, and flag the draft for that member's approval. Never send it.
 - Solo roots have no member mail (Solo roots, below).
@@ -64,7 +64,8 @@ unless the criteria below say otherwise. Criteria refine the default: they add s
 
 ### Where criteria live
 
-- **Root-wide**: Conventions rows in `org.md` (rules → Conventions), Where `*` or an interest, Convention `important email: <criteria>`. A proactive-draft opt-in is a Convention too: `draft replies to <senders or interest>`. Without one, routines only flag.
+- **Root-wide**: one Conventions row per criterion in `org.md` (rules → Conventions): Where `*` or the interest, Convention `important email: <criteria>`, Since today and the member's slug; replace `org.md`. Then set the line in `memories/shared.md` to `Email importance: see Conventions`.
+- **Proactive drafts**: an opt-in ("have drafts ready for client emails") is a Conventions row too, Convention `draft replies to <senders or interest>`. Without one, routines only flag.
 - **Personal**: the member's `memories/<slug>.md`, in the state line below.
 - A personal review uses the root's criteria and the member's own. The general review uses the root's criteria, plus each member's own for their per-member section.
 - When a member corrects a judgement ("that's not important", "always flag emails from the bank"), offer once to record the refinement: root-wide as a Convention, personal in their memories.
@@ -77,8 +78,7 @@ Each `memories/<slug>.md`, and `memories/shared.md` for the root, has one line:
 - Email importance: <not asked | invited | no preference | criteria>
 ```
 
-- `not asked`: nobody has asked yet (also when the line is missing). `invited`: a routine invited the member to state criteria and no answer has been recorded. `no preference`: the member declined; never ask again. Anything else is the criteria, in the member's words.
-- In `memories/shared.md` the criteria value is `see Conventions`, since the root's criteria live there.
+- `not asked`: nobody has asked yet (also when the line is missing). `invited`: a routine invited the member to state criteria and no answer has been recorded. `no preference`: the member declined; never ask again. Anything else is the criteria, in the member's words; in `memories/shared.md`, the pointer set under Where criteria live.
 - **Conversations ask**: wherever importance is judged in a conversation (the `email` skill, an attended `review` with email to report), when the state is `not asked` or `invited`, ask once: "What counts as important email for you? For example: clients, the bank, school. Or say no preference." Ask about the root too when its line is `not asked` or `invited`, in the same question. Record the answer (criteria, or `no preference`), then go on.
 - **Routines never ask.** They end their chat message, never the review file, with one invitation line, and move `not asked` to `invited`.
 - Write the line with the `remember` skill's curate step: one line per file, replaced in place.

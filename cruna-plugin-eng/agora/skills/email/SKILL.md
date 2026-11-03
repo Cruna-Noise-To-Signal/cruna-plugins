@@ -81,7 +81,7 @@ Done when: each email to file has exactly one diary entry with its email fields,
 
 ### 7. Addresses and criteria
 
-**Addresses**: add or change the member's addresses in the Emails column of their `org.md` Members row, after saying the full list back and getting a yes; replace `org.md` (rules → Replace). Each member changes only their own addresses, unless the member concerned asked them to.
+**Addresses**: add or change the member's addresses in the Mail from column of their `org.md` Members row, after saying the full list back and getting a yes; replace `org.md` (rules → Replace). Each member changes only their own addresses, unless the member concerned asked them to.
 
 **Criteria check**: before any importance judgement in this conversation, read the `Email importance:` line in the member's memories and in `memories/shared.md`. When either reads `not asked` or `invited` (or is missing), ask the one question in rules → Email → Invitation state, once per conversation, and record the answer.
 

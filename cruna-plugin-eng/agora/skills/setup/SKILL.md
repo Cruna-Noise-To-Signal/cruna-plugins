@@ -145,7 +145,7 @@ Check the root with real calls, never from memory of what you built:
 - No file name appears twice in the same folder (rules → Replace).
 - The calendar list's primary calendar carries the assistant account's email, as `calendar` in `org.md` does.
 - The root folder's permissions list every member with an email as editor (a removed member: not at all).
-- When `org.md` says `email: on`: a Gmail search returns, and the mailbox is the assistant account's (prerequisites item 7); `inbox.md` exists once at the root; `memories/shared.md` has an Email importance line; every member using the root has addresses in Emails (not solo).
+- When `org.md` says `email: on`: a Gmail search returns, and the mailbox is the assistant account's (prerequisites item 7); `inbox.md` exists once at the root; `memories/shared.md` has an Email importance line; every member using the root has addresses in Mail from (not solo).
 - `setup.md` has a Member section for every member who uses the root, each box ticked exactly when what it stands for passes the checks above (or, for calendar sharing and routines, the person confirmed it), and `state` is `done` exactly when every box is ticked.
 
 Fix what fails and check again. Done when every line passes; then tick Verify.

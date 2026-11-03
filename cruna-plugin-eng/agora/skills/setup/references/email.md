@@ -20,8 +20,8 @@ Done when: `org.md` says `email: on`, its root criteria (or none) are recorded, 
 ## Member part
 
 1. **Gmail** in this member's app: walk prerequisites item 7 (skip when the root part just did it in the same app).
-2. **Addresses**: every address they write or forward from (interview Members round), in the Emails column of their Members row. Solo roots skip this: there is no member mail.
+2. **Addresses**: every address they write or forward from (interview Members round), in the Mail from column of their Members row. Solo roots skip this: there is no member mail.
 3. **Importance**: their answer to the importance question, as the line `- Email importance: <criteria | no preference>` in `memories/<slug>.md`; `not asked` when skipped.
 4. **`setup.md`**: tick their Email box.
 
-Done when: item 7 is ready in their app, their Emails cell is filled (not solo), their memories file has its Email importance line, and their Email box is ticked; or item 7 is blocked and the box names what is waiting.
+Done when: item 7 is ready in their app, their Mail from cell is filled (not solo), their memories file has its Email importance line, and their Email box is ticked; or item 7 is blocked and the box names what is waiting.

@@ -148,7 +148,7 @@ Add a line under Needs attention in the root `status.md` saying what was found a
 
 A root has email when `org.md` says `email: on`. With `email` absent or `off`, no skill reads or writes mail, `inbox.md` does not exist, and everything works without Gmail. With email on, the assistant inbox works like `landing/`: members forward or CC mail to it, and the AI files what it can place without guessing and flags the rest.
 
-Before any email work, read [references/email.md](references/email.md): the sending policy, the sender voice, member mail, filing, the `inbox.md` ledger, email importance and its invitation state, solo roots, and the platform limits. Every email skill follows it.
+Before any email work, read [references/email.md](references/email.md): the email rules every skill that touches the assistant inbox follows.
 
 ## Memory step
 

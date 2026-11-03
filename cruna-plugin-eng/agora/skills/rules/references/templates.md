@@ -20,7 +20,7 @@ email: <on | off>
 
 ## Members
 
-| Slug | Name | Email | Emails | Role | Birthday | Personal calendar | Notes |
+| Slug | Name | Email | Mail from | Role | Birthday | Personal calendar | Notes |
 |---|---|---|---|---|---|---|---|
 | simone | Simone | simone@example.com | simone@example.com, simone@acme.it | parent | 1989-03-28 | free/busy | prefers short answers |
 
@@ -43,7 +43,7 @@ email: <on | off>
 | simone | editor | can edit | Claude | routines on |
 ```
 
-`email` absent means `off`. **Email** is the personal Google account the folder and calendar are shared with. **Emails** (email on only) lists every address the member writes or forwards from: mail from these is member mail (rules → Email). Root-wide email importance and proactive-draft opt-ins are Conventions rows (`* | important email: anything from a client | …`, `clients | draft replies to client emails | …`).
+`email` absent means `off`. **Email** is the personal Google account the folder and calendar are shared with. **Mail from** (email on only) lists every address the member writes or forwards from: mail from these is member mail (rules → Email). Root-wide email criteria are Conventions rows, written as in [email.md](email.md) → Where criteria live.
 
 ## `setup.md` (root, curated)
 
