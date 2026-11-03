@@ -89,3 +89,34 @@ On the M1 test root (English plugin), email on, two members:
 7. With a to-do closed over 90 days ago (hand-dated test events) and one open undated over 30 days, run the monthly review → the closed one's events in `todos/archive/YYYY/`, the open one under "No date, open over 30 days"; run it again → nothing moves.
 8. Delete `todo.md` by hand, or add an event file by hand, then run any review → `todo.md` rebuilt, the attached instance status updated; an event naming an unknown id is flagged.
 9. `ask` "what's on Nina's list?" → answer citing `todo.md`; a new root built by `setup` has an empty `todos/`.
+
+## M3
+
+Release-ready: Round 2 fixes in English, the Italian port, docs, version 0.5.0. The checker passes (`✔ Valid for Claude and OpenAI`).
+
+### Review round 2 fixes (English)
+
+- F4 `log` step 8: the "with no calendar event for it" clause is gone; every action is offered.
+- F3 one wording for the review's To-dos windows: `todos.md → Reviews` says Due ahead "in the look-ahead window", Opened and Done "in the look-back window", as review step 3.1 does; the review template placeholder no longer says "since the last review".
+- F1 `todos.md`: the member-mail exception is one sentence pointing to `email.md → Member mail`; the event naming rule names the received-time exception; `todos/` creation reads as `setup`'s job, with `todo` as the fallback for roots set up before 0.5.0 (`todo` step 3 says the same).
+- F4 `email` step 6 "Done when" includes offering the to-do.
+
+### F6 — Italian
+
+- `docs/agora/glossary-it.md`: terms (to-do, evento to-do, responsabile, scaduto/in scadenza, ricomporre, archivio vs archiviare, branch and step names, review section parts), the `todos.md` headings table, and the to-do identifiers in "What stays in English".
+- `cruna-plugin-ita/agora`: new `rules/references/todos.md` and `todo` skill (with `agents/openai.yaml`); `rules` SKILL, `templates.md`, `email.md`; `review`, `log`, `email`, `ask`, `setup`, `help` and the FAQ. Every changed file has the same number of headings and list items as its English one.
+
+### F7 — docs and release
+
+- `agora-spec.md`: Drive layout, Derived vs source files, `status.md` Pending line, skill table (`todo`; `log`, `email`, `ask`, `review`, `setup`, `help`), shared references, Routines, a new To-dos section (stating that the member-mail add is the only to-do event an unattended run writes, and that `todo.md` has a section only for members who own an open to-do), Release checks, Out of scope.
+- `future-extensions.md`: Google Tasks entry (decision 14 and the platform facts).
+- READMEs: root (versions 0.3.0 → 0.5.0, `todo` row, Google Tasks in the future-extensions line), both plugin READMEs (to-dos sentence, `todo` row).
+- `agora` and `agora-ita` 0.4.0 → 0.5.0 in both manifests and the Claude catalog (the OpenAI catalog carries no version).
+- Manual test: `docs/agora/manual-tests/manual-test-agora-v050-todos.md`, 12 scenarios covering spec → Testing Decisions on Claude and ChatGPT. Hand-test summary: [manual-test.md](manual-test.md).
+
+### Choices beyond the plan
+
+- Italian "owner" of a to-do is "responsabile", since "proprietario" is the root owner; archiving to-dos is "spostare in archivio", since "archiviare" is filing an email.
+- Italian review uses "finestra dello sguardo indietro/avanti" (as the existing Italian `review` does), not the glossary's older "finestra di riepilogo".
+- The `To-do:` Pending line prefix and the `todo.md` headings stay in English; the line contents and the review To-dos parts are in the root's language (`**Scaduto**`, "senza data").
+- The root README was still at 0.3.0 and had no `email` row; only the version and the to-do mentions were updated.
