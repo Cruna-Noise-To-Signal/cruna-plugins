@@ -22,7 +22,7 @@ Mail always goes out from the assistant account. Sign it as the assistant on beh
 
 - **Member mail** is an email whose sender address matches one of a member's addresses in the `org.md` Members table, Mail from column. A matching display name with a different address never counts.
 - Member mail always needs attention, whatever the criteria.
-- Member mail carrying an instruction ("reply saying we accept") → draft the reply it asks for, and flag the draft for that member's approval. Never send it.
+- Member mail carrying an instruction ("reply saying we accept") → draft the reply it asks for, and flag the draft for that member's approval, on top of filing or flagging the email itself. Never send it.
 - Solo roots have no member mail (Solo roots, below).
 
 ## Filing
@@ -50,8 +50,8 @@ Every sent email is logged as a diary entry in the instance it concerns, named `
 `inbox.md` (root, curated) has one row per email the AI handled, newest first: Gmail message id, date, from, subject, outcome, by.
 
 - **Outcome** is one of `filed → <diary path>`, `flagged`, `drafted`, `sent → <diary path>`, `ignored`. **By** is the member slug, or `routine`.
-- A reply or forward to an email in the ledger whose outcome is not `filed` goes on that email's row: its outcome becomes `drafted`, then `sent → <diary path>`, and the row keeps the original message id.
-- Any other email the AI writes (a new one, or a reply to an email that is filed or not in the ledger) gets its own row, `from` = `to <recipients>`, keyed on its draft id; on send, the row is rekeyed to the sent message's id.
+- A reply or forward to an email in the ledger whose outcome is not `filed` goes on that email's row, unless it is the draft a member-mail instruction asks for: its outcome becomes `drafted`, then `sent → <diary path>`, and the row keeps the original message id.
+- Any other email the AI writes (a new one, a reply to an email that is filed or not in the ledger, or the draft a member-mail instruction asks for) gets its own row, `from` = `to <recipients>`, keyed on its draft id; on send, the row is rekeyed to the sent message's id.
 - An email already in the ledger is already handled: read the ledger before handling any email, and skip what it lists, unless a member asks for it by name. A later outcome for the same email (a flag filed in conversation, a draft sent) replaces that row's outcome, by and date.
 - Write it once per conversation or run, at the end, by replace (rules → Replace); when it doesn't exist, create it from its template. Before trashing the old copy, list the root again: a newer copy written meanwhile is merged in, every distinct row kept, one row per message id (the latest outcome). The `review` tidy-up drops rows dated more than 60 days ago.
 - Drafts waiting for approval are the rows with outcome `drafted`.
@@ -98,12 +98,11 @@ Every review runs it, attended or not, with the ledger read first.
 2. **Skip** every email already in the ledger (The ledger): a second run on the same day handles nothing twice.
 3. **Decide** each remaining email, first match wins, and give it a row by `routine`:
    - Forwarded or CC'd member mail that places in exactly one instance → **file** it (Filing); its dates are flagged, never put on the calendar. In a solo root, skip this case (Solo roots).
-   - Member mail carrying an instruction → **draft** the reply it asks for, flagged for that member (Member mail).
    - Needs attention (Importance), and a `draft replies to …` Convention covers its sender or interest → **draft** a reply, saved in Gmail, signed per Sender voice, flagged as waiting for approval.
    - Needs attention otherwise, member mail included → **flag** it: sender, subject, why it matters, and the question that settles it; ambiguous member mail goes first.
    - Anything else → **ignored**.
 
-   These two cases are the only drafts a routine writes. Judge importance by the root's criteria and by every member's own (Where criteria live); an email important only by one member's criteria is flagged for that member, by name.
+   Member mail carrying an instruction also gets the reply it asks for **drafted**, flagged for that member's approval (Member mail), on its own ledger row (The ledger): on top of filing or flagging it, never in place of either. This and the Convention case are the only drafts a routine writes. Judge importance by the root's criteria and by every member's own (Where criteria live); an email important only by one member's criteria is flagged for that member, by name.
 4. **Prune** rows dated more than 60 days ago, then write the ledger (The ledger).
 
 Every flag and routine draft also goes to Needs attention, so important email is listed there as well as in the Email section. Unattended runs never send (Sending).
