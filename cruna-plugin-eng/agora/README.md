@@ -1,13 +1,13 @@
 # Agora
 
-A shared, AI-kept knowledge base for families and small teams. People tell the AI what happened; the AI files it on Google Drive, keeps a current status for everything, puts dates on Google Calendar, and sends daily, weekly and monthly reviews.
+A shared, AI-kept knowledge base for families and small teams. People tell the AI what happened; the AI files it on Google Drive, keeps a current status for everything, puts dates on Google Calendar, and sends daily, weekly and monthly reviews. Optionally, the assistant gets its own Gmail inbox: members forward mail to it to be filed, ask it to draft and send email (only after they confirm), and see the mail needing attention in every review.
 
 Works on Claude and ChatGPT. Design: [agora-spec.md](https://github.com/Cruna-Noise-To-Signal/cruna-plugins/blob/main/docs/agora/agora-spec.md).
 
 ## What you need
 
 - Claude or ChatGPT on a paid plan (for scheduled reviews).
-- The Google Drive and Google Calendar connectors.
+- The Google Drive and Google Calendar connectors, plus Gmail if you turn email on.
 - A Google account for the assistant when more than one person uses it (solo users can use their own).
 
 The `setup` skill checks all of this and walks you through what's missing.
