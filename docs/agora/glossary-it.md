@@ -6,11 +6,12 @@ Fixed translations for `cruna-plugin-ita/agora`. Every Italian skill uses these 
 
 These are identifiers shared by both language versions and by the files on Drive. Never translate them.
 
-- Skill names: `rules`, `setup`, `add-interest`, `log`, `file-document`, `schedule`, `email`, `ask`, `review`, `remember`, `help`. Referred to as "la skill `log`".
-- Folder and file names: `org.md`, `setup.md`, `index.md`, `status.md`, `landing/`, `memories/`, `reviews/`, `diary/`, `documents/`, `shared.md`, review file names (`…-daily.md`, `…-weekly.md`, `…-monthly.md`), and reference files inside skills (`references/templates.md`, `references/prerequisites.md`, …).
+- Skill names: `rules`, `setup`, `add-interest`, `log`, `file-document`, `schedule`, `email`, `ask`, `review`, `remember`, `help`, `todo`. Referred to as "la skill `log`".
+- Folder and file names: `org.md`, `setup.md`, `index.md`, `status.md`, `landing/`, `memories/`, `reviews/`, `diary/`, `documents/`, `shared.md`, `todo.md`, `todos/`, `todos/archive/` (and its `YYYY/` year folders), review file names (`…-daily.md`, `…-weekly.md`, `…-monthly.md`), and reference files inside skills (`references/templates.md`, `references/prerequisites.md`, …).
 - Headings and section names **inside Drive files** (templates): `Needs attention`, `Summary`, `Done`, `Pending`, `Next`, `Last updated`, `Latest reviews`, `Members`, `Interests`, `Conventions`, `Access`, `Documents`, `Maintained`, `Diary`, `Looking back`, `Still open`, `Looking ahead`, `Update HH:MM`, `Entry`, `Written`, `Updated`, and their table column names. In `setup.md`: the headings `Root`, `Member: <slug>`, `Interview` (and its rounds `The root`, `Members`, `Layout convention`, `First interests and instances`), `Migration`, and the box labels (`Prerequisites`, `Connectors and plugin`, `Routines`, …).
 - Front-matter keys and values (`agora: root`, `agora: setup`, `state: todo | done`, `author`, `created`, `interest`, `instance`, `documents`, `events`, `language`, …), the author `routine`, CSV column names, the event title format `[interest/instance] title`, the line `Maintained: documents/<name>`.
 - Email identifiers, parsed by the skills and shared by both language versions: `inbox.md` and its front-matter (`agora: inbox`, `last_tidy_up`), its column names (`Message id`, `Date`, `From`, `Subject`, `Outcome`, `By`) and outcomes (`filed → <path>`, `flagged`, `drafted`, `sent → <path>`, `ignored`, and `to <recipients>` in From); the `org.md` field `email: on | off` and the Members column `Mail from`; the diary keys `email`, `email_from`, `email_subject` and the lines `To file: <names>` and `Attachment of: diary/<entry> (<name>)`; the memory line `Email importance: <not asked | invited | no preference | criteria>` with its state values and `see Conventions`; the review heading `## Email` and the `setup.md` box `Email` (and its value `(off)`). The criteria a member states are content, in the root's language.
+- To-do identifiers, parsed by the skills and shared by both language versions: the front-matter `agora: todo` and `agora: todo-list`; the actions `add`, `done`, `reopen`, `assign`, `edit`, `remove`; the keys `action`, `author`, `created`, `owner`, `due`, `interest`, `instance`, `source`, `todo`, `text`, `filter`, `count`, `todos`; the values `everyone` and `none`, and the source form `email <Gmail message id>`; the `todo.md` title `# To-dos` and headings `## <Name>` (the member's Name from `org.md`), `## Everyone`, `## Recently done`; the review heading `## To-dos`; the `status.md` Pending line prefix `To-do:`; the ledger outcome `to-do → <id>`. The to-do text, the line contents after those markers, the parts of the review's To-dos section and a `remove` event's `filter` are content, in the root's language.
 
 Content written into those files is in the root's language (`it` for this plugin's default).
 
@@ -105,6 +106,29 @@ Content written into those files is in the root's language (`it` for this plugin
 | Email section parts: Needing attention, Drafts waiting for approval, Sent, Filed; "Nothing new." | Richiedono attenzione, Bozze in attesa di approvazione, Inviate, Archiviate; "Niente di nuovo." |
 | review tidy-up item Inbox | Casella |
 | interview heading Email questions / setup reference title Email step | Domande sull'email / Passo email |
+| to-do (the concept; also in user-facing text) | to-do (m., invariable: `il to-do`, `i to-do`). Never "attività" (taken by "attività pianificata") nor "compito" |
+| to-do event | evento to-do (pl. eventi to-do) |
+| `todo.md` (in prose) | la lista dei to-do (`todo.md`) |
+| to-do list (what members read) | lista dei to-do |
+| open / closed (a to-do) | aperto / chiuso |
+| owner (of a to-do) | responsabile (the key stays `owner`; "proprietario" is the root owner) |
+| shared to-do (owner `everyone`) | to-do condiviso, "per tutti" |
+| take over ("I'll do it") | prendere in carico ("ci penso io") |
+| attached (to an instance) / root level | legato a un'istanza / a livello di radice |
+| due date / overdue / due ahead | scadenza / scaduto / in scadenza |
+| fold (events into current state) | ricomporre (la ricomposizione degli eventi) |
+| current state | stato attuale |
+| list order | ordine della lista |
+| orphan (event) | orfano |
+| suggestion: looks done / possible new to-do | suggerimento: sembra fatto / possibile nuovo to-do |
+| archive (to-dos, `todos/archive/`) | archivio; spostare in archivio (never "archiviare", which is filing an email) |
+| remove (to-dos) / trash | rimuovere / cestino (spostare nel cestino) |
+| "including open ones" (remove filter) | "compresi quelli aperti" |
+| `todo` branches: Add, Done, Reopen, Assign, Edit, List, Remove, Calendar | Aggiungi, Fatto, Riapri, Assegna, Modifica, Lista, Rimuovi, Calendario |
+| `todo` steps: Read the list, Change, Write and rebuild | Leggi la lista, Cambia, Scrivi e ricostruisci |
+| `email` step / branch To-do; `log` step Offer to-dos; `review` step Confirm suggestions; tidy-up item To-dos | To-do; Proponi i to-do; Conferma i suggerimenti; To-do |
+| review To-dos section parts: Overdue, Due ahead, Opened, Done, Suggestions, No date, open over 30 days | Scaduti, In scadenza, Aperti, Fatti, Suggerimenti, Senza data, aperti da oltre 30 giorni |
+| `todo.md` line marker **Overdue**; "no date"; "due" (in a line) | **Scaduto**; senza data; scadenza |
 | "no preference" (what the member says) / "filed" (member's reply) | "nessuna preferenza" (stored as `no preference`) / "archiviato" |
 
 Interest and instance slugs and working-file names are content, so they follow the root's language (`famiglia`, `nina/salute`, `greta-pannolini.csv`).
@@ -137,6 +161,7 @@ Pointers are written `rules → <heading>` using exactly these Italian headings.
 | templates (File kinds → templates) | modelli (Tipi di file → modelli) |
 | prerequisites → Offboarding a member | prerequisiti → Uscita di un membro |
 | Email (rules section) | Email |
+| To-dos (rules section) | To-do |
 
 `rules` headings in `references/email.md` (pointed to as `rules → Email → <heading>`):
 
@@ -159,6 +184,24 @@ Pointers are written `rules → <heading>` using exactly these Italian headings.
 | Chat lines | Righe in chat |
 | Solo roots | Radici solitarie |
 | Limits | Limiti |
+
+`rules` headings in `references/todos.md` (pointed to as `references/todos.md → <heading>`):
+
+| English heading | Italian heading |
+|---|---|
+| Agora to-do conventions (title) | Convenzioni dei to-do di Agora |
+| Who sees and owns a to-do | Chi vede un to-do e a chi tocca |
+| Place | Collocazione |
+| Due dates | Scadenze |
+| To-do events | Eventi to-do |
+| Who writes events | Chi scrive gli eventi |
+| Current state | Stato attuale |
+| `todo.md` | `todo.md` |
+| In status | Nello stato |
+| Suggestions | Suggerimenti |
+| Reviews | Revisioni |
+| Remove | Rimozione |
+| Archive | Archivio |
 
 Prerequisite items keep their numbers ("voce 3").
 
