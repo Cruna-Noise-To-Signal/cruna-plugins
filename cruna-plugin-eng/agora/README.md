@@ -22,6 +22,7 @@ The `setup` skill checks all of this and walks you through what's missing.
 | `log` | Claude, ChatGPT | Records an update in the diary and refreshes the status |
 | `file-document` | Claude, ChatGPT | Files a document from the landing folder or indexes one already in place |
 | `schedule` | Claude, ChatGPT | Creates, moves or removes appointments and reminders |
+| `email` | Claude, ChatGPT | Optional: reads, drafts and sends email from the assistant inbox, files emails into the diary |
 | `ask` | Claude, ChatGPT | Answers questions from the indexes, statuses, diary, documents and calendar |
 | `review` | Claude, ChatGPT | Daily, weekly and monthly review with tidy-up; the body of every routine |
 | `remember` | Claude, ChatGPT | Keeps what the assistant knows about each person and the group |
