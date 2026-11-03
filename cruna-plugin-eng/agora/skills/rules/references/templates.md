@@ -160,10 +160,13 @@ Same sections at every level. Omit nothing; write "—" under an empty section.
 
 ## Pending
 - <Open items waiting on someone or something, with who>
+- To-do: <text> — <owner>, due <YYYY-MM-DD | no date>
 
 ## Next
 - <YYYY-MM-DD> <next step> — <calendar event title, when there is one>
 ```
+
+The `To-do:` lines are the open to-dos attached to an instance, overdue first ([todos.md](todos.md) → In status).
 
 Root `status.md` adds, after Next:
 
@@ -208,6 +211,82 @@ and, when the email has attachments not yet on Drive, a last line in Entry:
 ```markdown
 To file: <attachment names>. Save them to landing/ or documents/ and say "filed".
 ```
+
+## To-do event (source)
+
+File: `todos/<slug>-YYYYMMDD_HHMM.md` ([todos.md](todos.md) → To-do events). An `add`:
+
+```markdown
+---
+agora: todo
+action: add
+author: <slug>
+created: <YYYY-MM-DDTHH:MM>
+owner: <slug | everyone>
+due: <YYYY-MM-DD, or omit>
+interest: <interest, or omit>
+instance: <instance, or omit>
+source: <path from the root | email <Gmail message id>, or omit>
+---
+
+<The to-do, one line>
+```
+
+Any other action has no body, and names the to-do it acts on:
+
+```markdown
+---
+agora: todo
+action: <done | reopen | assign | edit>
+author: <slug>
+created: <YYYY-MM-DDTHH:MM>
+todo: <id: the add event's file name without .md>
+owner: <assign only: slug | everyone>
+text: <edit only, when it changes>
+due: <edit only, when it changes: YYYY-MM-DD | none>
+interest: <edit only, when the place changes: interest | none>
+instance: <edit only, when the place changes: instance | none>
+---
+```
+
+A `remove`:
+
+```markdown
+---
+agora: todo
+action: remove
+author: <slug>
+created: <YYYY-MM-DDTHH:MM>
+filter: <the member's filter, in words, with "including open ones" when said>
+count: <n>
+todos: [<ids trashed>]
+---
+```
+
+## `todo.md` (root, derived)
+
+```markdown
+---
+agora: todo-list
+---
+
+# To-dos
+
+**Last updated:** 2026-11-03 09:14 by <slug | routine>
+
+## Simone
+- **Overdue** Renew the car insurance — due 2026-11-01 · `simone-20261020_1810`
+- Call the Acme accountant — due 2026-11-07 · [clients/acme](clients/acme/) · source: [diary](clients/acme/diary/simone-20261102_1640.md) · `simone-20261102_1645`
+- Book the car service — no date · `nina-20261029_0930`
+
+## Everyone
+- Buy printer toner — no date · `simone-20261101_1200`
+
+## Recently done
+- Send Acme the quote — simone, done 2026-11-02 by simone · [clients/acme](clients/acme/) · source: email 18c2f0a9b7e4d311 · `simone-20261030_0915`
+```
+
+Member sections hold each member's open to-dos, overdue first, then by due date, then undated; Recently done covers the last 14 days ([todos.md](todos.md) → `todo.md`).
 
 ## Tracker (working)
 
@@ -264,8 +343,22 @@ File: `reviews/YYYY-MM-DD-daily.md`, `reviews/YYYY-Www-weekly.md` or `reviews/YY
 ## Needs attention
 - <Flags from tidy-up and anything needing a decision>
 
+## To-dos
+- <Overdue, due ahead, opened and done since the last review, suggestions; monthly: open over 30 days with no date ([todos.md](todos.md) → Reviews)>
+
 ## Email
 - <Email on only: important email needing attention, drafts waiting for approval, sent, filed; from `inbox.md`>
+```
+
+The To-dos section, filled in a personal review (the member's own first, then Everyone's):
+
+```markdown
+## To-dos
+- **Overdue**: Renew the car insurance (simone, due 1 Nov)
+- **Due ahead**: Call the Acme accountant (simone, 7 Nov)
+- **Opened**: Buy printer toner (everyone)
+- **Done**: Send Acme the quote (simone)
+- **Suggestions**: looks done: Book the car service (nina/car/diary/nina-20261102_1100.md); possible new to-do: Reply to the school about the trip (email from the school)
 ```
 
 Later runs append, only when new diary entries arrived since it was written:
