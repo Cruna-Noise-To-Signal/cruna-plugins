@@ -78,8 +78,8 @@ A member confirms in conversation ("yes, done", "add it"), and the `todo` skill 
 Every review (daily, weekly, monthly) has a `## To-dos` section, built from the fold of `todos/`:
 
 - **Overdue**: open to-dos past their due date.
-- **Due ahead**: open to-dos due in the period the review looks ahead to.
-- **Opened** and **Done**: to-dos added or closed since the previous review of the same period.
+- **Due ahead**: open to-dos due in the look-ahead window.
+- **Opened** and **Done**: to-dos added or closed in the look-back window.
 - **Suggestions**: Looks done and Possible new to-do (Suggestions, above).
 - **Monthly** only: **No date, open over 30 days**: open to-dos with no `due`, added more than 30 days ago, as a prompt to drop or date them.
 
