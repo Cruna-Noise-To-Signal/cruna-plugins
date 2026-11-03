@@ -81,8 +81,47 @@ Each `memories/<slug>.md`, and `memories/shared.md` for the root, has one line:
 
 - `not asked`: nobody has asked yet (also when the line is missing). `invited`: a routine invited the member to state criteria and no answer has been recorded. `no preference`: the member declined; never ask again. Anything else is the criteria, in the member's words; in `memories/shared.md`, the pointer set under Where criteria live.
 - **Conversations ask**: wherever importance is judged in a conversation (the `email` skill, an attended `review` with email to report), when the state is `not asked` or `invited`, ask once: "What counts as important email for you? For example: clients, the bank, school. Or say no preference." Ask about the root too when its line is `not asked` or `invited`, in the same question. Record the answer (criteria, or `no preference`), then go on.
-- **Routines never ask.** They end their chat message, never the review file, with one invitation line, and move `not asked` to `invited`.
+- **Routines never ask**: they invite instead (Reviews → Chat lines). A reply to an invitation, in the review's chat or in a later conversation, is criteria like any other: record it as the `email` skill's Criteria branch does.
 - Write the line with the `remember` skill's curate step: one line per file, replaced in place.
+
+## Reviews
+
+What the `review` skill does with email.
+
+### Inbox tidy-up
+
+Every review runs it, attended or not, with the ledger read first.
+
+1. **Search** the assistant inbox for mail received (not sent by the assistant account) since the date of the newest ledger row by `routine`, never more than 30 days back: the ledger keeps 60 days, so every email the search returns that was handled before is still listed. Empty ledger: the period's look-back window.
+2. **Skip** every email already in the ledger (The ledger): a second run on the same day handles nothing twice.
+3. **Decide** each remaining email, first match wins, and give it a row by `routine`:
+   - Forwarded or CC'd member mail that places in exactly one instance → **file** it (Filing); its dates are flagged, never put on the calendar. In a solo root, skip this case (Solo roots).
+   - Member mail carrying an instruction → **draft** the reply it asks for, flagged for that member (Member mail).
+   - Needs attention (Importance), and a `draft replies to …` Convention covers its sender or interest → **draft** a reply, saved in Gmail, signed per Sender voice, flagged as waiting for approval.
+   - Needs attention otherwise, member mail included → **flag** it: sender, subject, why it matters, and the question that settles it; ambiguous member mail goes first.
+   - Anything else → **ignored**.
+
+   These two cases are the only drafts a routine writes. Judge importance by the root's criteria and by every member's own (Where criteria live); an email important only by one member's criteria is flagged for that member, by name.
+4. **Prune** rows dated more than 60 days ago, then write the ledger (The ledger).
+
+Every flag and routine draft also goes to Needs attention, so important email is listed there as well as in the Email section. Unattended runs never send (Sending).
+
+### Email section
+
+The review file's `## Email` lists email needing attention, drafts waiting for approval, sent and filed, built from `inbox.md`, one line per email (sender, subject, what it is or what was done):
+
+- **Needing attention**: rows with outcome `flagged`, whatever their date, member mail first. A row leaves the list when a later outcome replaces it: filed, a reply drafted or sent, or `ignored` when a member says it needs nothing.
+- **Drafts waiting for approval**: rows with outcome `drafted`, whatever their date.
+- **Sent** and **Filed**: rows with those outcomes dated in the look-back window, each with its instance.
+
+Leave out empty parts; nothing at all: "Nothing new."
+
+### Chat lines
+
+The review's chat message, never the review file, ends with at most one email-importance line: about the member a personal message is for, or about the root (`memories/shared.md`) in a general message. A personal invitation also covers the root when its line is `not asked` or `invited` ("…for you and for the group…").
+
+- **Invitation**: unattended, when the line is `not asked` or `invited`: "Tell me what counts as important email for you (for example clients, the bank, school), or say no preference." Then move each `not asked` line it covers to `invited`. Attended runs ask directly instead (Invitation state).
+- **Monthly line**: the monthly review, attended or not, always ends with the line for the state. Criteria: "Important email for you: <criteria>. Reply to change it." (the root's: the Conventions criteria). `no preference`: "Reply if you want to set criteria for important email." `not asked` or `invited`: the invitation (attended: asked directly).
 
 ## Solo roots
 
