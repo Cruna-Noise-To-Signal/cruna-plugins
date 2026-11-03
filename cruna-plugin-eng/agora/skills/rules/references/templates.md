@@ -345,7 +345,7 @@ File: `reviews/YYYY-MM-DD-daily.md`, `reviews/YYYY-Www-weekly.md` or `reviews/YY
 - <Flags from tidy-up and anything needing a decision>
 
 ## To-dos
-- <Overdue, due ahead, opened and done since the last review, suggestions; monthly: open over 30 days with no date ([todos.md](todos.md) → Reviews)>
+- <Overdue, due ahead, opened, done, suggestions; monthly: open over 30 days with no date ([todos.md](todos.md) → Reviews)>
 
 ## Email
 - <Email on only: important email needing attention, drafts waiting for approval, sent, filed; from `inbox.md`>
