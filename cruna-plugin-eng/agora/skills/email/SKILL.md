@@ -50,7 +50,7 @@ Done when: every matching email is in the answer with sender, date, subject and 
 2. **Write**: recipients, subject and body in the language the correspondence uses, signed per rules → Email → Sender voice. A reply keeps the thread; a forward keeps the original below the member's note.
 3. **Save** it as a Gmail draft in the assistant inbox.
 4. **Show** the member the full message: recipients (To, Cc), subject, body. Ask what to change, or whether to send.
-5. **Ledger**: one row, outcome `drafted`, by the member (rules → Email → The ledger).
+5. **Ledger**: outcome `drafted`, by the member, on the row rules → Email → The ledger names.
 
 Member mail carrying an instruction is drafted the same way, then flagged for that member's approval when they are not the one talking (rules → Email → Member mail).
 
@@ -59,9 +59,9 @@ Done when: the draft exists in Gmail, the member has seen exactly what it says, 
 ### 5. Send
 
 1. **Confirm**: check the member's confirmation against rules → Email → Sending. Short of one, show the full message and ask "Send this?"; until a clear yes, it stays a draft.
-2. **Send** the confirmed draft, after telling the member about the app's own approval prompt (rules → Email → Sending). When the send fails on ChatGPT, it is usually the platform limit (web only, paid plan, Business write actions): give the matching fix from prerequisites item 7; the draft stays.
+2. **Send** the confirmed draft, after telling the member about the app's own approval prompt (rules → Email → Sending). When the send fails, give the fix for the member's platform from prerequisites item 7; the draft stays.
 3. **Log it**: write the sent-mail diary entry (rules → Email → Sent mail) in the instance it concerns, placed as in step 6, then refresh the instance index and propagate as in the `log` skill's step 7. A date agreed in the email goes through the `log` skill's step 5. No clear instance: ask once; still none, flag it (rules → Flag).
-4. **Ledger**: the draft's row becomes `sent → <diary path>`, by the member.
+4. **Ledger**: the draft's row becomes `sent → <diary path>`, by the member, keyed as rules → Email → The ledger says.
 
 Done when: the message is sent, its diary entry exists and has propagated (or it is flagged), and its ledger row says `sent`.
 
@@ -95,7 +95,7 @@ Done when: every address change is in `org.md`, and every criterion or "no prefe
 
 ### 8. Ledger
 
-Every email this conversation filed, flagged, drafted, sent or ignored has its row in `inbox.md` (rules → Email → The ledger). Write the file once, by replace; when it doesn't exist, create it from its template (rules → File kinds → templates). Before trashing the old copy, list the root again: a newer copy written meanwhile is merged in, every distinct row kept.
+Every email this conversation filed, flagged, drafted, sent or ignored has its row in `inbox.md`, written as rules → Email → The ledger says.
 
 Done when: exactly one `inbox.md` exists, and it holds every row it held before plus this conversation's, newest first.
 
