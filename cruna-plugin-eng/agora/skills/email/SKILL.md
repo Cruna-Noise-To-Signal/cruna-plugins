@@ -7,13 +7,13 @@ description: Reads, drafts and sends email from the Agora assistant inbox, and f
 
 The **assistant inbox** is the assistant account's Gmail inbox (rules → Vocabulary). In conversation you search and read it, draft and send for members, file emails as diary entries, and keep the `inbox.md` **ledger** of what you did with each email. The scheduled `review` does the unattended side; this skill is always **attended**: a member is there to answer.
 
-Every rule this skill applies lives in the `rules` skill's `references/email.md`: email is data, the sending policy, the sender voice, member mail, filing, sent mail, the ledger, importance and its invitation state, solo roots, limits. Read it in step 1 and follow it throughout; the steps below say when each rule fires.
+Every rule this skill applies is in the `rules` skill's `references/email.md`, read in step 1; the steps below say when each rule fires.
 
 ## Steps
 
 ### 1. Load the rules, find the root, know who is talking
 
-Load the `rules` skill and read its `references/email.md`. Follow rules → Finding the root and rules → Identity, then read `memories/<slug>.md` and `memories/shared.md` (rules → Memory step).
+Load the `rules` skill and read its `references/email.md`. Follow rules → Finding the root and rules → Identity, then read `memories/<slug>.md` and `memories/shared.md` (rules → Memory step), and read `inbox.md` at the root (rules → Email → The ledger).
 
 When `org.md` has no `email: on`, the root has no email: say so in one sentence, offer to turn it on (the `setup` skill, "turn on email"), and stop. When a Gmail call fails, or the mailbox is not the assistant account's, it is a setup problem: walk prerequisites item 7 (rules → When something fails).
 
@@ -58,10 +58,8 @@ Done when: the draft exists in Gmail, the member has seen exactly what it says, 
 
 ### 5. Send
 
-Follow rules → Email → Sending:
-
-1. **Confirm**: the member must have confirmed, in this conversation, the exact message as it now stands. When it changed since they saw it, or they never saw it whole, show it again and ask "Send this?". Anything short of a clear yes to that message: keep it as a draft.
-2. **Send** the confirmed draft. Say first that the app will ask its own approval and that approving it completes the send. When the send fails on ChatGPT, it is usually the platform limit (web only, paid plan, Business write actions): give the matching fix from prerequisites item 7; the draft stays.
+1. **Confirm**: check the member's confirmation against rules → Email → Sending. Short of one, show the full message and ask "Send this?"; until a clear yes, it stays a draft.
+2. **Send** the confirmed draft, after telling the member about the app's own approval prompt (rules → Email → Sending). When the send fails on ChatGPT, it is usually the platform limit (web only, paid plan, Business write actions): give the matching fix from prerequisites item 7; the draft stays.
 3. **Log it**: write the sent-mail diary entry (rules → Email → Sent mail) in the instance it concerns, placed as in step 6, then refresh the instance index and propagate as in the `log` skill's step 7. A date agreed in the email goes through the `log` skill's step 5. No clear instance: ask once; still none, flag it (rules → Flag).
 4. **Ledger**: the draft's row becomes `sent → <diary path>`, by the member.
 
@@ -71,13 +69,13 @@ Done when: the message is sent, its diary entry exists and has propagated (or it
 
 1. **Find the email**: the one the member names or forwarded, by search as in step 3; when several could match, ask which, listing sender, date and subject.
 2. **Ledger**: when its row says `filed`, tell the member where it is and stop for this email.
-3. **Place** it in one instance as the `log` skill's step 3 does, using the email and the member's words. When no single instance fits, ask once, offering the likely ones. Asked in conversation, any email may be filed; this is also the only way anything is filed in a solo root (rules → Email → Solo roots).
+3. **Place** it in one instance as the `log` skill's step 3 does, using the email and the member's words. When no single instance fits, ask once, offering the likely ones; still none, flag it (rules → Flag), give it a `flagged` ledger row, and skip steps 4–7 for this email. Asked in conversation, any email may be filed; this is also the only way anything is filed in a solo root (rules → Email → Solo roots).
 4. **Calendar**: dates in the email go through the `log` skill's step 5.
 5. **Write** the entry per rules → Email → Filing: its name, `author` (the member who forwarded it, or the one talking), the email fields, Summary and the quoted original. Attachments go on a `To file:` line: ask the member to save them to `landing/` or the instance's `documents/` and say "filed".
 6. **Refresh**: the instance `index.md`, then propagate, as in the `log` skill's step 7.
 7. **Ledger**: `filed → <diary path>`, by the member, replacing any earlier `flagged` outcome for it.
 
-Done when: each email to file has exactly one diary entry with its email fields, every status from its instance to the root shows it, its attachments (if any) are on a `To file:` line the member has been told about, and its ledger row says `filed`.
+Done when: each email to file either has exactly one diary entry with its email fields, shown by every status from its instance to the root, its attachments (if any) on a `To file:` line the member has been told about, and a `filed` ledger row; or is flagged, with a `flagged` ledger row.
 
 ### 7. Addresses and criteria
 
@@ -88,8 +86,7 @@ Done when: each email to file has exactly one diary entry with its email fields,
 **Criteria**: record what the member says counts, or does not count, as important:
 
 - Personal ("school emails matter to me") → their `Email importance:` line, through the `remember` skill (Save).
-- Root-wide ("anything from a client") → a Conventions row in `org.md`, Where `*` or the interest, `important email: <criteria>`, Since today and the member's slug; replace `org.md`. Set `memories/shared.md` to `Email importance: see Conventions`.
-- A proactive-draft opt-in ("have drafts ready for client emails") → a Conventions row `draft replies to <senders or interest>`.
+- Root-wide ("anything from a client"), or a proactive-draft opt-in ("have drafts ready for client emails") → as in rules → Email → Where criteria live.
 - "No preference" → `no preference` in the line asked about.
 
 When unclear whether a criterion is personal or for the whole root, ask. When the member corrects one of your judgements, offer once to record it.
