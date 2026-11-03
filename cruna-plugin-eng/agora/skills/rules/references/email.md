@@ -37,7 +37,7 @@ To **file** an email is to write it as a diary entry in exactly one instance, th
   - `email`, `email_from`, `email_subject`: the Gmail message id, the original sender, the subject.
   - **Summary**: what the email says that matters. **Entry**: the forwarding member's note, if any, then the relevant part of the original, quoted, trimmed to this instance.
 - **Attachments**: their content is out of reach. List their names under a `To file:` line in the entry, and ask the member (in conversation) to save them to `landing/` or the instance's `documents/` and say "filed".
-  - The line is **open** while any name on it has no later entry in the same instance whose Entry says `Attachment of: diary/<that entry's file name>`. The `file-document` skill writes that line when it files the attachment: the attachment is **linked**.
+  - The line is **open** while any name on it has no later entry in the same instance whose Entry says `Attachment of: diary/<that entry's file name> (<that name>)`. The `file-document` skill writes that line when it files the attachment: the attachment is **linked**.
   - While the line is open, every rebuild of the instance `status.md` keeps one Needs attention line: "Attachments of <subject> not yet on Drive: <names>". The rebuild after the last link drops it.
 - Every date in a filed email goes through the calendar exactly as in `log` (ask in conversation; flag in an unattended run).
 

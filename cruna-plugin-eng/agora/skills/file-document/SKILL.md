@@ -92,7 +92,7 @@ Then create the entry from the Diary entry template (rules → File kinds → te
 - `documents`: the new path, `documents/<new name>`.
 - `events`: the titles `schedule` returned.
 - **Summary**: one line on what the document says ("Blood test results: all values normal").
-- **Entry**: the member's words about the file, then `Filed: documents/<new name>`. Case (c): `Filed by the <period> review; nobody announced this file.` A linked attachment adds a last line, `Attachment of: diary/<email entry file name>`.
+- **Entry**: the member's words about the file, then `Filed: documents/<new name>`. Case (c): `Filed by the <period> review; nobody announced this file.` A linked attachment adds a last line, `Attachment of: diary/<email entry file name> (<original name>)`, with the name as the `To file:` line gives it.
 
 Done when: the entry exists at its path, linking the document (and, for a linked attachment, its email entry), and every date in the document is on the calendar, declined, or flagged.
 
