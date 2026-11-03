@@ -39,3 +39,33 @@ Fixes from review M1 round 1:
 - **F1** the criteria row, the `shared.md` pointer and the draft opt-in are defined once, in rules → Email → Where criteria live; the other sites point there. Members column `Emails` renamed `Mail from`. rules → Email is a one-line pointer.
 - **F2** the app-approval warning lives only in rules → Email → Sending.
 - Not done: the optional Divergent Change (named step targets in setup). Spec/plan still say `Emails`; carry the rename into the spec at F8.
+
+## M2
+
+Email in reviews (F4, F6), English only (`cruna-plugin-eng/agora/`), plus the non-blocking M1 round-2 findings. No version bump, no Italian, no `docs/` changes: those are M3.
+
+### M1 cleanups
+
+- **F5** (c)1: the interview's email answers now stay in `setup.md` until every interviewed member's `Mail from` cell and `Email importance:` line are written (templates → setup.md), so an interrupted setup no longer loses them; step 2d removes them afterwards. (a)3: 2d's Done when scopes the member records to "(email on)". The member-part split is stated once, in `setup/references/email.md` → Member part; 2d and the Run-from bullet point there.
+- **F1** (c)2: rules → The ledger says which id a row keeps: a reply/forward to a ledgered email (not `filed`) goes on that email's row and keeps its id; any other written email is keyed on its draft id and rekeyed to the sent message id on send. A reply to a `filed` email gets its own row so the filing stays visible. Writing the ledger (once per run, re-list, merge one row per message id) is defined once in rules; `email` step 8 points there. Sent-mail entries are named `<slug>-YYYYMMDD_HHMM.md` (confirming member, send time). Sending says "app".
+- **F3**: `email` step 5.2 points to prerequisites item 7 instead of restating ChatGPT limits; steps 4.5/5.4 point to the ledger keying.
+
+### What changed
+
+- **F4, rules** (`rules/references/email.md` → new **Reviews** section): *Inbox tidy-up* (search received mail since the newest `routine` row, never more than 30 days back so everything returned is still inside the 60-day ledger; skip ledgered mail; first-match decision: file forwarded/CC'd member mail that places, draft for member-mail instructions, draft under a `draft replies to …` Convention, flag other important mail, else ignore; solo roots never file; prune 60 days; every flag and routine draft also in Needs attention); *Email section* (needing attention = `flagged` rows of any date, drafts waiting = `drafted` rows, sent/filed in the look-back window); *Chat lines* (invitation only in the chat message, moves `not asked` → `invited`; monthly line by state, quieter for `no preference`). Invitation state points to Chat lines and says a reply to the invitation is recorded like any criteria (the `email` skill's Criteria branch).
+- **F4, review** (`review/SKILL.md`, 111 → 115 lines): tidy-up item 3 **Inbox** (attended runs ask for criteria first), items renumbered 4–6 with cross-references; `inbox.md` duplicates merged like a tracker; the shared review gets the Email section; Update sections also cover new ledger rows; the message gets one Email count line and ends with the chat line.
+- **F6, file-document**: an attachment of a filed email (named by the member, or matching an open `To file:` line) goes to that entry's instance and its diary entry ends `Attachment of: diary/<email entry>`. Rules → Filing defines an *open* `To file:` line and the status Needs attention line it keeps until linked; rules → Status update rule points there.
+- **F6, remember**: sorts email-importance criteria; the `Email importance:` line is an undated state line, one per file, replaced in place.
+- **F6, ask**: reads the assistant inbox (as `email` step 3) only with `email: on` and a mail question; cites emails by sender/date/subject; hands writing off to `email`.
+- **F6, help**: tour row (only when email is on), troubleshooting rows for item 7 and unfiled email, three FAQ entries (what email does, its limits, importance), Gmail in "stop Agora".
+
+### Decisions worth a look
+
+- **Routine drafts**: plan F4 says routines "draft only under a convention". Routines also draft for member mail carrying an instruction, per spec story 25 and grilled decision 10 (never sent; flagged for approval). Stated in rules → Reviews as "these two cases are the only drafts a routine writes".
+- **Search window 30 days** (plan risk said "at most 60"): keeps every searchable email inside the ledger's 60 days, so pruned rows can't make an old email look new.
+- **Attachment linking** works through a new diary entry (diary is append-only), not by editing the email entry; the "not yet on Drive" flag lives in the instance status and so reaches Needs attention and file-document through the normal roll-up.
+- Importance in tidy-up is judged by the root's criteria and every member's own; an email important for one member only is flagged for them by name.
+
+### Checks
+
+`check_plugins.py` passes after every slice; a grep check per acceptance item (scratchpad `check-m2.sh`, 37 checks) is green.

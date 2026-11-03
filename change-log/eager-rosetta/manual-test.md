@@ -63,3 +63,60 @@ Email in conversation, English plugin (`agora`). Install the plugin from this br
 ### 10. Solo root
 
 1. In a solo root with email on, ask "what's in my inbox from the bank?". Expect: answered; nothing filed unless you ask to file a specific email.
+
+## M2
+
+Email in reviews and the supporting skills, English plugin (`agora`). Same test root as M1, with email on and at least two members. Run reviews by hand ("daily review", "my week", "monthly review") for attended runs, and by a scheduled routine prompt (`Run Agora review: daily for <slug>`) for unattended ones. Check Drive and Gmail directly.
+
+### 11. Two reviews in a row, no double filing
+
+1. From your `Mail from` address, forward one email clearly about one instance (with an attachment), forward one that could fit two instances, and have a non-member send one asking for a reply by Friday plus one newsletter.
+2. Run the daily routine (unattended). Expect on Drive: the clear forward filed as a diary entry `<you>-YYYYMMDD_HHMM.md` (`author` = you, email fields, `To file:` line); `inbox.md` rows by `routine`: `filed → …`, `flagged` (ambiguous, at the top of Needs attention), `flagged` (the Friday request), `ignored` (newsletter); the instance status has "Attachments of … not yet on Drive".
+3. Run it again at once (or a second member's routine). Expect: no new diary entry, no new or duplicated `inbox.md` rows; the review file unchanged or only an Update section.
+4. Leave two copies of `inbox.md` in the root (make a copy by hand). Run a review. Expect: one `inbox.md`, holding every distinct row once.
+
+### 12. Email section and chat lines
+
+1. Open the review file. Expect a `## Email` section listing: needing attention (the two flagged), drafts waiting (if any), sent and filed in the look-back window. The flagged emails also appear under Needs attention.
+2. With your `Email importance:` line at `not asked`, read the routine's chat message. Expect: one Email count line, and a final line inviting you to say what counts as important; that line is **not** in the review file. On Drive, your line now reads `invited`.
+3. A general routine (no `for <slug>`) with `memories/shared.md` at `not asked`: the invitation is about the group, and the shared line becomes `invited`.
+4. Email off root: run a review. Expect no Email section, no Email line, no invitation.
+
+### 13. Reply to the invitation
+
+1. Reply in the review's chat: "anything from a client is important; school mail matters to me". Expect: the root criterion as a Conventions row `important email: …` with `memories/shared.md` at `see Conventions`, and your line set to your personal criterion. Note whether the reply ran with the plugin and connectors loaded (watch-item); if not, do it in a new conversation.
+2. Ignore an invitation instead, then ask "daily review" in a new conversation. Expect: the criteria question asked once before the review, then the answer recorded.
+3. Answer "no preference" for another member. Expect: `no preference`, never asked again.
+
+### 14. Monthly review
+
+1. Run "monthly review" (or the monthly routine) for a member with criteria. Expect the last chat line "Important email for you: …. Reply to change it."
+2. For the `no preference` member: "Reply if you want to set criteria for important email."
+3. For a member at `invited` (unattended): the invitation line.
+
+### 15. Routine drafts and sends
+
+1. Without any `draft replies to` Convention, run a routine with an important non-member email waiting. Expect: flagged only, no Gmail draft.
+2. Say "have drafts ready for client emails" (Convention `draft replies to …`). Send a client-like email; run the routine. Expect: a Gmail draft signed for the assistant, an `inbox.md` row `drafted` by `routine`, listed under drafts waiting and Needs attention; nothing sent.
+3. From your address, email the assistant "Reply to Mario saying we accept"; run the routine. Expect: a draft for your approval, flagged; nothing sent.
+
+### 16. Attachments linked
+
+1. Save the attachment from scenario 11 to `landing/` and say "filed" (or "I saved Mario's quote to landing").
+2. Expect: the file renamed into that email entry's instance `documents/`, a new diary entry ending `Attachment of: diary/<email entry>`, and the "not yet on Drive" line gone from the instance and root status.
+3. Repeat leaving the file in `landing/` without telling Agora; run a routine. Expect the same linking when the file name matches the `To file:` name.
+
+### 17. Ledger pruning and keys
+
+1. Edit a row in `inbox.md` to a date 61 days ago; run a review. Expect it removed.
+2. Draft a reply to a flagged email and send it after confirmation. Expect: that email's row becomes `drafted`, then `sent → <diary path>`, same message id. Write a new email from scratch and send it: its row's id changes from the draft id to the sent message id.
+
+### 18. Solo root
+
+1. In a solo root with email on, forward yourself a clear email and run a routine. Expect: nothing filed; flagged when important, else `ignored`; the Email section still lists it.
+
+### 19. Ask, remember, help
+
+1. "What's pending with <client>, and did they answer by email?" Expect: an answer from statuses plus the inbox, each email cited by sender, date and subject. In an email-off root, no inbox read.
+2. "What do you remember about me?" Expect the `Email importance:` line once, undated; change your criteria and check the line is replaced, not duplicated.
+3. "What can you do with email?" / "Agora can't send my email". Expect: the FAQ answer (own inbox only, no attachments, no labels; sends after your yes), and the troubleshooting walk of prerequisites item 7.
