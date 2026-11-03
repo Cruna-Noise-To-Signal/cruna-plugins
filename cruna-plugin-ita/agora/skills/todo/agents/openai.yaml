@@ -1,0 +1,3 @@
+interface:
+  display_name: "To-do"
+  short_description: "Aggiungi, chiudi, passa ad altri, elenca e rimuovi i to-do"
