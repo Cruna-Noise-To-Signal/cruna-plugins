@@ -23,7 +23,7 @@ Take the member's message as the material. The branches:
 - **Correction**: "actually it's Friday, not Thursday". Treat it as news that names what it corrects; the earlier entry stays untouched (rules → File kinds).
 - **Push back from a pull session**: after `ask`, the member says "save that". The material is the answer or decision they want kept, plus their own words.
 - **A file attached in the chat** → the `file-document` skill.
-- **Working file**: a request to track something in a file, to make or change a list, memo or printable, or to add, change or drop a Convention ("from now on…", "stop tracking nappies in the file") → [references/working-files.md](references/working-files.md), then step 9.
+- **Working file**: a request to track something in a file, to make or change a list, memo or printable, or to add, change or drop a Convention ("from now on…", "stop tracking nappies in the file") → [references/working-files.md](references/working-files.md), then step 10.
 
 Done when: you can state, in one line each, every fact the member wants kept.
 
@@ -71,13 +71,19 @@ For each touched instance, rebuild its `index.md` with the new entry at the top 
 
 Done when: every touched instance index lists its new entry, and every status from those instances up to the root shows the new facts and today's Last updated.
 
-### 8. Spot a pattern
+### 8. Offer to-dos
+
+Look through the facts for an **action** someone still has to do with no calendar event for it ("I need to call the accountant", "Nina should book the dentist"). When you find any, ask once, listing each: "Add a to-do: Call the accountant (yours)?". For each yes, hand it to the `todo` skill's Add with its text, owner and due date from the member's words, the entry's instance, and the entry as `source`. No yes, no to-do.
+
+Done when: every action in the facts was offered once and is a to-do or declined, or the facts held none.
+
+### 9. Spot a pattern
 
 Look at today's rows in the Diary table of each touched instance, and at the member's words. When rules → Conventions → Suggest applies (several similar entries today, a list or printable requested, a sheet the member keeps on the side), follow [references/working-files.md](references/working-files.md) → Suggest. A member with an existing sheet to bring in → the `file-document` skill (Import).
 
 Done when: the suggestion is asked once, or no pattern showed.
 
-### 9. Memory step
+### 10. Memory step
 
 Follow rules → Memory step.
 
@@ -91,7 +97,8 @@ One short message, in the root's language:
 - Tracker rows, one line per tracker ("Greta: poo at 9:15 added to the nappy tracker"); a working file created or changed, with its path so the member can open or print it; a Convention written, in one plain sentence.
 - Calendar changes, one line each, if any.
 - Anything still open: a fact left without a date, an instance waiting on `add-interest`.
-- The suggestion from step 8, if any.
+- To-dos added, one line each as `todo` echoes them.
+- The suggestion from step 9, if any.
 - The `remember` line, if any.
 
 No file paths other than a working file's, no front-matter or status text unless the member asks.
