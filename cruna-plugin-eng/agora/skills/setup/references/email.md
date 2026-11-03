@@ -2,7 +2,7 @@
 
 Turns the root's email on or records it as off, and brings each member onto it. The rules it sets up are in the `rules` skill's `references/email.md`; read it first. Run from:
 
-- **New root**, step 2d: the root part, with the answers already in `setup.md` → Interview, then the member part: its records (steps 2–3) for every member interviewed, its Gmail check and Email box (steps 1 and 4) for the member present.
+- **New root**, step 2d: the root part, with the answers already in `setup.md` → Interview, then the member part for every member interviewed (Member part says which steps wait for the member's own app).
 - **Email branch** (an existing root, "turn on email"): the root part, asking the Email questions of [interview.md](interview.md) now, then the member part for each member present.
 - **Join**, in a root with `email: on`: the member part for the newcomer, or for an existing member on a new app (Gmail must be connected in each app they use).
 

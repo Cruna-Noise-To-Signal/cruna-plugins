@@ -71,9 +71,9 @@ Done when every item above exists exactly once and the calendar list shows the a
 
 ### 2d. Email
 
-Follow [references/email.md](references/email.md): the root part with the email answers from the interview, then the member part: addresses and importance for every member interviewed, Gmail and the Email box for the owner. Declined: the root Email box is ticked "(off)" and nothing else changes.
+Follow [references/email.md](references/email.md), New root. Declined: the root Email box is ticked "(off)" and nothing else changes. Then remove the email answers from `setup.md` → Interview.
 
-Done when the root part's completion criterion holds (or the box says "(off)"), every member interviewed has their addresses (not solo) and Email importance line recorded, and the owner's member part is done or blocked.
+Done when the root part's completion criterion holds (or the box says "(off)"); (email on) every member interviewed has their addresses (not solo) and Email importance line recorded, and the owner's member part is done or blocked.
 
 ### 2e. Sharing
 
