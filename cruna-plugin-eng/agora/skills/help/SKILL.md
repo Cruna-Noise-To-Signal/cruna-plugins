@@ -1,6 +1,6 @@
 ---
 name: help
-description: Explains Agora, the shared notebook a family or small team keeps on Google Drive and Calendar through the AI, and fixes it when it misbehaves. Use when someone asks what Agora can do or how it works, asks a how-do-I question about it (where are my files, who can see what, adding a document from the phone, keeping track of frequent things or printable lists, email, routines, adding a person, leaving), or says Agora isn't working, can't see something, or shows an error.
+description: Explains Agora, the shared notebook a family or small team keeps on Google Drive and Calendar through the AI, and fixes it when it misbehaves. Use when someone asks what Agora can do or how it works, asks a how-do-I question about it (where are my files, who can see what, adding a document from the phone, keeping track of frequent things or printable lists, to-dos, email, routines, adding a person, leaving), or says Agora isn't working, can't see something, or shows an error.
 ---
 
 # Help
@@ -33,6 +33,7 @@ Say in one sentence what Agora is: everyone tells the AI what happens, the AI ke
 | "When is Nina's next vaccine?" / "what do we have this week?" | An answer with dates and where it came from | `ask` |
 | "Greta just did a poo" / "make me a packing list I can print" | A row in a tracker file, or a list on the Drive, kept up to date | `log` |
 | "How many feeds today?" | Counted from the tracker | `ask` |
+| "Add a to-do: renew the car insurance" / "what's on my list?" / "done with the insurance" | A shared to-do list, yours and everyone's, kept up to date | `todo` |
 | "Give me the week ahead" | A summary of what happened and what's coming | `review` |
 | "Add a new client: Rossi" | A new section to keep things in | `add-interest` |
 | "Remember I prefer short answers" | Agora remembers it next time | `remember` |
