@@ -77,7 +77,7 @@ Done when: the message is sent, its diary entry exists and has propagated (or it
 7. **Ledger**: `filed → <diary path>`, by the member, replacing any earlier `flagged` outcome for it.
 8. **Offer a to-do** when the email asks someone to act (step 7).
 
-Done when: each email to file either has exactly one diary entry with its email fields, shown by every status from its instance to the root, its attachments (if any) on a `To file:` line the member has been told about, and a `filed` ledger row; or is flagged, with a `flagged` ledger row.
+Done when: each email to file either has exactly one diary entry with its email fields, shown by every status from its instance to the root, its attachments (if any) on a `To file:` line the member has been told about, and a `filed` ledger row; or is flagged, with a `flagged` ledger row. When it asks someone to act, the member has been offered a to-do.
 
 ### 7. To-do
 
