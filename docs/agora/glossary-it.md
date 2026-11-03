@@ -91,6 +91,21 @@ Content written into those files is in the root's language (`it` for this plugin
 | turn on email (user phrase) | attiva l'email |
 | setup email step: Root part / Member part | passo email: Parte radice / Parte membro |
 | Gmail archiving (out of scope) | archiviazione di Gmail |
+| email on / off (in prose) | con l'email attiva / disattivata (the literal stays `email: on`, `(off)`) |
+| sender / subject / To | mittente / oggetto / A |
+| untrusted content | contenuto non affidabile |
+| outcome / by (ledger, in prose) | esito / autore (columns stay `Outcome`, `By`) |
+| keyed on / rekeyed to (an id) | indicizzata sull'id / reindicizzata sull'id |
+| prune (ledger rows) | sfoltire / sfoltimento |
+| opt-in (proactive drafts) | consenso esplicito |
+| root-wide | per tutta la radice |
+| state line (memory) | riga di stato |
+| business root | radice aziendale |
+| not yet on Drive (status line) | non ancora su Drive (`Allegati di <oggetto> non ancora su Drive: <nomi>`) |
+| Email section parts: Needing attention, Drafts waiting for approval, Sent, Filed; "Nothing new." | Richiedono attenzione, Bozze in attesa di approvazione, Inviate, Archiviate; "Niente di nuovo." |
+| review tidy-up item Inbox | Casella |
+| interview heading Email questions / setup reference title Email step | Domande sull'email / Passo email |
+| "no preference" (what the member says) / "filed" (member's reply) | "nessuna preferenza" (stored as `no preference`) / "archiviato" |
 
 Interest and instance slugs and working-file names are content, so they follow the root's language (`famiglia`, `nina/salute`, `greta-pannolini.csv`).
 

@@ -1,13 +1,13 @@
 # Agora
 
-Una base di conoscenza condivisa, tenuta dall'AI, per famiglie e piccoli team. Le persone raccontano all'AI che cosa è successo; l'AI lo archivia su Google Drive, tiene uno stato aggiornato di ogni cosa, mette le date su Google Calendar e invia revisioni giornaliere, settimanali e mensili.
+Una base di conoscenza condivisa, tenuta dall'AI, per famiglie e piccoli team. Le persone raccontano all'AI che cosa è successo; l'AI lo archivia su Google Drive, tiene uno stato aggiornato di ogni cosa, mette le date su Google Calendar e invia revisioni giornaliere, settimanali e mensili. Se vuoi, l'assistente ha anche una sua casella Gmail: i membri gli inoltrano la posta da archiviare, gli chiedono di preparare bozze e inviare email (solo dopo la loro conferma), e vedono in ogni revisione la posta che richiede attenzione.
 
 Funziona su Claude e ChatGPT. Progetto: [agora-spec.md](https://github.com/Cruna-Noise-To-Signal/cruna-plugins/blob/main/docs/agora/agora-spec.md).
 
 ## Che cosa ti serve
 
 - Claude o ChatGPT con un piano a pagamento (per le revisioni pianificate).
-- I connettori di Google Drive e Google Calendar.
+- I connettori di Google Drive e Google Calendar, più Gmail se attivi l'email.
 - Un account Google per l'assistente quando lo usa più di una persona (chi lo usa da solo può usare il proprio).
 
 La skill `setup` controlla tutto questo e ti guida in ciò che manca.
@@ -22,6 +22,7 @@ La skill `setup` controlla tutto questo e ti guida in ciò che manca.
 | `log` | Claude, ChatGPT | Registra un aggiornamento nel diario e aggiorna lo stato |
 | `file-document` | Claude, ChatGPT | Archivia un documento dalla cartella `landing/` o indicizza uno già al suo posto |
 | `schedule` | Claude, ChatGPT | Crea, sposta o elimina appuntamenti e promemoria |
+| `email` | Claude, ChatGPT | Facoltativa: legge, prepara in bozza e invia email dalla casella dell'assistente, archivia le email nel diario |
 | `ask` | Claude, ChatGPT | Risponde alle domande usando indici, stati, diario, documenti e calendario |
 | `review` | Claude, ChatGPT | Revisione giornaliera, settimanale e mensile con riordino; il cuore di ogni routine |
 | `remember` | Claude, ChatGPT | Conserva ciò che l'assistente sa di ogni persona e del gruppo |

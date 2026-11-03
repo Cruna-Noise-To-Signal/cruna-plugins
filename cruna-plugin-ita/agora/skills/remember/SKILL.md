@@ -33,9 +33,10 @@ Una memoria è duratura: sarà ancora vera il mese prossimo e orienta il modo in
 - **Fatto da diario**: un evento in un'istanza ("la lezione di Nina è stata spostata a giovedì"). Passalo invece alla skill `log`.
 - **Convenzione**: come Agora gestisce i dati, non chi è qualcuno ("d'ora in poi metti le poppate di Greta in un file", "non registrare ogni pannolino"). Va in `org.md` → Conventions (rules → Convenzioni): passala alla skill `log`. Le memorie restano sulle persone.
 - **Entrambi**: un fatto permanente che appartiene anche alla storia di un'istanza ("Nina è allergica alla penicillina"). Tienilo qui, e registralo anche nell'istanza (`nina/salute`) con la skill `log`.
+- **Importanza delle email** (`email: on`): cosa conta come email importante. Se te la passa la skill `email` (criteri personali, o "nessuna preferenza"): è la riga di stato del membro (passo 5). Altrimenti passala al ramo Criteri della skill `email`, che decide di chi è.
 - **Segreto**: password, PIN, numeri di carta, codici di sicurezza, codici di recupero. Tienili del tutto fuori da Agora: i file su Drive sono leggibili da ogni membro. Di' al membro di conservarli in un gestore di password.
 
-Fatto quando: ogni fatto è una memoria, è stato passato a `log` (come fatto da diario o come Convenzione), o è stato respinto come segreto.
+Fatto quando: ogni fatto è una memoria, è stato passato a `log` (come fatto da diario o come Convenzione) o a `email` (importanza), o è stato respinto come segreto.
 
 ### 4. Scegli il file
 
@@ -50,9 +51,11 @@ Leggi il file di destinazione (rules → Lavorare con Drive); se non esiste anco
 
 Scrivi il fatto come una riga datata: `- YYYY-MM-DD <fatto>`, nella lingua della radice, in modo semplice e specifico. Poi **sostituisci il vecchio**: quando una riga copre già lo stesso argomento ("preferisce le chiamate al mattino" contro un nuovo "preferisce le chiamate dopo le 18:00"), sostituisci quella riga invece di aggiungerne una seconda; quando la nuova riga ripete una riga esistente, aggiorna solo la sua data. Unisci i quasi-duplicati che noti mentre ci sei. Tieni il file abbastanza breve da leggerlo in un minuto.
 
+La riga `Email importance:` (i suoi valori: rules → Email → Stato dell'invito) è una **riga di stato**, non un fatto: senza data, esattamente una per file, con il valore sostituito sul posto ogni volta che tu o un'altra skill lo impostate. I criteri vanno con le parole del membro; nuovi criteri sullo stesso argomento sostituiscono i vecchi, gli altri si aggiungono alla stessa riga.
+
 Sostituisci il file (rules → Sostituire).
 
-Fatto quando: il file contiene il nuovo fatto esattamente una volta, nessuna riga lo contraddice ed esiste una sola copia del file.
+Fatto quando: il file contiene il nuovo fatto esattamente una volta, nessuna riga lo contraddice, ha al massimo una riga `Email importance:` ed esiste una sola copia del file.
 
 ## Output
 

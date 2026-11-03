@@ -9,6 +9,7 @@ Usa le parole dell'utente per nomi e descrizioni. Chiedi nella lingua in cui scr
 - **Nome della radice** (consiglia il cognome della famiglia o il nome dell'attività: "Famiglia Fabiole").
 - **Lingua** di tutti i contenuti (consiglia la lingua in cui scrive l'utente).
 - **Fuso orario** (consiglia quello che si ricava dalla sua città o dal suo calendario).
+- **Email** (facoltativa), chiesta come in Domande sull'email più sotto.
 
 ## Giro 2: Membri
 
@@ -22,6 +23,8 @@ Per ogni persona che userà la radice o che vi sarà seguita:
 - **Come lo useranno**: con la propria app di AI (Claude o ChatGPT), o solo tramite altri (un bambino seguito che non lo usa).
 
 Consiglia: elenca le persone che l'utente ha già nominato e chiedi solo ciò che manca.
+
+Quando l'email è attiva, fai anche a ogni membro le domande per i membri di Domande sull'email più sotto.
 
 Registra l'email nella colonna Email del membro e l'app nella sua riga Access.
 
@@ -43,6 +46,16 @@ Tienilo piccolo: da tre a sei interessi bastano; se ne possono aggiungere altri 
 
 Chiedi se tengono già traccia di qualcosa in un foglio o in una nota (poppate, pannolini, spese, una lista della spesa). Consiglia "no" a meno che non ne abbiano parlato. Per ogni sì, annota che cos'è, dove si trova e a quale istanza appartiene: dopo la costruzione viene proposto per l'importazione (Output di setup).
 
+## Domande sull'email
+
+Fatte nei giri 1 e 2 per una nuova radice, e da sole quando una radice esistente attiva l'email o un membro entra in una radice con l'email attiva.
+
+- **Radice**: "Vuoi che l'assistente abbia una sua casella email? I membri gli inoltrano o mettono in copia le email da conservare, lui prepara e invia email per voi (solo dopo che avete confermato ognuna), e le revisioni ne danno conto." Di' che è più adatta a un'attività. Consiglia sì per un'attività, no per una famiglia.
+- **Radice, se sì**: che cosa conta come email importante per tutto il gruppo (consiglia in base al tipo di radice: "qualsiasi cosa da un cliente"; "nessuna preferenza" va benissimo).
+- **Ogni membro, se sì**:
+  - ogni **indirizzo email** da cui scrive o inoltra (consiglia l'email del suo account Google più qualsiasi indirizzo di lavoro che ha nominato); salta in una radice solitaria;
+  - che cosa conta come email importante **per lui** ("le email della scuola", "la banca"; "nessuna preferenza" va bene).
+
 ## Riepilogo finale
 
-Mostra all'utente un unico riepilogo compatto (membri, nome della radice, lingua, fuso orario, struttura, interessi e istanze) e chiedi un sì finale. Le correzioni tornano al giro corrispondente.
+Mostra all'utente un unico riepilogo compatto (membri, nome della radice, lingua, fuso orario, email attiva o no, struttura, interessi e istanze) e chiedi un sì finale. Le correzioni tornano al giro corrispondente.
