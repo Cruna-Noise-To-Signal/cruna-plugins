@@ -27,7 +27,7 @@ Enablement and setup
 6. As a member on a Claude Team or Enterprise plan, I want to be told that an Owner must enable the Gmail connector, so that I know whom to ask.
 7. As a member, I want setup to ask for every email address I write or forward from, so that Agora recognises my mail.
 8. As a member, I want to add or change my email addresses in conversation, so that a new work address is recognised.
-9. As a root owner, I want `setup.md` to have a box for the email step, so that a setup left halfway resumes there.
+9. As a root owner, I want `setup.md` to have a box for the email step, so that a setup left halfway resumes there; a `setup.md` written before email reads as email off.
 10. As a member joining a root with email on, I want Join to connect Gmail and record my addresses, so that I get the same capability as everyone else.
 
 Reading and filing
@@ -47,11 +47,11 @@ Drafting and sending
 
 21. As a member, I want to ask the AI to draft an email or a reply, so that I get a ready text without writing it myself.
 22. As a member, I want the AI to send only after I explicitly confirm that exact message in a conversation, so that nothing leaves without my approval.
-23. As a member, I want sent mail to come from the assistant account, signed as the assistant on behalf of me, so that recipients know who is speaking for whom.
+23. As a member, I want sent mail to come from the assistant account, signed as the assistant on behalf of me and, unless I ask for my own voice, speaking for me in the third person, so that recipients know who is speaking for whom.
 24. As a member, I want every email sent logged as a diary entry in the relevant instance with me as author, or flagged when there is no clear instance, so that the history includes what we sent.
 25. As a member, I want to email the assistant an instruction ("reply saying we accept") and find a draft waiting for my approval, never a sent email, so that a forged or mistaken email can't make Agora send anything.
 26. As a member, I want to opt specific senders or interests into proactive drafts by routines through a convention, so that routine replies are ready when I wake up.
-27. As a member, I want routines to only flag (never draft) by default, so that the drafts folder doesn't fill with replies I didn't ask for.
+27. As a member, I want routines to only flag (never draft proactive replies) by default, so that the drafts folder doesn't fill with replies I didn't ask for. The only routine drafts are those a convention opts into (story 26) and those a member's emailed instruction asks for (story 25).
 
 Importance
 
@@ -76,7 +76,7 @@ Reporting
 43. As a member, I want important email needing action also listed under Needs attention, so that one place lists everything to act on.
 44. As a member, I want the invitation line to appear only in the review's chat message, not in the shared review file, so that the shared file isn't cluttered with prompts meant for one person.
 45. As a member, I want `inbox.md` to be a readable log of what the assistant did with each email, so that I can check its work.
-46. As a member, I want `inbox.md` rows older than 60 days dropped by tidy-up, so that the file stays small.
+46. As a member, I want `inbox.md` rows older than 60 days dropped by tidy-up, so that the file stays small, and a review that finds the inbox unchecked for more than 60 days to flag the gap, so that mail the tidy-up could not reach is not silently missed.
 
 Solo roots
 
@@ -101,13 +101,13 @@ Modules (skills, in both `agora` and `agora-ita`):
   - File kinds: `inbox.md` is a curated file at root.
   - A new **Email** section holding the shared conventions:
     - the sending policy, and the rule that an emailed instruction produces a draft, never a send;
-    - the sender voice ("on behalf of <member>");
+    - the sender voice ("on behalf of <member>", third person by default);
     - filing (forwarded/CC'd mail only, author = the forwarding member, sender and subject quoted, attachments as a "to file" note);
     - the ledger;
     - the importance rule and member mail;
     - where criteria live and the invitation state.
-- **`rules` templates**: `inbox.md` template; `org.md` gains an email on/off field and per-member email addresses; `setup.md` gains an Email root box and a per-member Email box; the Review template gains an `## Email` section; the Diary entry template gains an optional email reference (Gmail message id, sender, subject) and an attachments-to-file note.
-- **`rules` prerequisites**: a new optional item, "Gmail connector", with the check (a real search call, confirming the account is the assistant account), per-platform fixes, and the platform limits. Item 3's "two connectors" wording becomes "two, plus Gmail when email is on".
+- **`rules` templates**: `inbox.md` template; `org.md` gains an email on/off field and per-member email addresses; `setup.md` gains an Email root box and a per-member Email box; the Review template gains an `## Email` section; the Diary entry template gains an optional email reference (`email`, `email_from`, `email_subject`) and a `To file:` line for attachments not yet on Drive.
+- **`rules` prerequisites**: a new optional item, "Gmail connector", with the check (a real search call, confirming the account is the assistant account), per-platform fixes, and the platform limits. It is item 7, after the existing six, so their numbers stay stable. Item 3's "two connectors" wording becomes "two, plus Gmail when email is on".
 - **`setup`**:
   - New root interview: the email question, plus the root's importance question when email is on.
   - Members round: email addresses, and each member's importance question when email is on.
@@ -117,27 +117,27 @@ Modules (skills, in both `agora` and `agora-ita`):
   - Migrate: the note on what the AI sees after migration.
   - Verify: Gmail reachable as the assistant account when email is on.
 - **`review`**:
-  - Tidy-up gains an inbox step: read mail received since the last ledger entry, skip messages already in `inbox.md`, then file, flag, draft (only under a convention) or ignore, recording each outcome. In a solo root it files nothing on its own.
-  - Tidy-up also drops ledger rows older than 60 days and links newly filed attachments.
+  - Tidy-up gains an inbox step: read mail received since `last_tidy_up` in `inbox.md`, at most 60 days back (60 days back, no flag, when it has no value), and flag the gap when `last_tidy_up` is older than 60 days; skip messages already in `inbox.md`; then file, flag, draft or ignore, recording each outcome. A routine drafts only under a `draft replies to …` convention or for member mail carrying an instruction (on top of filing or flagging it); otherwise it flags, never drafts. In a solo root it files nothing on its own.
+  - Tidy-up also drops ledger rows older than 60 days and sets `last_tidy_up` to today, even when it logs no row. The gap flag is a status item, not stored state: the next tidy-up drops it. Attachments are linked by `file-document` (below), and an open `To file:` line keeps a Needs attention line in the instance status until then.
   - The shared review gains the Email section, built from `inbox.md`.
   - The chat message gains the invitation line (never the review file), and the monthly criteria line.
   - Attended runs elicit criteria directly when the state is *not asked* or *invited*.
-- **`file-document`**: when a document arrives for an email diary entry's "to file" note, link it to that entry and clear the flag.
-- **`remember`**: knows the `Email importance:` state line in member and shared memories.
+- **`file-document`**: when a document arrives for an email diary entry's `To file:` line, file it in that entry's instance with a new diary entry saying `Attachment of: diary/<entry> (<original name>)` (the diary is append-only); the Needs attention line goes when every name is linked.
+- **`remember`**: knows the `Email importance:` state line in member and shared memories; the criteria themselves are routed by the `email` skill.
 - **`help`** and its FAQ: the email capability, its limits, troubleshooting.
 - **`ask`**: may pull from the assistant inbox when email is on and the question is about mail.
 
 Data shapes:
 
-- **`inbox.md`** (curated, root): front-matter `agora: inbox`; one table, one row per handled email: Gmail message id, received date, sender, subject, outcome (`filed → <diary path>`, `flagged`, `drafted`, `sent → <diary path>`, `ignored`), by (member slug or `routine`). Newest first. Updated by replace. Rows older than 60 days are removed by tidy-up. Concurrent duplicates are merged like a tracker (every distinct row).
-- **`org.md`**: an `email: on | off` field (absent means off). Members gain an Emails column (one or more addresses). Root-wide importance criteria are Conventions rows (Where `*` or an interest, Convention "important email: …" or "draft replies to …").
-- **Memories**: one line `Email importance: not asked | invited | no preference | <criteria>` in each `memories/<slug>.md` and in `memories/shared.md` for the root. Routines move *not asked* → *invited*. Conversations ask on *not asked* or *invited*, then set the criteria or *no preference*.
+- **`inbox.md`** (curated, root): front-matter `agora: inbox` and `last_tidy_up: <date>` (written by every review inbox tidy-up, never by conversations; absent until the first one); one table, one row per handled email: Gmail message id, received date, sender, subject, outcome (`filed → <diary path>`, `flagged`, `drafted`, `sent → <diary path>`, `ignored`), by (member slug or `routine`). Newest first. Updated by replace. Rows older than 60 days are removed by tidy-up. Reading mail in conversation adds no row. A reply or forward to a ledgered email that is not `filed` stays on that email's row; any other written email, including the draft a member-mail instruction asks for, gets its own row keyed on its draft id and rekeyed to the sent message id on send. Copies are merged into one row per message id (the latest outcome) and the latest `last_tidy_up`.
+- **`org.md`**: an `email: on | off` field (absent means off). Members gain a `Mail from` column (one or more addresses; the existing `Email` column stays the Google account the folder is shared with). Root-wide importance criteria are Conventions rows (Where `*` or an interest, Convention "important email: …" or "draft replies to …").
+- **Memories**: one line `Email importance: not asked | invited | no preference | <criteria>` in each `memories/<slug>.md` and in `memories/shared.md` for the root. In `memories/shared.md` the criteria value is `see Conventions`: the root's criteria themselves are the Conventions rows. Routines move *not asked* → *invited*. Conversations ask on *not asked* or *invited*, then set the criteria or *no preference*.
 
 Behaviour contracts:
 
 - A send requires the member's explicit confirmation of that exact message (recipients, subject, body) in the current conversation. A routine never sends.
 - Member mail = the sender address matches a member's address in `org.md`. A display-name match alone never counts.
-- Member mail is always important. An instruction inside it produces a draft flagged for approval.
+- Member mail is always important. An instruction inside it produces a draft flagged for approval, on its own ledger row, on top of filing or flagging the email.
 - Filing is only for forwarded or CC'd member mail placed without ambiguity. Everything else is flagged or, if not important, ignored (recorded in the ledger).
 - The design relies only on capabilities documented on both platforms (search and read, drafts, send with approval). It never relies on attachment content, labels or archiving.
 - Structure names stay in English in both language versions. Content follows the root's language.
