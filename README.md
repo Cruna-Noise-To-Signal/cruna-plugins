@@ -6,14 +6,14 @@ Public plugins by [Cruna](https://crunasignal.com) for **Claude** and **ChatGPT*
 
 | Plugin | Language | Version | What it does |
 |---|---|---|---|
-| [`agora`](cruna-plugin-eng/agora/) | English | 0.3.0 | A shared, AI-kept knowledge base on Google Drive and Google Calendar for families and small teams |
-| [`agora-ita`](cruna-plugin-ita/agora/) | Italiano | 0.3.0 | La stessa cosa, in italiano |
+| [`agora`](cruna-plugin-eng/agora/) | English | 0.5.0 | A shared, AI-kept knowledge base on Google Drive and Google Calendar for families and small teams |
+| [`agora-ita`](cruna-plugin-ita/agora/) | Italiano | 0.5.0 | La stessa cosa, in italiano |
 
 Both versions read and write the same Drive files, so people using different languages can share one Agora.
 
 ### Agora
 
-People tell the AI what happened; the AI files it on Google Drive, keeps a current status for everything, puts dates on Google Calendar, and sends daily, weekly and monthly reviews. It works for a family (kids, health, house, events) or a small business (clients, jobs, payments), and for one person as well as for five.
+People tell the AI what happened; the AI files it on Google Drive, keeps a current status for everything, puts dates on Google Calendar, and sends daily, weekly and monthly reviews. Members keep a shared to-do list, theirs and everyone's, that the reviews keep an eye on. It works for a family (kids, health, house, events) or a small business (clients, jobs, payments), and for one person as well as for five.
 
 | Skill | What it does |
 |---|---|
@@ -22,6 +22,7 @@ People tell the AI what happened; the AI files it on Google Drive, keeps a curre
 | `log` | Records an update in the diary, keeps trackers and lists, and remembers "from now on…" conventions |
 | `file-document` | Files a document from the landing folder, indexes one already in place, imports an existing sheet |
 | `schedule` | Creates, moves or removes appointments and reminders on the shared calendar |
+| `todo` | Keeps the shared to-do list: add, finish, hand over, list and remove to-dos |
 | `ask` | Answers questions from the indexes, statuses, diary, documents, trackers and calendar |
 | `review` | Daily, weekly and monthly review with tidy-up; the body of every scheduled routine |
 | `remember` | Keeps what the assistant knows about each person and the group |
@@ -71,7 +72,7 @@ Inside each plugin: `.claude-plugin/plugin.json` (Claude manifest), `plugin.json
 |---|---|
 | [`docs/agora/agora-spec.md`](docs/agora/agora-spec.md) | The design spec: principles, Drive layout, file kinds, accounts, skills, routines. Source of truth for behaviour. |
 | [`docs/agora/glossary-it.md`](docs/agora/glossary-it.md) | Fixed Italian terms for the translation, and what stays in English |
-| [`docs/agora/future-extensions.md`](docs/agora/future-extensions.md) | Deliberately postponed ideas: Google Sheets trackers, memory reflection, git-backed interests, local roots |
+| [`docs/agora/future-extensions.md`](docs/agora/future-extensions.md) | Deliberately postponed ideas: Google Sheets trackers, memory reflection, git-backed interests, local roots, Google Tasks |
 | [`docs/agora/scratchpad.md`](docs/agora/scratchpad.md) | The original vision notes |
 
 ## Status and known limits
