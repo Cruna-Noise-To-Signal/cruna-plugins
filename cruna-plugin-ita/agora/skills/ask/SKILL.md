@@ -23,6 +23,7 @@ Leggi l'`index.md` della radice e fai corrispondere la domanda agli interessi: u
 
 - **Domande sul tempo senza un soggetto** ("cosa abbiamo questa settimana?", "c'è qualcosa in scadenza domani?"): è in gioco tutta la radice; vai dritto allo `status.md` della radice e al calendario (passo 4). Per un riepilogo completo di un giorno, una settimana o un mese ("dimmi la settimana che arriva"), usa invece la skill `review`.
 - **Domande che attraversano più interessi** ("cosa c'è in sospeso per tutti?"): sono in gioco tutti gli interessi; prevedi di aggregare (passo 5).
+- **Domande sui to-do** ("cosa ho da fare?", "cosa c'è di aperto su Acme?", "cosa ha finito Nina questa settimana?"): leggi il file `references/todos.md` della skill `rules` e rispondi dal `todo.md` della radice, ricomponendo invece gli eventi in `todos/` quando è obsoleto (references/todos.md → `todo.md`); l'archivio solo quando il membro chiede di vecchi to-do. Nessuna cartella `todos/`: non ci sono ancora to-do. Poi il passo 5, citando `todo.md`.
 - **Obiettivo poco chiaro**, quando obiettivi diversi darebbero risposte diverse: chiedi una volta sola, offrendo le opzioni `interesse/istanza` probabili prese dagli indici (rules → Chiedi, non dare per scontato).
 
 Fatto quando: hai una lista di istanze candidate (o "tutta la radice"), ciascuna supportata da una riga di un indice o dalla risposta del membro.
@@ -66,6 +67,7 @@ Scrivere spetta ad altre skill. Quando la conversazione produce qualcosa da cons
 
 - "segnatelo", "salvalo", fatti nuovi o una decisione → la skill `log`.
 - "ricordami", un appuntamento, una scadenza → la skill `schedule`.
+- "aggiungi un to-do", "fatto con quello", un to-do da cambiare → la skill `todo`.
 - un file da conservare → la skill `file-document`.
 - un'email da archiviare, preparare in bozza, a cui rispondere o da inviare → la skill `email`.
 - un promemoria, una lista o qualcosa da stampare fatto da ciò che hai trovato ("fammene una lista da stampare") → la skill `log`, per salvarlo come file di lavoro di tipo Lista (rules → Tipi di file), quando il membro vuole conservarlo e tenerlo aggiornato; quando vuole solo leggerlo, scrivilo nella tua risposta.
