@@ -77,3 +77,46 @@ VERDICT: PASS. Read `git diff 9c457275...HEAD` (11 commits), focused on the fix 
 - **Possible Duplicated Code.** The new-root split of the member part ("records (steps 2–3) for every member interviewed, Gmail and the Email box (steps 1 and 4) for the member present") is written three times: `setup/SKILL.md` step 2d, the first "Run from" bullet in `setup/references/email.md`, and the Member-part preamble in the same file. The preamble is the natural single source.
 - **Possible cache of the environment.** `email/SKILL.md` step 5.2 restates the ChatGPT send limits before pointing to prerequisites item 7. A pointer alone would do.
 - **Minor wording drift.** rules → Sending says "client", `email` step 5.2 says "app"; "app" is the consistent term.
+
+## M2 — round 1
+
+**Result: FAIL** (Specs FAIL, Standards FAIL)
+
+### Specs
+
+VERDICT: FAIL. Scope: `git diff 9c45727...HEAD`, focused on the 11 M2 commits after 7ce7955 (3561e2a through f1a3287) in `cruna-plugin-eng/agora/`.
+
+**(c) Implemented, but wrong**
+
+1. **Forwarded member mail carrying an instruction gets filed, and the draft never happens (blocker).**
+   - Spec: "Member mail is always important. An instruction inside it produces a draft flagged for approval." Story 25: "email the assistant an instruction ('reply saying we accept') and find a draft waiting for my approval".
+   - In `rules/references/email.md` → Reviews → Inbox tidy-up step 3, the first matching case wins, and "Forwarded or CC'd member mail that places → **file**" comes before "Member mail carrying an instruction → **draft**".
+   - The usual case — a member forwards a client email with "reply saying we accept" — places, so it is filed and no draft is written.
+   - The opposite case also goes wrong: if it can't be placed, it is drafted but never flagged with the question of where it belongs, losing story 13 ("flagged under Needs attention with the question that settles it") and story 30.
+   - Fix: let the instruction case add a draft on top of the file or flag. The ledger already supports this ("a reply to a `filed` email gets its own row").
+2. **Minor: linking can't tell attachments apart.** The open-line rule asks whether "any name on it has no later entry … `Attachment of: diary/<entry>`", but file-document renames the file and writes only `Filed: documents/<new name>`. With several attachments nothing records which original name was linked. Have the linking entry say `Attachment of: diary/<entry> (<original name>)`.
+
+**Decisions to check**
+
+- **Routines drafting for member mail with an instruction:** consistent with the spec (behaviour contract and story 25). The spec's `review` bullet ("draft (only under a convention)") and story 27 ("only flag (never draft) by default") concern proactive replies to other senders (story 26). Reconcile the `review` bullet wording in the M3 spec update.
+- **30-day search window:** acceptable but departs from the spec ("read mail received since the last ledger entry"); if no routine runs for over 30 days, that mail is never seen. The stated reason is weaker than claimed: a later outcome refreshes a row's date, so a 60-day window would also be safe. Consider widening to 60 days, or flagging a gap longer than 30 days.
+
+**(a) Missing or partial:** nothing. Covered: Email section; important email also in Needs attention; invitation line in chat only, `not asked` → `invited`; monthly line by state, quieter for `no preference`; criteria asked in attended runs; no double filing; 60-day prune; no auto-filing in solo roots; attachments flagged via status roll-up and linked by file-document; `Email importance:` state line in `remember`; `ask` reads the inbox only with `email: on`; `help` covers email, limits, item 7 troubleshooting. M1 round-2 cleanups resolved.
+
+**(b) Scope creep (small, nothing to remove):** help's tour mentions email can be turned on in business roots; `ask` cites emails by sender, date and subject; an email important only by one member's criteria is flagged for that member by name.
+
+### Standards
+
+VERDICT: FAIL. Checked `git diff 9c45727...HEAD` (22 commits) against AGENTS.md and cruna-core `writing-for-agents`, mostly the M2 commits. Ledger writing single-sourced in rules → Email → The ledger; M1 round-2 cleanups done; Reviews behaviour defined once in rules → Email → Reviews with `review` saying only when each fires; renumbering updated everywhere; frontmatter fine.
+
+**Fix before merge**
+
+1. **Duplicated Code, and the copies disagree: merging duplicate copies of `inbox.md`.** M2 changed rules → Email → The ledger to merge copies into "one row per message id (the latest outcome)", but `rules/SKILL.md` → Replace (line 107) still merges `inbox.md` "like a tracker": "every distinct row". `review` tidy-up item 1 sends a duplicated `inbox.md` to rules → Replace, which can leave two rows for one email (`drafted` and `sent`), breaking the step's Done-when: "every email the search returned has exactly one ledger row". Fix: Replace and `review` item 1 both point to The ledger for `inbox.md`.
+
+**Judgement calls (not blocking)**
+
+- **Possible Duplicated Code:** "personal or root-wide" routing for importance criteria is written in `remember` step 1 and `email` step 7 → Criteria. `remember` only needs to own the personal state line and hand root-wide criteria back.
+- **Possible restated rule:** the `Email importance:` state-line format ("one line per file, replaced in place") is in both `remember` and rules → Invitation state. A plain pointer would do.
+- **Possible restated rule:** `rules/SKILL.md` → Status update restates the open `To file:` Needs attention behaviour that `references/email.md` → Filing defines.
+- **Imprecise pointer:** `ask`'s Assistant inbox bullet says "to file, draft or send, hand off to the `email` skill (step 6)" — step 6 is File only (draft/send are 4 and 5) — and repeats the hand-off line under "Writing belongs to other skills". Drop the step number or the sentence.
+- **Possible Divergent Change:** `review/SKILL.md` renumbering again; naming items would make insertions cheaper. Optional.
