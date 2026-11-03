@@ -2,7 +2,7 @@
 
 The shared rules for every skill that reads or writes to-dos (rules → To-dos). Templates for the to-do event, `todo.md`, the `status.md` Pending line and the review To-dos section: [templates.md](templates.md).
 
-A root without a `todos/` folder has no to-dos: every skill works as before, and `todo.md` does not exist. The `todo` skill creates `todos/` the first time a member adds a to-do there.
+A root without a `todos/` folder has no to-dos: every skill works as before, and `todo.md` does not exist. The `setup` skill creates `todos/` when it builds a root; in a root set up before 0.5.0, the `todo` skill creates it the first time a member adds a to-do.
 
 ## Who sees and owns a to-do
 
@@ -24,7 +24,7 @@ A to-do may carry a `due` date, resolved in the root's timezone ("by Friday" →
 
 Every change to a to-do is one **to-do event**: a source file, append-only (rules → File kinds). An event is created, never edited; a mistake is put right by a later event.
 
-- **Name**: `todos/<author>-YYYYMMDD_HHMM.md`, the author's slug and the minute of the change in the root's timezone. When that name is taken, add `-2`, then `-3`, before `.md`.
+- **Name**: `todos/<author>-YYYYMMDD_HHMM.md`, the author's slug and the minute of the change in the root's timezone (a member-mail `add` takes the email's received time instead: [email.md](email.md) → Member mail). When that name is taken, add `-2`, then `-3`, before `.md`.
 - **Id**: a to-do's id is the name of its `add` event, without `.md` (`simone-20261103_0912`).
 - **Front-matter**: `agora: todo`, `action`, `author`, `created` (to the second, `YYYY-MM-DDTHH:MM:SS`, so the fold orders events by real time), then per action:
   - `add`: `owner`; optional `due`, `interest` and `instance`, `source`. The body is one line: the to-do's text.
@@ -36,7 +36,7 @@ Every change to a to-do is one **to-do event**: a source file, append-only (rule
 
 ### Who writes events
 
-Only a conversation writes to-do events, through the `todo` skill: a member asked, or said yes to an offer. The single exception is **member mail** (rules → Email) with an explicit instruction to add a to-do ("add to my to-dos: call the bank"): it is the member's own request, so it becomes an `add` event with `author` and `owner` = that member (unless the mail names another owner) and `source: email <id>`. Any other email, and any routine, only **suggests** (Suggestions, below).
+Only a conversation writes to-do events, through the `todo` skill: a member asked, or said yes to an offer. The single exception is member mail asking in so many words to add a to-do, which counts as the member's own request and is added even by an unattended run ([email.md](email.md) → Member mail). Any other email, and any routine, only **suggests** (Suggestions, below).
 
 ## Current state
 

@@ -33,7 +33,7 @@ Done when: every request in the message maps to a branch.
 
 List `todos/`, and fold the events into each to-do's current state (references/todos.md → Current state). For a list question alone, `todo.md` is enough when it is not stale.
 
-When the root has no `todos/` folder: for Add, create it at the root; for anything else, the root has no to-dos yet, so say so and offer to add one.
+When the root has no `todos/` folder (a root set up before 0.5.0): for Add, create it at the root; for anything else, the root has no to-dos yet, so say so and offer to add one.
 
 Done when: you know every to-do's text, owner, due date, place and open or closed state, or `todos/` is created empty.
 
