@@ -49,23 +49,23 @@ For each new to-do, settle its fields from the member's words, without asking wh
 
 When an open to-do with the same meaning already exists, say so and ask before adding a second one. Something private: remind the member once that every member sees to-dos.
 
-Done when: every new to-do has text, owner and place settled, and a due date or none.
+Done when: every new to-do has text, owner and place settled, and a due date or none. Then step 8.
 
 ### 5. Change
 
 1. **Match** the to-do from the member's words against open to-dos (closed ones for Reopen; for a to-do not in `todos/`, also `todos/archive/`). Exactly one match: go on. Several: ask which, listing each with owner and due date, so the answer is one word. None: say so, and offer to add it.
-2. **Settle the change**: Done closes it; Reopen opens it (an archived one has its events moved back into `todos/` first); Assign sets the owner ("I'll do it": the member talking); Edit sets each field the member changes.
+2. **Settle the change**: Done closes it; Reopen opens it (an archived one: references/todos.md → Archive); Assign sets the owner ("I'll do it": the member talking); Edit sets each field the member changes.
 3. Skip a change that changes nothing (closing a closed to-do), and tell the member it was already so.
 
-Done when: each change names exactly one to-do the member meant, and its new values.
+Done when: each change names exactly one to-do the member meant, and its new values. Then step 8.
 
 ### 6. List
 
 Answer from the current state (step 3):
 
-- **Mine**: the member's open to-dos, overdue first, then by due date, then undated; then a one-line count of Everyone's.
-- **Everyone**, **a member**, **an instance or interest**: the open to-dos that match, in the same order.
-- **What's done**: closed in the period asked, or the last 14 days.
+- **Mine**: the member's open to-dos, in list order (references/todos.md → `todo.md`); then a one-line count of Everyone's.
+- **Everyone**, **a member**, **an instance or interest**: the open to-dos that match, in list order.
+- **What's done**: closed in the period asked, or the Recently done window.
 
 Each line: text, owner, due date, instance. Listing writes nothing; go to step 9.
 
@@ -73,14 +73,9 @@ Done when: every open to-do that matches the question is in the answer, or the m
 
 ### 7. Remove
 
-Follow references/todos.md → Remove, in order:
+Follow references/todos.md → Remove, steps 1–4, matching against the folded state of `todos/` and `todos/archive/`. Nothing matches: say so, and go to step 9.
 
-1. Turn the member's words into filters, and the scope (closed only, or including open ones).
-2. Match against the folded state of `todos/` and `todos/archive/`.
-3. Show the count and texts, the open ones listed apart, and the Drive trash notice; wait for a yes to that list. Nothing matches: say so and stop.
-4. On the yes, trash every event file of each matched to-do.
-
-Done when: on a yes, every event file of every listed to-do is in the Drive trash and nothing else was touched; without a yes, nothing was trashed.
+Done when: on a yes, every event file of every listed to-do is in the Drive trash and nothing else was touched; without a yes, nothing was trashed. On a yes, step 8 writes the trace; without one, step 9.
 
 ### 8. Write and rebuild
 
