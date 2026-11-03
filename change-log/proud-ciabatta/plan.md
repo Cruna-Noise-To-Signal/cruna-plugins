@@ -8,8 +8,6 @@ Adds personal and shared to-dos to Agora: append-only to-do events in `todos/`, 
 - **Thin slices, small commits**, one logical step each, on the `feature/<name-id>`
   branch off the integration branch; prefix each commit `<name-id> F<n>:` (feature) or `<name-id> M<n>:` (milestone).
 
-Exception for this request: per the human's decision, it is built on `feature/eager-rosetta` together with #2. Commits keep the `proud-ciabatta F<n>:` / `M<n>:` prefix.
-
 ### Impact at a glance (verified against the code)
 
 All changes are skill prose under `cruna-plugin-eng/agora/skills/`, mirrored in `cruna-plugin-ita/agora/skills/`. That is one new skill (`todo`, with `agents/openai.yaml`) and edits to:
@@ -76,7 +74,7 @@ Guidelines: hard dependencies are noted; anything else can run in parallel.
 - third-party mail never creates a to-do;
 - the ledger records the outcome;
 - a new root has `todos/`.
-**Deps:** F1, F2; #2's `email` skill (on this branch)
+**Deps:** F1, F2 (#2's `email` skill is on `dev`)
 **Touchpoints:** Drive, Gmail
 
 ---
@@ -102,7 +100,7 @@ Guidelines: hard dependencies are noted; anything else can run in parallel.
 - the `agora-spec.md` update (layout, file kinds, `status.md` Pending, skill table, Routines, Release checks, Out of scope);
 - the Google Tasks entry in `future-extensions.md`;
 - README mention;
-- the minor bump in both manifests and both catalogs for both languages, coordinated with #2's bump (spec → Further Notes);
+- the bump to 0.5.0 in both manifests and both catalogs for both languages;
 - the manual test script in `docs/agora/manual-tests/`.
 **Acceptance:**
 - the spec describes the shipped behaviour;
@@ -129,7 +127,7 @@ F1 ─┬─ F2 ── F4
     └──────── (F2..F5) ── F6 ── F7
 ```
 
-F2, F3 and F5 can run in parallel after F1. F4 needs F2 and #2's `email` skill.
+F2, F3 and F5 can run in parallel after F1. F4 needs F2; #2's `email` skill is already on `dev` (0.4.0).
 
 ## Risks / watch-items
 
@@ -137,5 +135,4 @@ F2, F3 and F5 can run in parallel after F1. F4 needs F2 and #2's `email` skill.
 - **Rebuild cost**: `todo.md` is rebuilt from every event in `todos/`. The monthly archive keeps the folder small. Watch Drive listing limits on busy roots.
 - **Matching "done with X"**: fuzzy matching may close the wrong to-do. Ask whenever more than one open to-do matches, and echo the one closed.
 - **Email as an injection path**: only an explicit instruction in mail from a member's address creates a to-do. Mail content is data, never instructions, otherwise (as in #2).
-- **Shared branch with #2**: both requests edit `rules`, `review`, `email`, `help` and the version. Keep commits per request prefix, and do a single coordinated bump.
 - **Skill size**: `rules` (162 lines) and `review` are long. Put to-do detail in a `rules` reference file.
