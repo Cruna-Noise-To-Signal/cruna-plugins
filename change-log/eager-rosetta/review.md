@@ -46,3 +46,34 @@ VERDICT: FAIL. Checked against AGENTS.md and cruna-core `writing-for-agents` (si
 - **Possible Mysterious Name:** Members table has both `Email` (Google account the folder is shared with) and `Emails` (addresses counting as member mail). Suggest `Mail from` or `Sender addresses`; one rename in `templates.md` plus references.
 - **Duplicated pointer contents:** `rules/SKILL.md` → Email and the `email/SKILL.md` intro both list everything `references/email.md` contains. A one-line pointer saying what the file is and when to read it would do.
 - **Possible Divergent Change:** `setup/SKILL.md` renumbering Verify 6→7 forced six cross-reference edits (all updated correctly). Naming targets ("go to Verify") would make future insertions cheaper.
+
+## M1 — round 2
+
+**Result: PASS** (Specs PASS, Standards PASS). Non-blocking findings carried into M2 as cleanups.
+
+### Specs
+
+VERDICT: PASS. Diff `9c45727...HEAD`, 11 commits ending at dec47ca; `check_plugins.py` prints "Valid for Claude and OpenAI".
+
+**Round 1 findings: all resolved** — Specs 1 (member answers kept for every interviewed member; only Gmail check and Email box wait for each member's app), Specs 2 (unplaced email flagged with a `flagged` ledger row), Standards 1–3 (criteria rule defined once in rules → Email → Where criteria live; sending policy only in rules → Sending; completion criteria match their steps), judgement calls (`Emails` → `Mail from`; one-line pointers).
+
+**New findings (none blocking)**
+
+- (c) 1. **Interrupted setup can still lose member answers.** Spec: "Members round: email addresses, and each member's importance question when email is on." `templates.md` says the answers "stay until the root Email box is ticked", but root part step 6 ticks that box before the member part (steps 2–3) writes the members' records. If a session stops in between, the answers are gone and Join re-asks only the members present. Fix: tick the root box after the member records are written, or keep the answers until then.
+- (c) 2. **The ledger key changes from draft to sent.** Spec: `inbox.md` has "one row per handled email: Gmail message id … outcome … `sent → <diary path>`". `email` step 5.4 turns "the draft's row" into `sent`, but rules → Ledger keys a new email "on its draft or sent message id", and the two ids differ in Gmail. Say which id the row keeps after the send.
+- (a) 3. **Two small gaps in setup:** the 2d completion criterion doesn't say member records aren't needed when email is declined (only the root box gets "(off)"); a sent-mail diary entry has no file-name rule (filing has one; the `inbox.md` template example implies `<slug>-YYYYMMDD_HHMM`).
+- (b) Scope creep: nothing new (third-person body, README row, `see Conventions` deferred to F8).
+
+**Checked and correct:** sending only on confirmation of the exact message, emailed instruction → draft; member mail matched on address only; filing only forwarded/CC'd, forwarding member as author, `To file:` line; solo root files only on request; prerequisites item 7; Email branch, Join, Migrate note, Verify line; pre-email `setup.md` reads as off; criteria asked on *not asked*/*invited*, "no preference" recorded; `email` frontmatter and `agents/openai.yaml`.
+
+### Standards
+
+VERDICT: PASS. Read `git diff 9c457275...HEAD` (11 commits), focused on the fix commits 4ab04bf..dec47ca, against AGENTS.md and cruna-core `writing-for-agents`.
+
+**Round-1 Standards findings: all resolved** — criteria rule single-sourced in `rules/references/email.md` → Where criteria live; app-approval warning only in rules → Sending; `email` step 1 reads `inbox.md`, migration step 6 names all three changes; `Mail from` rename with no leftovers; one-line pointers; Spec finding 2 fixed; Divergent Change deliberately not done (optional).
+
+**New observations (judgement calls, not blocking)**
+
+- **Possible Duplicated Code.** The new-root split of the member part ("records (steps 2–3) for every member interviewed, Gmail and the Email box (steps 1 and 4) for the member present") is written three times: `setup/SKILL.md` step 2d, the first "Run from" bullet in `setup/references/email.md`, and the Member-part preamble in the same file. The preamble is the natural single source.
+- **Possible cache of the environment.** `email/SKILL.md` step 5.2 restates the ChatGPT send limits before pointing to prerequisites item 7. A pointer alone would do.
+- **Minor wording drift.** rules → Sending says "client", `email` step 5.2 says "app"; "app" is the consistent term.
