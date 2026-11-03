@@ -350,7 +350,7 @@ File: `reviews/YYYY-MM-DD-daily.md`, `reviews/YYYY-Www-weekly.md` or `reviews/YY
 - <Email on only: important email needing attention, drafts waiting for approval, sent, filed; from `inbox.md`>
 ```
 
-The To-dos section, filled in a personal review (the member's own first, then Everyone's):
+The To-dos section, filled (order: [todos.md](todos.md) → Reviews):
 
 ```markdown
 ## To-dos
