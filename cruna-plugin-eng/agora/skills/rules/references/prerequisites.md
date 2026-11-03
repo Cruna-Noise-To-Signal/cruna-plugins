@@ -74,7 +74,7 @@ Optional: only a root with `email: on` needs it, and it suits business roots bes
   - ChatGPT: Settings → Apps (Connectors) → Gmail → Connect, signed in as the assistant account. Sending works only on the web, on a paid plan (Plus, Pro, Business, Enterprise); on Business, a workspace admin must turn on write actions for Gmail. Reading and drafting work everywhere the connector does.
   - Already connected with the wrong account: disconnect, then connect again with the assistant account.
   - In a conversation, make sure Gmail is enabled for the chat (the tools or "+" menu).
-- **Limits** to tell the member: the AI sees only the assistant inbox; it can't open attachments, only their names; it doesn't label, archive or delete mail. Before each send the app asks its own approval: approving it completes a send the member already confirmed to Agora.
+- **Limits** to tell the member: the AI sees only the assistant inbox; it can't open attachments, only their names; it doesn't label, archive or delete mail.
 
 ## Offboarding a member
 
