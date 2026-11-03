@@ -9,7 +9,7 @@ This repo publishes Cruna's public plugins for Claude and ChatGPT. Every plugin 
 
 ## Development guidelines
 
-First stop for any plugin or skill work is the `cruna-development-plugins` plugin: `portable-plugins` for structure, manifests, releases and the checker; `writing-for-agents` for every skill and for this file.
+First stop for any plugin or skill work is the `cruna-core` plugin (from the `cruna-development-plugins` marketplace): `portable-plugins` for structure, manifests, releases and the checker; `writing-for-agents` for every skill and for this file.
 
 - Every plugin has both manifests and appears in both catalogs, with identical `name` and `version`.
 - Skills are the unit of work; skill frontmatter has only `name` and `description`.
