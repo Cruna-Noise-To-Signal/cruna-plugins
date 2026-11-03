@@ -69,3 +69,14 @@ Email in reviews (F4, F6), English only (`cruna-plugin-eng/agora/`), plus the no
 ### Checks
 
 `check_plugins.py` passes after every slice; a grep check per acceptance item (scratchpad `check-m2.sh`, 37 checks) is green.
+
+### M2 revision 1
+
+Fixes from review M2 round 1, English only.
+
+- **F4** (c)1, blocker: member mail carrying an instruction now gets its draft **on top of** being filed (when it places) or flagged with the settling question (when it doesn't), never in place of either; the draft has its own ledger row (rules → The ledger, Member mail, Reviews → Inbox tidy-up).
+- **F6** (c)2: the linking entry says `Attachment of: diary/<entry> (<original name>)`; the open-`To file:` rule matches on the name.
+- **F4** search window: since the last tidy-up (newest `routine` row), at most 60 days back, matching the 60-day prune; a longer gap is flagged under Needs attention.
+- **F1** standards: merging copies of `inbox.md` is defined once in rules → The ledger; rules → Replace and `review` tidy-up item 1 point there.
+- **F6** judgement calls: `remember` hands importance criteria to `email` → Criteria (sole routing) and keeps only the state line; rules → Invitation state points to `remember` for the line format; rules → Status update points to Filing instead of restating; `ask` drops the imprecise hand-off sentence. The optional review renumbering was not done.
+- Manual test: scenarios 15, 16 and 17 updated. Checker passes; grep check (scratchpad `check-m2r1.sh`, 16 checks) green.

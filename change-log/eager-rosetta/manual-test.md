@@ -98,18 +98,21 @@ Email in reviews and the supporting skills, English plugin (`agora`). Same test 
 
 1. Without any `draft replies to` Convention, run a routine with an important non-member email waiting. Expect: flagged only, no Gmail draft.
 2. Say "have drafts ready for client emails" (Convention `draft replies to …`). Send a client-like email; run the routine. Expect: a Gmail draft signed for the assistant, an `inbox.md` row `drafted` by `routine`, listed under drafts waiting and Needs attention; nothing sent.
-3. From your address, email the assistant "Reply to Mario saying we accept"; run the routine. Expect: a draft for your approval, flagged; nothing sent.
+3. From your address, forward Mario's email (clearly about one instance) to the assistant with the note "Reply saying we accept"; run the routine. Expect: the email filed in that instance **and** a Gmail draft of the reply for your approval, under drafts waiting and Needs attention; `inbox.md` has two rows: `filed → …` for Mario's email and `drafted` (`to Mario`, keyed on the draft id) for the reply; nothing sent.
+4. Repeat with an email that could fit two instances. Expect: the email flagged with the question of where it belongs (`flagged` row) **and** the draft on its own `drafted` row; nothing sent.
 
 ### 16. Attachments linked
 
 1. Save the attachment from scenario 11 to `landing/` and say "filed" (or "I saved Mario's quote to landing").
-2. Expect: the file renamed into that email entry's instance `documents/`, a new diary entry ending `Attachment of: diary/<email entry>`, and the "not yet on Drive" line gone from the instance and root status.
+2. Expect: the file renamed into that email entry's instance `documents/`, a new diary entry ending `Attachment of: diary/<email entry> (<original attachment name>)`, and the "not yet on Drive" line gone from the instance and root status.
+   With two attachments on the same email, save only one: the status line still names the other.
 3. Repeat leaving the file in `landing/` without telling Agora; run a routine. Expect the same linking when the file name matches the `To file:` name.
 
 ### 17. Ledger pruning and keys
 
 1. Edit a row in `inbox.md` to a date 61 days ago; run a review. Expect it removed.
-2. Draft a reply to a flagged email and send it after confirmation. Expect: that email's row becomes `drafted`, then `sent → <diary path>`, same message id. Write a new email from scratch and send it: its row's id changes from the draft id to the sent message id.
+2. Edit every `routine` row to a date 70 days ago (keep a copy); run a review. Expect: mail of the last 60 days searched, and a Needs attention flag saying email received between the last tidy-up and 60 days ago was not checked.
+3. Draft a reply to a flagged email and send it after confirmation. Expect: that email's row becomes `drafted`, then `sent → <diary path>`, same message id. Write a new email from scratch and send it: its row's id changes from the draft id to the sent message id.
 
 ### 18. Solo root
 

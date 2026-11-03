@@ -115,7 +115,7 @@ A status describes the situation **now**. When rebuilding, read the sources newe
 
 Every `status.md`, at every level, has the same sections in this order: Last updated, Needs attention, Summary, Done, Pending, Next. At root and interest level each section rolls up the level below, one line per child that has something to say.
 
-A diary entry with an open `To file:` line keeps a Needs attention line in its instance status ([references/email.md](references/email.md) → Filing).
+An instance with email entries carrying a `To file:` line: also apply [references/email.md](references/email.md) → Filing.
 
 Tracker rows reach status through the daily summary entry; propagate on a row only when it changes something status-worthy.
 

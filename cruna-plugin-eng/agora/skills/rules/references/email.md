@@ -85,7 +85,7 @@ Each `memories/<slug>.md`, and `memories/shared.md` for the root, has one line:
 - `not asked`: nobody has asked yet (also when the line is missing). `invited`: a routine invited the member to state criteria and no answer has been recorded. `no preference`: the member declined; never ask again. Anything else is the criteria, in the member's words; in `memories/shared.md`, the pointer set under Where criteria live.
 - **Conversations ask**: wherever importance is judged in a conversation (the `email` skill, an attended `review` with email to report), when the state is `not asked` or `invited`, ask once: "What counts as important email for you? For example: clients, the bank, school. Or say no preference." Ask about the root too when its line is `not asked` or `invited`, in the same question. Record the answer (criteria, or `no preference`), then go on.
 - **Routines never ask**: they invite instead (Reviews → Chat lines). A reply to an invitation, in the review's chat or in a later conversation, is criteria like any other: record it as the `email` skill's Criteria branch does.
-- Write the line with the `remember` skill's curate step: one line per file, replaced in place.
+- Write the line with the `remember` skill's curate step.
 
 ## Reviews
 
