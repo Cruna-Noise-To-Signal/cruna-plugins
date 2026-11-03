@@ -1,6 +1,6 @@
 # Agora — Design Spec
 
-Status: locked (2026-10-28). Source: design interview on the original vision notes. Email added in 0.4.0 (2026-11-03, request #2 eager-rosetta).
+Status: locked (2026-10-28). Source: design interview on the original vision notes. Email added in 0.4.0 (2026-11-03, request #2 eager-rosetta). To-dos added in 0.5.0 (2026-11-03, request #4 proud-ciabatta).
 
 ## Goal
 
@@ -41,6 +41,8 @@ ROOT/
 ├── index.md      one row per interest
 ├── status.md     roll-up of interests + links to the latest reviews
 ├── inbox.md      email on only: ledger of what the AI did with each email
+├── todo.md       the to-do list, derived from todos/
+├── todos/        <author>-YYYYMMDD_HHMM.md to-do events; archive/YYYY/
 ├── landing/      general drop zone for uploads
 ├── memories/     <member>.md, shared.md
 ├── reviews/      YYYY-MM-DD-daily.md, YYYY-Www-weekly.md, YYYY-MM-monthly.md
@@ -114,6 +116,8 @@ Same sections at every level (root, interest, instance), different zoom. At root
 
 Root `status.md` also links the latest daily, weekly, and monthly review.
 
+An instance's Pending lists each open to-do attached to it, one `To-do: <text> — <owner>, due <date | no date>` line each (see To-dos).
+
 **Status update rule**: less recent logs and documents weigh less. At each update the status is re-evaluated against the latest information to reflect the current situation.
 
 ### `index.md`
@@ -124,8 +128,8 @@ At instance level: documents (description, source diary entry) and diary entries
 
 ### Derived vs source files
 
-- **Source of truth, append-only**: `diary/`, `documents/`.
-- **Derived, always rebuildable**: `status.md`, `index.md` at every level. Never hand-edited. A lost concurrent write is fixed by the next rebuild.
+- **Source of truth, append-only**: `diary/`, `documents/`, and to-do events in `todos/`.
+- **Derived, always rebuildable**: `status.md`, `index.md` at every level, and `todo.md`. Never hand-edited. A lost concurrent write is fixed by the next rebuild.
 - **Curated**: `org.md`, `setup.md`, `memories/`, `inbox.md`. Kept small; the AI updates entries instead of appending forever.
 
 ### File update protocol
@@ -178,16 +182,17 @@ Shipped in English and Italian, for Claude and ChatGPT with the same design (ful
 | Skill | Responsibility |
 |---|---|
 | `rules` | Shared reference every other skill loads first: vocabulary, layout, file kinds, Drive file protocol, status update rule, "ask, never assume", calendar conventions, memory step. Holds the templates and the prerequisites checklist. |
-| `setup` | Prerequisites check (real calls), interview (members/org chart, layout, first interests, email), build folders and calendar, guide routine creation. Also: solo → dedicated account migration, new member onboarding (Join), turning email on in an existing root, member offboarding. Records progress in `setup.md` and resumes from it. |
+| `setup` | Prerequisites check (real calls), interview (members/org chart, layout, first interests, email), build folders (`todos/` included) and calendar, guide routine creation. Also: solo → dedicated account migration, new member onboarding (Join), turning email on in an existing root, member offboarding. Records progress in `setup.md` and resumes from it. |
 | `add-interest` | Create an interest or instance from the template; update indexes. |
-| `log` | Push a diary entry; rebuild status up the tree. |
+| `log` | Push a diary entry; rebuild status up the tree; offer a to-do when an entry reads as an action. |
 | `file-document` | Index a file already in `documents/`, or move one from `landing/` (move → else copy and remove → else flag); link it to a diary entry, including an email entry's attachment. |
 | `schedule` | Create, update, delete calendar events with the naming convention; link from the diary. Also for events inferred from pushed information (meetings, prep time). |
-| `email` | Optional (email on): search and read the assistant inbox; draft, reply, forward and send on confirmation; file an email as a diary entry; keep the `inbox.md` ledger; members' addresses; importance criteria in conversation. |
-| `ask` | Pull: index → status → diary/documents/calendar, and the assistant inbox for mail questions when email is on; answers on topic and up to date. |
-| `review` | Routine body: tidy-up first (with the inbox step when email is on), then the review. |
+| `email` | Optional (email on): search and read the assistant inbox; draft, reply, forward and send on confirmation; file an email as a diary entry; offer a to-do from an email, and add one a member's mail asks for; keep the `inbox.md` ledger; members' addresses; importance criteria in conversation. |
+| `todo` | Add, complete, reopen, assign (take over), edit, list and remove to-dos in conversation; one to-do event per change, then rebuild `todo.md` and attached instance statuses; calendar events only on request, through `schedule`. |
+| `ask` | Pull: index → status → diary/documents/calendar, and the assistant inbox for mail questions when email is on; to-do questions from `todo.md`; answers on topic and up to date. |
+| `review` | Routine body: tidy-up first (with the inbox step when email is on, and the to-dos step), then the review with its To-dos section; attended, confirms to-do suggestions. |
 | `remember` | Update `memories/`, including the `Email importance:` state line. Every other skill ends with this step. |
-| `help` | What the assistant can do (email included, with its limits), FAQ, troubleshooting from the prerequisites checklist. |
+| `help` | What the assistant can do (email and to-dos included, with their limits), FAQ, troubleshooting from the prerequisites checklist. |
 
 "Push artifacts from a pull session" is `ask` followed by `log` or `schedule`, not a separate skill.
 
@@ -195,6 +200,7 @@ Shared references, written once in the `rules` skill (skills can only link files
 
 - **Rules**: file formats, status update rule, file update protocol, "ask, don't assume".
 - **Email conventions** (`rules/references/email.md`): every email contract, stated once (see Email).
+- **To-do conventions** (`rules/references/todos.md`): every to-do contract, stated once (see To-dos).
 - **Prerequisites checklist**: used by `setup` and `help`; any skill hitting a missing connector or permission error points to it.
 
 ### Prerequisites checklist
@@ -239,8 +245,8 @@ Each scheduled task's prompt is one line: `Run Agora review: <daily | weekly | m
 
 Each run:
 
-1. **Tidy-up**: rebuild stale status and index files, clean duplicates, process `landing/` and unindexed documents (only when unambiguous; otherwise flag under root Needs attention), trash daily reviews older than 30 days; with email on, the inbox tidy-up (see Email → Reviews). Idempotent, so concurrent runs by different members are harmless.
-2. **Review**: the first run of a period writes the shared review to `reviews/`. Later runs read it and add an `## Update hh:mm` section only if new diary entries arrived. The chat message is **general** by default: everyone's highlights and what needs attention, followed by a short update for each member. When a member is named (the routine's slug, or "my week" in conversation) it is **personal** instead: their items first, then everyone else's. A review asked in conversation doesn't ask who is talking unless a member is named. With email on, the review file has an `## Email` section and the chat message ends with at most one email-importance line (see Email → Reviews).
+1. **Tidy-up**: rebuild stale status and index files, clean duplicates, process `landing/` and unindexed documents (only when unambiguous; otherwise flag under root Needs attention), trash daily reviews older than 30 days; with email on, the inbox tidy-up (see Email → Reviews); with `todos/`, the to-dos step: monthly archive of to-dos closed over 90 days ago, orphan events flagged, `todo.md` and attached statuses rebuilt when stale (see To-dos). Idempotent, so concurrent runs by different members are harmless.
+2. **Review**: the first run of a period writes the shared review to `reviews/`. Later runs read it and add an `## Update hh:mm` section only if new diary entries arrived. The chat message is **general** by default: everyone's highlights and what needs attention, followed by a short update for each member. When a member is named (the routine's slug, or "my week" in conversation) it is **personal** instead: their items first, then everyone else's. A review asked in conversation doesn't ask who is talking unless a member is named. With email on, the review file has an `## Email` section and the chat message ends with at most one email-importance line (see Email → Reviews). With `todos/`, the review file has a `## To-dos` section and the message carries each member's overdue and due to-dos and the suggestions (see To-dos → Reviews).
 
 Weekly and monthly reviews are kept as the long-term record.
 
@@ -300,6 +306,32 @@ The assistant inbox is the owner's own mail: the AI files only when the owner as
 
 Agora relies only on what Gmail connectors offer on both platforms: search and read, drafts, send with approval. It never reads attachment content, never moves, labels, archives or deletes mail, and never reads members' personal inboxes.
 
+## To-dos
+
+Actions someone has to do, personal (owned by a member) or shared (owner `everyone`). Every to-do is visible to every member: there is no private to-do. Every contract below is written once in `rules/references/todos.md`; the `todo` skill (conversation), the `log`, `email` and `ask` hooks and the `review` tidy-up apply it. A root without `todos/` has no to-dos and works as before; `setup` creates the folder at build, and `todo` creates it on first use in a root set up before 0.5.0.
+
+### To-do events and `todo.md`
+
+- Every change is one append-only **to-do event**, `todos/<author>-YYYYMMDD_HHMM.md` (a `-2`, `-3` suffix when the name is taken), front-matter `agora: todo`, `action` (`add | done | reopen | assign | edit | remove`), `author`, `created` to the second. An `add` carries `owner`, optional `due`, `interest`/`instance` and `source` (a path, or `email <Gmail message id>`), and a one-line body; other actions carry `todo` (the id: the `add` file name without `.md`) and the changed fields; a `remove` carries the filter, count and ids, as a trace only.
+- **Current state**: fold a to-do's events in `created` order; the last `done` or `reopen` decides open or closed, and each field takes its latest value. Events whose `todo` matches no `add` are orphans, left out and flagged by tidy-up.
+- **`todo.md`** (root, derived, `agora: todo-list`): one `## <Name>` section for each member who owns an open to-do (no empty member sections), then `## Everyone`, then `## Recently done` (closed in the last 14 days). Open to-dos are in list order: overdue, then by due date, then undated. Rebuilt by replace after every change, re-listing `todos/` just before writing; stale when an event is newer than its Last updated.
+- **Place**: attached to an instance when one is clear, else root level; adding never asks where. An open attached to-do shows in its instance's Pending. A due date creates no calendar event; a member asks for one through `schedule`.
+
+### Who changes to-dos
+
+- Only a conversation creates, changes or removes to-dos, through the `todo` skill: a member asked, or said yes to an offer from `log`, `email` or a review suggestion.
+- **The one exception**: member mail asking in so many words to add a to-do ("add to my to-dos: call the bank") counts as the member's own request. It is the **only to-do event an unattended run writes**: the review's inbox tidy-up adds it, `author` the sender, named and dated from the email's received time so two runs add it once, ledger outcome `to-do → <id>`.
+- Any other mail, and every routine, only **suggests**: "looks done" (a later diary entry or email shows it was done) and "possible new to-do" (a diary entry or email asks someone to act), in the review's To-dos section and under Needs attention. Routines never complete, reassign or remove a to-do.
+
+### Reviews
+
+Every review has a `## To-dos` section: overdue, due in the look-ahead window, opened and done in the look-back window, suggestions; the monthly review adds open to-dos with no due date older than 30 days. Personal reviews show the member's to-dos first, then Everyone's; the general review each member's, then Everyone's. An attended review asks once to confirm its suggestions, each yes going through `todo`.
+
+### Remove and archive
+
+- **Remove** (conversation only): filter by date, instance or interest, owner, `everyone` or source, combined; closed to-dos only unless the member says "including open ones"; list the matches and wait for a yes; trash every event file (Drive trash, 30 days), never hard-delete; write one `remove` event and rebuild.
+- **Archive**: the monthly tidy-up moves the events of to-dos closed more than 90 days ago into `todos/archive/YYYY/` (the closing year). Idempotent. Archived to-dos leave `todo.md` and reviews; `ask` searches the archive only when asked about old to-dos.
+
 ## Memories
 
 Captured during conversations (no platform lets a scheduled run read past chats):
@@ -324,9 +356,12 @@ Require the assistant account:
 - Move a file uploaded to `landing/` by a different Google account.
 - Live ChatGPT smoke test of the full flow (Drive writes, calendar create/update/delete on a non-primary calendar).
 - Email (0.4.0): the manual test [manual-tests/manual-test-agora-v040-email.md](manual-tests/manual-test-agora-v040-email.md) on Claude and ChatGPT, with email on, as the assistant account. Re-verify the ChatGPT send limits and whether a reply to a scheduled review's chat runs with the plugin and connectors.
+- To-dos (0.5.0): the manual test [manual-tests/manual-test-agora-v050-todos.md](manual-tests/manual-test-agora-v050-todos.md) on Claude and ChatGPT, as the assistant account, with email on for the email scenarios.
 
 ## Out of scope (future extensions)
 
-See [future-extensions.md](future-extensions.md): Google Sheets trackers, memory reflection routine, git-backed interests, local filesystem roots, email attachments, Gmail labels and archiving, Gmail-triggered tasks.
+See [future-extensions.md](future-extensions.md): Google Sheets trackers, memory reflection routine, git-backed interests, local filesystem roots, email attachments, Gmail labels and archiving, Gmail-triggered tasks, Google Tasks.
 
 Out of scope for email: members' personal inboxes, sending without an in-conversation confirmation (standing send rules included), and email providers other than Gmail.
+
+Out of scope for to-dos: Google Tasks as a store or mirror, private to-dos, calendar events created automatically from due dates, recurring to-dos, subtasks, priorities or tags, routines creating, completing, reassigning or removing to-dos (beyond the member-mail add), and hard deletion of to-do events.

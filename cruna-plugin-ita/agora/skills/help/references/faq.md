@@ -30,6 +30,18 @@ Sì. Di' "segna i pannolini di Greta in un file" (o le poppate, le spese, le med
 
 Sì: "fai una lista per la valigia delle vacanze", "aggiungi il latte alla lista della spesa", "scrivi un promemoria dei vaccini di Greta". Agora la tiene come file nella cartella `documents` di quell'argomento e la aggiorna ogni volta che lo chiedi. Aprila dall'app Drive per leggerla, condividerla o stamparla.
 
+## Come tengo una lista di to-do?
+
+Di' ad Agora: "aggiungi un to-do: rinnovare l'assicurazione dell'auto". È tuo, a meno che tu non nomini qualcun altro ("Nina deve prenotare il dentista") o dica che è per tutti ("qualcuno deve comprare il toner"). Se vuoi aggiungi una data ("entro venerdì") e le revisioni ti avvisano prima che sia tardi; di' "mettilo in calendario" se vuoi anche un evento. Chiedi "cosa ho da fare?" o "cosa c'è di aperto per tutti?", e di' "fatto con l'assicurazione" quando è fatto, o "ci penso io" per prendere in carico uno condiviso. La lista completa è in `todo.md` nella cartella `<nome della radice>`.
+
+## Gli altri vedono i miei to-do?
+
+Sì. Tutti in `<nome della radice>` vedono ogni to-do, compresi i tuoi, e possono chiuderlo, passarlo ad altri o cambiarlo; Agora annota chi ha fatto cosa. Tieni fuori dalla lista le cose private.
+
+## Come tolgo i vecchi to-do?
+
+Di' cosa togliere: "rimuovi tutto ciò che è chiuso prima di giugno", "rimuovi tutto ciò che riguarda Acme", "rimuovi i to-do fatti di Nina". Agora toglie solo i to-do finiti, a meno che tu non dica "compresi quelli aperti". Ti mostra prima l'elenco e aspetta il tuo sì. I to-do rimossi vanno nel cestino di Google Drive, dove puoi ripristinarli per 30 giorni; poi spariscono. Ogni mese, inoltre, i to-do finiti da più di tre mesi vengono messi in archivio, fuori dai piedi ma conservati.
+
 ## Dov'è il file del registro o della lista?
 
 Nell'argomento a cui appartiene: `<nome della radice>` → `<interesse>` → `<istanza>` → `documents`, con un nome semplice come `greta-pannolini.csv` o `lista-valigia.md`. L'`index.md` di quell'argomento lo elenca sotto **Maintained**. Oppure chiedi ad Agora "dov'è la lista per la valigia?".
@@ -70,7 +82,7 @@ Di' "aggiungi <nome> ad Agora". Agora ti guida: lo aggiunge a `org.md`, condivid
 
 ## Posso modificare i file da solo?
 
-Puoi aggiungere file e leggere tutto. Gli appunti in `diary` non vengono mai modificati: per correggerne uno, di' ad Agora cosa non va e salva una correzione. `status.md` e `index.md` vengono riscritti da Agora, quindi ogni modifica che fai lì sparisce; dillo ad Agora invece. `org.md` e i file in `memories` puoi modificarli tu, se vuoi. Anche i file registro e le liste: Agora li legge prima di ogni modifica, quindi le tue modifiche restano.
+Puoi aggiungere file e leggere tutto. Gli appunti in `diary` non vengono mai modificati: per correggerne uno, di' ad Agora cosa non va e salva una correzione. `status.md`, `index.md` e `todo.md` vengono riscritti da Agora, quindi ogni modifica che fai lì sparisce; dillo ad Agora invece. `org.md` e i file in `memories` puoi modificarli tu, se vuoi. Anche i file registro e le liste: Agora li legge prima di ogni modifica, quindi le tue modifiche restano.
 
 ## E se in due parliamo con Agora nello stesso momento?
 

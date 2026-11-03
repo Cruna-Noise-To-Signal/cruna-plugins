@@ -30,6 +30,18 @@ Yes. Say "track Greta's nappies in a file" (or feeds, expenses, medicine). Agora
 
 Yes: "make a packing list for the holiday", "add milk to the shopping list", "write up a memo of Greta's vaccines". Agora keeps it as a file in that topic's `documents` folder and updates it whenever you ask. Open it from the Drive app to read, share or print it.
 
+## How do I keep a to-do list?
+
+Tell Agora: "add a to-do: renew the car insurance". It's yours unless you name someone else ("Nina should book the dentist") or say it's for everyone ("someone needs to buy toner"). Add a date if you like ("by Friday") and the reviews warn you before it's late; say "put it on the calendar" if you also want an event. Ask "what's on my list?" or "what's open for everyone?", and say "done with the insurance" when it's done, or "I'll do it" to take over a shared one. The whole list is in `todo.md` in the `<root name>` folder.
+
+## Can others see my to-dos?
+
+Yes. Everyone in `<root name>` sees every to-do, yours included, and can finish, hand over or change it; Agora notes who did what. Keep private things out of the list.
+
+## How do I remove old to-dos?
+
+Say what to clear: "remove everything closed before June", "remove everything about Acme", "remove Nina's done to-dos". Agora removes only finished to-dos unless you say "including open ones". It shows you the list first and waits for your yes. Removed to-dos go to the Google Drive trash, where you can restore them for 30 days; then they're gone. Finished to-dos older than three months are also archived each month, out of the way but kept.
+
 ## Where is the tracker or list file?
 
 In the topic it belongs to: `<root name>` → `<interest>` → `<instance>` → `documents`, under a plain name like `greta-diapers.csv` or `packing-list.md`. That topic's `index.md` lists it under **Maintained**. Or ask Agora "where is the packing list?".
@@ -70,7 +82,7 @@ Say "add <name> to Agora". Agora walks you through it: adding them to `org.md`, 
 
 ## Can I edit the files myself?
 
-You can add files and read everything. Notes in `diary` are never changed: to correct one, tell Agora what's wrong and it saves a correction. `status.md` and `index.md` are rewritten by Agora, so any change you make there disappears; tell Agora instead. `org.md` and the `memories` files are yours to edit if you like. Tracker and list files are too: Agora reads them before every change, so your edits stay.
+You can add files and read everything. Notes in `diary` are never changed: to correct one, tell Agora what's wrong and it saves a correction. `status.md`, `index.md` and `todo.md` are rewritten by Agora, so any change you make there disappears; tell Agora instead. `org.md` and the `memories` files are yours to edit if you like. Tracker and list files are too: Agora reads them before every change, so your edits stay.
 
 ## What if two of us talk to Agora at the same time?
 

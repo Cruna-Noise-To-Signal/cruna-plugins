@@ -61,7 +61,7 @@ Costruisci in quest'ordine dalle risposte in setup.md → Interview, scrivendo o
 
 1. Cartella radice: esiste dall'intervista.
 2. `org.md`, con `agora: root` nel front-matter, ogni membro in Members, la convenzione di struttura e una riga Access per membro (Drive e calendario "in attesa" fino al passo 2e).
-3. `landing/`, `reviews/`, `memories/` con `shared.md` e un `<slug>.md` per membro (solo la riga del titolo, più quanto di duraturo è emerso dall'intervista).
+3. `landing/`, `reviews/`, `todos/` (vuota: `todo.md` arriva con il primo to-do), `memories/` con `shared.md` e un `<slug>.md` per membro (solo la riga del titolo, più quanto di duraturo è emerso dall'intervista).
 4. La tabella Interests in `org.md`, con ogni interesse dell'intervista, la sua descrizione e il suo colore (colori come al passo 5 di `add-interest`), scritta una volta sola (rules → Sostituire).
 5. Ogni interesse e istanza dell'intervista, costruiti con il passo 4 della skill `add-interest`, poi il livello interesse del suo passo 6 (`index.md` e `status.md` di ogni interesse, riassunti dalle sue istanze). Hai già la radice e le risposte, quindi salta le sue domande.
 6. `index.md` e `status.md` della radice, ricostruiti una volta alla fine della costruzione così da riassumere tutto ciò che sta sotto.
@@ -140,7 +140,7 @@ Fatto quando il membro non ha più accesso come editor alla cartella né al cale
 Controlla la radice con chiamate reali, mai a memoria di ciò che hai costruito:
 
 - `org.md` si scarica, il suo front-matter contiene `agora: root` e ogni membro ha una riga Members e una riga Access (le righe di un membro rimosso lo dicono, e la cartella e il calendario non lo elencano più).
-- Esistono `index.md` e `status.md` della radice, `landing/`, `reviews/`, `memories/shared.md` e un `memories/<slug>.md` per membro.
+- Esistono `index.md` e `status.md` della radice, `landing/`, `reviews/`, `todos/`, `memories/shared.md` e un `memories/<slug>.md` per membro.
 - Ogni interesse in `org.md` e nell'`index.md` della radice ha una cartella con `index.md` e `status.md`; ogni istanza ha `index.md`, `status.md`, `diary/` e `documents/`.
 - Nessun nome di file compare due volte nella stessa cartella (rules → Sostituire).
 - Il calendario principale nella lista dei calendari riporta l'email dell'account dell'assistente, come `calendar` in `org.md`.
@@ -168,6 +168,7 @@ Un messaggio breve nella lingua della radice, senza termini tecnici. Uscita: una
    - Aggiungi un file: mettilo nella cartella `landing` e dimmelo. (`file-document`)
    - Imposta un promemoria o un appuntamento: "Ricordaci di rinnovare l'assicurazione dell'auto il 12 marzo." (`schedule`)
    - Chiedi: "Cosa c'è in sospeso per Nina?" (`ask`)
+   - Tieni un to-do: "Aggiungi un to-do: rinnovare l'assicurazione dell'auto entro venerdì." (`todo`)
    - Segui qualcosa di nuovo: "Inizia a seguire la ristrutturazione della casa." (`add-interest`)
    - Con l'email attiva: "Inoltrami l'email del cliente", "Prepara una bozza di risposta a Mario". (`email`)
 4. Quando arriveranno le revisioni (ogni mattina, la domenica sera, il primo del mese), e che "aiuto" spiega tutto il resto.

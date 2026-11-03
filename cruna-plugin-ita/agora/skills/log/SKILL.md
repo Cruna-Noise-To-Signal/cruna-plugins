@@ -23,7 +23,7 @@ Prendi il messaggio del membro come materiale. I casi:
 - **Correzione**: "anzi, è venerdì, non giovedì". Trattala come una novità che dice cosa corregge; la voce precedente resta intatta (rules → Tipi di file).
 - **Salvataggio da una sessione di consultazione**: dopo `ask`, il membro dice "salvalo". Il materiale è la risposta o la decisione che vuole conservare, più le sue parole.
 - **Un file allegato in chat** → la skill `file-document`.
-- **File di lavoro**: la richiesta di tenere traccia di qualcosa in un file, di creare o modificare una lista, un promemoria o qualcosa da stampare, o di aggiungere, cambiare o togliere una Convenzione ("d'ora in poi…", "smetti di segnare i pannolini nel file") → [references/working-files.md](references/working-files.md), poi il passo 9.
+- **File di lavoro**: la richiesta di tenere traccia di qualcosa in un file, di creare o modificare una lista, un promemoria o qualcosa da stampare, o di aggiungere, cambiare o togliere una Convenzione ("d'ora in poi…", "smetti di segnare i pannolini nel file") → [references/working-files.md](references/working-files.md), poi il passo 10.
 
 Fatto quando: sai enunciare, in una riga ciascuno, ogni fatto che il membro vuole conservare.
 
@@ -71,13 +71,19 @@ Per ogni istanza toccata, ricostruisci il suo `index.md` con la nuova voce in ci
 
 Fatto quando: l'indice di ogni istanza toccata elenca la sua nuova voce, e ogni stato, da quelle istanze fino alla radice, riporta i nuovi fatti e il Last updated di oggi.
 
-### 8. Riconosci uno schema
+### 8. Proponi i to-do
+
+Cerca tra i fatti un'**azione** che qualcuno deve ancora fare ("devo chiamare il commercialista", "Nina deve prenotare il dentista"). Quando ne trovi, chiedi una volta sola, elencando ciascuna: "Aggiungo un to-do: Chiamare il commercialista (tuo)?". Per ogni sì, passala al ramo Aggiungi della skill `todo` con testo, responsabile e scadenza dalle parole del membro, l'istanza della voce, e la voce come `source`. Nessun sì, nessun to-do.
+
+Fatto quando: ogni azione tra i fatti è stata proposta una volta ed è un to-do o è stata rifiutata, oppure i fatti non ne contenevano.
+
+### 9. Riconosci uno schema
 
 Guarda le righe di oggi nella tabella Diary di ogni istanza toccata, e le parole del membro. Quando si applica rules → Convenzioni → Suggerire (diverse voci simili oggi, una lista o qualcosa da stampare richiesti, un foglio che il membro tiene a parte), segui [references/working-files.md](references/working-files.md) → Suggerire. Un membro con un foglio esistente da portare dentro → la skill `file-document` (Importa).
 
 Fatto quando: il suggerimento è stato proposto una volta, oppure non è emerso alcuno schema.
 
-### 9. Passo memoria
+### 10. Passo memoria
 
 Segui rules → Passo memoria.
 
@@ -91,7 +97,8 @@ Un solo messaggio breve, nella lingua della radice:
 - Righe di registro, una riga per registro ("Greta: cacca delle 9:15 aggiunta al registro dei pannolini"); un file di lavoro creato o modificato, con il suo percorso così che il membro possa aprirlo o stamparlo; una Convenzione scritta, in una frase semplice.
 - Modifiche al calendario, una riga ciascuna, se ce ne sono.
 - Ciò che resta aperto: un fatto rimasto senza data, un'istanza in attesa di `add-interest`.
-- Il suggerimento del passo 8, se c'è.
+- I to-do aggiunti, una riga ciascuno come li ripete `todo`.
+- Il suggerimento del passo 9, se c'è.
 - La riga di `remember`, se c'è.
 
 Nessun percorso di file tranne quello di un file di lavoro, niente front-matter o testo degli stati, a meno che il membro non lo chieda.

@@ -48,3 +48,10 @@ Ideas deliberately left out of the current design. Each records why it waits and
 - **Why it waits**: only ChatGPT offers a "run when a new Gmail message arrives" trigger; Claude has no equivalent, and Agora keeps both platforms on the same design (checked 2026-11-03).
 - **Today**: the review's inbox tidy-up handles new mail on the daily, weekly and monthly schedule; members can ask in conversation at any time.
 - **To build**: an equivalent trigger on Claude, or an accepted ChatGPT-only extra that runs the same inbox tidy-up rules.
+
+## Google Tasks
+
+- **What**: each member's personal to-dos mirrored into their own Google Tasks list, so they show in Gmail, Calendar and the Tasks app.
+- **Why it waits**: neither Claude nor ChatGPT has an official Google Tasks connector, and Tasks is not documented as reachable through the Calendar connector; the only route is a third-party MCP server as a custom connector, which may not run in scheduled tasks. Tasks lists are personal per account and cannot be shared, so they cannot hold the shared (`everyone`) to-dos. Checked 2026-11-03 from vendor blogs, since the official help pages were not reachable: read as "not documented", not "confirmed absent".
+- **Today**: to-dos are append-only events in `todos/` with the derived `todo.md` list (spec → To-dos); a member asks for a calendar event for a to-do through `schedule`.
+- **To build**: an official Tasks connector on both platforms that works in scheduled runs; then a one-way mirror of each member's personal to-dos into their own Tasks list, keeping `todos/` as the source of truth.

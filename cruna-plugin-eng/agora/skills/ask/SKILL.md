@@ -23,6 +23,7 @@ Read the root `index.md` and match the question to interests: a name, a client, 
 
 - **Time questions with no subject** ("what do we have this week?", "anything due tomorrow?"): the whole root is in scope; go straight to the root `status.md` and the calendar (step 4). For a full summary of a day, week or month ("give me the week ahead"), use the `review` skill instead.
 - **Questions that span interests** ("what's pending with everyone?"): every interest is in scope; plan to roll up (step 5).
+- **To-do questions** ("what's on my list?", "what's open on Acme?", "what did Nina finish this week?"): read the `rules` skill's `references/todos.md` and answer from root `todo.md`, folding the events in `todos/` instead when it is stale (references/todos.md → `todo.md`); the archive only when the member asks about old to-dos. No `todos/` folder: there are no to-dos yet. Then step 5, citing `todo.md`.
 - **Unclear target**, and different targets would give different answers: ask once, offering the likely `interest/instance` options from the indexes (rules → Ask, never assume).
 
 Done when: you hold a list of candidate instances (or "whole root"), each one backed by a row in an index or by the member's answer.
@@ -66,6 +67,7 @@ Writing belongs to other skills. When the conversation produces something to kee
 
 - "note that", "save that", new facts or a decision → the `log` skill.
 - "remind me", an appointment, a deadline → the `schedule` skill.
+- "add a to-do", "done with that", a to-do to change → the `todo` skill.
 - a file to keep → the `file-document` skill.
 - an email to file, draft, answer or send → the `email` skill.
 - a memo, list or printable made from what you found ("make that a list I can print") → the `log` skill, to save it as a List working file (rules → File kinds), when the member wants it kept and updated; when they only want to read it, write it in your answer.

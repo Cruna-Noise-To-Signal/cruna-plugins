@@ -132,7 +132,7 @@ Behaviour contracts:
 - All to-dos are visible to all members; there is no private to-do.
 - Structure names stay in English in both language versions (`todo.md`, `todos/`, `todos/archive/`, the skill name `todo`, actions, front-matter keys, the headings `To-dos`, `Everyone`, `Recently done`). Content follows the root's language; the Italian term is "to-do".
 
-Versioning: `agora` and `agora-ita` go up one minor version in both manifests and both catalogs. The spec, README, glossary and `future-extensions.md` are updated in the same change.
+Versioning: `agora` and `agora-ita` go from 0.4.0 to 0.5.0 in both manifests and both catalogs. The spec, README, glossary and `future-extensions.md` are updated in the same change.
 
 ## Testing Decisions
 
@@ -165,6 +165,6 @@ Versioning: `agora` and `agora-ita` go up one minor version in both manifests an
 ## Further Notes
 
 - Decision trail: `grilled-idea.md` in this folder (rounds Q1–Q17, 2026-11-03).
-- Depends on #2 (eager-rosetta) for the email hooks. Per the human's decision, this request is built on the same branch as #2, `feature/eager-rosetta`, while #2 is still in progress. If both land in one squash, a single minor bump covers both; the grilled idea's "0.5.0 after 0.4.0" holds only if #2 ships first.
+- Depends on #2 (eager-rosetta) for the email hooks; #2 is on `dev` as 0.4.0.
 - Google Tasks facts were checked on 2026-11-03 from vendor sources (official help pages were not reachable): read them as "not documented", not "confirmed absent". Re-check before picking up the future extension.
 - `rules` and `review` are already long; keep to-do detail in a `rules` reference file.

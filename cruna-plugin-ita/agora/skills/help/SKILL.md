@@ -1,6 +1,6 @@
 ---
 name: help
-description: Spiega Agora, il quaderno condiviso che una famiglia o un piccolo gruppo tiene su Google Drive e Calendar tramite l'AI, e lo sistema quando non funziona bene. Usala quando qualcuno chiede cosa sa fare Agora o come funziona ("cosa sai fare?", "come funziona Agora?"), fa una domanda su come fare qualcosa (dove sono i miei file, chi vede cosa, aggiungere un documento dal telefono, tenere traccia di cose frequenti o di liste da stampare, l'email, le routine, aggiungere una persona, uscire), o dice che Agora non funziona, non vede qualcosa o mostra un errore ("Agora non funziona", "non vedi il calendario").
+description: Spiega Agora, il quaderno condiviso che una famiglia o un piccolo gruppo tiene su Google Drive e Calendar tramite l'AI, e lo sistema quando non funziona bene. Usala quando qualcuno chiede cosa sa fare Agora o come funziona ("cosa sai fare?", "come funziona Agora?"), fa una domanda su come fare qualcosa (dove sono i miei file, chi vede cosa, aggiungere un documento dal telefono, tenere traccia di cose frequenti o di liste da stampare, i to-do, l'email, le routine, aggiungere una persona, uscire), o dice che Agora non funziona, non vede qualcosa o mostra un errore ("Agora non funziona", "non vedi il calendario").
 ---
 
 # Aiuto
@@ -33,6 +33,7 @@ Di' in una frase che cos'è Agora: ognuno racconta all'AI cosa succede, l'AI lo 
 | "Quando è il prossimo vaccino di Nina?" / "cosa abbiamo questa settimana?" | Una risposta con le date e da dove vengono | `ask` |
 | "Greta ha appena fatto la cacca" / "fammi una lista per la valigia da stampare" | Una riga in un file registro, o una lista sul Drive, tenuta aggiornata | `log` |
 | "Quante poppate oggi?" | Contate dal registro | `ask` |
+| "Aggiungi un to-do: rinnovare l'assicurazione dell'auto" / "cosa ho da fare?" / "fatto con l'assicurazione" | Una lista di to-do condivisa, tuoi e di tutti, tenuta aggiornata | `todo` |
 | "Dammi la settimana che viene" | Un riepilogo di cosa è successo e di cosa arriva | `review` |
 | "Aggiungi un nuovo cliente: Rossi" | Una nuova sezione in cui tenere le cose | `add-interest` |
 | "Ricorda che preferisco risposte brevi" | Agora se ne ricorda la prossima volta | `remember` |
