@@ -53,7 +53,8 @@ Every sent email is logged as a diary entry in the instance it concerns, named `
 - A reply or forward to an email in the ledger whose outcome is not `filed` goes on that email's row, unless it is the draft a member-mail instruction asks for: its outcome becomes `drafted`, then `sent → <diary path>`, and the row keeps the original message id.
 - Any other email the AI writes (a new one, a reply to an email that is filed or not in the ledger, or the draft a member-mail instruction asks for) gets its own row, `from` = `to <recipients>`, keyed on its draft id; on send, the row is rekeyed to the sent message's id.
 - An email already in the ledger is already handled: read the ledger before handling any email, and skip what it lists, unless a member asks for it by name. A later outcome for the same email (a flag filed in conversation, a draft sent) replaces that row's outcome, by and date.
-- Write it once per conversation or run, at the end, by replace (rules → Replace); when it doesn't exist, create it from its template. Before trashing the old copy, list the root again: a newer copy written meanwhile is merged in, every distinct row kept, one row per message id (the latest outcome). The `review` tidy-up drops rows dated more than 60 days ago.
+- Write it once per conversation or run, at the end, by replace (rules → Replace); when it doesn't exist, create it from its template. Before trashing the old copy, list the root again: a newer copy written meanwhile is merged in. The `review` tidy-up drops rows dated more than 60 days ago.
+- Copies of `inbox.md` (a newer one written meanwhile, or duplicates found at any time) merge into one: every distinct row kept, one row per message id (the latest outcome), newest first; then trash the other copies.
 - Drafts waiting for approval are the rows with outcome `drafted`.
 
 ## Importance
