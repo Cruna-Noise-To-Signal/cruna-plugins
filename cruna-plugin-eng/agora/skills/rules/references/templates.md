@@ -166,7 +166,7 @@ Same sections at every level. Omit nothing; write "—" under an empty section.
 - <YYYY-MM-DD> <next step> — <calendar event title, when there is one>
 ```
 
-The `To-do:` lines are the open to-dos attached to an instance, overdue first ([todos.md](todos.md) → In status).
+The `To-do:` lines are the open to-dos attached to an instance ([todos.md](todos.md) → In status).
 
 Root `status.md` adds, after Next:
 
@@ -221,7 +221,7 @@ File: `todos/<slug>-YYYYMMDD_HHMM.md` ([todos.md](todos.md) → To-do events). A
 agora: todo
 action: add
 author: <slug>
-created: <YYYY-MM-DDTHH:MM>
+created: <YYYY-MM-DDTHH:MM:SS>
 owner: <slug | everyone>
 due: <YYYY-MM-DD, or omit>
 interest: <interest, or omit>
@@ -239,7 +239,7 @@ Any other action has no body, and names the to-do it acts on:
 agora: todo
 action: <done | reopen | assign | edit>
 author: <slug>
-created: <YYYY-MM-DDTHH:MM>
+created: <YYYY-MM-DDTHH:MM:SS>
 todo: <id: the add event's file name without .md>
 owner: <assign only: slug | everyone>
 text: <edit only, when it changes>
@@ -256,7 +256,7 @@ A `remove`:
 agora: todo
 action: remove
 author: <slug>
-created: <YYYY-MM-DDTHH:MM>
+created: <YYYY-MM-DDTHH:MM:SS>
 filter: <the member's filter, in words, with "including open ones" when said>
 count: <n>
 todos: [<ids trashed>]
@@ -286,7 +286,7 @@ agora: todo-list
 - Send Acme the quote — simone, done 2026-11-02 by simone · [clients/acme](clients/acme/) · source: email 18c2f0a9b7e4d311 · `simone-20261030_0915`
 ```
 
-Member sections hold each member's open to-dos, overdue first, then by due date, then undated; Recently done covers the last 14 days ([todos.md](todos.md) → `todo.md`).
+Sections, order and line contents: [todos.md](todos.md) → `todo.md`.
 
 ## Tracker (working)
 

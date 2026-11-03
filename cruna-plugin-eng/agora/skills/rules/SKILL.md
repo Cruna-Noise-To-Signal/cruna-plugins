@@ -65,7 +65,7 @@ The root folder is named after the root's display name unless the user picks ano
 
 Every file is one of four kinds; the kind decides how it may change.
 
-- **Source**: `diary/` entries, uploaded `documents/` and to-do events in `todos/`. Append-only: create, never edit. A correction is a new diary entry that says what it corrects.
+- **Source**: `diary/` entries, uploaded `documents/` and to-do events in `todos/`. Append-only: create, never edit. A correction is a new diary entry that says what it corrects; a to-do is corrected by a later to-do event.
 - **Derived**: every `status.md` and `index.md`, and `todo.md`. Rebuilt from the sources below them, never hand-edited, always safe to rebuild. A rebuild replaces the whole file.
 - **Curated**: `org.md`, `setup.md`, `inbox.md`, `memories/`, `reviews/`. Edited in place by replacing the file; keep `org.md` and `memories/` short by updating lines rather than appending forever. Reviews are append-only: an update replaces the file with the old content verbatim plus the new section.
 - **Working**: a file in `documents/` that the AI maintains for the members, with a fixed name and no timestamp (`greta-diapers.csv`, `packing-list.md`). Updated by replacing it in full (rules → Replace). Two shapes:

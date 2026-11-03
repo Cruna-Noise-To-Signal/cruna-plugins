@@ -24,9 +24,9 @@ A to-do may carry a `due` date, resolved in the root's timezone ("by Friday" →
 
 Every change to a to-do is one **to-do event**: a source file, append-only (rules → File kinds). An event is created, never edited; a mistake is put right by a later event.
 
-- **Name**: `todos/<author>-YYYYMMDD_HHMM.md`, the author's slug and the time of the change in the root's timezone. When that name is taken, add `-2`, then `-3`, before `.md`.
+- **Name**: `todos/<author>-YYYYMMDD_HHMM.md`, the author's slug and the minute of the change in the root's timezone. When that name is taken, add `-2`, then `-3`, before `.md`.
 - **Id**: a to-do's id is the name of its `add` event, without `.md` (`simone-20261103_0912`).
-- **Front-matter**: `agora: todo`, `action`, `author`, `created`, then per action:
+- **Front-matter**: `agora: todo`, `action`, `author`, `created` (to the second, `YYYY-MM-DDTHH:MM:SS`, so the fold orders events by real time), then per action:
   - `add`: `owner`; optional `due`, `interest` and `instance`, `source`. The body is one line: the to-do's text.
   - `done`, `reopen`: `todo` (the id it acts on).
   - `assign`: `todo`, `owner`.
@@ -40,7 +40,7 @@ Only a conversation writes to-do events, through the `todo` skill: a member aske
 
 ## Current state
 
-To learn a to-do's state, **fold** its events: its `add` event and every event whose `todo` is its id, in `created` order (same `created`: by file name).
+To learn a to-do's state, **fold** its events: its `add` event and every event whose `todo` is its id, in `created` order (identical `created`, to the second: by file name).
 
 - After `add`, it is open. The last `done` or `reopen` decides open or closed; its **closed date** is the `created` of the last `done`.
 - Each field (`text`, `owner`, `due`, place) takes its latest value.
@@ -52,9 +52,9 @@ To learn a to-do's state, **fold** its events: its `add` event and every event w
 Root `todo.md` is the to-do list members read: a **derived** file (rules → File kinds), never hand-edited, rebuilt by replace (rules → Replace) from the fold of every event in `todos/` (the archive left out).
 
 - One `## <Name>` section per member who owns an open to-do, in `org.md` Members order; then `## Everyone`; then `## Recently done`. An empty Everyone or Recently done says "—".
-- In a member or Everyone section: their open to-dos, overdue first, then by due date, then undated (oldest first).
+- In a member or Everyone section: their open to-dos in **list order**: overdue first, then by due date, then undated (oldest first).
 - **Recently done**: to-dos closed in the last 14 days, newest first, with who closed them.
-- Each line: the text, the owner, the due date, a link to the instance when attached, a link to the source when there is one, and the id.
+- Each line: the text, the due date, a link to the instance when attached, a link to the source when there is one, and the id. The section heading names the owner, so only Recently done lines repeat it.
 - **Rebuild** after every change, listing `todos/` again just before writing, so events another member wrote meanwhile are folded in. Duplicates are handled like any derived file (rules → Replace).
 - It is **stale** when an event in `todos/` is newer than its Last updated line, or when it does not exist while `todos/` holds events.
 
@@ -62,7 +62,7 @@ Read the list from `todo.md`; when it is stale, fold the events instead, and reb
 
 ## In status
 
-An instance `status.md` Pending lists each open to-do attached to the instance, one line each (template in [templates.md](templates.md)), overdue first. Interest and root statuses roll these up like any Pending item. Every change that opens, closes, reassigns, redates or moves an attached to-do rebuilds the status of each instance it was or is attached to, then propagates (rules → Status update rule).
+An instance `status.md` Pending lists each open to-do attached to the instance, one line each (template in [templates.md](templates.md)), in list order (`todo.md`, above). Interest and root statuses roll these up like any Pending item. Every change that opens, closes, reassigns, redates or moves an attached to-do rebuilds the status of each instance it was or is attached to, then propagates (rules → Status update rule).
 
 ## Suggestions
 
