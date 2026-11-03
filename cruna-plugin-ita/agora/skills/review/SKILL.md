@@ -19,7 +19,7 @@ Esegui revisione Agora: <giornaliera | settimanale | mensile> [per <slug>] [in <
 - **Membro** (facoltativo): lo slug del membro a cui è destinato il messaggio, che lo rende personale. Senza, il messaggio è generale.
 - **Radice** (facoltativa): il nome visualizzato della radice da `org.md`, necessario solo quando l'account dell'assistente vede più radici.
 
-Un prompt in questa forma indica un'**esecuzione non presidiata**: non c'è nessuno a rispondere, quindi segui rules → Esecuzioni non presidiate (agisci solo su ciò che è inequivocabile, segnala il resto) e salta il passo memoria.
+Un prompt in questa forma indica un'**esecuzione non presidiata**: non c'è nessuno a rispondere, quindi segui rules → Esecuzioni non presidiate (agisci solo su ciò che è inequivocabile, segnala il resto) e salta il passo memoria. Non scrive alcun evento to-do, oltre all'add che chiede la posta di un membro (rules → To-do): ciò che nota sui to-do diventa un suggerimento.
 
 Un membro che chiede in conversazione indica un'**esecuzione presidiata**: il periodo viene dalle sue parole ("oggi" → giornaliera, "la settimana" → settimanale, "il mese" → mensile), e un'ambiguità diventa una domanda invece che una segnalazione. Il messaggio è generale a meno che le sue parole non indichino un membro ("la mia settimana" → chi sta parlando, "cosa c'è per Nina"); chiedi chi sta parlando solo in quel caso, e solo quando non è ancora noto. Quando le sue parole indicano una finestra che i periodi qui sotto non coprono ("finora questo mese"), trattala come una **finestra personalizzata**: esegui ogni passo per quella finestra, ma salta i passi 3.1–3.3 (nessun file di revisione) e costruisci il messaggio dagli stati, dalle voci di diario e dagli eventi di calendario dentro la finestra.
 
@@ -39,7 +39,7 @@ Tutte le date sono nel fuso orario della radice. Le settimane sono settimane ISO
 
 ### 1. Carica le regole, trova la radice, sappi chi sta parlando
 
-Carica la skill `rules` e segui rules → Trovare la radice. In un'esecuzione non presidiata, usa la radice indicata nel prompt; quando esistono più radici e nessuna è indicata, fermati e restituisci una riga che dica al membro di aggiungere il nome della radice al prompt di questa routine. Messaggio personale: prendi il membro dal prompt (non presidiata) o dalle sue parole e da rules → Identità (presidiata), e leggi `memories/<slug>.md`. Ogni esecuzione legge `memories/shared.md`.
+Carica la skill `rules` e segui rules → Trovare la radice. Quando la radice ha una cartella `todos/`, leggi il file `references/todos.md` della skill `rules`. In un'esecuzione non presidiata, usa la radice indicata nel prompt; quando esistono più radici e nessuna è indicata, fermati e restituisci una riga che dica al membro di aggiungere il nome della radice al prompt di questa routine. Messaggio personale: prendi il membro dal prompt (non presidiata) o dalle sue parole e da rules → Identità (presidiata), e leggi `memories/<slug>.md`. Ogni esecuzione legge `memories/shared.md`.
 
 Fatto quando: hai letto `org.md`; per un messaggio personale, conosci lo slug del membro, risulta elencato in `org.md` e hai letto le sue memorie; e hai il periodo, il nome del file ed entrambe le finestre dalla tabella qui sopra.
 
@@ -47,25 +47,30 @@ Fatto quando: hai letto `org.md`; per un messaggio personale, conosci lo slug de
 
 Il riordino è **idempotente**: una seconda esecuzione su una radice invariata non cambia nulla, quindi le routine dei membri che girano nello stesso momento sono innocue. Percorri la radice una volta, elencando i figli di ogni cartella, e usa quell'elenco per tutti i controlli qui sotto.
 
-1. **Duplicati.** Dovunque due file nella stessa cartella hanno lo stesso nome: per i file derivati e curati (`status.md`, `index.md`, `org.md`, `memories/`, `reviews/`) tieni il più recente e cestina gli altri (rules → Sostituire). Un registro duplicato nasce da due scritture contemporanee: scrivi una versione che contenga ogni riga distinta di tutte le copie nell'ordine indicato da rules → Sostituire, poi cestina le copie. Un `inbox.md` duplicato: uniscilo come dice rules → Email → Il protocollo. Una lista duplicata: tieni la più recente. I file sorgente (`diary/`, i `documents/` caricati) restano intatti; segnalali.
-2. **Documenti non archiviati.** I file di lavoro sono già archiviati: lascia com'è, nome compreso, ogni file elencato sotto Maintained nell'`index.md` della sua istanza. Un file `.csv` o `.md` con un nome di tipo fisso (minuscolo, con trattini, senza timestamp) assente da Maintained è un file di lavoro quando una voce di diario della sua istanza dice `Maintained: documents/<name>`: il suo indice è obsoleto (punto 5). Senza una voce del genere, segnalalo ("`greta/salute/documents/poppate.csv` sembra un file di lavoro che nessuno ha creato: lo teniamo come registro o lo archiviamo come documento?"). Ogni altro file in `landing/`, e ogni file nella cartella `documents/` di un'istanza assente dall'`index.md` di quell'istanza, va alla skill `file-document` uno alla volta come caso (c), con il percorso del file, lo slug del membro, il periodo, e se l'esecuzione è non presidiata. Se presidiata, può chiedere al membro; se non presidiata, archivia ciò che è inequivocabile e segnala il resto. Propaga solo fino al livello dell'interesse e ti restituisce le sue segnalazioni invece di scriverle.
-3. **Casella** (solo con `email: on`). Leggi il file `references/email.md` della skill `rules`. Se presidiata, con nuova posta da valutare: prima chiedi i criteri quando rules → Email → Stato dell'invito dice di farlo. Poi segui rules → Email → Revisioni → Riordino della casella: ogni nuova email archiviata, segnalata, messa in bozza o ignorata, le righe più vecchie di 60 giorni eliminate, `last_tidy_up` impostato a oggi, `inbox.md` scritto una volta sola. Il punto 5 propaga ogni istanza in cui ha archiviato.
+1. **Duplicati.** Dovunque due file nella stessa cartella hanno lo stesso nome: per i file derivati e curati (`status.md`, `index.md`, `todo.md`, `org.md`, `memories/`, `reviews/`) tieni il più recente e cestina gli altri (rules → Sostituire). Un registro duplicato nasce da due scritture contemporanee: scrivi una versione che contenga ogni riga distinta di tutte le copie nell'ordine indicato da rules → Sostituire, poi cestina le copie. Un `inbox.md` duplicato: uniscilo come dice rules → Email → Il protocollo. Una lista duplicata: tieni la più recente. I file sorgente (`diary/`, i `documents/` caricati) restano intatti; segnalali.
+2. **Documenti non archiviati.** I file di lavoro sono già archiviati: lascia com'è, nome compreso, ogni file elencato sotto Maintained nell'`index.md` della sua istanza. Un file `.csv` o `.md` con un nome di tipo fisso (minuscolo, con trattini, senza timestamp) assente da Maintained è un file di lavoro quando una voce di diario della sua istanza dice `Maintained: documents/<name>`: il suo indice è obsoleto (punto 6). Senza una voce del genere, segnalalo ("`greta/salute/documents/poppate.csv` sembra un file di lavoro che nessuno ha creato: lo teniamo come registro o lo archiviamo come documento?"). Ogni altro file in `landing/`, e ogni file nella cartella `documents/` di un'istanza assente dall'`index.md` di quell'istanza, va alla skill `file-document` uno alla volta come caso (c), con il percorso del file, lo slug del membro, il periodo, e se l'esecuzione è non presidiata. Se presidiata, può chiedere al membro; se non presidiata, archivia ciò che è inequivocabile e segnala il resto. Propaga solo fino al livello dell'interesse e ti restituisce le sue segnalazioni invece di scriverle.
+3. **Casella** (solo con `email: on`). Leggi il file `references/email.md` della skill `rules`. Se presidiata, con nuova posta da valutare: prima chiedi i criteri quando rules → Email → Stato dell'invito dice di farlo. Poi segui rules → Email → Revisioni → Riordino della casella: ogni nuova email archiviata, segnalata, messa in bozza o ignorata, le righe più vecchie di 60 giorni eliminate, `last_tidy_up` impostato a oggi, `inbox.md` scritto una volta sola. Il punto 6 propaga ogni istanza in cui ha archiviato.
 4. **Riepiloghi dei registri** (solo periodo giornaliero). Per ogni Convenzione in `org.md` che indirizza eventi a un registro, scrivi una voce di diario di riepilogo nella sua istanza per il giorno guardato indietro (rules → Convenzioni → Eventi frequenti). È inequivocabile, quindi lo fanno anche le esecuzioni non presidiate:
    - La voce è `diary/routine-YYYYMMDD_2359.md`, datata quel giorno. Quando esiste già, l'ha scritta un'altra esecuzione: salta. Un giorno senza righe non ha voce.
    - Compila il modello Voce di diario (rules → Tipi di file → modelli) con `author: routine`, `created` quel giorno alle 23:59, `documents: [documents/<tracker>]`, `events: []`. **Summary**: i conteggi in una riga ("12 pannolini: 7 pipì, 5 cacche"). **Entry**: conteggi per tipo, prima e ultima ora, e ogni cosa insolita: un lungo intervallo, una nota scritta da un membro, un conteggio molto diverso dai giorni prima.
    - Un registro mancante o illeggibile: segnalalo invece.
-   Il punto 5 riprende poi ogni istanza toccata qui e la propaga.
-5. **File derivati obsoleti.** Ricostruisci, dal basso verso l'alto (rules → Regola di aggiornamento dello stato), ogni file derivato più vecchio delle sue fonti:
-   - lo `status.md` di un'istanza il cui Last updated è più vecchio della sua voce di diario o del suo documento più recente (il timestamp nel nome del file);
+   Il punto 6 riprende poi ogni istanza toccata qui e la propaga.
+5. **To-do** (solo radice con `todos/`). Le esecuzioni non presidiate lo fanno tutto: sposta e ricostruisce, e non scrive alcun evento to-do.
+   1. **Archivio** (solo periodo mensile): elenca `todos/` e sposta i file evento indicati da references/todos.md → Archivio in `todos/archive/YYYY/`, creando la cartella dell'anno quando manca. Un file già sparito da `todos/` l'ha spostato un'altra esecuzione: saltalo.
+   2. **Orfani**: segnala ogni evento orfano (references/todos.md → Stato attuale) con il nome del file e l'id che nomina.
+   3. **Ricostruisci** `todo.md` quando è obsoleto (references/todos.md → `todo.md`; un add da posta dei membri al punto 3 lo rende tale): elenca di nuovo `todos/`, ricomponi, e scrivilo per sostituzione. Nelle esecuzioni non presidiate scrivi `routine` come autore di Last updated.
+   4. **Stati**: lo `status.md` di un'istanza è obsoleto quando un to-do che è o era legato all'istanza ha un evento più recente del suo Last updated; il punto 6 lo ricostruisce (references/todos.md → Nello stato).
+6. **File derivati obsoleti.** Ricostruisci, dal basso verso l'alto (rules → Regola di aggiornamento dello stato), ogni file derivato più vecchio delle sue fonti:
+   - lo `status.md` di un'istanza il cui Last updated è più vecchio della sua voce di diario o del suo documento più recente (il timestamp nel nome del file), o obsoleto per il punto 5.4;
    - l'`index.md` di un'istanza le cui righe differiscono dai file nei suoi `diary/` e `documents/`, compresa la tabella Maintained (ogni file di lavoro elencato, con la data in cui è cambiato l'ultima volta);
    - lo `status.md` di un interesse più vecchio del Last updated di uno qualsiasi degli `status.md` delle sue istanze;
    - l'`index.md` di un interesse o della radice le cui righe differiscono dalle cartelle figlie, o il cui Last activity differisce dalla voce più recente di una figlia.
    Nelle esecuzioni non presidiate scrivi `routine` come autore della riga Last updated. Lo `status.md` della radice si ricostruisce una volta sola, al passo 3.
-6. **Vecchie revisioni giornaliere.** Cestina ogni `reviews/*-daily.md` datato più di 30 giorni prima di oggi. Le revisioni settimanali e mensili sono la memoria di lungo periodo e restano.
+7. **Vecchie revisioni giornaliere.** Cestina ogni `reviews/*-daily.md` datato più di 30 giorni prima di oggi. Le revisioni settimanali e mensili sono la memoria di lungo periodo e restano.
 
 Raccogli ogni segnalazione che sollevi in questo passo, e ogni segnalazione che `file-document` ti restituisce, per il Needs attention della radice (passo 3.4).
 
-Fatto quando: hai percorso ogni cartella; nessun file derivato, curato o di lavoro ha un duplicato; ogni file in `landing/` e ogni documento non indicizzato è archiviato o segnalato, e nessun file di lavoro è stato rinominato o spostato; (email attiva) ogni email restituita dalla ricerca ha esattamente una riga nel protocollo e nessuna riga ha più di 60 giorni; in un'esecuzione giornaliera, ogni registro con righe nel giorno guardato indietro ha la sua voce di riepilogo; nessun file derivato di istanza o di interesse è più vecchio delle sue fonti; nessuna revisione giornaliera ha più di 30 giorni.
+Fatto quando: hai percorso ogni cartella; nessun file derivato, curato o di lavoro ha un duplicato; ogni file in `landing/` e ogni documento non indicizzato è archiviato o segnalato, e nessun file di lavoro è stato rinominato o spostato; (email attiva) ogni email restituita dalla ricerca ha esattamente una riga nel protocollo e nessuna riga ha più di 60 giorni; in un'esecuzione giornaliera, ogni registro con righe nel giorno guardato indietro ha la sua voce di riepilogo; (radice con `todos/`) `todo.md` esiste una sola volta e corrisponde alla ricomposizione di `todos/`, ogni evento orfano è segnalato, e in un'esecuzione mensile nessun to-do chiuso da più di 90 giorni ha ancora un evento in `todos/`; nessun file derivato di istanza o di interesse è più vecchio delle sue fonti; nessuna revisione giornaliera ha più di 30 giorni.
 
 ### 3. Scrivi la revisione condivisa
 
@@ -75,27 +80,28 @@ Fatto quando: hai percorso ogni cartella; nessun file derivato, curato o di lavo
    - **Still open**: gli elementi Pending dagli stati delle istanze, ciascuno con chi o cosa aspetta.
    - **Looking ahead**: gli eventi del calendario di sistema nella finestra dello sguardo avanti, più gli elementi Next datati al suo interno, in ordine di data, con i titoli degli eventi, e un file di lavoro di tipo Lista che conti per uno di essi (la lista per la valigia prima di un viaggio).
    - **Needs attention**: le segnalazioni del passo 2 più ogni elemento Needs attention negli stati delle istanze.
+   - **To-dos** (solo radice con `todos/`): la sezione descritta da references/todos.md → Revisioni, per le finestre dello sguardo indietro e avanti, i to-do di ogni membro nell'ordine di Members in `org.md`, poi quelli di Everyone. I **suggerimenti** vengono dalle voci di diario create nella finestra dello sguardo indietro e dalle email che il protocollo vi elenca, lette come dice references/todos.md → Suggerimenti; ciascuno va anche sotto Needs attention. Togli un suggerimento che corrisponde a un to-do aperto (possibile nuovo) o chiuso (sembra fatto).
    - **Email** (solo con `email: on`): la sezione Email di rules → Email → Revisioni.
    - **Written**: adesso; se non presidiata `da routine (<slug>)`, o `da routine` senza membro; se presidiata `da <slug>, a mano`, o `a mano` quando non si sa chi sta parlando.
-3. **File esistente**: leggilo. Il momento della sua ultima scrittura è l'ultimo titolo `## Update HH:MM`, altrimenti Written. Se dopo quel momento sono state create voci di diario, o aggiunte righe al protocollo, aggiungi in fondo una sezione `## Update <HH:MM>` che elenchi cosa hanno cambiato, una riga ciascuna, per interesse (email: per parte della sezione Email). Il testo precedente resta esattamente com'era: scrivi il file per sostituzione (rules → Sostituire) con il vecchio contenuto parola per parola seguito dalla nuova sezione. Niente di più recente: lascia il file intatto.
+3. **File esistente**: leggilo. Il momento della sua ultima scrittura è l'ultimo titolo `## Update HH:MM`, altrimenti Written. Se dopo quel momento sono state create voci di diario, aggiunte righe al protocollo o scritti eventi to-do, aggiungi in fondo una sezione `## Update <HH:MM>` che elenchi cosa hanno cambiato, una riga ciascuna, per interesse (email: per parte della sezione Email; to-do: per parte della sezione To-dos). Il testo precedente resta esattamente com'era: scrivi il file per sostituzione (rules → Sostituire) con il vecchio contenuto parola per parola seguito dalla nuova sezione. Niente di più recente: lascia il file intatto.
 4. **Stato della radice.** Ricostruisci lo `status.md` della radice (rules → Regola di aggiornamento dello stato) dagli stati degli interessi. Sotto Needs attention, tieni ogni segnalazione precedente la cui condizione vale ancora (il file è ancora in `landing/`, il duplicato esiste ancora), togli quelle risolte, e aggiungi le nuove segnalazioni di questa esecuzione. Quando `setup.md` dice `state: todo`, tieni una segnalazione che elenchi le sue caselle non spuntate, ognuna con chi la fa ("Configurazione non finita: Marta deve accettare l'invito al calendario. Di' 'finisci la configurazione'."). Sotto Latest reviews, collega i file giornaliero, settimanale e mensile più recenti in `reviews/`.
 
 Fatto quando: il file di revisione del periodo esiste, scritto una volta e da allora cambiato solo con sezioni Update aggiunte in fondo (finestra personalizzata: nessun file); e lo `status.md` della radice ha il Last updated di oggi, ogni segnalazione ancora aperta, e i collegamenti alla revisione più recente di ogni periodo.
 
 ### 4. Scrivi il messaggio
 
-Costruito dalla revisione e dagli stati. Gli **elementi** di un membro sono quelli assegnati a lui o in attesa di lui, e gli eventi nella finestra dello sguardo avanti che coinvolgono lui o un interesse che lo riguarda (in una struttura per persona, l'interesse che porta il suo nome).
+Costruito dalla revisione e dagli stati. Gli **elementi** di un membro sono quelli assegnati a lui o in attesa di lui, i suoi to-do aperti scaduti o in scadenza nella finestra dello sguardo avanti, e gli eventi nella finestra dello sguardo avanti che coinvolgono lui o un interesse che lo riguarda (in una struttura per persona, l'interesse che porta il suo nome).
 
 **Generale** (nessun membro indicato), in quest'ordine:
 
-1. **Tutti**: i punti salienti di Looking back e Looking ahead, una riga ciascuno.
-2. **Richiede attenzione**: tutto ciò che richiede una decisione o un'azione, con la domanda che la risolve.
+1. **Tutti**: i punti salienti di Looking back e Looking ahead, una riga ciascuno, e i to-do di Everyone scaduti o in scadenza.
+2. **Richiede attenzione**: tutto ciò che richiede una decisione o un'azione, con la domanda che la risolve; un suggerimento di to-do finisce con la risposta di una parola che lo conferma ("sembra fatto: Prenotare il tagliando dell'auto. Di' 'fatto' per chiuderlo.").
 3. **Una breve sezione per membro**, con il suo nome come titolo, con i suoi elementi. Gli eventi dei calendari personali restano fuori: appartengono al messaggio personale di quel membro.
 
 **Personale** (un membro indicato), in quest'ordine:
 
 1. **Per te**: gli elementi del membro, più gli eventi del suo calendario personale quando `org.md` lo indica come condiviso con tutti i dettagli.
-2. **Tutti gli altri**: gli altri punti salienti di Looking back e Looking ahead, una riga ciascuno.
+2. **Tutti gli altri**: gli altri punti salienti di Looking back e Looking ahead, una riga ciascuno, a cominciare dai to-do di Everyone scaduti o in scadenza.
 3. **Richiede attenzione**: come sopra.
 
 Con `email: on`, entrambi aggiungono una riga **Email** che conta le parti della sezione Email ("Email: 2 richiedono attenzione, 1 bozza in attesa, 3 archiviate"), e il messaggio finisce con la riga richiesta da rules → Email → Revisioni → Righe in chat.
@@ -104,7 +110,13 @@ Scrivilo per essere letto su un telefono: righe brevi, date come giorno della se
 
 Fatto quando: gli elementi di ogni membro sono nella sua sezione (generale) o in **Per te** (personale); ogni elemento Needs attention della revisione (finestra personalizzata: dello `status.md` della radice) è nel messaggio; e il messaggio sta in una schermata di telefono (circa 15 righe), più fino a quattro righe per ogni sezione di membro in un messaggio generale. Per una finestra personalizzata, inoltre: ogni voce di diario ed evento di calendario dentro la finestra è nel messaggio o raccolto in una delle sue righe. Con l'email attiva: la riga Email c'è, a meno che la sezione sia vuota, e la riga in chat, quando è dovuta, è nel messaggio e da nessuna parte nel file di revisione.
 
-### 5. Passo memoria
+### 5. Conferma i suggerimenti
+
+Solo esecuzioni presidiate: quando la revisione contiene suggerimenti di to-do, chiedi una volta sola, elencandoli così che la risposta sia una parola per elemento. Ogni sì va alla skill `todo` (Fatto per sembra fatto, Aggiungi per un possibile nuovo to-do, con la sua voce di diario o la sua email come fonte).
+
+Fatto quando: ogni suggerimento è confermato tramite `todo`, rifiutato o lasciato per dopo; oppure l'esecuzione è non presidiata.
+
+### 6. Passo memoria
 
 Solo esecuzioni presidiate: segui rules → Passo memoria.
 
@@ -112,4 +124,4 @@ Fatto quando: ciò che di duraturo hai imparato è in `memories/`, oppure non ha
 
 ## Output
 
-Il messaggio del passo 4, che termina con il percorso della revisione (`Revisione completa: reviews/2026-W45-weekly.md`; nessuno per una finestra personalizzata), più la riga di `remember`, se c'è. In un'esecuzione pianificata è la notifica della routine, quindi sta in piedi da solo, senza saluti sull'esecuzione di un'attività. Quando qualcosa non ha funzionato (rules → Quando qualcosa non funziona), il messaggio dice in una frase cosa non ha funzionato e di chiedere aiuto ad Agora.
+Il messaggio del passo 4, che termina con il percorso della revisione (`Revisione completa: reviews/2026-W45-weekly.md`; nessuno per una finestra personalizzata), poi, se presidiata, la domanda sui suggerimenti del passo 5 e il risultato di ciascuno confermato, più la riga di `remember`, se c'è. In un'esecuzione pianificata è la notifica della routine, quindi sta in piedi da solo, senza saluti sull'esecuzione di un'attività. Quando qualcosa non ha funzionato (rules → Quando qualcosa non funziona), il messaggio dice in una frase cosa non ha funzionato e di chiedere aiuto ad Agora.
