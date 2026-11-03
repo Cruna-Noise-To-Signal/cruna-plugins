@@ -1,6 +1,6 @@
 ---
 name: file-document
-description: Files a document into Agora — names it, moves it into the right instance's documents folder, links it from the diary and puts its dates on the calendar. Use when a member says they uploaded or dropped a file into Agora ("I put the blood test in Nina's health folder", "there's an invoice in landing"), attaches a file in the chat for Agora to keep, has a sheet or file they already use to track something ("we have a sheet for Greta's nappies"), or when the review routine finds files nobody announced.
+description: Files a document into Agora — names it, moves it into the right instance's documents folder, links it from the diary and puts its dates on the calendar. Use when a member says they uploaded or dropped a file into Agora ("I put the blood test in Nina's health folder", "there's an invoice in landing"), attaches a file in the chat for Agora to keep, has a sheet or file they already use to track something ("we have a sheet for Greta's nappies"), saves the attachments of an email Agora filed ("I saved Mario's quote to landing"), or when the review routine finds files nobody announced.
 ---
 
 # File document
@@ -47,6 +47,8 @@ Done when: you can write one line saying what the document is and what it says t
 
 ### 4. Place it
 
+**Email attachment** (`email: on`): when the member says the file is an attachment of a filed email, or its original name matches a name on an open `To file:` line (rules → Email → Filing; the root `status.md` Needs attention lists them as "not yet on Drive"), the instance is that email entry's and the file is **linked** to it in step 7, in every case below. Several open lines could match: ask which (unattended: place it by content, unlinked).
+
 - (a): the instance is the folder it sits in.
 - (b): match the content and the member's words against the root and interest `index.md` files. When it fits no single instance with certainty, ask, offering the likely `interest/instance` options. When the right instance does not exist yet, offer the `add-interest` skill.
 - (c) in a `documents/` folder: the folder decides. (c) in `landing/`, attended: as (b). (c) in `landing/`, unattended: place it only when the content names exactly one existing instance beyond doubt; otherwise **flag** it (rules → Flag) with the file name, what it seems to be, and the likely instances, return the flag to `review`, and stop for this file.
@@ -90,15 +92,15 @@ Then create the entry from the Diary entry template (rules → File kinds → te
 - `documents`: the new path, `documents/<new name>`.
 - `events`: the titles `schedule` returned.
 - **Summary**: one line on what the document says ("Blood test results: all values normal").
-- **Entry**: the member's words about the file, then `Filed: documents/<new name>`. Case (c): `Filed by the <period> review; nobody announced this file.`
+- **Entry**: the member's words about the file, then `Filed: documents/<new name>`. Case (c): `Filed by the <period> review; nobody announced this file.` A linked attachment adds a last line, `Attachment of: diary/<email entry file name>`.
 
-Done when: the entry exists at its path, linking the document, and every date in the document is on the calendar, declined, or flagged.
+Done when: the entry exists at its path, linking the document (and, for a linked attachment, its email entry), and every date in the document is on the calendar, declined, or flagged.
 
 ### 8. Refresh the indexes and statuses
 
 For each destination instance, rebuild its `index.md` with the new document and entry at the top (rules → Replace). Then propagate (rules → Status update rule): each instance's `status.md`, each touched interest's once, the root's once. In case (c), stop at the interest level: `review` rebuilds the root `status.md` once, with your returned flags.
 
-Done when: each touched instance index lists the document and its entry, and every status up to the root (case (c): up to the interest) reflects what the document says.
+Done when: each touched instance index lists the document and its entry, and every status up to the root (case (c): up to the interest) reflects what the document says, with no "not yet on Drive" line left for an attachment now linked.
 
 ### 9. Memory step
 
