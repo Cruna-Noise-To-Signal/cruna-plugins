@@ -13,15 +13,16 @@ timezone: <Europe/Rome>
 assistant_account: <assistant@gmail.com | owner's own account>
 calendar: <assistant account email: its primary calendar is the system calendar>
 layout: <what an interest is, e.g. "one interest per person, plus `family` for shared things">
+email: <on | off>
 ---
 
 # <Root display name>
 
 ## Members
 
-| Slug | Name | Email | Role | Birthday | Personal calendar | Notes |
-|---|---|---|---|---|---|---|
-| simone | Simone | simone@example.com | parent | 1989-03-28 | free/busy | prefers short answers |
+| Slug | Name | Email | Mail from | Role | Birthday | Personal calendar | Notes |
+|---|---|---|---|---|---|---|---|
+| simone | Simone | simone@example.com | simone@example.com, simone@acme.it | parent | 1989-03-28 | free/busy | prefers short answers |
 
 ## Interests
 
@@ -42,6 +43,8 @@ layout: <what an interest is, e.g. "one interest per person, plus `family` for s
 | simone | editor | can edit | Claude | routines on |
 ```
 
+`email` absent means `off`. **Email** is the personal Google account the folder and calendar are shared with. **Mail from** (email on only) lists every address the member writes or forwards from: mail from these is member mail (rules → Email). Root-wide email criteria are Conventions rows, written as in [email.md](email.md) → Where criteria live.
+
 ## `setup.md` (root, curated)
 
 One `## Member: <slug>` section per member who uses the root (a child only tracked gets none). In a solo root, tick the two sharing boxes with "(solo)". Unticked boxes say who does them when it isn't you.
@@ -60,11 +63,13 @@ state: <todo | done>
 - [x] Prerequisites
 - [ ] Interview
 - [ ] Build
+- [ ] Email
 - [ ] Verify
 
 ## Member: simone
 - [x] Connectors and plugin
 - [ ] In Members and Access, with a memories file
+- [ ] Email
 - [ ] Root folder shared
 - [ ] System calendar shared (simone accepts the invitation)
 - [ ] Personal calendar shared (free/busy)
@@ -76,7 +81,28 @@ state: <todo | done>
 - <confirmed answers, one line each>
 ```
 
-The Interview section holds each confirmed round under its own heading (The root, Members, Layout convention, First interests and instances) until the Build box is ticked; then it is removed. While a migration runs, a `## Migration` section lists its seven steps as boxes.
+The root's Email box is ticked "(off)" when the root declines email, or when email is on and Gmail is checked and `org.md` and `memories/shared.md` carry the email fields. A Member section has an Email box only when email is on; it is ticked when the member's app has Gmail connected as the assistant account, and their addresses and importance state are recorded.
+
+The Interview section holds each confirmed round under its own heading (The root, Members, Layout convention, First interests and instances) until the Build box is ticked; then it is removed, except the email answers, which stay until every member interviewed has their Mail from cell and Email importance line written (setup step 2d). While a migration runs, a `## Migration` section lists its seven steps as boxes.
+
+## `inbox.md` (root, curated)
+
+Email on only. One row per handled email, newest first; `last_tidy_up` is the date of the latest review inbox tidy-up, absent until the first one (rules → Email → The ledger).
+
+```markdown
+---
+agora: inbox
+last_tidy_up: 2026-11-03
+---
+
+# Inbox
+
+| Message id | Date | From | Subject | Outcome | By |
+|---|---|---|---|---|---|
+| 18c2f0a9b7e4d311 | 2026-11-03 | Mario Rossi <mario@acme.it> | Quote approved | filed → acme/website-2026/diary/simone-20261103_0912.md | routine |
+| 18c2ef11a0c3b920 | 2026-11-02 | to mario@acme.it | Re: Kickoff date | sent → acme/website-2026/diary/simone-20261102_1640.md | simone |
+| 18c2ee70d1f2a004 | 2026-11-02 | Newsletter <news@shop.com> | Black Friday | ignored | routine |
+```
 
 ## `index.md` (derived)
 
@@ -169,6 +195,20 @@ events: [<"[interest/instance] title" of events created or changed, or empty>]
 <What the member said or pushed, in their words; light cleanup only>
 ```
 
+An entry for an email (filed or sent, rules → Email) adds three front-matter lines after `events`:
+
+```markdown
+email: <Gmail message id>
+email_from: <Original sender, or "to <recipients>" for sent mail>
+email_subject: <Subject>
+```
+
+and, when the email has attachments not yet on Drive, a last line in Entry:
+
+```markdown
+To file: <attachment names>. Save them to landing/ or documents/ and say "filed".
+```
+
 ## Tracker (working)
 
 File: `<interest>/<instance>/documents/<name>.csv`. Header row with the columns agreed when it was created; `date,time,author` always first.
@@ -201,6 +241,8 @@ File: `memories/<slug>.md` or `memories/shared.md`
 - <YYYY-MM-DD> <one durable fact, preference or habit>
 ```
 
+With email on, each file also holds one `- Email importance: <not asked | invited | no preference | criteria>` line (rules → Email → Importance).
+
 ## Review (curated)
 
 File: `reviews/YYYY-MM-DD-daily.md`, `reviews/YYYY-Www-weekly.md` or `reviews/YYYY-MM-monthly.md`
@@ -221,6 +263,9 @@ File: `reviews/YYYY-MM-DD-daily.md`, `reviews/YYYY-Www-weekly.md` or `reviews/YY
 
 ## Needs attention
 - <Flags from tidy-up and anything needing a decision>
+
+## Email
+- <Email on only: important email needing attention, drafts waiting for approval, sent, filed; from `inbox.md`>
 ```
 
 Later runs append, only when new diary entries arrived since it was written:

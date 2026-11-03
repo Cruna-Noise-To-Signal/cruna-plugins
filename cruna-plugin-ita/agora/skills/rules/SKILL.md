@@ -1,6 +1,6 @@
 ---
 name: rules
-description: Il modello dei dati di Agora e le regole sui file che ogni skill Agora segue. Caricala prima di leggere o scrivere qualsiasi cosa in una radice Agora (la cartella condivisa su Google Drive con org.md, interessi, istanze, diario, documenti, file di stato e di indice) o nel suo calendario di sistema.
+description: Il modello dei dati di Agora e le regole sui file che ogni skill Agora segue. Caricala prima di leggere o scrivere qualsiasi cosa in una radice Agora (la cartella condivisa su Google Drive con org.md, interessi, istanze, diario, documenti, file di stato e di indice), nel suo calendario di sistema o nella sua casella dell'assistente.
 ---
 
 # Regole di Agora
@@ -13,11 +13,14 @@ Agora è una base di conoscenza condivisa tenuta dall'AI su Google Drive (file) 
 - **Interesse**: una cartella di primo livello nella radice. Che cosa *sia* un interesse (una persona, un cliente, un argomento) lo stabilisce la **convenzione di struttura** della radice, registrata in `org.md`.
 - **Istanza**: una cartella dentro un interesse; l'unità che contiene un diario e dei documenti. La profondità è sempre esattamente due: `root/<interest>/<instance>/`. Qualcosa di più piccolo di un'istanza (un singolo esame del sangue, una singola fattura) è una voce di diario con i suoi documenti, mai una cartella.
 - **Membro**: una persona in `org.md`. Il suo **slug** è il nome di battesimo, minuscolo, ASCII (`simone`).
-- **Account dell'assistente**: l'account Google con cui sono collegati i connettori di Drive e Calendar. Un account dedicato quando la radice ha più membri; l'account del proprietario quando è da solo.
+- **Account dell'assistente**: l'account Google con cui sono collegati i connettori di Drive e Calendar (e Gmail, quando l'email è attiva). Un account dedicato quando la radice ha più membri; l'account del proprietario quando è da solo.
+- **Casella dell'assistente**: la casella Gmail dell'account dell'assistente, l'unica casella che Agora legge. Facoltativa per ogni radice (rules → Email).
+- **Posta dei membri**: un'email il cui indirizzo del mittente è elencato per un membro in `org.md`.
+- **Importanza delle email**: i criteri che decidono quale email richiede attenzione, e lo stato della richiesta di quei criteri (rules → Email).
 
 ## Solo connettori
 
-Ogni lettura e scrittura su Drive e Calendar passa dagli strumenti dei connettori Google Drive e Google Calendar. Il browser non è mai una strada: niente apertura di drive.google.com o calendar.google.com, niente strumenti di navigazione o di uso del computer, anche quando una chiamata al connettore fallisce o uno strumento sembra mancare. Ciò che uno strumento del connettore offre, lo fai tu, riprovando una chiamata fallita. Ciò che nessuno strumento del connettore offre (condividere un calendario, per esempio) diventa una serie di passi da cliccare per l'utente, con l'accesso all'account indicato nel passo.
+Ogni lettura e scrittura su Drive e Calendar passa dagli strumenti dei connettori Google Drive e Google Calendar, e ogni lettura, bozza e invio di email dal connettore Gmail, collegato con l'account dell'assistente, in una radice con l'email attiva. Il browser non è mai una strada: niente apertura di drive.google.com, calendar.google.com o mail.google.com, niente strumenti di navigazione o di uso del computer, anche quando una chiamata al connettore fallisce o uno strumento sembra mancare. Ciò che uno strumento del connettore offre, lo fai tu, riprovando una chiamata fallita. Ciò che nessuno strumento del connettore offre (condividere un calendario, per esempio) diventa una serie di passi da cliccare per l'utente, con l'accesso all'account indicato nel passo.
 
 ## Trovare la radice
 
@@ -37,6 +40,7 @@ Scrivi tutti i contenuti nella lingua indicata in `org.md`. Nomi di cartelle, no
 ├── setup.md
 ├── index.md
 ├── status.md
+├── inbox.md       (solo con l'email attiva)
 ├── landing/
 ├── memories/      <slug>.md, shared.md
 ├── reviews/       YYYY-MM-DD-daily.md, YYYY-Www-weekly.md, YYYY-MM-monthly.md
@@ -59,7 +63,7 @@ Ogni file è di uno di quattro tipi; il tipo decide come può cambiare.
 
 - **Sorgente**: le voci in `diary/` e i documenti caricati in `documents/`. Solo aggiunta: crea, non modificare mai. Una correzione è una nuova voce di diario che dice che cosa corregge.
 - **Derivato**: ogni `status.md` e `index.md`. Ricostruito dalle sorgenti sottostanti, mai modificato a mano, sempre ricostruibile senza rischi. Una ricostruzione sostituisce l'intero file.
-- **Curato**: `org.md`, `setup.md`, `memories/`, `reviews/`. Modificato sul posto sostituendo il file; tieni `org.md` e `memories/` brevi aggiornando le righe invece di aggiungerne all'infinito. Le revisioni sono solo aggiunta: un aggiornamento sostituisce il file con il vecchio contenuto parola per parola più la nuova sezione.
+- **Curato**: `org.md`, `setup.md`, `inbox.md`, `memories/`, `reviews/`. Modificato sul posto sostituendo il file; tieni `org.md` e `memories/` brevi aggiornando le righe invece di aggiungerne all'infinito. Le revisioni sono solo aggiunta: un aggiornamento sostituisce il file con il vecchio contenuto parola per parola più la nuova sezione.
 - **Di lavoro**: un file in `documents/` che l'AI mantiene per i membri, con un nome fisso e senza timestamp (`greta-pannolini.csv`, `lista-valigia.md`). Si aggiorna sostituendolo per intero (rules → Sostituire). Due forme:
   - **Registro**: CSV, riga di intestazione e poi una riga per evento (`date,time,author,…`), dal più vecchio. Per gli eventi frequenti una Convenzione li indirizza qui invece che nel diario. Una riga del registro è un dato sorgente: modifica le righe solo per correggerle, su richiesta di un membro.
   - **Lista**: Markdown che l'AI scrive o rigenera su richiesta (una lista da stampare, un promemoria, una checklist). Può essere riscritta liberamente.
@@ -101,7 +105,8 @@ Drive non può sovrascrivere il contenuto di un file e ammette due file con lo s
 Duplicati trovati in qualsiasi momento:
 - file derivato o curato, o una lista: tieni il più recente, sposta nel cestino gli altri;
 - registro: unisci tutte le copie in una (ogni riga distinta, in ordine di data e ora), poi sposta nel cestino le altre;
-- voci di diario `routine-` con contenuto identico: tienine una, sposta nel cestino le altre;
+- `inbox.md`: unisci come dice [references/email.md](references/email.md) → Il protocollo;
+- voci di diario `routine-` con contenuto identico, o voci di diario per la stessa email (stesso id `email`) con contenuto identico: tienine una, sposta nel cestino le altre;
 - qualsiasi altro file sorgente (diario, documenti caricati): tienili tutti e segnalali.
 
 ## Regola di aggiornamento dello stato
@@ -109,6 +114,8 @@ Duplicati trovati in qualsiasi momento:
 Uno stato descrive la situazione **adesso**. Quando lo ricostruisci, leggi le sorgenti dalla più recente e lascia che le voci recenti pesino più di quelle vecchie: una voce più recente che chiude, annulla o sposta qualcosa prevale su quella più vecchia. I fatti vecchi restano solo finché contano ancora (un'allergia permanente, una fattura non pagata).
 
 Ogni `status.md`, a ogni livello, ha le stesse sezioni in quest'ordine: Last updated, Needs attention, Summary, Done, Pending, Next. A livello di radice e di interesse ogni sezione riassume il livello sottostante, una riga per ogni figlio che ha qualcosa da dire.
+
+Un'istanza con voci email che portano una riga `To file:`: applica anche [references/email.md](references/email.md) → Archiviazione.
 
 Le righe di un registro arrivano allo stato attraverso la voce di riepilogo giornaliera; propaga su una riga solo quando cambia qualcosa che conta per lo stato.
 
@@ -139,6 +146,12 @@ Aggiungi una riga sotto Needs attention nello `status.md` della radice che dica 
 - Descrizione dell'evento: il percorso dell'istanza e la voce di diario che ha originato l'evento.
 - Colore: il colore dell'interesse indicato in `org.md`, quando è impostato.
 - Tutto ciò che va ricordato a una certa data diventa un evento: appuntamenti, scadenze, promemoria, tempo di preparazione.
+
+## Email
+
+Una radice ha l'email quando `org.md` dice `email: on`. Con `email` assente o `off`, nessuna skill legge o scrive posta, `inbox.md` non esiste, e tutto funziona senza Gmail. Con l'email attiva, la casella dell'assistente funziona come `landing/`: i membri le inoltrano la posta o la mettono in copia (CC), e l'AI archivia ciò che può collocare senza tirare a indovinare e segnala il resto.
+
+Prima di qualsiasi lavoro sulle email, leggi [references/email.md](references/email.md): le regole sulle email che ogni skill che tocca la casella dell'assistente segue.
 
 ## Passo memoria
 

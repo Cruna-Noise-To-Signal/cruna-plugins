@@ -1,13 +1,13 @@
 ---
 name: setup
-description: Sets up Agora, the shared family or business notebook on Google Drive and Google Calendar. Use when the user wants to start Agora for the first time ("set up Agora", "get started"), when a person joins an existing Agora or an existing member starts using it from another app ("add my wife to Agora", "I'm joining our family Agora", "I installed Agora on ChatGPT too"), when a setup was left halfway ("finish setup"), when a one-person Agora must move to its own assistant account because someone is joining, or when someone leaves ("remove Simona from Agora").
+description: Sets up Agora, the shared family or business notebook on Google Drive and Google Calendar. Use when the user wants to start Agora for the first time ("set up Agora", "get started"), when a person joins an existing Agora or an existing member starts using it from another app ("add my wife to Agora", "I'm joining our family Agora", "I installed Agora on ChatGPT too"), when a setup was left halfway ("finish setup"), when a one-person Agora must move to its own assistant account because someone is joining, when the group wants email turned on ("turn on email", "connect Gmail to Agora"), or when someone leaves ("remove Simona from Agora").
 ---
 
 # Agora setup
 
-Setup turns an empty Google Drive and Calendar into a working Agora **root**, brings each member onto it, and takes them off it when they leave. It has four branches: **New root**, **Join**, **Migrate** (always followed by Join) and **Offboard**. Pick one in step 1 and follow only that branch. Every branch ends with the same **verification**; every branch but Offboard ends with the same "what you can do now" message.
+Setup turns an empty Google Drive and Calendar into a working Agora **root**, brings each member onto it, and takes them off it when they leave. It has five branches: **New root**, **Join**, **Migrate** (always followed by Join), **Email** and **Offboard**. Pick one in step 1 and follow only that branch. Every branch ends with the same **verification**; every branch but Offboard ends with the same "what you can do now" message.
 
-**Checklist**: every branch records its progress in `setup.md` (rules → Setup checklist; template in rules → File kinds → templates), so a user can stop halfway and pick up later, in this app or another. Tick a box the moment the step it stands for meets its Done when, write the file by replace (rules → Replace) with a fresh Updated line, and set `state: done` only when every box is ticked. Resuming, start at the first unticked box; step 6 re-checks the ticked ones.
+**Checklist**: every branch records its progress in `setup.md` (rules → Setup checklist; template in rules → File kinds → templates), so a user can stop halfway and pick up later, in this app or another. Tick a box the moment the step it stands for meets its Done when, write the file by replace (rules → Replace) with a fresh Updated line, and set `state: done` only when every box is ticked. Resuming, start at the first unticked box; step 7 re-checks the ticked ones. A `setup.md` written before email existed has no Email boxes: email is off there; add the root Email box ticked "(off)" the next time you write the file.
 
 ## 1. Load the rules and pick the branch
 
@@ -20,11 +20,13 @@ Load the `rules` skill. Follow rules → Finding the root, then pick the branch:
 | A root whose `setup.md` says `state: todo`, and the user is finishing setup ("finish setup", "let's carry on") | The branch of the first unticked box that this user can do: Root boxes → **New root**, a Member section → **Join** for that member, Migration → **Migrate** |
 | A root, and the user is joining it or using it from a new app | **Join** |
 | A solo root (one member, `assistant_account` is that member's own account) and someone new is joining | **Migrate**, then **Join** for the newcomer |
+| A root, and the user wants email turned on ("turn on email", "connect Gmail") | **Email** |
+| A root whose `setup.md` has unticked Email boxes, and the user is finishing setup | **Email** for the root box, **Join** for a Member Email box |
 | A root, and a member is leaving ("remove me from Agora", "Simona no longer needs access") | **Offboard** |
 
 Identity: in a found root, follow rules → Identity and read the person's memories (rules → Memory step). In a new root, the person talking becomes the first member during the interview.
 
-A found root with no `setup.md` was set up before the checklist existed: run step 6, write `setup.md` with a box ticked for every line that passes, then carry on with the branch.
+A found root with no `setup.md` was set up before the checklist existed: run step 7, write `setup.md` with a box ticked for every line that passes, then carry on with the branch.
 
 Done when the branch is chosen, `setup.md` (if the root has one) is read, and, for a found root, you know who is talking.
 
@@ -58,16 +60,22 @@ Done when the user has confirmed the summary at the end of the interview and the
 Build in this order from the answers in setup.md → Interview, writing every file from its template (rules → File kinds → templates) in the root's language, and following rules → Working with Drive. Resuming, skip what verification shows is already there.
 
 1. Root folder: it exists since the interview.
-2. `org.md`, with `agora: root` in its front-matter, every member in Members, the layout convention, and one Access row per member (Drive and calendar "pending" until step 2d).
+2. `org.md`, with `agora: root` in its front-matter, every member in Members, the layout convention, and one Access row per member (Drive and calendar "pending" until step 2e).
 3. `landing/`, `reviews/`, `memories/` with `shared.md` and one `<slug>.md` per member (title line only, plus anything durable the interview revealed).
 4. The Interests table in `org.md`, every interest from the interview with its description and color (colors as in `add-interest` step 5), written once (rules → Replace).
 5. Each interest and instance from the interview, built with step 4 of the `add-interest` skill, then the interest level of its step 6 (each interest's `index.md` and `status.md`, rolled up from its instances). You already hold the root and the answers, so skip its questions.
 6. Root `index.md` and `status.md`, rebuilt once at the end of the build so they roll up everything below.
 7. The **system calendar** is the assistant account's own primary calendar (rules → Calendar conventions): nothing to create or search for. List calendars and confirm the primary one carries the assistant account's email and the timezone in `org.md`. A different timezone is a click fix for the user, signed in to Google Calendar as the assistant account: **Settings** → **General** → **Time zone**.
 
-Done when every item above exists exactly once and the calendar list shows the assistant account's primary calendar in the root's timezone. Then tick Build and remove the Interview section from `setup.md`; tick each member's "In Members and Access" box.
+Done when every item above exists exactly once and the calendar list shows the assistant account's primary calendar in the root's timezone. Then tick Build and remove the Interview section from `setup.md` (keep the email answers until step 2d has used them); tick each member's "In Members and Access" box.
 
-### 2d. Sharing
+### 2d. Email
+
+Follow [references/email.md](references/email.md), New root. Declined: the root Email box is ticked "(off)" and nothing else changes. Then remove the email answers from `setup.md` → Interview.
+
+Done when the root part's completion criterion holds (or the box says "(off)"); (email on) every member interviewed has their addresses (not solo) and Email importance line recorded, and the owner's member part is done or blocked.
+
+### 2e. Sharing
 
 Walk item 5 for every member:
 
@@ -81,25 +89,26 @@ Solo roots: nothing to share; mark the owner's row as owner and tick both sharin
 
 Done when the root folder's permissions, read with a real call, list every member with an email as editor; the Access table shows each member's real Drive and calendar access; and every sharing box is ticked or names who still has to do it.
 
-### 2e. Routines
+### 2f. Routines
 
 Give the user the three routines from [references/routines.md](references/routines.md), filled in for them, then walk item 6.
 
 Done when the user confirms the three routines are in their scheduled list (tick their Routines box), or item 6 is recorded as blocked (the box stays unticked).
 
-Go to step 6.
+Go to step 7.
 
 ## 3. Join
 
 For a new member, or an existing member on a new app. Run it in the joining person's own app.
 
-1. Walk items 1, 2 and 3. The connectors log in as the assistant account in `org.md`; the person gets its password from whoever keeps it.
-2. Find the root (rules → Finding the root) and follow rules → Identity. Find their Member section in `setup.md`: a new member gets one now (all boxes unticked but Connectors and plugin); an existing member on a new app gets Connectors and plugin ticked and Routines unticked. Steps whose boxes are already ticked are done: skip them.
-3. **New member only**: interview them with the Members round of [references/interview.md](references/interview.md) (just for themselves). Add them to Members and Access in `org.md`, create `memories/<slug>.md`, and walk item 5 for them as in step 2d: share the root folder yourself until its permissions list them, then guide the click steps that share the system calendar with their personal Google account and their personal calendar with the assistant account at the level they choose.
+1. Walk items 1, 2 and 3, and item 7 when `org.md` says `email: on`. The connectors log in as the assistant account in `org.md`; the person gets its password from whoever keeps it.
+2. Find the root (rules → Finding the root) and follow rules → Identity. Find their Member section in `setup.md`: a new member gets one now (all boxes unticked but Connectors and plugin; an Email box when email is on); an existing member on a new app gets Connectors and plugin ticked and Routines unticked (and Email unticked, when email is on). Steps whose boxes are already ticked are done: skip them.
+3. **New member only**: interview them with the Members round of [references/interview.md](references/interview.md) (just for themselves). Add them to Members and Access in `org.md`, create `memories/<slug>.md`, and walk item 5 for them as in step 2e: share the root folder yourself until its permissions list them, then guide the click steps that share the system calendar with their personal Google account and their personal calendar with the assistant account at the level they choose.
 4. **Existing member, new app**: update their Access row ("Client connected").
-5. Give them their routines from [references/routines.md](references/routines.md) and walk item 6.
+5. **Email on**: run the member part of [references/email.md](references/email.md) for them (a new member was asked the email questions in step 3).
+6. Give them their routines from [references/routines.md](references/routines.md) and walk item 6.
 
-Done when the person is in Members and Access with their real access, the root folder's permissions list them as editor (new member), they have a memories file, item 6 is ready or blocked, and each of these is ticked in their Member section. Go to step 6.
+Done when the person is in Members and Access with their real access, the root folder's permissions list them as editor (new member), they have a memories file, item 6 is ready or blocked, (email on) their Email box is ticked or names what is waiting, and each of these is ticked in their Member section. Go to step 7.
 
 ## 4. Migrate (solo → dedicated account)
 
@@ -107,20 +116,26 @@ Run it with the root's owner, before the newcomer joins. Add a Migration section
 
 Done when migration's own completion criterion holds and every Migration box is ticked. Then run **Join** for the newcomer.
 
-## 5. Offboard
+## 5. Email (turn on in an existing root)
+
+Run it with any member. Follow [references/email.md](references/email.md): ask the Email questions of [references/interview.md](references/interview.md), run the root part, then the member part for each member present. Members not present do their member part when they next run setup ("finish setup") or Join.
+
+Done when the root part's completion criterion holds, the present members' parts are done or blocked, and every other member's Email box names them. Go to step 7.
+
+## 6. Offboard
 
 Run it with the root's owner, signed in as the assistant account where a step needs clicks. Follow the `rules` skill's `references/prerequisites.md` → Offboarding a member, confirming each step with the owner before you do it or hand it over:
 
 1. Remove the member's editor access on the root folder (yourself when the Drive connector can change sharing; otherwise give the owner the click steps).
 2. Remove their access to the system calendar: Google Calendar (as the assistant account) → Settings → the calendar → Share with specific people → remove them.
-3. Ask the member, if reachable, to disconnect the Drive and Calendar connectors in their client and delete their Agora routines.
+3. Ask the member, if reachable, to disconnect the Drive and Calendar connectors (and Gmail, when email is on) in their client and delete their Agora routines.
 4. When they knew the assistant account's password, have the owner change it and pass the new one to the remaining members.
 5. Update `org.md` (rules → Replace): write `removed YYYY-MM-DD` in their Members Notes, and `removed` under Drive and System calendar in their Access row. Their diary entries, documents and `memories/<slug>.md` stay: they are history.
 6. Remove their Member section from `setup.md` and set `state` from the boxes left.
 
-Done when the member has no editor access on the folder or calendar, the Members/Access rows in `org.md` show them removed, and `setup.md` has no section for them. Go to step 6.
+Done when the member has no editor access on the folder or calendar, the Members/Access rows in `org.md` show them removed, and `setup.md` has no section for them. Go to step 7.
 
-## 6. Verify
+## 7. Verify
 
 Check the root with real calls, never from memory of what you built:
 
@@ -130,11 +145,12 @@ Check the root with real calls, never from memory of what you built:
 - No file name appears twice in the same folder (rules → Replace).
 - The calendar list's primary calendar carries the assistant account's email, as `calendar` in `org.md` does.
 - The root folder's permissions list every member with an email as editor (a removed member: not at all).
+- When `org.md` says `email: on`: a Gmail search returns, and the mailbox is the assistant account's (prerequisites item 7); `inbox.md` exists once at the root; `memories/shared.md` has an Email importance line; every member using the root has addresses in Mail from (not solo).
 - `setup.md` has a Member section for every member who uses the root, each box ticked exactly when what it stands for passes the checks above (or, for calendar sharing and routines, the person confirmed it), and `state` is `done` exactly when every box is ticked.
 
 Fix what fails and check again. Done when every line passes; then tick Verify.
 
-## 7. Memory step
+## 8. Memory step
 
 Follow rules → Memory step. Setup usually learns a lot (roles, habits, how people want to be addressed): write it now.
 
@@ -153,5 +169,6 @@ A short message in the root's language, no technical terms. Offboard: one line s
    - Set a reminder or appointment: "Remind us to renew the car insurance on 12 March." (`schedule`)
    - Ask: "What's pending for Nina?" (`ask`)
    - Track something new: "Start tracking the house renovation." (`add-interest`)
+   - Email on: "Forward me the client's email", "Draft a reply to Mario". (`email`)
 4. When reviews will arrive (each morning, Sunday evening, the 1st), and that "help" explains anything else.
 5. The `remember` line, if any.

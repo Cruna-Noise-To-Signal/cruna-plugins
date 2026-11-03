@@ -38,6 +38,18 @@ Nell'argomento a cui appartiene: `<nome della radice>` → `<interesse>` → `<i
 
 Diglielo, iniziando con "d'ora in poi": "d'ora in poi metti le poppate di Greta in un file", "smetti di segnare i pannolini nel file, torna a registrarli come appunti", "aggiungi una colonna per la quantità". Agora ti ripete la modifica e, al tuo sì, la scrive nella tabella **Conventions** di `org.md`, che controlla ogni volta. Puoi leggere lì quella tabella.
 
+## Agora sa leggere e inviare email?
+
+Quando l'email è attiva (di' "attiva l'email"; è più adatta alle aziende), Agora ha la sua casella: `<account dell'assistente>`. Inoltragli o mettilo in copia (CC) sulle email che contano, e Agora salva ciascuna nell'argomento giusto, o ti chiede dove va. Chiedi "novità da Acme?", "prepara una bozza di risposta a Mario", "archivia questa email sotto clienti/acme". Agora prepara bozze quando vuoi, ma invia solo dopo che hai visto il messaggio esatto e hai detto sì in chat; poi è la tua app a chiederti di approvare anche l'invio. Le revisioni non inviano mai nulla.
+
+## Che cosa non sa fare Agora con l'email?
+
+Legge solo la sua casella, mai la tua. Vede il nome di un allegato ma non può aprirlo né salvarlo: salva tu il file in `landing` e di' "archiviato", e Agora lo collega all'email. Non etichetta, non archivia in Gmail e non elimina la posta. Quando l'invio non riesce, di' "l'email non funziona" e Agora controlla la tua configurazione.
+
+## Come decide Agora quali email sono importanti?
+
+Di base: un'email che ti chiede di fare, rispondere o decidere qualcosa, o che porta una data, e che non è una newsletter o una notifica. Un'email dal tuo indirizzo conta sempre. Digli cos'altro conta, o non conta ("tutto ciò che arriva da un cliente è importante", "ignora le notifiche di GitHub"), oppure di' "nessuna preferenza". Ogni revisione elenca le email importanti, le bozze che aspettano il tuo sì, e cosa è stato inviato e salvato; Agora tiene in `inbox.md` un registro di cosa ha fatto con ogni email.
+
 ## Come funzionano le routine?
 
 Ogni membro ha tre attività pianificate nella sua app di AI, create durante la configurazione:
@@ -72,7 +84,7 @@ Diglielo: "è sbagliato, l'appuntamento è venerdì". Salva la correzione e aggi
 
 - **Sospendere le revisioni**: sospendi o elimina le tue tre attività pianificate nella tua app di AI.
 - **Uscire**: chiedi al proprietario, oppure di' "toglimi da Agora". Il tuo accesso alla cartella e al calendario viene rimosso e la tua app viene scollegata. Ciò che hai scritto resta, come parte della storia comune.
-- **Fermare Agora del tutto**: elimina le attività pianificate di tutti e scollega i connettori di Google Drive e Calendar. La cartella e il calendario restano in Google, leggibili come normali file, finché non li elimini.
+- **Fermare Agora del tutto**: elimina le attività pianificate di tutti e scollega i connettori di Google Drive e Calendar (e Gmail). La cartella e il calendario restano in Google, leggibili come normali file, finché non li elimini.
 
 ## Costa qualcosa?
 

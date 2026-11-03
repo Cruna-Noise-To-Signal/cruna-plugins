@@ -1,6 +1,6 @@
 ---
 name: help
-description: Spiega Agora, il quaderno condiviso che una famiglia o un piccolo gruppo tiene su Google Drive e Calendar tramite l'AI, e lo sistema quando non funziona bene. Usala quando qualcuno chiede cosa sa fare Agora o come funziona ("cosa sai fare?", "come funziona Agora?"), fa una domanda su come fare qualcosa (dove sono i miei file, chi vede cosa, aggiungere un documento dal telefono, tenere traccia di cose frequenti o di liste da stampare, le routine, aggiungere una persona, uscire), o dice che Agora non funziona, non vede qualcosa o mostra un errore ("Agora non funziona", "non vedi il calendario").
+description: Spiega Agora, il quaderno condiviso che una famiglia o un piccolo gruppo tiene su Google Drive e Calendar tramite l'AI, e lo sistema quando non funziona bene. Usala quando qualcuno chiede cosa sa fare Agora o come funziona ("cosa sai fare?", "come funziona Agora?"), fa una domanda su come fare qualcosa (dove sono i miei file, chi vede cosa, aggiungere un documento dal telefono, tenere traccia di cose frequenti o di liste da stampare, l'email, le routine, aggiungere una persona, uscire), o dice che Agora non funziona, non vede qualcosa o mostra un errore ("Agora non funziona", "non vedi il calendario").
 ---
 
 # Aiuto
@@ -36,9 +36,10 @@ Di' in una frase che cos'è Agora: ognuno racconta all'AI cosa succede, l'AI lo 
 | "Dammi la settimana che viene" | Un riepilogo di cosa è successo e di cosa arriva | `review` |
 | "Aggiungi un nuovo cliente: Rossi" | Una nuova sezione in cui tenere le cose | `add-interest` |
 | "Ricorda che preferisco risposte brevi" | Agora se ne ricorda la prossima volta | `remember` |
+| "Archivia l'email che ti ho inoltrato" / "prepara una bozza di risposta a Mario" | L'email viene salvata nell'argomento giusto; una risposta viene scritta e inviata solo dopo il tuo sì | `email` |
 | "Configura Agora" / "aggiungi mio marito ad Agora" | La configurazione, o l'ingresso di una nuova persona | `setup` |
 
-Aggiungi una riga sulle routine: una volta configurate, una revisione giornaliera, una settimanale e una mensile arrivano da sole.
+Aggiungi una riga sulle routine: una volta configurate, una revisione giornaliera, una settimanale e una mensile arrivano da sole. Mostra l'esempio dell'email solo quando `org.md` dice `email: on`; altrimenti, in una radice aziendale, una riga che dice che l'email si può attivare.
 
 Fatto quando: il membro ha il riassunto in una frase e gli esempi, in meno di 12 righe, senza nomi di skill.
 
@@ -59,7 +60,8 @@ Le soluzioni stanno nella checklist dei prerequisiti della skill `rules` (rules 
 | Errori "autorizzazione negata", "accesso", "non consentito" | 3, poi 5 |
 | La mia revisione giornaliera / settimanale / mensile non è mai arrivata | 6, poi 1 |
 | Agora non c'è nella mia app | 2 |
-| Un nuovo membro non riesce a usarlo | quel membro percorre le voci 1–3, 5 e 6: proponi il ramo **Unisciti** della skill `setup` |
+| Non vedi la casella, un'email che ti ho inviato, o non riesci a inviare (email attiva) | 7 |
+| Un nuovo membro non riesce a usarlo | quel membro percorre le voci 1–3, 5 e 6 (e 7 quando l'email è attiva): proponi il ramo **Unisciti** della skill `setup` |
 | La configurazione è rimasta a metà, o `setup.md` dice `state: todo` | nessuna: proponi la skill `setup`, che riprende dalla prima casella non spuntata |
 
 1. Esegui il **controllo** di ogni voce corrispondente con una chiamata reale, esattamente come lo descrive la checklist.
@@ -71,6 +73,7 @@ Sintomi che non sono un problema di configurazione:
 - **Un file che ho caricato non è stato archiviato**: guarda in `landing/` e in Needs attention dello `status.md` della radice; proponi di archiviarlo ora con la skill `file-document`.
 - **File doppi, o uno stato che sembra non aggiornato**: è innocuo; la prossima revisione li mette in ordine. Proponi di eseguire ora la skill `review`.
 - **Qualcosa di salvato è sbagliato**: proponi di registrare la correzione con la skill `log`.
+- **Un'email che ho inoltrato non è stata archiviata, o qualcosa è stato archiviato male** (email attiva): guarda in `inbox.md` e in Needs attention dello `status.md` della radice cosa le è successo; proponi la skill `email` per archiviarla, o la skill `log` per una correzione.
 
 Fatto quando: ogni voce corrispondente è pronta, oppure è bloccata con la sua soluzione data e il membro sa qual è la prossima cosa da fare.
 

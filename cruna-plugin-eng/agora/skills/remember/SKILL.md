@@ -33,9 +33,10 @@ A memory is durable: it will still be true next month and shapes how you help. S
 - **Diary fact**: an event in an instance ("Nina's lesson moved to Thursday"). Hand it to the `log` skill instead.
 - **Convention**: how Agora handles data, not who someone is ("from now on put Greta's feeds in a file", "don't log every nappy"). It belongs in `org.md` → Conventions (rules → Conventions): hand it to the `log` skill. Memories stay about people.
 - **Both**: a standing fact that also belongs to an instance's history ("Nina is allergic to penicillin"). Keep it here, and also log it to the instance (`nina/health`) with the `log` skill.
+- **Email importance** (`email: on`): what counts as important email. Handed to you by the `email` skill (personal criteria, or "no preference"): the member's state line (step 5). Otherwise hand it to the `email` skill's Criteria branch, which decides whose it is.
 - **Secret**: passwords, PINs, card numbers, security codes, recovery codes. Keep these out of Agora entirely: Drive files are readable by every member. Tell the member to keep it in a password manager.
 
-Done when: every fact is a memory, handed to `log` (as a diary fact or a Convention), or turned away as a secret.
+Done when: every fact is a memory, handed to `log` (as a diary fact or a Convention) or to `email` (importance), or turned away as a secret.
 
 ### 4. Pick the file
 
@@ -50,9 +51,11 @@ Read the target file (rules → Working with Drive); when it doesn't exist yet, 
 
 Write the fact as one dated line: `- YYYY-MM-DD <fact>`, in the root's language, plain and specific. Then **supersede**: when a line already covers the same subject ("prefers calls in the morning" vs a new "prefers calls after 18:00"), replace that line instead of adding a second one; when the new line repeats an existing one, only refresh its date. Merge near-duplicates you notice while there. Keep the file short enough to read in a minute.
 
+The `Email importance:` line (its values: rules → Email → Invitation state) is a **state line**, not a fact: undated, exactly one per file, its value replaced in place whenever you or another skill set it. Criteria go in the member's words; new criteria on the same subject supersede, others are added to the same line.
+
 Replace the file (rules → Replace).
 
-Done when: the file holds the new fact exactly once, no line contradicts it, and only one copy of the file exists.
+Done when: the file holds the new fact exactly once, no line contradicts it, it has at most one `Email importance:` line, and only one copy of the file exists.
 
 ## Output
 

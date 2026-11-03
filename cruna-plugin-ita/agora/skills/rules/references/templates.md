@@ -13,15 +13,16 @@ timezone: <Europe/Rome>
 assistant_account: <assistente@gmail.com | account del proprietario>
 calendar: <email dell'account dell'assistente: il suo calendario principale è il calendario di sistema>
 layout: <che cosa è un interesse, es. "un interesse per persona, più `famiglia` per le cose condivise">
+email: <on | off>
 ---
 
 # <Nome visualizzato della radice>
 
 ## Members
 
-| Slug | Name | Email | Role | Birthday | Personal calendar | Notes |
-|---|---|---|---|---|---|---|
-| simone | Simone | simone@example.com | genitore | 1989-03-28 | libero/occupato | preferisce risposte brevi |
+| Slug | Name | Email | Mail from | Role | Birthday | Personal calendar | Notes |
+|---|---|---|---|---|---|---|---|
+| simone | Simone | simone@example.com | simone@example.com, simone@acme.it | genitore | 1989-03-28 | libero/occupato | preferisce risposte brevi |
 
 ## Interests
 
@@ -42,6 +43,8 @@ layout: <che cosa è un interesse, es. "un interesse per persona, più `famiglia
 | simone | editor | può modificare | Claude | routine attive |
 ```
 
+`email` assente significa `off`. **Email** è l'account Google personale con cui sono condivisi la cartella e il calendario. **Mail from** (solo con l'email attiva) elenca ogni indirizzo da cui il membro scrive o inoltra: la posta da questi indirizzi è posta dei membri (rules → Email). I criteri email validi per tutta la radice sono righe di Conventions, scritte come in [email.md](email.md) → Dove stanno i criteri.
+
 ## `setup.md` (radice, curato)
 
 Una sezione `## Member: <slug>` per ogni membro che usa la radice (un bambino solo seguito non ne ha). Le etichette delle caselle restano in inglese come i titoli. In una radice solitaria, spunta le due caselle di condivisione con "(solo)". Le caselle non spuntate dicono chi le fa quando non sei tu.
@@ -60,11 +63,13 @@ state: <todo | done>
 - [x] Prerequisites
 - [ ] Interview
 - [ ] Build
+- [ ] Email
 - [ ] Verify
 
 ## Member: simone
 - [x] Connectors and plugin
 - [ ] In Members and Access, with a memories file
+- [ ] Email
 - [ ] Root folder shared
 - [ ] System calendar shared (simone accetta l'invito)
 - [ ] Personal calendar shared (libero/occupato)
@@ -76,7 +81,28 @@ state: <todo | done>
 - <risposte confermate, una riga ciascuna>
 ```
 
-La sezione Interview contiene ogni giro confermato sotto il suo titolo (The root, Members, Layout convention, First interests and instances) finché la casella Build non è spuntata; poi viene tolta. Mentre è in corso una migrazione, una sezione `## Migration` elenca i suoi sette passi come caselle.
+La sezione Interview contiene ogni giro confermato sotto il suo titolo (The root, Members, Layout convention, First interests and instances) La casella Email della radice si spunta con "(off)" quando la radice rifiuta l'email, oppure quando l'email è attiva, Gmail è verificato e `org.md` e `memories/shared.md` contengono i campi email. Una sezione Member ha una casella Email solo quando l'email è attiva; si spunta quando l'app del membro ha Gmail collegato con l'account dell'assistente, e i suoi indirizzi e il suo stato dell'invito sull'importanza sono registrati.
+
+La sezione Interview contiene ogni giro confermato sotto il suo titolo (The root, Members, Layout convention, First interests and instances) finché la casella Build non è spuntata; poi viene tolta, tranne le risposte sulle email, che restano finché ogni membro intervistato non ha la sua cella Mail from e la sua riga Email importance scritte (passo 2d di setup). Mentre è in corso una migrazione, una sezione `## Migration` elenca i suoi sette passi come caselle.
+
+## `inbox.md` (radice, curato)
+
+Solo con l'email attiva. Una riga per ogni email gestita, dalla più recente; `last_tidy_up` è la data dell'ultimo riordino della casella fatto dalla `review`, assente fino al primo (rules → Email → Il protocollo).
+
+```markdown
+---
+agora: inbox
+last_tidy_up: 2026-11-03
+---
+
+# Inbox
+
+| Message id | Date | From | Subject | Outcome | By |
+|---|---|---|---|---|---|
+| 18c2f0a9b7e4d311 | 2026-11-03 | Mario Rossi <mario@acme.it> | Preventivo approvato | filed → acme/sito-2026/diary/simone-20261103_0912.md | routine |
+| 18c2ef11a0c3b920 | 2026-11-02 | to mario@acme.it | Re: Data del kickoff | sent → acme/sito-2026/diary/simone-20261102_1640.md | simone |
+| 18c2ee70d1f2a004 | 2026-11-02 | Newsletter <news@shop.com> | Black Friday | ignored | routine |
+```
 
 ## `index.md` (derivato)
 
@@ -169,6 +195,20 @@ events: [<"[interest/instance] titolo" degli eventi creati o modificati, o vuoto
 <Ciò che il membro ha detto o inviato, con le sue parole; solo una leggera ripulitura>
 ```
 
+Una voce per un'email (archiviata o inviata, rules → Email) aggiunge tre righe di front-matter dopo `events`:
+
+```markdown
+email: <id del messaggio Gmail>
+email_from: <Mittente originale, o "to <destinatari>" per la posta inviata>
+email_subject: <Oggetto>
+```
+
+e, quando l'email ha allegati non ancora su Drive, un'ultima riga in Entry:
+
+```markdown
+To file: <nomi degli allegati>. Salvali in landing/ o documents/ e di' "archiviati".
+```
+
 ## Registro (di lavoro)
 
 File: `<interest>/<instance>/documents/<name>.csv`. Riga di intestazione con le colonne concordate alla creazione; `date,time,author` sempre per prime.
@@ -201,6 +241,8 @@ File: `memories/<slug>.md` o `memories/shared.md`
 - <YYYY-MM-DD> <un fatto, una preferenza o un'abitudine duratura>
 ```
 
+Con l'email attiva, ogni file contiene anche una riga `- Email importance: <not asked | invited | no preference | criteri>` (rules → Email → Importanza).
+
 ## Revisione (curato)
 
 File: `reviews/YYYY-MM-DD-daily.md`, `reviews/YYYY-Www-weekly.md` o `reviews/YYYY-MM-monthly.md`
@@ -221,6 +263,9 @@ File: `reviews/YYYY-MM-DD-daily.md`, `reviews/YYYY-Www-weekly.md` o `reviews/YYY
 
 ## Needs attention
 - <Segnalazioni dal riordino e tutto ciò che richiede una decisione>
+
+## Email
+- <Solo con l'email attiva: email importanti che richiedono attenzione, bozze in attesa di approvazione, inviate, archiviate; da `inbox.md`>
 ```
 
 Le esecuzioni successive aggiungono, solo quando sono arrivate nuove voci di diario da quando è stata scritta:

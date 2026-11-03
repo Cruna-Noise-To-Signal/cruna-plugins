@@ -38,6 +38,18 @@ In the topic it belongs to: `<root name>` → `<interest>` → `<instance>` → 
 
 Tell it, starting with "from now on": "from now on, put Greta's feeds in a file", "stop tracking nappies in the file, log them as notes again", "add a column for the amount". Agora says back the change, and on your yes writes it in the **Conventions** table of `org.md`, which it checks every time. You can read that table there.
 
+## Can Agora read and send email?
+
+When email is turned on (say "turn on email"; it suits businesses best), Agora has its own inbox: `<assistant account>`. Forward or CC it the emails that matter, and Agora saves each in the right topic, or asks you where it goes. Ask "anything from Acme?", "draft a reply to Mario", "file this email under clients/acme". Agora writes drafts whenever you like, but sends only after you've seen the exact message and said yes in the chat; your app then asks you to approve the send too. Reviews never send anything.
+
+## What can't Agora do with email?
+
+It reads only its own inbox, never yours. It sees an attachment's name but can't open or save it: save the file to `landing` yourself and say "filed", and Agora links it to the email. It doesn't label, archive or delete mail. When sending fails, say "email isn't working" and Agora checks your setup.
+
+## How does Agora decide which email is important?
+
+By default: an email that asks you to do, answer or decide something, or carries a date, and isn't a newsletter or notification. An email from your own address always counts. Tell it what else matters, or doesn't ("anything from a client is important", "ignore GitHub notifications"), or say "no preference". Each review lists important email, drafts waiting for your yes, and what was sent and saved; Agora keeps a log of what it did with each email in `inbox.md`.
+
 ## How do the routines work?
 
 Each member has three scheduled tasks in their AI app, created during setup:
@@ -72,7 +84,7 @@ Tell it: "that's wrong, the appointment is on Friday". It saves the correction a
 
 - **Pause the reviews**: pause or delete your three scheduled tasks in your AI app.
 - **Leave**: ask the owner, or say "remove me from Agora". Your access to the folder and calendar is removed and your app is disconnected. What you wrote stays, as part of the shared history.
-- **Stop Agora entirely**: delete everyone's scheduled tasks and disconnect the Google Drive and Calendar connectors. The folder and calendar stay in Google, readable as plain files, until you delete them.
+- **Stop Agora entirely**: delete everyone's scheduled tasks and disconnect the Google Drive and Calendar connectors (and Gmail). The folder and calendar stay in Google, readable as plain files, until you delete them.
 
 ## Does it cost anything?
 
