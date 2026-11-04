@@ -1,6 +1,6 @@
 ---
 name: help
-description: Explains Agora, the shared notebook a family or small team keeps on Google Drive and Calendar through the AI, and fixes it when it misbehaves. Use when someone asks what Agora can do or how it works, asks a how-do-I question about it (where are my files, who can see what, adding a document from the phone, keeping track of frequent things or printable lists, routines, adding a person, leaving), or says Agora isn't working, can't see something, or shows an error.
+description: Explains Agora, the shared notebook a family or small team keeps on Google Drive and Calendar through the AI, and fixes it when it misbehaves. Use when someone asks what Agora can do or how it works, asks a how-do-I question about it (where are my files, who can see what, adding a document from the phone, keeping track of frequent things or printable lists, to-dos, email, routines, adding a person, leaving), or says Agora isn't working, can't see something, or shows an error.
 ---
 
 # Help
@@ -33,12 +33,14 @@ Say in one sentence what Agora is: everyone tells the AI what happens, the AI ke
 | "When is Nina's next vaccine?" / "what do we have this week?" | An answer with dates and where it came from | `ask` |
 | "Greta just did a poo" / "make me a packing list I can print" | A row in a tracker file, or a list on the Drive, kept up to date | `log` |
 | "How many feeds today?" | Counted from the tracker | `ask` |
+| "Add a to-do: renew the car insurance" / "what's on my list?" / "done with the insurance" | A shared to-do list, yours and everyone's, kept up to date | `todo` |
 | "Give me the week ahead" | A summary of what happened and what's coming | `review` |
 | "Add a new client: Rossi" | A new section to keep things in | `add-interest` |
 | "Remember I prefer short answers" | Agora remembers it next time | `remember` |
+| "File the email I forwarded you" / "draft a reply to Mario" | The email is saved with the right topic; a reply is written and sent only after you say yes | `email` |
 | "Set up Agora" / "add my husband to Agora" | Setup, or bringing a new person in | `setup` |
 
-Add one line about routines: once set up, a daily, a weekly and a monthly review arrive on their own.
+Add one line about routines: once set up, a daily, a weekly and a monthly review arrive on their own. Show the email example only when `org.md` says `email: on`; otherwise, in a business root, one line saying email can be turned on.
 
 Done when: the member has the one-sentence summary and the examples, in under 12 lines, with no skill names.
 
@@ -59,7 +61,8 @@ The fixes live in the `rules` skill's prerequisites checklist (rules → When so
 | "Permission denied", "access", "not allowed" errors | 3, then 5 |
 | My daily / weekly / monthly review never arrived | 6, then 1 |
 | Agora isn't in my app | 2 |
-| A new member can't use it | that member runs items 1–3, 5 and 6: offer the `setup` skill's **Join** branch |
+| You can't see the inbox, an email I sent you, or can't send (email on) | 7 |
+| A new member can't use it | that member runs items 1–3, 5 and 6 (and 7 when email is on): offer the `setup` skill's **Join** branch |
 | Setup was left halfway, or `setup.md` says `state: todo` | none: offer the `setup` skill, which resumes at the first unticked box |
 
 1. Run each matching item's **check** with a real call, exactly as the checklist describes.
@@ -71,6 +74,7 @@ Symptoms that are not a setup problem:
 - **A file I uploaded wasn't filed**: look in `landing/` and the root `status.md` Needs attention; offer to file it now with the `file-document` skill.
 - **Duplicate files, or a status that looks out of date**: harmless; the next review tidies them. Offer to run the `review` skill now.
 - **Something saved is wrong**: offer to record the correction with the `log` skill.
+- **An email I forwarded wasn't filed, or something was filed wrongly** (email on): look in `inbox.md` and the root `status.md` Needs attention for what happened to it; offer the `email` skill to file it, or the `log` skill for a correction.
 
 Done when: every matching item is ready, or is blocked with its fix given and the member knows the next thing to do.
 

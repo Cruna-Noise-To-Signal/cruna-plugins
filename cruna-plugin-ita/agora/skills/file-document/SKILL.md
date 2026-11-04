@@ -1,6 +1,6 @@
 ---
 name: file-document
-description: Archivia un documento in Agora: gli dà un nome, lo sposta nella cartella documents dell'istanza giusta, lo collega dal diario e mette in calendario le sue date. Usala quando un membro dice di aver caricato o lasciato un file in Agora ("ho messo gli esami del sangue nella cartella salute di Nina", "c'è una fattura in landing"), allega in chat un file da conservare in Agora, ha già un foglio o un file con cui tiene traccia di qualcosa ("abbiamo un foglio per i pannolini di Greta"), o quando la routine di revisione trova file che nessuno ha annunciato.
+description: Archivia un documento in Agora: gli dà un nome, lo sposta nella cartella documents dell'istanza giusta, lo collega dal diario e mette in calendario le sue date. Usala quando un membro dice di aver caricato o lasciato un file in Agora ("ho messo gli esami del sangue nella cartella salute di Nina", "c'è una fattura in landing"), allega in chat un file da conservare in Agora, ha già un foglio o un file con cui tiene traccia di qualcosa ("abbiamo un foglio per i pannolini di Greta"), salva gli allegati di un'email archiviata da Agora ("ho salvato il preventivo di Mario in landing"), o quando la routine di revisione trova file che nessuno ha annunciato.
 ---
 
 # Archivia documento
@@ -47,6 +47,8 @@ Fatto quando: sai scrivere una riga che dica cos'è il documento e cosa dice di 
 
 ### 4. Collocalo
 
+**Allegato di un'email** (`email: on`): quando il membro dice che il file è un allegato di un'email archiviata, o il suo nome originale corrisponde a un nome su una riga `To file:` aperta (rules → Email → Archiviazione; il Needs attention dello `status.md` della radice le elenca come "non ancora su Drive"), l'istanza è quella della voce dell'email e il file è **collegato** a essa al passo 7, in ognuno dei casi qui sotto. Se più righe aperte possono corrispondere: chiedi quale (se non presidiata: collocalo in base al contenuto, non collegato).
+
 - (a): l'istanza è la cartella in cui si trova.
 - (b): confronta il contenuto e le parole del membro con i file `index.md` della radice e degli interessi. Quando non rientra con certezza in un'unica istanza, chiedi, offrendo le opzioni `interesse/istanza` probabili. Quando l'istanza giusta non esiste ancora, offri la skill `add-interest`.
 - (c) in una cartella `documents/`: decide la cartella. (c) in `landing/`, presidiato: come (b). (c) in `landing/`, non presidiato: collocalo solo quando il contenuto indica senza dubbio esattamente un'istanza esistente; altrimenti **segnalalo** (rules → Segnalare) con il nome del file, cosa sembra essere e le istanze probabili, restituisci la segnalazione a `review`, e fermati per questo file.
@@ -90,15 +92,15 @@ Poi crea la voce dal modello Voce di diario (rules → Tipi di file → modelli)
 - `documents`: il nuovo percorso, `documents/<nuovo nome>`.
 - `events`: i titoli restituiti da `schedule`.
 - **Summary**: una riga su cosa dice il documento ("Esami del sangue: tutti i valori nella norma").
-- **Entry**: le parole del membro sul file, poi `Archiviato: documents/<nuovo nome>`. Caso (c): `Archiviato dalla revisione <periodo>; nessuno ha annunciato questo file.`
+- **Entry**: le parole del membro sul file, poi `Archiviato: documents/<nuovo nome>`. Caso (c): `Archiviato dalla revisione <periodo>; nessuno ha annunciato questo file.` Un allegato collegato aggiunge un'ultima riga, `Attachment of: diary/<nome file della voce dell'email> (<nome originale>)`, con il nome come lo riporta la riga `To file:`.
 
-Fatto quando: la voce esiste al suo percorso e collega il documento, e ogni data del documento è in calendario, rifiutata o segnalata.
+Fatto quando: la voce esiste al suo percorso e collega il documento (e, per un allegato collegato, la voce della sua email), e ogni data del documento è in calendario, rifiutata o segnalata.
 
 ### 8. Aggiorna indici e stati
 
 Per ogni istanza di destinazione, ricostruisci il suo `index.md` con il nuovo documento e la nuova voce in cima (rules → Sostituire). Poi propaga (rules → Regola di aggiornamento dello stato): lo `status.md` di ogni istanza, quello di ogni interesse toccato una volta, quello della radice una volta. Nel caso (c), fermati al livello dell'interesse: `review` ricostruisce una sola volta lo `status.md` della radice, con le segnalazioni che le restituisci.
 
-Fatto quando: l'indice di ogni istanza toccata elenca il documento e la sua voce, e ogni stato fino alla radice (caso (c): fino all'interesse) riflette ciò che dice il documento.
+Fatto quando: l'indice di ogni istanza toccata elenca il documento e la sua voce, e ogni stato fino alla radice (caso (c): fino all'interesse) riflette ciò che dice il documento, e non resta nessuna riga "non ancora su Drive" per un allegato ora collegato.
 
 ### 9. Passo memoria
 

@@ -1,0 +1,3 @@
+interface:
+  display_name: "Email"
+  short_description: "Leggi, prepara, invia e archivia le email della casella dell'assistente"

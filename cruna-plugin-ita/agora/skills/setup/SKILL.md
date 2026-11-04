@@ -1,13 +1,13 @@
 ---
 name: setup
-description: Configura Agora, il quaderno condiviso di famiglia o di lavoro su Google Drive e Google Calendar. Usala quando l'utente vuole avviare Agora per la prima volta ("configura Agora", "iniziamo"), quando una persona entra in un Agora esistente o un membro inizia a usarlo da un'altra app ("aggiungi mia moglie ad Agora", "entro nell'Agora di famiglia", "ho installato Agora anche su ChatGPT"), quando una configurazione è rimasta a metà ("finisci la configurazione"), quando un Agora di una sola persona deve passare a un proprio account dell'assistente perché entra qualcun altro, o quando qualcuno esce ("togli Simona da Agora", "toglimi da Agora").
+description: Configura Agora, il quaderno condiviso di famiglia o di lavoro su Google Drive e Google Calendar. Usala quando l'utente vuole avviare Agora per la prima volta ("configura Agora", "iniziamo"), quando una persona entra in un Agora esistente o un membro inizia a usarlo da un'altra app ("aggiungi mia moglie ad Agora", "entro nell'Agora di famiglia", "ho installato Agora anche su ChatGPT"), quando una configurazione è rimasta a metà ("finisci la configurazione"), quando un Agora di una sola persona deve passare a un proprio account dell'assistente perché entra qualcun altro, quando il gruppo vuole attivare l'email ("attiva l'email", "collega Gmail ad Agora"), o quando qualcuno esce ("togli Simona da Agora", "toglimi da Agora").
 ---
 
 # Configurazione di Agora
 
-La configurazione trasforma un Google Drive e un Calendar vuoti in una **radice** Agora funzionante, vi porta dentro ogni membro e lo toglie quando esce. Ha quattro rami: **Nuova radice**, **Unisciti**, **Migra** (sempre seguito da Unisciti) e **Uscita**. Scegline uno al passo 1 e segui solo quel ramo. Ogni ramo finisce con la stessa **verifica**; ogni ramo tranne Uscita finisce con lo stesso messaggio "cosa puoi fare ora".
+La configurazione trasforma un Google Drive e un Calendar vuoti in una **radice** Agora funzionante, vi porta dentro ogni membro e lo toglie quando esce. Ha cinque rami: **Nuova radice**, **Unisciti**, **Migra** (sempre seguito da Unisciti), **Email** e **Uscita**. Scegline uno al passo 1 e segui solo quel ramo. Ogni ramo finisce con la stessa **verifica**; ogni ramo tranne Uscita finisce con lo stesso messaggio "cosa puoi fare ora".
 
-**Checklist**: ogni ramo registra i suoi progressi in `setup.md` (rules → Checklist di configurazione; modello in rules → Tipi di file → modelli), così l'utente può fermarsi a metà e riprendere più tardi, in questa app o in un'altra. Spunta una casella appena il passo che rappresenta soddisfa il suo Fatto quando, scrivi il file per sostituzione (rules → Sostituire) con una nuova riga Updated, e imposta `state: done` solo quando ogni casella è spuntata. Quando riprendi, parti dalla prima casella non spuntata; il passo 6 ricontrolla quelle spuntate.
+**Checklist**: ogni ramo registra i suoi progressi in `setup.md` (rules → Checklist di configurazione; modello in rules → Tipi di file → modelli), così l'utente può fermarsi a metà e riprendere più tardi, in questa app o in un'altra. Spunta una casella appena il passo che rappresenta soddisfa il suo Fatto quando, scrivi il file per sostituzione (rules → Sostituire) con una nuova riga Updated, e imposta `state: done` solo quando ogni casella è spuntata. Quando riprendi, parti dalla prima casella non spuntata; il passo 7 ricontrolla quelle spuntate. Un `setup.md` scritto prima che esistesse l'email non ha caselle Email: lì l'email è disattivata; aggiungi la casella Email della radice spuntata "(off)" la prossima volta che scrivi il file.
 
 ## 1. Carica le regole e scegli il ramo
 
@@ -20,11 +20,13 @@ Carica la skill `rules`. Segui rules → Trovare la radice, poi scegli il ramo:
 | Una radice il cui `setup.md` dice `state: todo`, e l'utente sta finendo la configurazione ("finisci la configurazione", "andiamo avanti") | Il ramo della prima casella non spuntata che questo utente può fare: caselle Root → **Nuova radice**, una sezione Member → **Unisciti** per quel membro, Migration → **Migra** |
 | Una radice, e l'utente ci entra o la usa da una nuova app | **Unisciti** |
 | Una radice solitaria (un solo membro, `assistant_account` è l'account personale di quel membro) e sta entrando qualcuno di nuovo | **Migra**, poi **Unisciti** per il nuovo arrivato |
+| Una radice, e l'utente vuole attivare l'email ("attiva l'email", "collega Gmail") | **Email** |
+| Una radice il cui `setup.md` ha caselle Email non spuntate, e l'utente sta finendo la configurazione | **Email** per la casella della radice, **Unisciti** per una casella Email di un membro |
 | Una radice, e un membro esce ("toglimi da Agora", "Simona non ha più bisogno di accedere") | **Uscita** |
 
 Identità: in una radice trovata, segui rules → Identità e leggi le memorie della persona (rules → Passo memoria). In una nuova radice, la persona che parla diventa il primo membro durante l'intervista.
 
-Una radice trovata senza `setup.md` è stata configurata prima che esistesse la checklist: esegui il passo 6, scrivi `setup.md` con una casella spuntata per ogni riga che passa, poi prosegui con il ramo.
+Una radice trovata senza `setup.md` è stata configurata prima che esistesse la checklist: esegui il passo 7, scrivi `setup.md` con una casella spuntata per ogni riga che passa, poi prosegui con il ramo.
 
 Fatto quando il ramo è scelto, `setup.md` (se la radice ce l'ha) è letto e, per una radice trovata, sai chi sta parlando.
 
@@ -58,16 +60,22 @@ Fatto quando l'utente ha confermato il riepilogo alla fine dell'intervista e la 
 Costruisci in quest'ordine dalle risposte in setup.md → Interview, scrivendo ogni file dal suo modello (rules → Tipi di file → modelli) nella lingua della radice e seguendo rules → Lavorare con Drive. Quando riprendi, salta ciò che la verifica mostra già presente.
 
 1. Cartella radice: esiste dall'intervista.
-2. `org.md`, con `agora: root` nel front-matter, ogni membro in Members, la convenzione di struttura e una riga Access per membro (Drive e calendario "in attesa" fino al passo 2d).
-3. `landing/`, `reviews/`, `memories/` con `shared.md` e un `<slug>.md` per membro (solo la riga del titolo, più quanto di duraturo è emerso dall'intervista).
+2. `org.md`, con `agora: root` nel front-matter, ogni membro in Members, la convenzione di struttura e una riga Access per membro (Drive e calendario "in attesa" fino al passo 2e).
+3. `landing/`, `reviews/`, `todos/` (vuota: `todo.md` arriva con il primo to-do), `memories/` con `shared.md` e un `<slug>.md` per membro (solo la riga del titolo, più quanto di duraturo è emerso dall'intervista).
 4. La tabella Interests in `org.md`, con ogni interesse dell'intervista, la sua descrizione e il suo colore (colori come al passo 5 di `add-interest`), scritta una volta sola (rules → Sostituire).
 5. Ogni interesse e istanza dell'intervista, costruiti con il passo 4 della skill `add-interest`, poi il livello interesse del suo passo 6 (`index.md` e `status.md` di ogni interesse, riassunti dalle sue istanze). Hai già la radice e le risposte, quindi salta le sue domande.
 6. `index.md` e `status.md` della radice, ricostruiti una volta alla fine della costruzione così da riassumere tutto ciò che sta sotto.
 7. Il **calendario di sistema** è il calendario principale dell'account dell'assistente (rules → Convenzioni del calendario): niente da creare né da cercare. Elenca i calendari e conferma che quello principale riporti l'email dell'account dell'assistente e il fuso orario di `org.md`. Un fuso orario diverso si corregge con un clic dell'utente, con l'accesso a Google Calendar come account dell'assistente: **Impostazioni** (Settings) → **Generali** (General) → **Fuso orario** (Time zone).
 
-Fatto quando ogni elemento qui sopra esiste esattamente una volta e la lista dei calendari mostra il calendario principale dell'account dell'assistente nel fuso orario della radice. Poi spunta Build e togli la sezione Interview da `setup.md`; spunta la casella "In Members and Access" di ogni membro.
+Fatto quando ogni elemento qui sopra esiste esattamente una volta e la lista dei calendari mostra il calendario principale dell'account dell'assistente nel fuso orario della radice. Poi spunta Build e togli la sezione Interview da `setup.md` (tieni le risposte sull'email finché il passo 2d non le ha usate); spunta la casella "In Members and Access" di ogni membro.
 
-### 2d. Condivisione
+### 2d. Email
+
+Segui [references/email.md](references/email.md), Nuova radice. Se l'email è stata rifiutata, la casella Email della radice è spuntata "(off)" e nient'altro cambia. Poi togli le risposte sull'email da `setup.md` → Interview.
+
+Fatto quando vale il criterio di completamento della Parte radice (o la casella dice "(off)"); (email attiva) ogni membro intervistato ha i suoi indirizzi (non in una radice solitaria) e la riga Email importance registrati, e la Parte membro del proprietario è fatta o bloccata.
+
+### 2e. Condivisione
 
 Percorri la voce 5 per ogni membro:
 
@@ -81,25 +89,26 @@ Radici solitarie: niente da condividere; segna la riga del proprietario come pro
 
 Fatto quando i permessi della cartella radice, letti con una chiamata reale, elencano come editor ogni membro con un'email; la tabella Access mostra l'accesso reale di ogni membro a Drive e al calendario; e ogni casella di condivisione è spuntata o dice chi deve ancora farla.
 
-### 2e. Routine
+### 2f. Routine
 
 Dai all'utente le tre routine di [references/routines.md](references/routines.md), compilate per lui, poi percorri la voce 6.
 
 Fatto quando l'utente conferma che le tre routine sono nella sua lista delle attività pianificate (spunta la sua casella Routines), o la voce 6 è registrata come bloccata (la casella resta non spuntata).
 
-Vai al passo 6.
+Vai al passo 7.
 
 ## 3. Unisciti
 
 Per un nuovo membro, o per un membro esistente su una nuova app. Eseguilo nell'app della persona che entra.
 
-1. Percorri le voci 1, 2 e 3. I connettori si collegano come l'account dell'assistente indicato in `org.md`; la persona riceve la password da chi la custodisce.
-2. Trova la radice (rules → Trovare la radice) e segui rules → Identità. Trova la sua sezione Member in `setup.md`: un nuovo membro ne riceve una ora (tutte le caselle non spuntate tranne Connectors and plugin); un membro esistente su una nuova app ha Connectors and plugin spuntata e Routines non spuntata. I passi con le caselle già spuntate sono fatti: saltali.
-3. **Solo nuovo membro**: intervistalo con il giro Membri di [references/interview.md](references/interview.md) (solo per sé). Aggiungilo a Members e Access in `org.md`, crea `memories/<slug>.md` e percorri la voce 5 per lui come al passo 2d: condividi tu la cartella radice finché i suoi permessi non lo elencano, poi guida i passi da cliccare che condividono il calendario di sistema con il suo account Google personale e il suo calendario personale con l'account dell'assistente al livello che sceglie.
+1. Percorri le voci 1, 2 e 3, e la voce 7 quando `org.md` dice `email: on`. I connettori si collegano come l'account dell'assistente indicato in `org.md`; la persona riceve la password da chi la custodisce.
+2. Trova la radice (rules → Trovare la radice) e segui rules → Identità. Trova la sua sezione Member in `setup.md`: un nuovo membro ne riceve una ora (tutte le caselle non spuntate tranne Connectors and plugin; una casella Email quando l'email è attiva); un membro esistente su una nuova app ha Connectors and plugin spuntata e Routines non spuntata (ed Email non spuntata, quando l'email è attiva). I passi con le caselle già spuntate sono fatti: saltali.
+3. **Solo nuovo membro**: intervistalo con il giro Membri di [references/interview.md](references/interview.md) (solo per sé). Aggiungilo a Members e Access in `org.md`, crea `memories/<slug>.md` e percorri la voce 5 per lui come al passo 2e: condividi tu la cartella radice finché i suoi permessi non lo elencano, poi guida i passi da cliccare che condividono il calendario di sistema con il suo account Google personale e il suo calendario personale con l'account dell'assistente al livello che sceglie.
 4. **Membro esistente, nuova app**: aggiorna la sua riga Access ("Client connected").
-5. Dagli le sue routine da [references/routines.md](references/routines.md) e percorri la voce 6.
+5. **Email attiva**: esegui per lui la Parte membro di [references/email.md](references/email.md) (a un nuovo membro le domande sull'email sono state fatte al passo 3).
+6. Dagli le sue routine da [references/routines.md](references/routines.md) e percorri la voce 6.
 
-Fatto quando la persona è in Members e Access con il suo accesso reale, i permessi della cartella radice la elencano come editor (nuovo membro), ha un file in `memories/`, la voce 6 è pronta o bloccata, e ognuna di queste cose è spuntata nella sua sezione Member. Vai al passo 6.
+Fatto quando la persona è in Members e Access con il suo accesso reale, i permessi della cartella radice la elencano come editor (nuovo membro), ha un file in `memories/`, la voce 6 è pronta o bloccata, (email attiva) la sua casella Email è spuntata o dice cosa si aspetta, e ognuna di queste cose è spuntata nella sua sezione Member. Vai al passo 7.
 
 ## 4. Migra (da solitaria ad account dedicato)
 
@@ -107,34 +116,41 @@ Eseguilo con il proprietario della radice, prima che entri il nuovo arrivato. Ag
 
 Fatto quando vale il criterio di completamento della migrazione stessa e ogni casella Migration è spuntata. Poi esegui **Unisciti** per il nuovo arrivato.
 
-## 5. Uscita
+## 5. Email (attivarla in una radice esistente)
+
+Eseguilo con un membro qualsiasi. Segui [references/email.md](references/email.md): fai le domande di Domande sull'email di [references/interview.md](references/interview.md), esegui la Parte radice, poi la Parte membro per ogni membro presente. I membri non presenti fanno la loro Parte membro la prossima volta che eseguono la configurazione ("finisci la configurazione") o Unisciti.
+
+Fatto quando vale il criterio di completamento della Parte radice, le parti dei membri presenti sono fatte o bloccate, e la casella Email di ogni altro membro li nomina. Vai al passo 7.
+
+## 6. Uscita
 
 Eseguilo con il proprietario della radice, con l'accesso come account dell'assistente dove un passo richiede dei clic. Segui il file `references/prerequisites.md` della skill `rules` → Uscita di un membro, confermando ogni passo con il proprietario prima di farlo o di affidarglielo:
 
 1. Togli al membro l'accesso come editor alla cartella radice (lo fai tu quando il connettore di Drive può modificare la condivisione; altrimenti dai al proprietario i passi da cliccare).
 2. Togligli l'accesso al calendario di sistema: Google Calendar (come account dell'assistente) → Impostazioni (Settings) → il calendario → Condividi con persone specifiche (Share with specific people) → rimuovilo.
-3. Chiedi al membro, se raggiungibile, di scollegare i connettori di Drive e Calendar nella sua app e di eliminare le sue routine di Agora.
+3. Chiedi al membro, se raggiungibile, di scollegare i connettori di Drive e Calendar (e Gmail, quando l'email è attiva) nella sua app e di eliminare le sue routine di Agora.
 4. Se conosceva la password dell'account dell'assistente, fai cambiare la password al proprietario e fagliela passare ai membri rimasti.
 5. Aggiorna `org.md` (rules → Sostituire): scrivi `rimosso YYYY-MM-DD` nelle Notes della sua riga Members, e `rimosso` sotto Drive e System calendar nella sua riga Access. Le sue voci di diario, i suoi documenti e `memories/<slug>.md` restano: sono storia.
 6. Togli la sua sezione Member da `setup.md` e imposta `state` in base alle caselle rimaste.
 
-Fatto quando il membro non ha più accesso come editor alla cartella né al calendario, le righe Members/Access in `org.md` lo mostrano rimosso, e `setup.md` non ha una sezione per lui. Vai al passo 6.
+Fatto quando il membro non ha più accesso come editor alla cartella né al calendario, le righe Members/Access in `org.md` lo mostrano rimosso, e `setup.md` non ha una sezione per lui. Vai al passo 7.
 
-## 6. Verifica
+## 7. Verifica
 
 Controlla la radice con chiamate reali, mai a memoria di ciò che hai costruito:
 
 - `org.md` si scarica, il suo front-matter contiene `agora: root` e ogni membro ha una riga Members e una riga Access (le righe di un membro rimosso lo dicono, e la cartella e il calendario non lo elencano più).
-- Esistono `index.md` e `status.md` della radice, `landing/`, `reviews/`, `memories/shared.md` e un `memories/<slug>.md` per membro.
+- Esistono `index.md` e `status.md` della radice, `landing/`, `reviews/`, `todos/`, `memories/shared.md` e un `memories/<slug>.md` per membro.
 - Ogni interesse in `org.md` e nell'`index.md` della radice ha una cartella con `index.md` e `status.md`; ogni istanza ha `index.md`, `status.md`, `diary/` e `documents/`.
 - Nessun nome di file compare due volte nella stessa cartella (rules → Sostituire).
 - Il calendario principale nella lista dei calendari riporta l'email dell'account dell'assistente, come `calendar` in `org.md`.
 - I permessi della cartella radice elencano come editor ogni membro con un'email (un membro rimosso: per niente).
+- Quando `org.md` dice `email: on`: una ricerca in Gmail risponde, e la casella di posta è quella dell'account dell'assistente (voce 7 dei prerequisiti); `inbox.md` esiste una volta sola nella radice; `memories/shared.md` ha una riga Email importance; ogni membro che usa la radice ha i suoi indirizzi in Mail from (non in una radice solitaria).
 - `setup.md` ha una sezione Member per ogni membro che usa la radice, ogni casella spuntata esattamente quando ciò che rappresenta passa i controlli qui sopra (o, per la condivisione dei calendari e le routine, la persona l'ha confermato), e `state` è `done` esattamente quando ogni casella è spuntata.
 
 Correggi ciò che fallisce e controlla di nuovo. Fatto quando ogni riga passa; poi spunta Verify.
 
-## 7. Passo memoria
+## 8. Passo memoria
 
 Segui rules → Passo memoria. La configurazione di solito fa scoprire molto (ruoli, abitudini, come le persone vogliono essere chiamate): scrivilo ora.
 
@@ -152,6 +168,8 @@ Un messaggio breve nella lingua della radice, senza termini tecnici. Uscita: una
    - Aggiungi un file: mettilo nella cartella `landing` e dimmelo. (`file-document`)
    - Imposta un promemoria o un appuntamento: "Ricordaci di rinnovare l'assicurazione dell'auto il 12 marzo." (`schedule`)
    - Chiedi: "Cosa c'è in sospeso per Nina?" (`ask`)
+   - Tieni un to-do: "Aggiungi un to-do: rinnovare l'assicurazione dell'auto entro venerdì." (`todo`)
    - Segui qualcosa di nuovo: "Inizia a seguire la ristrutturazione della casa." (`add-interest`)
+   - Con l'email attiva: "Inoltrami l'email del cliente", "Prepara una bozza di risposta a Mario". (`email`)
 4. Quando arriveranno le revisioni (ogni mattina, la domenica sera, il primo del mese), e che "aiuto" spiega tutto il resto.
 5. La riga di `remember`, se c'è.

@@ -30,6 +30,18 @@ Yes. Say "track Greta's nappies in a file" (or feeds, expenses, medicine). Agora
 
 Yes: "make a packing list for the holiday", "add milk to the shopping list", "write up a memo of Greta's vaccines". Agora keeps it as a file in that topic's `documents` folder and updates it whenever you ask. Open it from the Drive app to read, share or print it.
 
+## How do I keep a to-do list?
+
+Tell Agora: "add a to-do: renew the car insurance". It's yours unless you name someone else ("Nina should book the dentist") or say it's for everyone ("someone needs to buy toner"). Add a date if you like ("by Friday") and the reviews warn you before it's late; say "put it on the calendar" if you also want an event. Ask "what's on my list?" or "what's open for everyone?", and say "done with the insurance" when it's done, or "I'll do it" to take over a shared one. The whole list is in `todo.md` in the `<root name>` folder.
+
+## Can others see my to-dos?
+
+Yes. Everyone in `<root name>` sees every to-do, yours included, and can finish, hand over or change it; Agora notes who did what. Keep private things out of the list.
+
+## How do I remove old to-dos?
+
+Say what to clear: "remove everything closed before June", "remove everything about Acme", "remove Nina's done to-dos". Agora removes only finished to-dos unless you say "including open ones". It shows you the list first and waits for your yes. Removed to-dos go to the Google Drive trash, where you can restore them for 30 days; then they're gone. Finished to-dos older than three months are also archived each month, out of the way but kept.
+
 ## Where is the tracker or list file?
 
 In the topic it belongs to: `<root name>` → `<interest>` → `<instance>` → `documents`, under a plain name like `greta-diapers.csv` or `packing-list.md`. That topic's `index.md` lists it under **Maintained**. Or ask Agora "where is the packing list?".
@@ -37,6 +49,18 @@ In the topic it belongs to: `<root name>` → `<interest>` → `<instance>` → 
 ## How do I change how Agora handles something?
 
 Tell it, starting with "from now on": "from now on, put Greta's feeds in a file", "stop tracking nappies in the file, log them as notes again", "add a column for the amount". Agora says back the change, and on your yes writes it in the **Conventions** table of `org.md`, which it checks every time. You can read that table there.
+
+## Can Agora read and send email?
+
+When email is turned on (say "turn on email"; it suits businesses best), Agora has its own inbox: `<assistant account>`. Forward or CC it the emails that matter, and Agora saves each in the right topic, or asks you where it goes. Ask "anything from Acme?", "draft a reply to Mario", "file this email under clients/acme". Agora writes drafts whenever you like, but sends only after you've seen the exact message and said yes in the chat; your app then asks you to approve the send too. Reviews never send anything.
+
+## What can't Agora do with email?
+
+It reads only its own inbox, never yours. It sees an attachment's name but can't open or save it: save the file to `landing` yourself and say "filed", and Agora links it to the email. It doesn't label, archive or delete mail. When sending fails, say "email isn't working" and Agora checks your setup.
+
+## How does Agora decide which email is important?
+
+By default: an email that asks you to do, answer or decide something, or carries a date, and isn't a newsletter or notification. An email from your own address always counts. Tell it what else matters, or doesn't ("anything from a client is important", "ignore GitHub notifications"), or say "no preference". Each review lists important email, drafts waiting for your yes, and what was sent and saved; Agora keeps a log of what it did with each email in `inbox.md`.
 
 ## How do the routines work?
 
@@ -58,7 +82,7 @@ Say "add <name> to Agora". Agora walks you through it: adding them to `org.md`, 
 
 ## Can I edit the files myself?
 
-You can add files and read everything. Notes in `diary` are never changed: to correct one, tell Agora what's wrong and it saves a correction. `status.md` and `index.md` are rewritten by Agora, so any change you make there disappears; tell Agora instead. `org.md` and the `memories` files are yours to edit if you like. Tracker and list files are too: Agora reads them before every change, so your edits stay.
+You can add files and read everything. Notes in `diary` are never changed: to correct one, tell Agora what's wrong and it saves a correction. `status.md`, `index.md` and `todo.md` are rewritten by Agora, so any change you make there disappears; tell Agora instead. `org.md` and the `memories` files are yours to edit if you like. Tracker and list files are too: Agora reads them before every change, so your edits stay.
 
 ## What if two of us talk to Agora at the same time?
 
@@ -72,7 +96,7 @@ Tell it: "that's wrong, the appointment is on Friday". It saves the correction a
 
 - **Pause the reviews**: pause or delete your three scheduled tasks in your AI app.
 - **Leave**: ask the owner, or say "remove me from Agora". Your access to the folder and calendar is removed and your app is disconnected. What you wrote stays, as part of the shared history.
-- **Stop Agora entirely**: delete everyone's scheduled tasks and disconnect the Google Drive and Calendar connectors. The folder and calendar stay in Google, readable as plain files, until you delete them.
+- **Stop Agora entirely**: delete everyone's scheduled tasks and disconnect the Google Drive and Calendar connectors (and Gmail). The folder and calendar stay in Google, readable as plain files, until you delete them.
 
 ## Does it cost anything?
 

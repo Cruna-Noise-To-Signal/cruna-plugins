@@ -9,6 +9,7 @@ Keep the user's own words for names and descriptions. Ask in the language the us
 - **Display name** (recommend the family surname or the business name: "Fabiole family").
 - **Language** for all content (recommend the language the user is writing in).
 - **Timezone** (recommend the one implied by their city or calendar).
+- **Email** (optional), asked as in Email questions below.
 
 ## Round 2: Members
 
@@ -22,6 +23,8 @@ For each person who will use or be tracked by the root:
 - **How they will use it**: their own AI app (Claude or ChatGPT), or only through others (a child tracked but not using it).
 
 Recommend: list the people the user has already mentioned and ask only for what's missing.
+
+When email is on, also ask each member the member questions in Email questions below.
 
 Record the email in the member's Email column and the app in their Access row.
 
@@ -43,6 +46,16 @@ Keep it small: three to six interests is plenty; more can be added any time with
 
 Ask whether they already keep track of anything in a sheet or a note (feeds, nappies, expenses, a shopping list). Recommend "no" unless they mentioned one. For each yes, note what it is, where it lives and which instance it belongs to: after the build it is offered for import (setup Output).
 
+## Email questions
+
+Asked in rounds 1 and 2 for a new root, and on their own when an existing root turns email on or a member joins a root with email on.
+
+- **Root**: "Should the assistant have its own email inbox? Members forward or CC it mail to keep, it drafts and sends emails for you (only after you confirm each one), and the reviews report on it." Say it suits a business best. Recommend yes for a business, no for a family.
+- **Root, when yes**: what counts as important email for the whole group (recommend from the root's kind: "anything from a client"; "no preference" is a fine answer).
+- **Each member, when yes**:
+  - every **email address** they write or forward from (recommend their Google account email plus any work address they mentioned); skip in a solo root;
+  - what counts as important email **for them** ("school emails", "the bank"; "no preference" is fine).
+
 ## Closing summary
 
-Show the user one compact summary (members, root name, language, timezone, layout, interests and instances) and ask for a final yes. Corrections go back into the matching round.
+Show the user one compact summary (members, root name, language, timezone, email on or off, layout, interests and instances) and ask for a final yes. Corrections go back into the matching round.

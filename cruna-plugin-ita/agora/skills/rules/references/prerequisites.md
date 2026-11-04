@@ -1,6 +1,6 @@
 # Prerequisiti di Agora
 
-Che cosa deve essere vero perché Agora funzioni, come verificare ogni voce e come sistemarla. `setup` percorre l'elenco dall'alto in basso (un membro che entra in una radice esistente percorre le voci 1–3, 5 e 6); `help` e qualsiasi skill che fallisce saltano alla voce che corrisponde al problema.
+Che cosa deve essere vero perché Agora funzioni, come verificare ogni voce e come sistemarla. `setup` percorre l'elenco dall'alto in basso (un membro che entra in una radice esistente percorre le voci 1–3, 5 e 6), e la voce 7 solo in una radice con l'email attiva (`email: on` in `org.md`); `help` e qualsiasi skill che fallisce saltano alla voce che corrisponde al problema.
 
 **Verifica con una chiamata reale** ovunque ne esista una. Ogni voce finisce **pronta** (la verifica è passata) o **bloccata** (è fallita, la soluzione è stata indicata e si attende l'utente). Quando una chiamata può confermare una voce, considerala pronta solo dopo la conferma della chiamata, mai sulla sola parola dell'utente. Bloccata vale solo per una soluzione che l'utente deve applicare a mano (clic, una password, un piano); una soluzione alla portata dei connettori spetta a te: riprova la chiamata fallita finché la verifica non passa.
 
@@ -22,7 +22,7 @@ I nomi dei menu cambiano tra una versione e l'altra delle app. Se un percorso qu
 
 Un **connettore** è un permesso che consente all'app AI di agire per tuo conto dentro un altro servizio: qui, leggere e scrivere file in Google Drive ed eventi in Google Calendar. Senza connettori l'AI può solo parlare; con i connettori può archiviare e pianificare.
 
-- **Requisito**: due connettori, **Google Drive** e **Google Calendar**, entrambi collegati con l'**account dell'assistente** indicato in `org.md` (o con l'account del proprietario in una radice con un solo membro). Un connettore collegato con l'account Google sbagliato è il problema più comune: l'AI vede allora un altro Drive.
+- **Requisito**: due connettori, **Google Drive** e **Google Calendar**, più **Gmail** quando l'email è attiva (voce 7), tutti collegati con l'**account dell'assistente** indicato in `org.md` (o con l'account del proprietario in una radice con un solo membro). Un connettore collegato con l'account Google sbagliato è il problema più comune: l'AI vede allora un altro Drive.
 - **Verifica**:
   - Drive: cerca `org.md` su Drive (oppure, prima del setup, elenca i file recenti). Se funziona, il connettore di Drive è a posto; conferma che il proprietario del file sia l'account dell'assistente.
   - Calendar: elenca i calendari. Se funziona, il connettore di Calendar è a posto; conferma che il calendario principale riporti l'email dell'account dell'assistente (`calendar` in `org.md`): è il calendario di sistema.
@@ -60,6 +60,22 @@ Un **connettore** è un permesso che consente all'app AI di agire per tuo conto 
   - ChatGPT: apri Pianificate (Scheduled, o Tasks) → Nuova attività (New task), oppure chiedi a ChatGPT in una chat di pianificarla.
   - Conferma che l'attività possa usare i connettori di Drive e Calendar e il plugin Agora. Attiva le notifiche, così la revisione arriva al membro.
 
+## 7. Connettore Gmail (solo con l'email attiva)
+
+Facoltativo: serve solo a una radice con `email: on`, ed è più adatto alle radici di lavoro. Una radice con l'email disattivata salta questa voce.
+
+- **Requisito**: il connettore **Gmail**, collegato con l'**account dell'assistente**, così l'AI legge la casella dell'assistente e la posta personale di nessuno. In una radice solitaria è l'account del proprietario.
+- **Verifica**:
+  1. Cerca nella casella con una chiamata reale (gli ultimi messaggi).
+  2. Conferma che la casella sia quella dell'account dell'assistente: dai dettagli dell'account o del profilo del connettore quando li offre, altrimenti dall'indirizzo del destinatario di un messaggio ricevuto. Una casella nuova e vuota: chiedi a un membro di mandare un'email di prova all'indirizzo dell'assistente, poi cercala.
+  La verifica passa solo quando l'indirizzo corrisponde ad `assistant_account` in `org.md`.
+- **Soluzione**:
+  - Claude: Impostazioni → Connettori (Settings → Connectors) → Gmail → Connetti (Connect), con l'accesso all'account dell'assistente. Su un piano Team o Enterprise, un Owner deve prima abilitare il connettore Gmail per l'organizzazione.
+  - ChatGPT: Impostazioni → App (Settings → Apps, o Connectors) → Gmail → Connetti (Connect), con l'accesso all'account dell'assistente. L'invio funziona solo sul web, con un piano a pagamento (Plus, Pro, Business, Enterprise); su Business, un amministratore del workspace deve attivare le azioni di scrittura per Gmail. Lettura e bozze funzionano ovunque funzioni il connettore.
+  - Già collegato con l'account sbagliato: scollega, poi collega di nuovo con l'account dell'assistente.
+  - In una conversazione, assicurati che Gmail sia attivo per la chat (il menu degli strumenti o il menu "+").
+- **Limiti** da dire al membro: l'AI vede solo la casella dell'assistente; non può aprire gli allegati, solo leggerne i nomi; non etichetta, non archivia e non elimina la posta.
+
 ## Uscita di un membro
 
-Rimuovi il suo accesso da editor alla cartella radice e al calendario di sistema (con l'account dell'assistente), chiedigli di scollegare i connettori nel suo client, cambia la password dell'account dell'assistente se la conosceva, e aggiorna le tabelle Members e Access in `org.md`. Le sue voci di diario e i suoi documenti restano: sono storia.
+Rimuovi il suo accesso da editor alla cartella radice e al calendario di sistema (con l'account dell'assistente), chiedigli di scollegare i connettori (anche Gmail, quando l'email è attiva) nel suo client, cambia la password dell'account dell'assistente se la conosceva, e aggiorna le tabelle Members e Access in `org.md`. Le sue voci di diario e i suoi documenti restano: sono storia.
