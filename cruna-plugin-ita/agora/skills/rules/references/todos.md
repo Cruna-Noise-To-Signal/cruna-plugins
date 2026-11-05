@@ -8,6 +8,7 @@ Una radice senza cartella `todos/` non ha to-do: ogni skill funziona come prima,
 
 - Ogni to-do è visibile a ogni membro: non esiste un to-do privato. Dillo quando un membro sembra sul punto di aggiungere qualcosa di privato.
 - Il **responsabile** (`owner`) è lo slug di un membro, oppure `everyone` per un to-do condiviso che aspetta chiunque lo prenda. Un to-do che un membro aggiunge è suo, a meno che non nomini un altro membro o `everyone`.
+- Un **membro github** (rules → Vocabolario) è responsabile di un to-do solo quando un membro lo nomina ("un to-do per pm: aggiungere il supporto a Outlook"); non viene mai proposto né indovinato come responsabile. Legato a un'istanza gestita, quel to-do diventa una richiesta GitHub alla prossima sincronizzazione, e poi il membro github ne modifica il testo perché finisca con `→ #<issue>` e lo chiude quando la issue si chiude, tramite l'handoff `todo`.
 - Qualsiasi membro può chiudere, riaprire, riassegnare, prendere in carico ("ci penso io": il responsabile diventa il membro che parla), modificare o rimuovere qualsiasi to-do. Ogni cambiamento è un evento a sé con il suo `author`, così la storia dice chi ha fatto cosa.
 
 ## Collocazione
@@ -36,7 +37,12 @@ Ogni cambiamento a un to-do è un **evento to-do**: un file sorgente, solo aggiu
 
 ### Chi scrive gli eventi
 
-Solo una conversazione scrive eventi to-do, tramite la skill `todo`: un membro l'ha chiesto, o ha detto sì a una proposta. L'unica eccezione è la posta dei membri che chiede esplicitamente di aggiungere un to-do: vale come richiesta del membro stesso e si aggiunge anche in un'esecuzione non presidiata ([email.md](email.md) → Posta dei membri). Ogni altra email, e ogni routine, **suggerisce** soltanto (Suggerimenti, sotto).
+Solo una conversazione scrive eventi to-do, tramite la skill `todo`: un membro l'ha chiesto, o ha detto sì a una proposta. Due eccezioni:
+
+- La posta dei membri che chiede esplicitamente di aggiungere un to-do vale come richiesta del membro stesso e si aggiunge anche in un'esecuzione non presidiata ([email.md](email.md) → Posta dei membri).
+- Un membro github scrive eventi `edit` (testo) e `done` tramite l'handoff `todo` (rules → Handoff), perché agisce per conto di GitHub.
+
+Ogni altra email, e ogni routine, **suggerisce** soltanto (Suggerimenti, sotto).
 
 ## Stato attuale
 

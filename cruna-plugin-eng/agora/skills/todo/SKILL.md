@@ -1,6 +1,6 @@
 ---
 name: todo
-description: Keeps the Agora to-do list, personal and shared. Use when a member adds a to-do ("add a to-do: renew the car insurance", "Nina should book the dentist", "someone needs to buy toner"), asks what is on a list ("what's on my list?", "what's open on Acme?"), finishes, reopens, takes over, reassigns or changes one ("done with the insurance", "I'll do it", "give it to Nina", "move it to Friday"), clears old to-dos ("remove everything closed before June"), or says yes to a suggested to-do.
+description: Keeps the Agora to-do list, personal and shared. Use when a member adds a to-do ("add a to-do: renew the car insurance", "Nina should book the dentist", "someone needs to buy toner"), asks what is on a list ("what's on my list?", "what's open on Acme?"), finishes, reopens, takes over, reassigns or changes one ("done with the insurance", "I'll do it", "give it to Nina", "move it to Friday"), clears old to-dos ("remove everything closed before June"), or says yes to a suggested to-do. Also runs the todo handoff, a line starting "Agora todo as" sent by another plugin.
 ---
 
 # To-do
@@ -8,6 +8,17 @@ description: Keeps the Agora to-do list, personal and shared. Use when a member 
 A **to-do** is one action someone has to do, owned by a member or by `everyone` and visible to every member. Every change you make is one new **to-do event** in `todos/`; `todo.md`, the list members read, is rebuilt from the events after each change. The member talks; you match, write one event, and rebuild.
 
 Every rule this skill applies is in the `rules` skill's `references/todos.md`, read in step 1; the steps below say when each rule fires.
+
+## Handoff
+
+A message starting `Agora todo as ` is the todo handoff (rules → Handoffs), in one of two shapes: `Agora todo as <slug> in <root>: edit <to-do id> text "<new text>"` (the text runs from the first `"` to the last) or `Agora todo as <slug> in <root>: done <to-do id>`. Run unattended and reply with the result line only:
+
+1. **Step 1**: load the rules and `references/todos.md`, find the root by name and read `org.md`. `<slug>` must be a member with Role `github`; skip Identity and memories.
+2. **Step 3**, then **match by id only**: the `add` event `todos/<to-do id>.md` must exist in `todos/` (one only in `todos/archive/` fails as archived).
+3. **Settle**: `edit` sets the text to `<new text>` verbatim; `done` closes it. A `done` on a closed to-do fails as already closed. An `edit` to the text it already has writes nothing and returns `agora: ok — <to-do id> unchanged`.
+4. **Step 8**, the event authored by `<slug>`. Skip step 9.
+
+Every failure, the archived and closed cases above included, writes nothing (rules → Handoffs → Check, then write). Success: `agora: ok — todos/<event file>.md (<edit | done> <to-do id>)`.
 
 ## Steps
 

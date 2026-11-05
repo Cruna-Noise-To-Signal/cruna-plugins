@@ -8,6 +8,7 @@ A root without a `todos/` folder has no to-dos: every skill works as before, and
 
 - Every to-do is visible to every member: there is no private to-do. Say so when a member seems about to add something private.
 - The **owner** is one member slug, or `everyone` for a shared to-do that waits for whoever picks it up. A to-do a member adds is theirs unless they name another member or `everyone`.
+- A **github member** (rules → Vocabulary) owns a to-do only when a member names it ("a to-do for pm: add Outlook support"); it is never offered or guessed as an owner. Attached to a managed instance, that to-do becomes a GitHub request at the next sync, and the github member later edits its text to end `→ #<issue>` and closes it when the issue closes, through the `todo` handoff.
 - Any member may complete, reopen, reassign, take over ("I'll do it": the owner becomes the member talking), edit or remove any to-do. Each change is its own event carrying its `author`, so the history says who did what.
 
 ## Place
@@ -36,7 +37,12 @@ Every change to a to-do is one **to-do event**: a source file, append-only (rule
 
 ### Who writes events
 
-Only a conversation writes to-do events, through the `todo` skill: a member asked, or said yes to an offer. The single exception is member mail asking in so many words to add a to-do, which counts as the member's own request and is added even by an unattended run ([email.md](email.md) → Member mail). Any other email, and any routine, only **suggests** (Suggestions, below).
+Only a conversation writes to-do events, through the `todo` skill: a member asked, or said yes to an offer. Two exceptions:
+
+- Member mail asking in so many words to add a to-do counts as the member's own request and is added even by an unattended run ([email.md](email.md) → Member mail).
+- A github member writes `edit` (text) and `done` events through the `todo` handoff (rules → Handoffs), since it acts for GitHub.
+
+Any other email, and any routine, only **suggests** (Suggestions, below).
 
 ## Current state
 

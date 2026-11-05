@@ -23,6 +23,7 @@ email: <on | off>
 | Slug | Name | Email | Mail from | Role | Birthday | Personal calendar | Notes |
 |---|---|---|---|---|---|---|---|
 | simone | Simone | simone@example.com | simone@example.com, simone@acme.it | parent | 1989-03-28 | free/busy | prefers short answers |
+| pm | PM (GitHub) | | | github | | | address for GitHub through cruna-pm-github |
 
 ## Interests
 
@@ -35,6 +36,7 @@ email: <on | off>
 | Where | Convention | Since |
 |---|---|---|
 | greta/health | Nappies: one row per change in `documents/greta-diapers.csv` (date,time,author,type,notes); no diary entry per change; daily summary entry | 2026-10-29, simona |
+| products/cruna-plugins | managed by cruna-pm-github: notes and to-dos for pm become GitHub requests | 2026-11-05, pm |
 
 ## Access
 
@@ -45,9 +47,11 @@ email: <on | off>
 
 `email` absent means `off`. **Email** is the personal Google account the folder and calendar are shared with. **Mail from** (email on only) lists every address the member writes or forwards from: mail from these is member mail (rules → Email). Root-wide email criteria are Conventions rows, written as in [email.md](email.md) → Where criteria live.
 
+A **github member** row (rules → Vocabulary) is written only by the `add-interest` handoff, as the `pm` row above: Role `github`, Name "PM (GitHub)", Email, Mail from, Birthday and Personal calendar empty; it gets no Access row. The same handoff writes the managed Conventions row, Where `products/<instance>`, with the member's slug in place of `pm`.
+
 ## `setup.md` (root, curated)
 
-One `## Member: <slug>` section per member who uses the root (a child only tracked gets none). In a solo root, tick the two sharing boxes with "(solo)". Unticked boxes say who does them when it isn't you.
+One `## Member: <slug>` section per member who uses the root (a child only tracked, or a github member, gets none). In a solo root, tick the two sharing boxes with "(solo)". Unticked boxes say who does them when it isn't you.
 
 ```markdown
 ---
@@ -207,7 +211,13 @@ email_from: <Original sender, or "to <recipients>" for sent mail>
 email_subject: <Subject>
 ```
 
-and, when the email has attachments not yet on Drive, a last line in Entry:
+A `log` handoff entry (rules → Handoffs) adds one front-matter line after `events`, the refs from the line:
+
+```markdown
+github: ["#8", "PR #9", "v2026.11.12"]
+```
+
+An email entry, when the email has attachments not yet on Drive, ends Entry with a last line:
 
 ```markdown
 To file: <attachment names>. Save them to landing/ or documents/ and say "filed".

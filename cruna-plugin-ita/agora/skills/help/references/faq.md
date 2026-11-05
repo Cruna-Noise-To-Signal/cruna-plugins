@@ -42,6 +42,10 @@ Sì. Tutti in `<nome della radice>` vedono ogni to-do, compresi i tuoi, e posson
 
 Di' cosa togliere: "rimuovi tutto ciò che è chiuso prima di giugno", "rimuovi tutto ciò che riguarda Acme", "rimuovi i to-do fatti di Nina". Agora toglie solo i to-do finiti, a meno che tu non dica "compresi quelli aperti". Ti mostra prima l'elenco e aspetta il tuo sì. I to-do rimossi vanno nel cestino di Google Drive, dove puoi ripristinarli per 30 giorni; poi spariscono. Ogni mese, inoltre, i to-do finiti da più di tre mesi vengono messi in archivio, fuori dai piedi ma conservati.
 
+## Che cos'è `products` e chi è pm?
+
+`products` segue il software che il tuo gruppo costruisce su GitHub, una cartella per ogni repo collegato; uno sviluppatore collega un repo da Claude Code con il plugin `cruna-pm-github`. `pm` non è una persona: è l'indirizzo per GitHub. Scrive nelle note del prodotto cosa è stato unito, rilasciato o abbandonato, e una nota su un prodotto, o un to-do per `pm`, diventa una richiesta GitHub alla prossima sincronizzazione; poi mostra il numero della issue ("→ #8") e viene spuntato quando la issue si chiude.
+
 ## Dov'è il file del registro o della lista?
 
 Nell'argomento a cui appartiene: `<nome della radice>` → `<interesse>` → `<istanza>` → `documents`, con un nome semplice come `greta-pannolini.csv` o `lista-valigia.md`. L'`index.md` di quell'argomento lo elenca sotto **Maintained**. Oppure chiedi ad Agora "dov'è la lista per la valigia?".

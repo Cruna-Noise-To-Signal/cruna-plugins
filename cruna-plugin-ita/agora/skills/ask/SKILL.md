@@ -55,7 +55,7 @@ Fatto quando: ogni fatto che dirai risale a un file o a un evento che hai letto,
 - **Apri** con la risposta diretta in una o due frasi.
 - **Data** ogni fatto in base alla sua fonte ("secondo la voce di diario del 12 ott", "secondo la fattura archiviata il 3 set").
 - **Segnala le notizie vecchie**: quando la fonte più recente sull'argomento ha più di un mese, o descrive qualcosa che nel frattempo avrebbe dovuto succedere (un appuntamento la settimana scorsa senza nulla dopo), dillo chiaramente ("L'ultima informazione che ho è di marzo; potrebbe essere cambiata.").
-- **Cita** ogni fonte con il suo percorso dalla radice (`nina/salute/diary/simone-20261028_1430.md`) ogni evento con titolo e data, e ogni email con mittente, data e oggetto, così che il membro possa aprirlo in Drive, nel calendario o in Gmail.
+- **Cita** ogni fonte con il suo percorso dalla radice (`nina/salute/diary/simone-20261028_1430.md`) ogni evento con titolo e data, e ogni email con mittente, data e oggetto, così che il membro possa aprirlo in Drive, nel calendario o in Gmail. A una voce di diario con una riga `github:` aggiungi anche i suoi riferimenti ("#8, PR #9"), così che il membro possa cercarli in GitHub.
 - **Aggrega** le risposte che attraversano più interessi: raggruppa per interesse, una riga ciascuno, poi i dettagli solo dove richiesti.
 - **Non trovato**: dillo, elenca dove hai cercato (quali indici, istanze e finestra di calendario), e offri di salvare la risposta se il membro la conosce (la skill `log`).
 
