@@ -18,7 +18,7 @@ A message starting `Agora log as ` is the log handoff (rules → Handoffs): `Ago
 - **Step 6**: `author`: `<slug>`; `github:` the refs, comma-split, as a list; **Summary** in the root's language; **Entry** `<entry text>` verbatim.
 - **Steps 8–10**: skipped.
 
-Fails, writing nothing: a line that doesn't parse into all four fields, an unknown root, a slug that isn't a github member, a missing instance folder. Success: `agora: ok — <interest>/<instance>/diary/<file>.md`.
+Failures follow rules → Handoffs → Check, then write. Success: `agora: ok — <interest>/<instance>/diary/<file>.md`.
 
 ## Steps
 
