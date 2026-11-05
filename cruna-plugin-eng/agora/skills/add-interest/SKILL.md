@@ -17,7 +17,7 @@ A message starting `Agora add-interest as ` is the add-interest handoff (rules �
 4. **Instance**: an instance folder named exactly `<instance>` under `products/` is the same product: when its description in `products/index.md` differs from `<name>: <description>`, the new one replaces it at step 7. Otherwise create the instance (step 4 below), its description `<name>: <description>` verbatim. Near duplicates get no check and no question.
 5. **Convention**: when no Conventions row has Where `products/<instance>`, add the managed row (templates, `org.md`), with `<slug>` and today's date.
 6. **Write `org.md`** once, by Replace, when steps 2, 3 or 5 changed it.
-7. **Propagate** whenever step 3 or 4 changed anything (rules → Status update rule → Propagate, from `products/<instance>` up: statuses, and the indexes whose children or descriptions changed). Skip step 7 below.
+7. **Propagate** whenever step 3 or 4 changed anything (rules → Status update rule → Propagate, from `products/<instance>` up: statuses, and the indexes whose children or descriptions changed).
 
 Success lists what was written, or says nothing changed: `agora: ok — member pm, interest products, instance products/cruna-plugins, convention`, `agora: ok — description of products/cruna-plugins`, `agora: ok — nothing to change`.
 
