@@ -51,7 +51,7 @@ A **github member** row (rules → Vocabulary) is written only by the `add-inter
 
 ## `setup.md` (root, curated)
 
-One `## Member: <slug>` section per member who uses the root (a child only tracked gets none). In a solo root, tick the two sharing boxes with "(solo)". Unticked boxes say who does them when it isn't you.
+One `## Member: <slug>` section per member who uses the root (a child only tracked, or a github member, gets none). In a solo root, tick the two sharing boxes with "(solo)". Unticked boxes say who does them when it isn't you.
 
 ```markdown
 ---
