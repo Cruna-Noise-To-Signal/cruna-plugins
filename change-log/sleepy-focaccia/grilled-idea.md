@@ -77,7 +77,7 @@ The bridge is meant to be thrown away. Once a connector can read issues and PRs,
 
 ```
 Agora log as pm in <root>: products/<instance> — github: #8, PR #9 — <entry text>
-Agora todo as pm in <root>: <add | edit | complete> "<to-do text>" — <detail>
+Agora todo as pm in <root>: <edit <id> text "<new text>" | done <id>>   (refined in spec.md: by id, no add)
 Agora add-interest as pm in <root>: products/<instance> — <name>: <description>
 ```
 
