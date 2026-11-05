@@ -1,11 +1,24 @@
 ---
 name: log
-description: Registra le novità nel diario di Agora e nei file di lavoro, e tiene aggiornato ogni stato. Usala quando un membro racconta ad Agora qualcosa che è successo o cambiato su una persona, un cliente o un argomento che segue ("la lezione di nuoto di Nina è spostata a giovedì", "il cliente X ha approvato il preventivo", "Greta ha fatto la pipì"), incolla un'email o un messaggio da conservare, corregge qualcosa registrato prima, o dice "salvalo" o "segnatelo" dopo aver fatto una domanda ad Agora. Anche quando vuole tenere traccia in un file di qualcosa di frequente ("tieni il conto dei pannolini di Greta"), chiede una lista, un promemoria o qualcosa da stampare ("aggiungi il latte alla lista della spesa", "fammi la lista per la valigia"), o cambia il modo in cui Agora gestisce i suoi dati ("d'ora in poi…").
+description: Registra le novità nel diario di Agora e nei file di lavoro, e tiene aggiornato ogni stato. Usala quando un membro racconta ad Agora qualcosa che è successo o cambiato su una persona, un cliente o un argomento che segue ("la lezione di nuoto di Nina è spostata a giovedì", "il cliente X ha approvato il preventivo", "Greta ha fatto la pipì"), incolla un'email o un messaggio da conservare, corregge qualcosa registrato prima, o dice "salvalo" o "segnatelo" dopo aver fatto una domanda ad Agora. Anche quando vuole tenere traccia in un file di qualcosa di frequente ("tieni il conto dei pannolini di Greta"), chiede una lista, un promemoria o qualcosa da stampare ("aggiungi il latte alla lista della spesa", "fammi la lista per la valigia"), o cambia il modo in cui Agora gestisce i suoi dati ("d'ora in poi…"). Esegue anche l'handoff log, una riga che inizia con "Agora log as" inviata da un altro plugin.
 ---
 
 # Log
 
 Un **log** trasforma ciò che dice un membro in una voce di diario per ogni istanza che riguarda, mette in calendario tutto ciò che ha una data e aggiorna ogni stato sopra di essa. Il membro parla; tu collochi, scrivi e propaghi. Log gestisce anche i **file di lavoro** (registri e liste) e le **Convenzioni** che vi indirizzano i fatti (rules → Tipi di file, rules → Convenzioni); le loro procedure sono in [references/working-files.md](references/working-files.md).
+
+## Handoff
+
+Un messaggio che inizia con `Agora log as ` è l'handoff log (rules → Handoff): `Agora log as <slug> in <root>: <interest>/<instance> — github: <refs> — <entry text>`. Esegui i passi qui sotto non presidiati, con queste modifiche, e rispondi solo con la riga di risultato:
+
+- **Passo 1**: carica le regole, trova la radice per nome e leggi `org.md`. L'autore è `<slug>`, che deve essere un membro con Role `github`; salta Identità e memorie.
+- **Passo 2**: il materiale è `<entry text>`, un fatto, una voce.
+- **Passo 3**: l'istanza è `<interest>/<instance>`; la sua cartella deve esistere. Nessun instradamento verso un registro, nessuna proposta di `add-interest`.
+- **Passo 5**: saltato; `events: []`.
+- **Passo 6**: `author`: `<slug>`; `github:` i riferimenti, divisi alle virgole, come lista; **Summary** nella lingua della radice; **Entry** `<entry text>` parola per parola.
+- **Passi 8–10**: saltati.
+
+I fallimenti seguono rules → Handoff → Controlla, poi scrivi. Successo: `agora: ok — <interest>/<instance>/diary/<file>.md`.
 
 ## Passi
 
@@ -100,5 +113,6 @@ Un solo messaggio breve, nella lingua della radice:
 - I to-do aggiunti, una riga ciascuno come li ripete `todo`.
 - Il suggerimento del passo 9, se c'è.
 - La riga di `remember`, se c'è.
+- Su un'istanza gestita (rules → Vocabolario), una riga per ciascuna di queste istanze: "annotato; diventerà una richiesta GitHub alla prossima sincronizzazione", nella lingua della radice.
 
 Nessun percorso di file tranne quello di un file di lavoro, niente front-matter o testo degli stati, a meno che il membro non lo chieda.

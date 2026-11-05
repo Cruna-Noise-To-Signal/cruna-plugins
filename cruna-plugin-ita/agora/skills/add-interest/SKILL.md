@@ -1,11 +1,25 @@
 ---
 name: add-interest
-description: Aggiunge un nuovo interesse o una nuova istanza ad Agora, il quaderno condiviso della famiglia o dell'azienda su Google Drive. Usala quando l'utente vuole che Agora inizi a seguire qualcosa di nuovo, una nuova persona, un cliente, un progetto o un argomento ("inizia a seguire la ristrutturazione di casa", "nuovo cliente Acme"), o un nuovo ambito dentro uno già seguito ("aggiungi il nuoto di Greta", "Acme ci ha dato un nuovo lavoro").
+description: Aggiunge un nuovo interesse o una nuova istanza ad Agora, il quaderno condiviso della famiglia o dell'azienda su Google Drive. Usala quando l'utente vuole che Agora inizi a seguire qualcosa di nuovo, una nuova persona, un cliente, un progetto o un argomento ("inizia a seguire la ristrutturazione di casa", "nuovo cliente Acme"), o un nuovo ambito dentro uno già seguito ("aggiungi il nuoto di Greta", "Acme ci ha dato un nuovo lavoro"). Esegue anche l'handoff add-interest, una riga che inizia con "Agora add-interest as" inviata da un altro plugin.
 ---
 
 # Aggiungere un interesse o un'istanza
 
 Crea un nuovo **interesse** (cartella di primo livello) o una nuova **istanza** (cartella dentro un interesse) dai suoi modelli (rules → Tipi di file → modelli), e tiene allineati indici, stati e `org.md`. `setup` riusa il passo 4 e il livello di interesse del passo 6 per costruire i primi interessi; scrive lui stesso, una volta, la tabella Interests di `org.md` e l'`index.md` e lo `status.md` della radice, quindi salta tutto il resto quando ti chiama `setup`.
+
+## Handoff
+
+Un messaggio che inizia con `Agora add-interest as ` è l'handoff add-interest (rules → Handoff): `Agora add-interest as <slug> in <root>: products/<instance> — <name>: <description>`. Collega un repo GitHub come istanza gestita. Esegui questi passi non presidiati al posto di quelli qui sotto, e rispondi solo con la riga di risultato. Ogni passo è idempotente: una seconda chiamata non crea nulla due volte.
+
+1. **Controlla**: carica le regole, trova la radice per nome e leggi `org.md`. Oltre a rules → Handoff → Controlla, poi scrivi, l'handoff fallisce con un interesse diverso da `products`, un `<instance>` che viola la regola sui nomi delle cartelle (rules → Struttura), o uno `<slug>` la cui riga in Members ha un Role diverso da `github`.
+2. **Membro**: quando `<slug>` non ha una riga in Members, aggiungi la riga del membro github (rules → Tipi di file → modelli, `org.md`).
+3. **Interesse**: quando manca `products/`, aggiungi la sua riga in Interests (nessun colore, "Prodotti software costruiti su GitHub" nella lingua della radice) e crea la cartella, `index.md` e `status.md` (passo 4 qui sotto, senza istanza proposta). La cartella si chiama `products` in ogni lingua.
+4. **Istanza**: una cartella di istanza che si chiama esattamente `<instance>` sotto `products/` è lo stesso prodotto: quando la sua descrizione in `products/index.md` è diversa da `<name>: <description>`, la nuova la sostituisce al passo 7. Altrimenti crea l'istanza (passo 4 qui sotto), con descrizione `<name>: <description>` parola per parola. Nessun controllo e nessuna domanda sui quasi duplicati.
+5. **Convenzione**: quando nessuna riga di Conventions ha Where `products/<instance>`, aggiungi la riga gestita (modelli, `org.md`), con `<slug>` e la data di oggi.
+6. **Scrivi `org.md`** una volta, con Sostituire, quando i passi 2, 3 o 5 l'hanno cambiato.
+7. **Propaga** ogni volta che il passo 3 o 4 ha cambiato qualcosa (rules → Regola di aggiornamento dello stato → Propaga, da `products/<instance>` in su: gli stati, e gli indici i cui figli o descrizioni sono cambiati).
+
+Il successo elenca ciò che è stato scritto, o dice che non è cambiato nulla: `agora: ok — member pm, interest products, instance products/cruna-plugins, convention`, `agora: ok — description of products/cruna-plugins`, `agora: ok — nothing to change`.
 
 ## 1. Carica le regole e la radice
 

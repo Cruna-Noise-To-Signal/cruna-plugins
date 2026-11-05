@@ -1,6 +1,6 @@
 ---
 name: todo
-description: Tiene la lista dei to-do di Agora, personali e condivisi. Usala quando un membro aggiunge un to-do ("aggiungi un to-do: rinnovare l'assicurazione dell'auto", "Nina deve prenotare il dentista", "qualcuno deve comprare il toner"), chiede cosa c'è in una lista ("cosa ho da fare?", "cosa c'è di aperto su Acme?"), chiude, riapre, prende in carico, riassegna o cambia un to-do ("fatto con l'assicurazione", "ci penso io", "passalo a Nina", "spostalo a venerdì"), toglie i vecchi to-do ("rimuovi tutto ciò che è chiuso prima di giugno"), o dice sì a un to-do suggerito.
+description: Tiene la lista dei to-do di Agora, personali e condivisi. Usala quando un membro aggiunge un to-do ("aggiungi un to-do: rinnovare l'assicurazione dell'auto", "Nina deve prenotare il dentista", "qualcuno deve comprare il toner"), chiede cosa c'è in una lista ("cosa ho da fare?", "cosa c'è di aperto su Acme?"), chiude, riapre, prende in carico, riassegna o cambia un to-do ("fatto con l'assicurazione", "ci penso io", "passalo a Nina", "spostalo a venerdì"), toglie i vecchi to-do ("rimuovi tutto ciò che è chiuso prima di giugno"), o dice sì a un to-do suggerito. Esegue anche l'handoff todo, una riga che inizia con "Agora todo as" inviata da un altro plugin.
 ---
 
 # To-do
@@ -8,6 +8,17 @@ description: Tiene la lista dei to-do di Agora, personali e condivisi. Usala qua
 Un **to-do** è un'azione che qualcuno deve fare, con un membro o `everyone` come responsabile, visibile a ogni membro. Ogni cambiamento che fai è un nuovo **evento to-do** in `todos/`; `todo.md`, la lista che i membri leggono, si ricostruisce dagli eventi dopo ogni cambiamento. Il membro parla; tu trovi il to-do, scrivi un evento e ricostruisci.
 
 Ogni regola che questa skill applica è nel file `references/todos.md` della skill `rules`, letto al passo 1; i passi qui sotto dicono quando scatta ciascuna.
+
+## Handoff
+
+Un messaggio che inizia con `Agora todo as ` è l'handoff todo (rules → Handoff), in una di due forme: `Agora todo as <slug> in <root>: edit <to-do id> text "<new text>"` (il testo va dal primo `"` all'ultimo) oppure `Agora todo as <slug> in <root>: done <to-do id>`. Eseguilo non presidiato e rispondi solo con la riga di risultato:
+
+1. **Passo 1**: carica le regole e `references/todos.md`, trova la radice per nome e leggi `org.md`. `<slug>` deve essere un membro con Role `github`; salta Identità e memorie.
+2. **Passo 3**, poi **cerca solo per id**: l'evento `add` `todos/<to-do id>.md` deve esistere in `todos/` (uno che c'è solo in `todos/archive/` fallisce come archiviato).
+3. **Risolvi**: `edit` imposta il testo a `<new text>` parola per parola; `done` lo chiude. Un `done` su un to-do chiuso fallisce come già chiuso. Un `edit` al testo che ha già non scrive nulla e restituisce `agora: ok — <to-do id> unchanged`.
+4. **Passo 8**, con l'evento scritto da `<slug>`. Salta il passo 9.
+
+Ogni fallimento, compresi i casi archiviato e chiuso qui sopra, non scrive nulla (rules → Handoff → Controlla, poi scrivi). Successo: `agora: ok — todos/<event file>.md (<edit | done> <to-do id>)`.
 
 ## Passi
 
