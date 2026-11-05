@@ -70,7 +70,7 @@ Agora's side of the contract: three one-line **handoffs**, in which `agora-sync`
     - is never offered as a to-do owner unless named.
   - It may author diary entries and to-do events, and own to-dos.
   - Reviews give it a section like any member, holding only its open to-dos; it gets no personal message.
-- **Managed instances.** A Conventions row in `org.md`: Where `products/<instance>`, Convention "managed by cruna-pm-github: notes and to-dos for pm become GitHub requests", Since `<date> by pm`. The `add-interest` handoff writes it. Every skill already reads Conventions, so no new lookup is needed.
+- **Managed instances.** A Conventions row in `org.md`: Where `products/<instance>`, Convention "managed by cruna-pm-github: notes and to-dos for pm become GitHub requests", Since `<date>, pm` (the existing Conventions format, e.g. `2026-11-05, pm`). The `add-interest` handoff writes it. Every skill already reads Conventions, so no new lookup is needed.
 - **`products/` interest.** An ordinary interest named `products`, described as "Software products built in GitHub". It has no color unless a member sets one. Instances are named after the repo (lowercase, hyphenated) and described from the README's purpose line.
 - **Diary front-matter.** A new optional key `github:`, holding a list of refs (`"#8"`, `"PR #9"`, `"v2026.11.12"`), placed after `events`. Only handoff entries carry it. Bridge entries are recognised by `author` being a github member; there is no `source:` key.
 - **Bridge file.** `<interest>/<instance>/YYYY-MM-DD_hh_mm_last-check.md` belongs to `cruna-pm-github`. Agora never reads, indexes, files, flags or trashes it, and a stale-index check ignores it.
