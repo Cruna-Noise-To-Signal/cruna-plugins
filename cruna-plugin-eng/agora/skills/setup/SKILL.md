@@ -9,7 +9,7 @@ Setup turns an empty Google Drive and Calendar into a working Agora **root**, br
 
 **Checklist**: every branch records its progress in `setup.md` (rules → Setup checklist; template in rules → File kinds → templates), so a user can stop halfway and pick up later, in this app or another. Tick a box the moment the step it stands for meets its Done when, write the file by replace (rules → Replace) with a fresh Updated line, and set `state: done` only when every box is ticked. Resuming, start at the first unticked box; step 7 re-checks the ticked ones. A `setup.md` written before email existed has no Email boxes: email is off there; add the root Email box ticked "(off)" the next time you write the file.
 
-**Github members** (rules → Vocabulary) come only from the `add-interest` handoff, when a developer links a repo from Claude Code with `cruna-pm-github`; setup's questions and messages stay on the people and interests the user names. "Every member" and "each member" below mean the people in Members: a github member gets no Member section, Access row, memories file, sharing or routines, and Join and step 7 pass it by. Offboard is the one branch that removes one.
+**Github members** (rules → Vocabulary) come only from the `add-interest` handoff, when a developer links a repo from Claude Code with `cruna-pm-github`; setup's questions and messages stay on the people and interests the user names. "Every member" and "each member" below mean the people in Members: what a github member lacks is in rules → Vocabulary, and Join and step 7 pass it by. Offboard is the one branch that removes one.
 
 ## 1. Load the rules and pick the branch
 

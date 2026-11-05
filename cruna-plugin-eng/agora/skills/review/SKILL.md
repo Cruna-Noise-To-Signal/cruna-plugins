@@ -45,7 +45,7 @@ Done when: `org.md` is read; for a personal message, the member's slug is known 
 
 ### 2. Tidy up
 
-The tidy-up is **idempotent**: a second run on an unchanged root changes nothing, so members' routines running at the same time are harmless. Walk the root once, listing each folder's children, and use that listing for every check below. The bridge file (rules → Layout) stays out of every check: it is never flagged, filed, trashed or counted.
+The tidy-up is **idempotent**: a second run on an unchanged root changes nothing, so members' routines running at the same time are harmless. Walk the root once, listing each folder's children, and use that listing for every check below. Every check below leaves out the bridge file (rules → Layout).
 
 1. **Duplicates.** Wherever two files in one folder share a name: for derived and curated files (`status.md`, `index.md`, `todo.md`, `org.md`, `memories/`, `reviews/`) keep the newest and trash the rest (rules → Replace). A duplicated tracker comes from two writers at once: write one version holding every distinct row of all copies in the order rules → Replace gives, then trash the copies. A duplicated `inbox.md`: merge it as rules → Email → The ledger says. A duplicated list: keep the newest. Source files (`diary/`, uploaded `documents/`) stay untouched; flag them.
 2. **Unfiled documents.** Working files are filed already: leave every file listed under Maintained in its instance `index.md` as it is, name included. A `.csv` or `.md` file with a fixed-style name (lowercase, hyphenated, no timestamp) missing from Maintained is a working file when a diary entry of its instance says `Maintained: documents/<name>`: its index is stale (item 6). With no such entry, flag it ("`greta/health/documents/feeds.csv` looks like a working file nobody created: keep it as a tracker or file it as a document?"). Every other file in `landing/`, and every file in an instance `documents/` folder missing from that instance's `index.md`, goes to the `file-document` skill one at a time as case (c), with the file path, the member's slug, the period, and whether the run is unattended. Attended, it may ask the member; unattended, it files what is unambiguous and flags the rest. It propagates up to the interest level only and returns its flags to you instead of writing them.
@@ -96,7 +96,7 @@ Built from the review and the statuses. A member's **items** are the items assig
 
 1. **Everyone**: the highlights from Looking back and Looking ahead, one line each, and Everyone's overdue or due to-dos.
 2. **Needs attention**: anything that needs a decision or an action, with the question that settles it; a to-do suggestion ends with the one-word answer that confirms it ("looks done: Book the car service. Say 'done' to close it.").
-3. **One short section per member**, headed with their name, holding their items. Personal calendar events stay out: they belong in that member's personal message. A github member's items are its open to-dos only, all of them in list order (references/todos.md → `todo.md`): four lines at most, the rest as a count.
+3. **One short section per member**, headed with their name, holding their items. Personal calendar events stay out: they belong in that member's personal message. A github member's items are its open to-dos only, in list order (references/todos.md → `todo.md`): four lines at most, the rest as a count.
 
 **Personal** (a member named), in this order:
 
