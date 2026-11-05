@@ -18,7 +18,7 @@ A message starting `Agora todo as ` is the todo handoff (rules → Handoffs), in
 3. **Settle**: `edit` sets the text to `<new text>` verbatim; `done` closes it. A `done` on a closed to-do fails as already closed. An `edit` to the text it already has writes nothing and returns `agora: ok — <to-do id> unchanged`.
 4. **Step 8**, the event authored by `<slug>`. Skip step 9.
 
-Failures, including the archived and closed cases above, follow rules → Handoffs → Check, then write. Success: `agora: ok — todos/<event file>.md (<edit | done> <to-do id>)`.
+Every failure, the archived and closed cases above included, writes nothing (rules → Handoffs → Check, then write). Success: `agora: ok — todos/<event file>.md (<edit | done> <to-do id>)`.
 
 ## Steps
 
