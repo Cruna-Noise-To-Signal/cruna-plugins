@@ -57,3 +57,40 @@ Note the file count in `products/cruna-plugins/diary/`, `todos/` and `org.md`'s 
 
 - [ ] As yourself: "note on cruna-plugins: onboarding takes too long" → logged as usual (author you), and the reply ends with "noted; it becomes a GitHub request at the next sync".
 - [ ] A note on any other instance has no such line.
+
+## M2
+
+Agora knows `pm`, English plugin only, from this branch (version still 0.5.0). Use the M1 test root after M1's scenarios, so it has `pm`, `products/cruna-plugins`, a release entry and at least one open to-do for `pm` (add one in conversation if M1 closed it: "add a to-do for pm on cruna-plugins: add Outlook support").
+
+### 1. A note on the product
+
+- [ ] In the chat app as yourself: "note on cruna-plugins: onboarding takes too long" → logged with you as author; the reply ends with "noted; it becomes a GitHub request at the next sync".
+
+### 2. Identity
+
+- [ ] In a new conversation, "what's pending?" → the "who are you?" question lists only people, never `pm`.
+
+### 3. Tidy-up leaves the bridge file alone
+
+- [ ] By hand in Drive, upload a file `2026-11-05_10_00_last-check.md` (any content) into `products/cruna-plugins/`. Note the instance `index.md` and `status.md` modified times.
+- [ ] Ask: "daily review". The file is still there, unrenamed, not in `documents/`, not in the instance `index.md`; the review and the root `status.md` Needs attention don't mention it; the instance `index.md` and `status.md` were not rebuilt because of it.
+
+### 4. pm in the general review
+
+- [ ] Same review: the message has a "PM (GitHub)" section listing only pm's open to-dos (no calendar events, no Looking back items); the review file's To-dos section lists pm's to-dos with the other members'.
+- [ ] Ask "my week" as yourself → personal message; pm's to-dos appear only if they are Everyone's (they aren't), not under Yours.
+- [ ] Type `Run Agora review: daily for pm in Test` → the general message, not a personal one for pm.
+- [ ] Close all of pm's to-dos (`Agora todo as pm in Test: done <id>`), run "daily review" again → no PM section.
+
+### 5. Setup passes pm by
+
+- [ ] "finish setup" (or "check my setup") → Verify passes with no complaint about pm's missing Access row, memories file, folder sharing, routines or Member section; `setup.md` has no `## Member: pm`.
+- [ ] The setup reply never mentions GitHub.
+- [ ] "remove pm from Agora" → Offboard asks no sharing or password steps; `org.md` loses the `pm` Members row and the `products/cruna-plugins` Conventions row (one `org.md` in the folder); `products/` and its diary entries stay; the reply says the repo stays linked until a developer unlinks it with `cruna-pm-github`. Re-run the M1 step 1 add-interest line to restore pm.
+
+### 6. ask and help
+
+- [ ] "What did cruna-plugins release lately?" → answers from the release entry, citing its path and the refs `#8, PR #9, v2026.11.12`.
+- [ ] "What is products and who is pm?" → two or three plain lines: software built on GitHub, `pm` is the address for GitHub, a developer links repos from Claude Code with `cruna-pm-github`, notes and to-dos for pm become GitHub requests at the next sync.
+- [ ] "What can you do?" → the tour has one line about products from GitHub.
+- [ ] On a root without `pm` (any other test root), "what can you do?" → no GitHub line.

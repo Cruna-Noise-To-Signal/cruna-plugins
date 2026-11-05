@@ -50,3 +50,38 @@ Fixes from review.md → M1 round 1. Handoff shapes and result lines unchanged.
 Checker: **✔ Valid for Claude and OpenAI**.
 
 To do in M3: amend the spec's Conventions "Since" from `<date> by pm` to the template form `2026-11-05, pm` (AGENTS.md: spec follows behaviour).
+
+## M2
+
+Agora knows `pm`: F5–F6 in the English plugin only, plus the three non-blocking M1 review nits. No version bump, no Italian, no spec/docs changes (M3).
+
+### What changed
+
+- **M1 nits**: this report's "no status propagation" decision struck through as superseded (F4); `todo` handoff now reads "Every failure, the archived and closed cases above included, writes nothing (rules → Handoffs → Check, then write)" (F3); `add-interest` handoff loses the redundant "Skip step 7 below" (F4).
+- **F5 `review`**: step 1, a github member gets no personal message (a prompt or request naming one gets the general message); step 2, the bridge file stays out of every tidy-up check (never flagged, filed, trashed or counted); step 4, a github member's section in the general message holds only its open to-dos, in list order, four lines at most plus a count. The review file's To-dos section already shows each member's to-dos in Members order, so `pm` appears there with no change.
+- **F5 `setup`**: one **Github members** paragraph after Checklist: they come only from the `add-interest` handoff; setup's questions and messages stay on the people and interests the user names; "every/each member" in setup means people (no Member section, Access row, memories file, sharing or routines; Join and Verify pass it by). Offboard gains a github-member path: remove its Members row and every Conventions row managed by it, one `org.md` replace; diary and to-dos stay; tell the owner the repo stays linked until a developer unlinks it with `cruna-pm-github`.
+- **F5 `rules` references**: `prerequisites.md` item 5 check reads "each member with an email" (pm has none); `templates.md` setup.md section names github members among those with no Member section.
+- **F5 `ask`**: Cite adds a bridge entry's `github:` refs.
+- **F6 `help`**: description gains "products and pm from GitHub"; Tour adds one products line only when Members has a github member; FAQ entry "What is `products` and who is pm?" (what they are, `cruna-pm-github` links repos from Claude Code, notes and to-dos for `pm` become GitHub requests at the next sync, "→ #8", ticked off when the issue closes).
+
+Checker: **✔ Valid for Claude and OpenAI**.
+
+### Github member leak sweep
+
+Grepped `cruna-plugin-eng/agora` for every/each/per member and Members lists:
+- **Identity**: rules → Identity (M1). **Owner default in `todo`**: `references/todos.md` (M1).
+- **Setup checklist, Access, memories, sharing, routines, Verify**: the setup paragraph above, plus the template and prerequisites edits.
+- **Reviews**: review steps 1 and 4.
+- **Left as is**: `schedule` "personal calendars of all members" (pm has none to read), email criteria per member (pm has none), `todo.md` sections per owner (intended: pm gets one).
+
+### Testing
+
+Skill prose only: no `tdd` cycle possible. Hand test: [manual-test.md](manual-test.md) → M2.
+
+### Decisions taken where the spec was silent
+
+- **`Run Agora review: … for pm`** gives the general message instead of failing or stopping.
+- **pm's review section** is capped at four lines plus a count, matching the existing "up to four lines per member section" bound.
+- **Interview "never mentions GitHub"**: the interview had no GitHub mention; the setup paragraph keeps its questions and messages on what the user names rather than adding a prohibition.
+- **Offboard of a github member** warns that the next link re-creates it, since `add-interest` creates a missing member.
+- **Help Tour** mentions products only when the root has a github member (story 19/20: roots without linked repos see nothing new).
