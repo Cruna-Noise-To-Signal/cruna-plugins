@@ -1,6 +1,6 @@
 # Agora — Design Spec
 
-Status: locked (2026-10-28). Source: design interview on the original vision notes. Email added in 0.4.0 (2026-11-03, request #2 eager-rosetta). To-dos added in 0.5.0 (2026-11-03, request #4 proud-ciabatta).
+Status: locked (2026-10-28). Source: design interview on the original vision notes. Email added in 0.4.0 (2026-11-03, request #2 eager-rosetta). To-dos added in 0.5.0 (2026-11-03, request #4 proud-ciabatta). Products from GitHub added in 0.6.0 (2026-11-05, request #3 sleepy-focaccia).
 
 ## Goal
 
@@ -322,6 +322,7 @@ Actions someone has to do, personal (owned by a member) or shared (owner `everyo
 - Only a conversation creates, changes or removes to-dos, through the `todo` skill: a member asked, or said yes to an offer from `log`, `email` or a review suggestion.
 - **The one exception**: member mail asking in so many words to add a to-do ("add to my to-dos: call the bank") counts as the member's own request. It is the **only to-do event an unattended run writes**: the review's inbox tidy-up adds it, `author` the sender, named and dated from the email's received time so two runs add it once, ledger outcome `to-do → <id>`.
 - Any other mail, and every routine, only **suggests**: "looks done" (a later diary entry or email shows it was done) and "possible new to-do" (a diary entry or email asks someone to act), in the review's To-dos section and under Needs attention. Routines never complete, reassign or remove a to-do.
+- A github member's `edit` and `done` events through the `todo` handoff are the second exception (Products from GitHub).
 
 ### Reviews
 
@@ -331,6 +332,36 @@ Every review has a `## To-dos` section: overdue, due in the look-ahead window, o
 
 - **Remove** (conversation only): filter by date, instance or interest, owner, `everyone` or source, combined; closed to-dos only unless the member says "including open ones"; list the matches and wait for a yes; trash every event file (Drive trash, 30 days), never hard-delete; write one `remove` event and rebuild.
 - **Archive**: the monthly tidy-up moves the events of to-dos closed more than 90 days ago into `todos/archive/YYYY/` (the closing year). Idempotent. Archived to-dos leave `todo.md` and reviews; `ask` searches the archive only when asked about old to-dos.
+
+## Products from GitHub
+
+The Agora half of a bridge to GitHub. The GitHub connectors in the chat apps can't read issues, PRs or Projects, nor write them (Verified platform facts → GitHub connectors), so the `agora-sync` skill of `cruna-pm-github` (in `cruna-development-plugins`) writes the developers' news into Agora and files the founder's notes and to-dos as GitHub issues. Agora only offers it three handoffs and treats product work like any other work. Roots without linked repos see nothing of it, and `setup` never mentions GitHub.
+
+- **Github member**: an `org.md` Members row with Role `github` (a reserved value of the existing column), slug from the handoff line (usually `pm`), Name "PM (GitHub)", Email, Mail from, Birthday and Personal calendar empty, Notes "address for GitHub through cruna-pm-github". An address meaning "this goes to GitHub", not a person: it authors bridge diary entries and to-do events, and owns to-dos only when a member names it. It is left out of Identity and gets no `setup.md` section, memories file, Access row, calendar, routines or personal review message; the general review gives it a section with its open to-dos only. `setup` Offboard removes it with its managed Conventions rows.
+- **`products/`**: an ordinary interest ("Software products built in GitHub", no color), one instance per linked repo, named after the repo, described as `<name>: <description>` from its README. The folder is `products` in every language.
+- **Managed instance**: marked by a Conventions row, Where `products/<instance>`, Convention `managed by cruna-pm-github: notes and to-dos for pm become GitHub requests` (text after the marker in the root's language), Since `<date>, <slug>` like every Conventions row. A member's note logged there gets the reply "noted; it becomes a GitHub request at the next sync"; a to-do for the github member attached to it is filed as an issue, then edited to end `→ #<issue>` and closed when the issue closes.
+- **Bridge entries**: diary entries authored by the github member, one per merge into dev, release or drop, with an optional front-matter key `github:` after `events` listing the refs (`"#8"`, `"PR #9"`, `"v2026.11.12"`). Summary in the root's language, Entry verbatim from GitHub; statuses, indexes, reviews and `ask` (which cites the refs) treat them like any entry.
+- **Bridge file**: `<interest>/<instance>/YYYY-MM-DD_hh_mm_last-check.md` belongs to `cruna-pm-github`. Agora never reads, indexes, files, flags or trashes it, and a stale-index check ignores it.
+
+### Handoffs
+
+A handoff is a one-line prompt in a fixed shape that runs an Agora skill **unattended**; the shapes live once in `rules` → Handoffs and are repeated in each skill's Handoff section. Handoff shapes v1: any change is breaking and ships with `cruna-pm-github`. The lines and the result line stay in English in the Italian plugin.
+
+```
+Agora log as <slug> in <root>: <interest>/<instance> — github: <ref>[, <ref>…] — <entry text>
+Agora todo as <slug> in <root>: edit <to-do id> text "<new text>"
+Agora todo as <slug> in <root>: done <to-do id>
+Agora add-interest as <slug> in <root>: products/<instance> — <name>: <description>
+```
+
+- **Who and where**: `<slug>` must be a github member of `<root>` (found by `org.md` name or folder name); only `add-interest` creates it. Everything else the line names must exist.
+- **Check, then write**: a malformed line or a missing root, slug, instance or to-do writes nothing. No question of any kind: where a skill would ask, the handoff fails. No identity, memories, calendar, to-do offer, pattern or memory step; placement checks, templates, Replace and propagation run as usual.
+- **Result**: one English line, `agora: ok — <what was written>` or `agora: failed — <reason>`.
+- **`log`**: one diary entry, author the slug, `events: []`, `github:` from the line, then index and status propagation.
+- **`todo`**: matches by id only and writes one `edit` (text) or `done` event, then rebuilds `todo.md` and the attached statuses. Done on a closed to-do or an archived id fails; an edit to the same text writes nothing and returns ok.
+- **`add-interest`**: idempotent steps, in order: the member row, `products/`, the instance (or an update of its description when it exists by exact name), the Conventions row, one `org.md` write, propagation. A second call creates nothing twice.
+
+Removal path: once the connectors read issues and PRs, the `log` handoff loses its caller; once they write, the `todo` handoff does too. The github member, `products/` and the Conventions row stay.
 
 ## Memories
 
@@ -349,6 +380,10 @@ Stored in `memories/<member>.md` and `memories/shared.md`, human-readable and ed
 - Renames and moves files via `update_file`.
 - Cannot overwrite content; creating a file with an existing name makes a duplicate.
 
+## Verified platform facts (GitHub connectors, 2026-11-04 founder check)
+
+- On Claude and ChatGPT, the GitHub connectors only attach repo files to a chat (as context, or as project content). They don't read repos, issues, PRs or Projects on their own, and they can't write. Source: the founder's check, comment on request #3 (2026-11-04) and its grilling record. Re-check before building on the connector route.
+
 ## Release checks
 
 Require the assistant account:
@@ -357,11 +392,14 @@ Require the assistant account:
 - Live ChatGPT smoke test of the full flow (Drive writes, calendar create/update/delete on a non-primary calendar).
 - Email (0.4.0): the manual test [manual-tests/manual-test-agora-v040-email.md](manual-tests/manual-test-agora-v040-email.md) on Claude and ChatGPT, with email on, as the assistant account. Re-verify the ChatGPT send limits and whether a reply to a scheduled review's chat runs with the plugin and connectors.
 - To-dos (0.5.0): the manual test [manual-tests/manual-test-agora-v050-todos.md](manual-tests/manual-test-agora-v050-todos.md) on Claude and ChatGPT, as the assistant account, with email on for the email scenarios.
+- Products from GitHub (0.6.0): the manual test [manual-tests/manual-test-agora-v060-products.md](manual-tests/manual-test-agora-v060-products.md): the handoffs in Claude Code (claude.ai login, Google Drive connector), the chat scenarios on Claude and ChatGPT, and the Italian root on one of them. Release before `cruna-pm-github`'s `agora-sync` (cruna-development-plugins#27), which calls these handoff shapes.
 
 ## Out of scope (future extensions)
 
-See [future-extensions.md](future-extensions.md): Google Sheets trackers, memory reflection routine, git-backed interests, local filesystem roots, email attachments, Gmail labels and archiving, Gmail-triggered tasks, Google Tasks.
+See [future-extensions.md](future-extensions.md): Google Sheets trackers, memory reflection routine, local filesystem roots, email attachments, Gmail labels and archiving, Gmail-triggered tasks, Google Tasks, documents for products, GitHub comments back to notes, products in another org's Project, product events outside an agent session.
 
 Out of scope for email: members' personal inboxes, sending without an in-conversation confirmation (standing send rules included), and email providers other than Gmail.
 
 Out of scope for to-dos: Google Tasks as a store or mirror, private to-dos, calendar events created automatically from due dates, recurring to-dos, subtasks, priorities or tags, routines creating, completing, reassigning or removing to-dos (beyond the member-mail add), and hard deletion of to-do events.
+
+Out of scope for products from GitHub (see future-extensions.md): documents for products, GitHub comments or issue state flowing back to a note, repos whose Project lives in another org, events done outside an agent session, any GitHub connector use from the chat apps, a "business" flag or GitHub question in `setup`, and handoffs for other skills.

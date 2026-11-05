@@ -9,6 +9,8 @@ Setup turns an empty Google Drive and Calendar into a working Agora **root**, br
 
 **Checklist**: every branch records its progress in `setup.md` (rules → Setup checklist; template in rules → File kinds → templates), so a user can stop halfway and pick up later, in this app or another. Tick a box the moment the step it stands for meets its Done when, write the file by replace (rules → Replace) with a fresh Updated line, and set `state: done` only when every box is ticked. Resuming, start at the first unticked box; step 7 re-checks the ticked ones. A `setup.md` written before email existed has no Email boxes: email is off there; add the root Email box ticked "(off)" the next time you write the file.
 
+**Github members** (rules → Vocabulary) come only from the `add-interest` handoff, when a developer links a repo from Claude Code with `cruna-pm-github`; setup's questions and messages stay on the people and interests the user names. "Every member" and "each member" below mean the people in Members: what a github member lacks is in rules → Vocabulary, and Join and step 7 pass it by. Offboard is the one branch that removes one.
+
 ## 1. Load the rules and pick the branch
 
 Load the `rules` skill. Follow rules → Finding the root, then pick the branch:
@@ -133,7 +135,9 @@ Run it with the root's owner, signed in as the assistant account where a step ne
 5. Update `org.md` (rules → Replace): write `removed YYYY-MM-DD` in their Members Notes, and `removed` under Drive and System calendar in their Access row. Their diary entries, documents and `memories/<slug>.md` stay: they are history.
 6. Remove their Member section from `setup.md` and set `state` from the boxes left.
 
-Done when the member has no editor access on the folder or calendar, the Members/Access rows in `org.md` show them removed, and `setup.md` has no section for them. Go to step 7.
+**A github member** ("remove pm from Agora") takes one step in place of 1–6: remove its Members row and every Conventions row managed by it (`managed by cruna-pm-github`, its slug under Since), writing `org.md` once (rules → Replace). Its diary entries and to-dos stay. Tell the owner that the repos stay linked in GitHub until a developer unlinks them with `cruna-pm-github`: the next link adds the member back.
+
+Done when the member has no editor access on the folder or calendar, the Members/Access rows in `org.md` show them removed, and `setup.md` has no section for them; for a github member, when `org.md` has no Members row for it and no Conventions row managed by it. Go to step 7.
 
 ## 7. Verify
 

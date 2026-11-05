@@ -55,7 +55,7 @@ Done when: every fact you will state traces to a file or event you read, and you
 - **Lead** with the direct answer in one or two sentences.
 - **Date** every fact by its source ("as of the 12 Oct diary entry", "per the invoice filed 3 Sep").
 - **Flag old news**: when the newest source on the topic is more than a month old, or describes something that should have happened since (an appointment last week with nothing after it), say so plainly ("The latest I have is from March; it may have changed.").
-- **Cite** each source by its path from the root (`nina/health/diary/simone-20261028_1430.md`) each event by title and date, and each email by sender, date and subject, so the member can open it in Drive, the calendar or Gmail.
+- **Cite** each source by its path from the root (`nina/health/diary/simone-20261028_1430.md`) each event by title and date, and each email by sender, date and subject, so the member can open it in Drive, the calendar or Gmail. A diary entry with a `github:` line also gets its refs ("#8, PR #9"), so the member can look them up in GitHub.
 - **Roll up** answers that span interests: group by interest, one line each, then the details only where asked.
 - **Not found**: say so, list where you looked (which indexes, instances and calendar window), and offer to save the answer if the member knows it (the `log` skill).
 

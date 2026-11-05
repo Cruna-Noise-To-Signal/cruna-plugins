@@ -12,7 +12,9 @@ Agora è una base di conoscenza condivisa tenuta dall'AI su Google Drive (file) 
 - **Radice**: un Agora indipendente (una famiglia, una piccola impresa). Ha la sua cartella, i suoi membri, il suo calendario di sistema, le sue memorie e le sue routine.
 - **Interesse**: una cartella di primo livello nella radice. Che cosa *sia* un interesse (una persona, un cliente, un argomento) lo stabilisce la **convenzione di struttura** della radice, registrata in `org.md`.
 - **Istanza**: una cartella dentro un interesse; l'unità che contiene un diario e dei documenti. La profondità è sempre esattamente due: `root/<interest>/<instance>/`. Qualcosa di più piccolo di un'istanza (un singolo esame del sangue, una singola fattura) è una voce di diario con i suoi documenti, mai una cartella.
-- **Membro**: una persona in `org.md`. Il suo **slug** è il nome di battesimo, minuscolo, ASCII (`simone`).
+- **Membro**: una riga di Members in `org.md`: una persona o un membro github. Lo **slug** di una persona è il suo nome di battesimo, minuscolo, ASCII (`simone`).
+- **Membro github**: un membro il cui Role è `github`, con lo slug che portano le sue righe di handoff (di solito `pm`). Un indirizzo che vuol dire "questo va a GitHub" tramite il plugin `cruna-pm-github`, non una persona: può scrivere voci di diario ed eventi to-do ed essere responsabile di to-do, e non ha calendario, routine, file di memorie, riga in Access né sezione in `setup.md`.
+- **Istanza gestita**: un'istanza con una riga in Conventions `managed by cruna-pm-github`. Le note registrate lì e i to-do per il suo membro github diventano richieste GitHub alla prossima sincronizzazione, fatta da `cruna-pm-github`, mai da Agora.
 - **Account dell'assistente**: l'account Google con cui sono collegati i connettori di Drive e Calendar (e Gmail, quando l'email è attiva). Un account dedicato quando la radice ha più membri; l'account del proprietario quando è da solo.
 - **Casella dell'assistente**: la casella Gmail dell'account dell'assistente, l'unica casella che Agora legge. Facoltativa per ogni radice (rules → Email).
 - **Posta dei membri**: un'email il cui indirizzo del mittente è elencato per un membro in `org.md`.
@@ -55,9 +57,12 @@ Scrivi tutti i contenuti nella lingua indicata in `org.md`. Nomi di cartelle, no
         ├── index.md
         ├── status.md
         ├── diary/       <slug>-YYYYMMDD_HHMM.md
-        └── documents/   <slug>-YYYYMMDD_HHMM_<original-name>.<ext>
-                         <name>.csv | <name>.md   (file di lavoro)
+        ├── documents/   <slug>-YYYYMMDD_HHMM_<original-name>.<ext>
+        │                <name>.csv | <name>.md   (file di lavoro)
+        └── YYYY-MM-DD_hh_mm_last-check.md   (file del ponte, solo istanze gestite)
 ```
+
+Il **file del ponte** appartiene a `cruna-pm-github`, che lo sostituisce a ogni sincronizzazione. Agora non lo legge, non lo indicizza, non lo archivia, non lo segnala e non lo sposta nel cestino, e lo ignora quando controlla se un indice è obsoleto.
 
 La cartella radice prende il nome visualizzato della radice, a meno che l'utente non ne scelga un altro. I nomi delle cartelle di interessi e istanze sono minuscoli, con trattini, ASCII (`nina`, `piscina`). Gli orari usano il fuso orario della radice; quando il nome di una voce di diario o di un documento è già occupato, usa il primo minuto libero successivo. Le voci di diario scritte dalla routine `review` usano `routine` al posto dello slug di un membro.
 
@@ -133,7 +138,7 @@ Quando la radice, l'interesse, l'istanza, il membro o la data non sono chiari, c
 
 ### Identità
 
-All'inizio di ogni conversazione, chiedi con chi stai parlando (elenca i membri da `org.md`), a meno che non sia già noto in questa conversazione. Ogni voce di diario e ogni documento porta lo slug di quel membro.
+All'inizio di ogni conversazione, chiedi con chi stai parlando (elenca i membri da `org.md`, tranne i membri github), a meno che non sia già noto in questa conversazione. Un handoff dice chi sta parlando nella sua riga (rules → Handoff). Ogni voce di diario e ogni documento porta lo slug di quel membro.
 
 ### Esecuzioni non presidiate
 
@@ -142,6 +147,29 @@ Le routine pianificate non hanno nessuno a cui chiedere. Agiscono solo su ciò c
 ### Segnalare
 
 Aggiungi una riga sotto Needs attention nello `status.md` della radice che dica che cosa è stato trovato e quale domanda o correzione manuale lo risolve. Anche le esecuzioni presidiate segnalano, quando un'azione fallisce e richiede una correzione manuale; in quel caso lo dicono anche al membro. Ogni ricostruzione dello `status.md` della radice mantiene ogni segnalazione la cui condizione è ancora vera ed elimina quelle risolte.
+
+## Handoff
+
+Un **handoff** è un prompt di una riga in una forma fissa, inviato dalla skill di un altro plugin (`agora-sync` di `cruna-pm-github`), che esegue una skill di Agora **non presidiata**: tutto ciò che la skill chiederebbe è nella riga. Un messaggio che inizia con `Agora <skill> as ` è un handoff. Le righe restano in inglese anche in questo plugin: sono il contratto con `cruna-pm-github`.
+
+Forme degli handoff v1: cambiarne una è una modifica incompatibile; annunciala nelle note di rilascio e rilasciala insieme a `cruna-pm-github`.
+
+```
+Agora log as <slug> in <root>: <interest>/<instance> — github: <ref>[, <ref>…] — <entry text>
+Agora todo as <slug> in <root>: edit <to-do id> text "<new text>"
+Agora todo as <slug> in <root>: done <to-do id>
+Agora add-interest as <slug> in <root>: products/<instance> — <name>: <description>
+```
+
+I separatori sono ` — ` (trattino lungo tra due spazi) e il primo `: `; l'ultimo campo arriva fino alla fine della riga, quindi può contenere l'uno e l'altro. Un `<ref>` è una issue, una PR o un tag come lo scrive GitHub (`#8`, `PR #9`, `v2026.11.12`).
+
+Ogni handoff segue queste regole; la sezione Handoff di ogni skill aggiunge le sue:
+
+- **Chi e dove.** `<root>` si confronta con il `name` in `org.md` di ogni radice o con il nome della sua cartella (rules → Trovare la radice). `<slug>` deve essere un membro github di quella radice; solo `add-interest` può crearlo. L'interesse, l'istanza e il to-do che la riga nomina devono già esistere, tranne ciò che crea `add-interest`.
+- **Controlla, poi scrivi.** Risolvi ogni controllo (forma, radice, slug, istanza, to-do) prima della prima scrittura. Se un controllo fallisce, non scrivere nulla.
+- **Passi saltati.** Nessuna domanda sull'identità, lettura delle memorie, passo del calendario, proposta di to-do, suggerimento di schema o passo memoria, e nessuna domanda di alcun tipo: dove la skill chiederebbe, l'handoff invece fallisce. Tutto il resto (controlli di collocazione, modelli, Sostituire, propagazione) si svolge come al solito.
+- **Lingua.** Le righe di Summary e ogni testo scritto da Agora sono nella lingua della radice. Il testo che la riga porta si conserva parola per parola (nella Entry di una voce di diario, nel testo di un to-do, in una descrizione).
+- **Risultato.** L'intera risposta è una riga, in inglese, senza saluti: `agora: ok — <what was written>` oppure `agora: failed — <reason>`. Un errore di un connettore è `agora: failed — <what failed>`, che nomina ciò che è già stato scritto, al posto di rules → Quando qualcosa non funziona.
 
 ## Convenzioni del calendario
 

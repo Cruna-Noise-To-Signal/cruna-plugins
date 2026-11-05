@@ -6,8 +6,8 @@ Public plugins by [Cruna](https://crunasignal.com) for **Claude** and **ChatGPT*
 
 | Plugin | Language | Version | What it does |
 |---|---|---|---|
-| [`agora`](cruna-plugin-eng/agora/) | English | 0.5.0 | A shared, AI-kept knowledge base on Google Drive and Google Calendar for families and small teams |
-| [`agora-ita`](cruna-plugin-ita/agora/) | Italiano | 0.5.0 | La stessa cosa, in italiano |
+| [`agora`](cruna-plugin-eng/agora/) | English | 0.6.0 | A shared, AI-kept knowledge base on Google Drive and Google Calendar for families and small teams |
+| [`agora-ita`](cruna-plugin-ita/agora/) | Italiano | 0.6.0 | La stessa cosa, in italiano |
 
 Both versions read and write the same Drive files, so people using different languages can share one Agora.
 

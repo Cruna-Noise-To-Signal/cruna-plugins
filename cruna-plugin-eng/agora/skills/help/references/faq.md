@@ -42,6 +42,10 @@ Yes. Everyone in `<root name>` sees every to-do, yours included, and can finish,
 
 Say what to clear: "remove everything closed before June", "remove everything about Acme", "remove Nina's done to-dos". Agora removes only finished to-dos unless you say "including open ones". It shows you the list first and waits for your yes. Removed to-dos go to the Google Drive trash, where you can restore them for 30 days; then they're gone. Finished to-dos older than three months are also archived each month, out of the way but kept.
 
+## What is `products` and who is pm?
+
+`products` follows the software your team builds on GitHub, one folder per linked repo; a developer links a repo from Claude Code with the `cruna-pm-github` plugin. `pm` isn't a person: it's the address for GitHub. It writes what was merged, released or dropped into the product's notes, and a note on a product, or a to-do for `pm`, becomes a GitHub request at the next sync, then shows the issue number ("→ #8") and is ticked off when the issue closes.
+
 ## Where is the tracker or list file?
 
 In the topic it belongs to: `<root name>` → `<interest>` → `<instance>` → `documents`, under a plain name like `greta-diapers.csv` or `packing-list.md`. That topic's `index.md` lists it under **Maintained**. Or ask Agora "where is the packing list?".

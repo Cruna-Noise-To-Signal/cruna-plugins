@@ -1,6 +1,6 @@
 ---
 name: help
-description: Spiega Agora, il quaderno condiviso che una famiglia o un piccolo gruppo tiene su Google Drive e Calendar tramite l'AI, e lo sistema quando non funziona bene. Usala quando qualcuno chiede cosa sa fare Agora o come funziona ("cosa sai fare?", "come funziona Agora?"), fa una domanda su come fare qualcosa (dove sono i miei file, chi vede cosa, aggiungere un documento dal telefono, tenere traccia di cose frequenti o di liste da stampare, i to-do, l'email, le routine, aggiungere una persona, uscire), o dice che Agora non funziona, non vede qualcosa o mostra un errore ("Agora non funziona", "non vedi il calendario").
+description: Spiega Agora, il quaderno condiviso che una famiglia o un piccolo gruppo tiene su Google Drive e Calendar tramite l'AI, e lo sistema quando non funziona bene. Usala quando qualcuno chiede cosa sa fare Agora o come funziona ("cosa sai fare?", "come funziona Agora?"), fa una domanda su come fare qualcosa (dove sono i miei file, chi vede cosa, aggiungere un documento dal telefono, tenere traccia di cose frequenti o di liste da stampare, i to-do, i prodotti e pm da GitHub, l'email, le routine, aggiungere una persona, uscire), o dice che Agora non funziona, non vede qualcosa o mostra un errore ("Agora non funziona", "non vedi il calendario").
 ---
 
 # Aiuto
@@ -40,7 +40,7 @@ Di' in una frase che cos'è Agora: ognuno racconta all'AI cosa succede, l'AI lo 
 | "Archivia l'email che ti ho inoltrato" / "prepara una bozza di risposta a Mario" | L'email viene salvata nell'argomento giusto; una risposta viene scritta e inviata solo dopo il tuo sì | `email` |
 | "Configura Agora" / "aggiungi mio marito ad Agora" | La configurazione, o l'ingresso di una nuova persona | `setup` |
 
-Aggiungi una riga sulle routine: una volta configurate, una revisione giornaliera, una settimanale e una mensile arrivano da sole. Mostra l'esempio dell'email solo quando `org.md` dice `email: on`; altrimenti, in una radice aziendale, una riga che dice che l'email si può attivare.
+Aggiungi una riga sulle routine: una volta configurate, una revisione giornaliera, una settimanale e una mensile arrivano da sole. Mostra l'esempio dell'email solo quando `org.md` dice `email: on`; altrimenti, in una radice aziendale, una riga che dice che l'email si può attivare. Quando Members ha un membro github (rules → Vocabolario), aggiungi una riga sui **prodotti da GitHub**: `products` segue il software costruito su GitHub, e una nota su un prodotto o un to-do per `pm` (il suo slug) diventa una richiesta GitHub alla prossima sincronizzazione (faq.md → Che cos'è `products` e chi è pm?).
 
 Fatto quando: il membro ha il riassunto in una frase e gli esempi, in meno di 12 righe, senza nomi di skill.
 

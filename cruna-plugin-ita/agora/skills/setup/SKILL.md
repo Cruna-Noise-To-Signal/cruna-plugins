@@ -9,6 +9,8 @@ La configurazione trasforma un Google Drive e un Calendar vuoti in una **radice*
 
 **Checklist**: ogni ramo registra i suoi progressi in `setup.md` (rules → Checklist di configurazione; modello in rules → Tipi di file → modelli), così l'utente può fermarsi a metà e riprendere più tardi, in questa app o in un'altra. Spunta una casella appena il passo che rappresenta soddisfa il suo Fatto quando, scrivi il file per sostituzione (rules → Sostituire) con una nuova riga Updated, e imposta `state: done` solo quando ogni casella è spuntata. Quando riprendi, parti dalla prima casella non spuntata; il passo 7 ricontrolla quelle spuntate. Un `setup.md` scritto prima che esistesse l'email non ha caselle Email: lì l'email è disattivata; aggiungi la casella Email della radice spuntata "(off)" la prossima volta che scrivi il file.
 
+I **membri github** (rules → Vocabolario) arrivano solo dall'handoff `add-interest`, quando uno sviluppatore collega un repo da Claude Code con `cruna-pm-github`; le domande e i messaggi della configurazione restano sulle persone e sugli interessi che l'utente nomina. "Ogni membro" e "ciascun membro" qui sotto indicano le persone in Members: ciò che manca a un membro github è in rules → Vocabolario, e Unisciti e il passo 7 lo saltano. Uscita è l'unico ramo che ne rimuove uno.
+
 ## 1. Carica le regole e scegli il ramo
 
 Carica la skill `rules`. Segui rules → Trovare la radice, poi scegli il ramo:
@@ -133,7 +135,9 @@ Eseguilo con il proprietario della radice, con l'accesso come account dell'assis
 5. Aggiorna `org.md` (rules → Sostituire): scrivi `rimosso YYYY-MM-DD` nelle Notes della sua riga Members, e `rimosso` sotto Drive e System calendar nella sua riga Access. Le sue voci di diario, i suoi documenti e `memories/<slug>.md` restano: sono storia.
 6. Togli la sua sezione Member da `setup.md` e imposta `state` in base alle caselle rimaste.
 
-Fatto quando il membro non ha più accesso come editor alla cartella né al calendario, le righe Members/Access in `org.md` lo mostrano rimosso, e `setup.md` non ha una sezione per lui. Vai al passo 7.
+**Un membro github** ("togli pm da Agora") richiede un solo passo al posto di 1–6: togli la sua riga Members e ogni riga Conventions gestita da lui (`managed by cruna-pm-github`, con il suo slug sotto Since), scrivendo `org.md` una volta sola (rules → Sostituire). Le sue voci di diario e i suoi to-do restano. Di' al proprietario che i repo restano collegati in GitHub finché uno sviluppatore non li scollega con `cruna-pm-github`: il prossimo collegamento rimette il membro.
+
+Fatto quando il membro non ha più accesso come editor alla cartella né al calendario, le righe Members/Access in `org.md` lo mostrano rimosso, e `setup.md` non ha una sezione per lui; per un membro github, quando `org.md` non ha una sua riga Members né righe Conventions gestite da lui. Vai al passo 7.
 
 ## 7. Verifica
 

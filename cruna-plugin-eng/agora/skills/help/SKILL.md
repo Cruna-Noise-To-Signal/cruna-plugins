@@ -1,6 +1,6 @@
 ---
 name: help
-description: Explains Agora, the shared notebook a family or small team keeps on Google Drive and Calendar through the AI, and fixes it when it misbehaves. Use when someone asks what Agora can do or how it works, asks a how-do-I question about it (where are my files, who can see what, adding a document from the phone, keeping track of frequent things or printable lists, to-dos, email, routines, adding a person, leaving), or says Agora isn't working, can't see something, or shows an error.
+description: Explains Agora, the shared notebook a family or small team keeps on Google Drive and Calendar through the AI, and fixes it when it misbehaves. Use when someone asks what Agora can do or how it works, asks a how-do-I question about it (where are my files, who can see what, adding a document from the phone, keeping track of frequent things or printable lists, to-dos, products and pm from GitHub, email, routines, adding a person, leaving), or says Agora isn't working, can't see something, or shows an error.
 ---
 
 # Help
@@ -40,7 +40,7 @@ Say in one sentence what Agora is: everyone tells the AI what happens, the AI ke
 | "File the email I forwarded you" / "draft a reply to Mario" | The email is saved with the right topic; a reply is written and sent only after you say yes | `email` |
 | "Set up Agora" / "add my husband to Agora" | Setup, or bringing a new person in | `setup` |
 
-Add one line about routines: once set up, a daily, a weekly and a monthly review arrive on their own. Show the email example only when `org.md` says `email: on`; otherwise, in a business root, one line saying email can be turned on.
+Add one line about routines: once set up, a daily, a weekly and a monthly review arrive on their own. Show the email example only when `org.md` says `email: on`; otherwise, in a business root, one line saying email can be turned on. When Members has a github member (rules → Vocabulary), add one line on **products from GitHub**: `products` follows the software built on GitHub, and a note on a product or a to-do for `pm` (its slug) becomes a GitHub request at the next sync (faq.md → What is `products` and who is pm?).
 
 Done when: the member has the one-sentence summary and the examples, in under 12 lines, with no skill names.
 
