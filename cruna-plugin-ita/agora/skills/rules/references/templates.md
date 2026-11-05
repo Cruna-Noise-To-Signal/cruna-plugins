@@ -23,6 +23,7 @@ email: <on | off>
 | Slug | Name | Email | Mail from | Role | Birthday | Personal calendar | Notes |
 |---|---|---|---|---|---|---|---|
 | simone | Simone | simone@example.com | simone@example.com, simone@acme.it | genitore | 1989-03-28 | libero/occupato | preferisce risposte brevi |
+| pm | PM (GitHub) | | | github | | | indirizzo per GitHub tramite cruna-pm-github |
 
 ## Interests
 
@@ -35,6 +36,7 @@ email: <on | off>
 | Where | Convention | Since |
 |---|---|---|
 | greta/salute | Pannolini: una riga per cambio in `documents/greta-pannolini.csv` (date,time,author,type,notes); nessuna voce di diario per cambio; voce di riepilogo giornaliera | 2026-10-29, simona |
+| products/cruna-plugins | managed by cruna-pm-github: note e to-do per pm diventano richieste GitHub | 2026-11-05, pm |
 
 ## Access
 
@@ -45,9 +47,11 @@ email: <on | off>
 
 `email` assente significa `off`. **Email** è l'account Google personale con cui sono condivisi la cartella e il calendario. **Mail from** (solo con l'email attiva) elenca ogni indirizzo da cui il membro scrive o inoltra: la posta da questi indirizzi è posta dei membri (rules → Email). I criteri email validi per tutta la radice sono righe di Conventions, scritte come in [email.md](email.md) → Dove stanno i criteri.
 
+Una riga di un **membro github** (rules → Vocabolario) la scrive solo l'handoff `add-interest`, come la riga `pm` qui sopra: Role `github`, Name "PM (GitHub)", Email, Mail from, Birthday e Personal calendar vuoti; non ha riga in Access. Lo stesso handoff scrive la riga gestita di Conventions, Where `products/<instance>`, con lo slug del membro al posto di `pm`. Il marcatore `managed by cruna-pm-github` resta in inglese; il testo dopo i suoi `: ` è nella lingua della radice.
+
 ## `setup.md` (radice, curato)
 
-Una sezione `## Member: <slug>` per ogni membro che usa la radice (un bambino solo seguito non ne ha). Le etichette delle caselle restano in inglese come i titoli. In una radice solitaria, spunta le due caselle di condivisione con "(solo)". Le caselle non spuntate dicono chi le fa quando non sei tu.
+Una sezione `## Member: <slug>` per ogni membro che usa la radice (un bambino solo seguito, o un membro github, non ne ha). Le etichette delle caselle restano in inglese come i titoli. In una radice solitaria, spunta le due caselle di condivisione con "(solo)". Le caselle non spuntate dicono chi le fa quando non sei tu.
 
 ```markdown
 ---
@@ -207,7 +211,13 @@ email_from: <Mittente originale, o "to <destinatari>" per la posta inviata>
 email_subject: <Oggetto>
 ```
 
-e, quando l'email ha allegati non ancora su Drive, un'ultima riga in Entry:
+Una voce di un handoff `log` (rules → Handoff) aggiunge una riga di front-matter dopo `events`, i riferimenti della riga:
+
+```markdown
+github: ["#8", "PR #9", "v2026.11.12"]
+```
+
+Una voce di un'email, quando l'email ha allegati non ancora su Drive, chiude la Entry con un'ultima riga:
 
 ```markdown
 To file: <nomi degli allegati>. Salvali in landing/ o documents/ e di' "archiviati".
