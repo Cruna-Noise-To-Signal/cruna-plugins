@@ -171,6 +171,7 @@ Every handoff follows these rules; each skill's Handoff section adds its own:
 - **Language.** Summary lines and any text Agora writes are in the root's language. The text the line carries is kept verbatim (in a diary Entry, a to-do's text, a description).
 - **Result.** The whole reply is one line, in English, with no greeting: `agora: ok — <what was written>` or `agora: failed — <reason>`. A connector failure is `agora: failed — <what failed>`, naming anything already written, in place of rules → When something fails.
 
+## Calendar conventions
 
 - The root's **system calendar** is the assistant account's primary calendar (`calendar` in `org.md`, the account's email). Write only there. Members' personal calendars, when shared, are read-only: use them to find free time.
 - Event title: `[<interest>/<instance>] <title>` (`[nina/health] Blood test`).
