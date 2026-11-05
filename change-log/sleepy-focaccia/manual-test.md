@@ -22,7 +22,7 @@ Type: `Agora add-interest as pm in Test: products/cruna-plugins — Cruna Plugin
 
 Type the same line with a new description: `… — Cruna Plugins: Cruna's public plugins`
 
-- [ ] Reply names the description only. `products/index.md` shows the new text; no second member row, Interests row, Conventions row or folder.
+- [ ] Reply names the description only. `products/index.md` shows the new text, and `products/status.md` and the root `status.md` were rebuilt; no second member row, Interests row, Conventions row or folder.
 - [ ] The same line once more → `agora: ok — nothing to change`, nothing written.
 
 ### 3. A release entry (log)

@@ -38,3 +38,15 @@ Not testable by code: the change is skill prose, and the only seam is a handoff 
 
 - F5 (review, setup, ask) still list members without filtering github members: Access, setup checklist, reviews and memories are M2.
 - Pre-existing: `todo/SKILL.md` frontmatter is not strict YAML (`"add a to-do: renew…"` has `: ` inside a plain scalar). It was already so before M1, and the checker passes; worth quoting the description some day.
+
+### M1 revision 1
+
+Fixes from review.md → M1 round 1. Handoff shapes and result lines unchanged.
+
+- **F1 `rules`**: restored the `## Calendar conventions` heading after Handoffs, so the four "rules → Calendar conventions" pointers resolve again. Github member's slug is now "the slug its handoff lines carry (usually `pm`)".
+- **F2 `log`, F3 `todo`**: the failure lists now point to rules → Handoffs → Check, then write; `todo` keeps its archived and closed cases in its own steps.
+- **F4 `add-interest`**: step 1 keeps only its own checks (interest `products`, folder-name rule via rules → Layout, a non-github Role) and points to rules for the shared ones. Step 7 propagates whenever step 3 or 4 changed anything, a description-only update included (supersedes the M1 decision "no status propagation"), matching the spec's unconditional "5. propagate". manual-test.md → M1 step 2 checks the status rebuild.
+
+Checker: **✔ Valid for Claude and OpenAI**.
+
+To do in M3: amend the spec's Conventions "Since" from `<date> by pm` to the template form `2026-11-05, pm` (AGENTS.md: spec follows behaviour).
