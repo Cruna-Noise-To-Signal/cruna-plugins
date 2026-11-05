@@ -60,3 +60,36 @@ Verdict: **PASS**. Standards: AGENTS.md + cruna-core `writing-for-agents`.
 - Wording: `todo/SKILL.md` "Failures, including the archived and closed cases above, follow rules → Handoffs → Check, then write" reads as if rules owns those cases; "Every failure writes nothing (rules → Handoffs → Check, then write)" is plainer.
 
 **Fine:** frontmatter, single owner per meaning, no negation-heavy steering, checker passes, later-milestone items left as scoped.
+
+## M2 — round 3 (F5, F6 + M1 nits, English) — PASS
+
+### Specs
+
+Verdict: **PASS**. Diff `c018a88..HEAD`.
+
+**Missing / partial:** none.
+- review: tidy-up leaves the bridge file out of every check (`review/SKILL.md:48`, rule also in `rules/SKILL.md:65`), meeting "Tidy-up leaves the bridge file alone and doesn't count it when checking whether an index is stale". The github member gets an open-to-dos-only section (`:99`); an empty one is dropped by the existing rule; no personal message (`:42`).
+- setup: github-member paragraph (`setup/SKILL.md:12`) covers Join, checklist, Access, memories, routines; Offboard has a github-member path (`:138–140`); `setup.md` template excludes github members (`templates.md:54`).
+- ask: cites `github:` refs (`ask/SKILL.md:58`).
+- help: conditional overview line + FAQ entry naming `products/`, `pm`, `cruna-pm-github` and "next sync", two or three lines.
+- M1 nits: all three fixed.
+
+**Scope creep (minor, acceptable):** Offboard's relink warning isn't in the spec but is accurate (add-interest step 2 recreates the member) — keep. `prerequisites.md:48` "each member with an email" is a justified leak fix.
+
+**Implementer's doubts:** review asked for `pm` → general message (consistent with "Personal messages are never built for a github member"); four-line cap matches the existing Done-when (`:111`), rest shown as a count; no GitHub mention in `interview.md`, so no prohibition needed; relink warning fine.
+
+**Github member leak sweep:** Identity (`rules:141`) excludes; checklist/Access/sharing/routines via `setup:12`; sharing check email-gated (`prerequisites:48`); `todo` owner default in `todos.md:11`; memories/calendar/Access via Vocabulary (`rules:16`); `pm` in to-do sections intentional (story 15); address-matching sites (`schedule`, `file-document`, `email`) harmless since the member's Email, Mail from and Personal calendar are empty. No leaks.
+
+**Non-blocking:** after Offboard, open to-dos owned by the removed slug keep an owner not in Members; `todo.md`'s "Members order" rule doesn't say where they go. Not required by the spec.
+
+### Standards
+
+Verdict: **PASS**. Standards: AGENTS.md + cruna-core `writing-for-agents`.
+
+F5 and F6 meet acceptance; the three M1 nits are fixed cleanly.
+
+**Non-blocking judgement calls**
+1. Possible Duplicated Code: `setup/SKILL.md:12` re-lists what a github member lacks (already in rules → Vocabulary); `review/SKILL.md` step 2 restates the bridge-file exclusion from rules → Layout. A pointer plus the scoping clause would do.
+2. Wording conflict, `review/SKILL.md` general message item 3: "all of them in list order … four lines at most" — drop "all of them".
+3. `help/references/faq.md` hard-codes `pm` as the slug; acceptable for user-facing text but drifts if another slug is used.
+4. Possible Shotgun Surgery: github-member exclusions spread across review, setup, prerequisites, templates, help; each points back to rules → Vocabulary and the plan's risk list accepts it.
