@@ -31,7 +31,7 @@ Not testable by code: the change is skill prose, and the only seam is a handoff 
 - **Conventions "Since"**: written in the existing template format `2026-11-05, pm` rather than the spec's `<date> by pm`. Change the template if the spec's form is wanted.
 - **`edit` to the same text**: returns `agora: ok — <id> unchanged` and writes nothing (safe for a re-run sync); `done` on a closed to-do fails, as the plan says.
 - **Archived to-dos**: a handoff id found only in `todos/archive/` fails as archived rather than moving events back.
-- **add-interest description-only update**: rebuilds only `products/index.md`; no status propagation (nothing in status changes).
+- ~~**add-interest description-only update**: rebuilds only `products/index.md`; no status propagation (nothing in status changes).~~ Superseded by M1 revision 1: a description-only update propagates too.
 - **Near duplicates**: skipped in the handoff (exact folder-name match is "update"; no question).
 
 ### Left for later milestones / noticed
