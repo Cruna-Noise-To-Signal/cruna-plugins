@@ -94,3 +94,18 @@ Agora knows `pm`, English plugin only, from this branch (version still 0.5.0). U
 - [ ] "What is products and who is pm?" → two or three plain lines: software built on GitHub, `pm` is the address for GitHub, a developer links repos from Claude Code with `cruna-pm-github`, notes and to-dos for pm become GitHub requests at the next sync.
 - [ ] "What can you do?" → the tour has one line about products from GitHub.
 - [ ] On a root without `pm` (any other test root), "what can you do?" → no GitHub line.
+
+## M3
+
+Release-ready, both plugins at 0.6.0, from this branch.
+
+1. Install `agora` 0.6.0 and `agora-ita` 0.6.0 from this branch (Claude Code under a claude.ai login for the handoffs; the chat apps for the conversation scenarios). Check the installed version shows 0.6.0 in both apps.
+2. Run [docs/agora/manual-tests/manual-test-agora-v060-products.md](../../docs/agora/manual-tests/manual-test-agora-v060-products.md) end to end. It repeats M1 and M2 on the released version and adds scenario 9, the Italian root.
+3. Italian spot checks beyond scenario 9, with `agora-ita` in the chat app on the Italian root:
+   - [ ] "che cos'è products e chi è pm?" → two or three Italian lines naming `cruna-pm-github` and the next sync.
+   - [ ] "cosa sai fare?" → one line on prodotti da GitHub, only on a root with `pm`.
+   - [ ] "revisione giornaliera" → a "PM (GitHub)" section with pm's open to-dos; a planted `…_last-check.md` left alone.
+   - [ ] "togli pm da Agora" → Members and Conventions rows removed, diary kept, the reply says the repo stays linked until a developer unlinks it.
+4. Read the docs:
+   - [ ] `docs/agora/agora-spec.md` → Products from GitHub reads right; the GitHub connector fact names the platforms you actually checked (if you didn't check ChatGPT, move it to Release checks).
+   - [ ] `docs/agora/future-extensions.md` has no "Git-backed interests" and has the four new items.

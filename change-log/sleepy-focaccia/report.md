@@ -85,3 +85,31 @@ Skill prose only: no `tdd` cycle possible. Hand test: [manual-test.md](manual-te
 - **Interview "never mentions GitHub"**: the interview had no GitHub mention; the setup paragraph keeps its questions and messages on what the user names rather than adding a prohibition.
 - **Offboard of a github member** warns that the next link re-creates it, since `add-interest` creates a missing member.
 - **Help Tour** mentions products only when the root has a github member (story 19/20: roots without linked repos see nothing new).
+
+## M3
+
+Release-ready: the M2 review nits, F7 (Italian) and F8 (spec, future extensions, version 0.6.0, manual test).
+
+### What changed
+
+- **M2 nits (F5)**: `setup` points to rules → Vocabulary for what a github member lacks, keeping the "every member means people" scoping; `review` step 2 points to rules → Layout for the bridge file; the general message drops "all of them" from the github member's section.
+- **F7 Italian** (`cruna-plugin-ita/agora/`): every English file changed since 4f9e85f has its Italian counterpart (13 files, checked by diffing the two file lists): `rules` (Vocabolario, Struttura with the bridge file, Identità, new `## Handoff` section), `references/templates.md`, `todos.md`, `prerequisites.md`; Handoff sections in `log`, `todo`, `add-interest`; `review`, `setup`, `ask`, `help` and the FAQ. Handoff lines, result lines (`agora: ok — …`, `agora: failed — …` and their English reasons), Role `github`, the folder `products`, the key `github:`, the marker `managed by cruna-pm-github` and structure names stay English. The `products` description, the Members Notes, the Conventions text after the marker and the `log` reply ("annotato; diventerà una richiesta GitHub alla prossima sincronizzazione") are Italian.
+- **Glossary** `docs/agora/glossary-it.md`: a "What stays in English" bullet for GitHub-bridge identifiers; terms handoff (kept as `handoff`), github member (membro github), managed instance (istanza gestita), bridge / bridge file (ponte / file del ponte), last-check, link a repo, sync (sincronizzazione), GitHub request, ref (riferimento), products from GitHub, the fixed Italian strings; `rules` headings `Handoff` and `Handoff → Controlla, poi scrivi`.
+- **F8 spec** `docs/agora/agora-spec.md`: status line names 0.6.0; a "Products from GitHub" section (github member, `products/`, managed instance with Since `<date>, <slug>`, bridge entries and `github:`, bridge file, the four handoff lines and their rules, removal path); a second-exception bullet under Who changes to-dos; a "Verified platform facts (GitHub connectors, 2026-11-04 founder check)" section; a 0.6.0 Release checks line; Out of scope updated.
+- **Request spec** `change-log/sleepy-focaccia/spec.md`: Conventions Since amended to `<date>, pm` (the template format the implementation uses).
+- **`future-extensions.md`**: "Git-backed interests" removed; added Documents for products, GitHub comments back to notes, Products in another org's Project, Product events outside an agent session.
+- **Release**: 0.6.0 in all four manifests and the Claude catalog (the OpenAI catalog `.agents/plugins/marketplace.json` carries no version field, so nothing to bump there); root README versions and one products sentence in both plugin READMEs.
+- **Manual test** `docs/agora/manual-tests/manual-test-agora-v060-products.md`: 9 scenarios covering each handoff's success, idempotency, four failure cases, the managed-instance reply, Identity without pm, pm in to-dos and the general review, the last-check file, `ask`/`help`, and an Italian root.
+
+Checker (`cruna-core` `check_plugins.py`): **✔ Valid for Claude and OpenAI**. `claude plugin validate` passes for the repo and both plugins (only the pre-existing missing-icon warning).
+
+### Testing
+
+Skill prose and docs only: no `tdd` cycle possible; the checker is the automated test. Hand test: [manual-test.md](manual-test.md) → M3, which runs the docs manual test.
+
+### Decisions and doubts
+
+- **Connector fact platforms**: the issue #3 comment (2026-11-04) says "the Chat Apps" without naming them; the grilling record (grilled-idea.md → Facts recorded) names "Claude and ChatGPT (the founder's check)". The spec names both, citing that source, so no ChatGPT release check was added. If the founder didn't actually check ChatGPT, move it to Release checks.
+- **"handoff" untranslated** in Italian: it's agent-facing and names the English lines; "passaggio di consegne" would read as prose, not a contract.
+- **`products` folder stays English in Italian roots**: the handoff line fixes `products/<instance>`, so translating it would break the contract. Stated in the Italian `add-interest` and the glossary.
+- **Italian Conventions row**: marker `managed by cruna-pm-github` English (skills match on it), text after `: ` in Italian, like other Conventions content.
