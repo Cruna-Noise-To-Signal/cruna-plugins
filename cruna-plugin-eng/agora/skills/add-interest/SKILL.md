@@ -1,11 +1,25 @@
 ---
 name: add-interest
-description: Adds a new interest or instance to Agora, the shared family or business notebook on Google Drive. Use when the user wants Agora to start following something new, a new person, client, project or topic ("start tracking the house renovation", "new client Acme"), or a new area inside one already followed ("add Greta's swimming", "Acme gave us a new job").
+description: Adds a new interest or instance to Agora, the shared family or business notebook on Google Drive. Use when the user wants Agora to start following something new, a new person, client, project or topic ("start tracking the house renovation", "new client Acme"), or a new area inside one already followed ("add Greta's swimming", "Acme gave us a new job"). Also runs the add-interest handoff, a line starting "Agora add-interest as <slug> in <root>:".
 ---
 
 # Add an interest or instance
 
 Creates a new **interest** (top-level folder) or **instance** (folder inside an interest) from its templates (rules → File kinds → templates), and keeps the indexes, statuses and `org.md` in step. `setup` reuses step 4 and the interest level of step 6 to build the first interests; it writes the `org.md` Interests table and the root `index.md` and `status.md` once itself, so skip everything else when called from setup.
+
+## Handoff
+
+A message starting `Agora add-interest as ` is the add-interest handoff (rules → Handoffs): `Agora add-interest as <slug> in <root>: products/<instance> — <name>: <description>`. It links a GitHub repo as a managed instance. Run these steps unattended instead of the ones below, and reply with the result line only. Each step is idempotent: a second call creates nothing twice.
+
+1. **Check**: load the rules, find the root by name and read `org.md`. The interest must be `products`, and `<instance>` lowercase, hyphenated ASCII. Fails, writing nothing: a line that doesn't parse, any other interest, an unknown root, a slug whose Members row has a Role other than `github`.
+2. **Member**: when `<slug>` has no Members row, add the github member row (rules → File kinds → templates, `org.md`).
+3. **Interest**: when `products/` is missing, add its Interests row (no color, "Software products built in GitHub" in the root's language), and create the folder, `index.md` and `status.md` (step 4 below, no proposed instance).
+4. **Instance**: an instance folder named exactly `<instance>` under `products/` is the same product: when its description in `products/index.md` differs from `<name>: <description>`, rebuild that index with the new one. Otherwise create the instance (step 4 below), its description `<name>: <description>` verbatim. Near duplicates get no check and no question.
+5. **Convention**: when no Conventions row has Where `products/<instance>`, add the managed row (templates, `org.md`), with `<slug>` and today's date.
+6. **Write `org.md`** once, by Replace, when steps 2, 3 or 5 changed it.
+7. **Propagate**: for a new instance, step 6 below; for a new description only, nothing beyond step 4. Skip step 7 below.
+
+Success lists what was written, or says nothing changed: `agora: ok — member pm, interest products, instance products/cruna-plugins, convention`, `agora: ok — description of products/cruna-plugins`, `agora: ok — nothing to change`.
 
 ## 1. Load the rules and the root
 
