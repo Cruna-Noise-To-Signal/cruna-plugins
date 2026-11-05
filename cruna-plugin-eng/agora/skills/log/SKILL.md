@@ -1,11 +1,24 @@
 ---
 name: log
-description: Logs news into the Agora diary and working files and keeps each status current. Use when a member tells Agora something that happened or changed about a person, client or topic it tracks ("Nina's swimming lesson moved to Thursday", "client X approved the quote"), pastes an email or message to keep, corrects something logged earlier, or says "save that" or "note this down" after asking Agora a question. Also when they want something frequent tracked in a file ("track Greta's nappies"), ask for a list, memo or printable ("add milk to the shopping list", "make a packing list"), or change how Agora handles their data ("from now on…").
+description: Logs news into the Agora diary and working files and keeps each status current. Use when a member tells Agora something that happened or changed about a person, client or topic it tracks ("Nina's swimming lesson moved to Thursday", "client X approved the quote"), pastes an email or message to keep, corrects something logged earlier, or says "save that" or "note this down" after asking Agora a question. Also when they want something frequent tracked in a file ("track Greta's nappies"), ask for a list, memo or printable ("add milk to the shopping list", "make a packing list"), or change how Agora handles their data ("from now on…"). Also runs the log handoff, a line starting "Agora log as <slug> in <root>:".
 ---
 
 # Log
 
 A **log** turns what a member says into one diary entry per instance it concerns, puts anything time-bound on the calendar, and refreshes every status above it. The member talks; you place, write and propagate. Log also owns the **working files** (trackers and lists) and the **Conventions** that route facts to them (rules → File kinds, rules → Conventions); their procedures live in [references/working-files.md](references/working-files.md).
+
+## Handoff
+
+A message starting `Agora log as ` is the log handoff (rules → Handoffs): `Agora log as <slug> in <root>: <interest>/<instance> — github: <refs> — <entry text>`. Run the steps below unattended, with these changes, and reply with the result line only:
+
+- **Step 1**: load the rules, find the root by name and read `org.md`. The author is `<slug>`, which must be a member with Role `github`; skip Identity and memories.
+- **Step 2**: the material is `<entry text>`, one fact, one entry.
+- **Step 3**: the instance is `<interest>/<instance>`; its folder must exist. No tracker routing, no `add-interest` offer.
+- **Step 5**: skipped; `events: []`.
+- **Step 6**: `author`: `<slug>`; `github:` the refs, comma-split, as a list; **Summary** in the root's language; **Entry** `<entry text>` verbatim.
+- **Steps 8–10**: skipped.
+
+Fails, writing nothing: a line that doesn't parse into all four fields, an unknown root, a slug that isn't a github member, a missing instance folder. Success: `agora: ok — <interest>/<instance>/diary/<file>.md`.
 
 ## Steps
 
@@ -100,5 +113,6 @@ One short message, in the root's language:
 - To-dos added, one line each as `todo` echoes them.
 - The suggestion from step 9, if any.
 - The `remember` line, if any.
+- On a managed instance (rules → Vocabulary), one line per such instance: "noted; it becomes a GitHub request at the next sync", in the root's language.
 
 No file paths other than a working file's, no front-matter or status text unless the member asks.
