@@ -12,6 +12,7 @@ These are identifiers shared by both language versions and by the files on Drive
 - Front-matter keys and values (`agora: root`, `agora: setup`, `state: todo | done`, `author`, `created`, `interest`, `instance`, `documents`, `events`, `language`, …), the author `routine`, CSV column names, the event title format `[interest/instance] title`, the line `Maintained: documents/<name>`.
 - Email identifiers, parsed by the skills and shared by both language versions: `inbox.md` and its front-matter (`agora: inbox`, `last_tidy_up`), its column names (`Message id`, `Date`, `From`, `Subject`, `Outcome`, `By`) and outcomes (`filed → <path>`, `flagged`, `drafted`, `sent → <path>`, `ignored`, and `to <recipients>` in From); the `org.md` field `email: on | off` and the Members column `Mail from`; the diary keys `email`, `email_from`, `email_subject` and the lines `To file: <names>` and `Attachment of: diary/<entry> (<name>)`; the memory line `Email importance: <not asked | invited | no preference | criteria>` with its state values and `see Conventions`; the review heading `## Email` and the `setup.md` box `Email` (and its value `(off)`). The criteria a member states are content, in the root's language.
 - To-do identifiers, parsed by the skills and shared by both language versions: the front-matter `agora: todo` and `agora: todo-list`; the actions `add`, `done`, `reopen`, `assign`, `edit`, `remove`; the keys `action`, `author`, `created`, `owner`, `due`, `interest`, `instance`, `source`, `todo`, `text`, `filter`, `count`, `todos`; the values `everyone` and `none`, and the source form `email <Gmail message id>`; the `todo.md` title `# To-dos` and headings `## <Name>` (the member's Name from `org.md`), `## Everyone`, `## Recently done`; the review heading `## To-dos`; the `status.md` Pending line prefix `To-do:`; the ledger outcome `to-do → <id>`. The to-do text, the line contents after those markers, the parts of the review's To-dos section and a `remove` event's `filter` are content, in the root's language.
+- GitHub bridge identifiers, shared with `cruna-pm-github`: the handoff lines (rules → Handoffs: `Agora log as …`, `Agora todo as …`, `Agora add-interest as …`, with their `edit`, `text`, `done`, `github:` and ` — ` separators) and the result lines `agora: ok — …` and `agora: failed — …`, which stay in English word for word, as do the reasons and descriptions in them; the Role value `github`; the interest `products` (its folder name, even in an Italian root); the diary key `github:` and its refs (`#8`, `PR #9`, `v2026.11.12`); the Conventions marker `managed by cruna-pm-github` (the text after its `: ` is content); the bridge file name `YYYY-MM-DD_hh_mm_last-check.md`; the slug `pm`.
 
 Content written into those files is in the root's language (`it` for this plugin's default).
 
@@ -130,6 +131,21 @@ Content written into those files is in the root's language (`it` for this plugin
 | review To-dos section parts: Overdue, Due ahead, Opened, Done, Suggestions, No date, open over 30 days | Scaduti, In scadenza, Aperti, Fatti, Suggerimenti, Senza data, aperti da oltre 30 giorni |
 | `todo.md` line marker **Overdue**; "no date"; "due" (in a line) | **Scaduto**; senza data; scadenza |
 | "no preference" (what the member says) / "filed" (member's reply) | "nessuna preferenza" (stored as `no preference`) / "archiviato" |
+| handoff (one-line prompt from another plugin) | handoff (m., invariable: `l'handoff`, `gli handoff`) |
+| handoff shape / result line | forma dell'handoff / riga di risultato |
+| github member | membro github |
+| managed instance | istanza gestita |
+| bridge / bridge file | ponte / file del ponte |
+| last-check (file) | `last-check` (the file name stays) |
+| link / unlink a repo | collegare / scollegare un repo |
+| sync (of `cruna-pm-github`) | sincronizzazione |
+| GitHub request | richiesta GitHub |
+| ref (issue, PR or tag) | riferimento |
+| products from GitHub (help) | prodotti da GitHub |
+| "Software products built in GitHub" (`products` description) | "Prodotti software costruiti su GitHub" |
+| "PM (GitHub)" / "address for GitHub through cruna-pm-github" (Members row) | "PM (GitHub)" / "indirizzo per GitHub tramite cruna-pm-github" |
+| "notes and to-dos for pm become GitHub requests" (managed Convention text) | "note e to-do per pm diventano richieste GitHub" |
+| "noted; it becomes a GitHub request at the next sync" (`log` reply) | "annotato; diventerà una richiesta GitHub alla prossima sincronizzazione" |
 
 Interest and instance slugs and working-file names are content, so they follow the root's language (`famiglia`, `nina/salute`, `greta-pannolini.csv`).
 
@@ -162,6 +178,9 @@ Pointers are written `rules → <heading>` using exactly these Italian headings.
 | prerequisites → Offboarding a member | prerequisiti → Uscita di un membro |
 | Email (rules section) | Email |
 | To-dos (rules section) | To-do |
+| Handoffs | Handoff |
+| Handoffs → Check, then write | Handoff → Controlla, poi scrivi |
+| Handoff (section in `log`, `todo`, `add-interest`) | Handoff |
 
 `rules` headings in `references/email.md` (pointed to as `rules → Email → <heading>`):
 
