@@ -1,6 +1,6 @@
 ---
 name: add-interest
-description: Adds a new interest or instance to Agora, the shared family or business notebook on Google Drive. Use when the user wants Agora to start following something new, a new person, client, project or topic ("start tracking the house renovation", "new client Acme"), or a new area inside one already followed ("add Greta's swimming", "Acme gave us a new job"). Also runs the add-interest handoff, a line starting "Agora add-interest as <slug> in <root>:".
+description: Adds a new interest or instance to Agora, the shared family or business notebook on Google Drive. Use when the user wants Agora to start following something new, a new person, client, project or topic ("start tracking the house renovation", "new client Acme"), or a new area inside one already followed ("add Greta's swimming", "Acme gave us a new job"). Also runs the add-interest handoff, a line starting "Agora add-interest as" sent by another plugin.
 ---
 
 # Add an interest or instance

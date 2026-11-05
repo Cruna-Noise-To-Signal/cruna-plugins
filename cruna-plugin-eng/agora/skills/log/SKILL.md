@@ -1,6 +1,6 @@
 ---
 name: log
-description: Logs news into the Agora diary and working files and keeps each status current. Use when a member tells Agora something that happened or changed about a person, client or topic it tracks ("Nina's swimming lesson moved to Thursday", "client X approved the quote"), pastes an email or message to keep, corrects something logged earlier, or says "save that" or "note this down" after asking Agora a question. Also when they want something frequent tracked in a file ("track Greta's nappies"), ask for a list, memo or printable ("add milk to the shopping list", "make a packing list"), or change how Agora handles their data ("from now on…"). Also runs the log handoff, a line starting "Agora log as <slug> in <root>:".
+description: Logs news into the Agora diary and working files and keeps each status current. Use when a member tells Agora something that happened or changed about a person, client or topic it tracks ("Nina's swimming lesson moved to Thursday", "client X approved the quote"), pastes an email or message to keep, corrects something logged earlier, or says "save that" or "note this down" after asking Agora a question. Also when they want something frequent tracked in a file ("track Greta's nappies"), ask for a list, memo or printable ("add milk to the shopping list", "make a packing list"), or change how Agora handles their data ("from now on…"). Also runs the log handoff, a line starting "Agora log as" sent by another plugin.
 ---
 
 # Log

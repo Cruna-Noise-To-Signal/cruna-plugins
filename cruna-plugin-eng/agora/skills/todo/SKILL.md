@@ -1,6 +1,6 @@
 ---
 name: todo
-description: Keeps the Agora to-do list, personal and shared. Use when a member adds a to-do ("add a to-do: renew the car insurance", "Nina should book the dentist", "someone needs to buy toner"), asks what is on a list ("what's on my list?", "what's open on Acme?"), finishes, reopens, takes over, reassigns or changes one ("done with the insurance", "I'll do it", "give it to Nina", "move it to Friday"), clears old to-dos ("remove everything closed before June"), or says yes to a suggested to-do. Also runs the todo handoff, a line starting "Agora todo as <slug> in <root>:".
+description: Keeps the Agora to-do list, personal and shared. Use when a member adds a to-do ("add a to-do: renew the car insurance", "Nina should book the dentist", "someone needs to buy toner"), asks what is on a list ("what's on my list?", "what's open on Acme?"), finishes, reopens, takes over, reassigns or changes one ("done with the insurance", "I'll do it", "give it to Nina", "move it to Friday"), clears old to-dos ("remove everything closed before June"), or says yes to a suggested to-do. Also runs the todo handoff, a line starting "Agora todo as" sent by another plugin.
 ---
 
 # To-do
