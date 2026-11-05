@@ -12,7 +12,9 @@ Agora is a shared knowledge base kept by the AI on Google Drive (files) and Goog
 - **Root**: one independent Agora (a family, a small business). Its own folder, members, system calendar, memories and routines.
 - **Interest**: a top-level folder in the root. What an interest *is* (a person, a client, a topic) is the root's **layout convention**, recorded in `org.md`.
 - **Instance**: a folder inside an interest; the unit that holds a diary and documents. Depth is always exactly two: `root/<interest>/<instance>/`. Something smaller than an instance (a single blood test, a single invoice) is a diary entry plus its documents, never a folder.
-- **Member**: a person in `org.md`. Their **slug** is their first name, lowercase, ASCII (`simone`).
+- **Member**: a row in `org.md` Members: a person, or a github member. A person's **slug** is their first name, lowercase, ASCII (`simone`).
+- **Github member**: a member whose Role is `github` (slug `pm` unless the handoff names another). An address meaning "this goes to GitHub" through the `cruna-pm-github` plugin, not a person: it may author diary entries and to-do events and own to-dos, and has no calendar, routines, memories file, Access row or `setup.md` section.
+- **Managed instance**: an instance with a Conventions row `managed by cruna-pm-github`. Notes logged there and to-dos for its github member become GitHub requests at the next sync, done by `cruna-pm-github`, never by Agora.
 - **Assistant account**: the Google account the Drive and Calendar connectors (and Gmail, when email is on) are logged in as. A dedicated account when the root has several members; the owner's own account when solo.
 - **Assistant inbox**: the assistant account's Gmail inbox, the only inbox Agora reads. Optional per root (rules → Email).
 - **Member mail**: an email whose sender address is listed for a member in `org.md`.
@@ -55,9 +57,12 @@ Write all content in the language set in `org.md`. Folder names, file names and 
         ├── index.md
         ├── status.md
         ├── diary/       <slug>-YYYYMMDD_HHMM.md
-        └── documents/   <slug>-YYYYMMDD_HHMM_<original-name>.<ext>
-                         <name>.csv | <name>.md   (working files)
+        ├── documents/   <slug>-YYYYMMDD_HHMM_<original-name>.<ext>
+        │                <name>.csv | <name>.md   (working files)
+        └── YYYY-MM-DD_hh_mm_last-check.md   (bridge file, managed instances only)
 ```
+
+The **bridge file** belongs to `cruna-pm-github`, which replaces it on every sync. Agora never reads, indexes, files, flags or trashes it, and leaves it out when checking whether an index is stale.
 
 The root folder is named after the root's display name unless the user picks another name. Interest and instance folder names are lowercase, hyphenated, ASCII (`nina`, `swimming-pool`). Timestamps use the root's timezone; when a diary or document name is already taken, use the next free minute. Diary entries written by the `review` routine use `routine` in place of a member slug.
 
@@ -133,7 +138,7 @@ When the root, interest, instance, member, or date is unclear, ask the user befo
 
 ### Identity
 
-At the start of each conversation, ask who you are talking to (list the members from `org.md`) unless it is already known in this conversation. Every diary entry and document carries that member's slug.
+At the start of each conversation, ask who you are talking to (list the members from `org.md`, leaving out github members) unless it is already known in this conversation. A handoff names who is talking in its line (rules → Handoffs). Every diary entry and document carries that member's slug.
 
 ### Unattended runs
 
@@ -143,7 +148,29 @@ Scheduled routines have nobody to ask. They act only on what is unambiguous and 
 
 Add a line under Needs attention in the root `status.md` saying what was found and what question or manual fix settles it. Interactive runs flag too, when an action fails and needs a manual fix; they also tell the member. Every rebuild of the root `status.md` keeps each flag whose condition still holds and drops the resolved ones.
 
-## Calendar conventions
+## Handoffs
+
+A **handoff** is a one-line prompt in a fixed shape, sent by another plugin's skill (`cruna-pm-github`'s `agora-sync`), that runs one Agora skill **unattended**: everything the skill would ask is in the line. A message that starts `Agora <skill> as ` is a handoff.
+
+Handoff shapes v1: a change to any of them is breaking; announce it in the release notes and ship it with `cruna-pm-github`.
+
+```
+Agora log as <slug> in <root>: <interest>/<instance> — github: <ref>[, <ref>…] — <entry text>
+Agora todo as <slug> in <root>: edit <to-do id> text "<new text>"
+Agora todo as <slug> in <root>: done <to-do id>
+Agora add-interest as <slug> in <root>: products/<instance> — <name>: <description>
+```
+
+The separators are ` — ` (em dash between spaces) and the first `: `; the last field runs to the end of the line, so it may hold either. A `<ref>` is an issue, PR or tag as GitHub writes it (`#8`, `PR #9`, `v2026.11.12`).
+
+Every handoff follows these rules; each skill's Handoff section adds its own:
+
+- **Who and where.** `<root>` is matched against each root's `name` in `org.md` or its folder name (rules → Finding the root). `<slug>` must be a github member of that root; only `add-interest` may create it. The interest, instance and to-do the line names must already exist, except what `add-interest` creates.
+- **Check, then write.** Settle every check (shape, root, slug, instance, to-do) before the first write. Any check that fails: write nothing.
+- **Skipped steps.** No identity question, memories read, calendar step, to-do offer, pattern suggestion or memory step, and no question of any kind: where the skill would ask, the handoff fails instead. Everything else (placement checks, templates, Replace, propagation) runs as usual.
+- **Language.** Summary lines and any text Agora writes are in the root's language. The text the line carries is kept verbatim (in a diary Entry, a to-do's text, a description).
+- **Result.** The whole reply is one line, in English, with no greeting: `agora: ok — <what was written>` or `agora: failed — <reason>`. A connector failure is `agora: failed — <what failed>`, naming anything already written, in place of rules → When something fails.
+
 
 - The root's **system calendar** is the assistant account's primary calendar (`calendar` in `org.md`, the account's email). Write only there. Members' personal calendars, when shared, are read-only: use them to find free time.
 - Event title: `[<interest>/<instance>] <title>` (`[nina/health] Blood test`).
