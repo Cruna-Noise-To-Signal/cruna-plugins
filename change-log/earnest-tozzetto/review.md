@@ -61,3 +61,39 @@
 3. **Duplication, Kind.** "Kind changes nothing" is stated in Vocabulary, in `templates.md` and in `interview.md`. Keep it in Vocabulary and point to it from the other two.
 4. **Basic-mode regression risk:** `deliveredto:` on sent-mail searches. Settle it in F7.
 5. **Spec drift:** the extra decisions in report.md (the ownership-transfer fix, the stop on a `root_id` mismatch) must reach `docs/agora/agora-spec.md` in F12.
+
+## M1 - Shared services root — round 2
+
+**Result: PASS** (Specs PASS, Standards PASS). This reviews the fixes in 6ed17c6, 89fd81f and 05a2522.
+
+### Specs
+
+**Verdict: PASS.** All four round 1 findings are resolved.
+
+- **(a)1 Group settings:** `prerequisites.md` item 4 step 3 now has these settings:
+  - label Mailing, access type Restricted, Only invited users;
+  - External ticked under Who can post. The type then becomes Custom, which the file states as the correct final state. groups.google.com "Anyone on the web" is given as the equivalent, which settles spec l.138.
+
+  Item 4 now opens as the plugin's manual setup guide, with the "Per new member" and "The joining member" lists (spec l.141–142, and #11's last comment). The docs side is F12.
+- **(b)2 Own calendar:** stated once, in rules → Calendar conventions → The speaker's own calendar. `ask`, `review` and `schedule` point to it, and Vocabulary names it as a per-mode difference. It still goes beyond spec l.109 and l.206; that is accepted, and the spec wording is updated in F12. Basic mode is unchanged.
+- **(c)3:** "A new shared services root is written without `assistant_account`; a root moved from basic mode keeps it". This matches l.181.
+- **(c)4:** a Members table written before Kind keeps its shape. New rows, the github row included, follow the header, and members are read as `human`.
+
+**New, minor (carried to M2)**
+
+1. **(c) The two Gmail checks disagree on who sends the test.** Item 4 step 3 says the test is "sent from an address outside the organisation". Item 7 still asks the member to send it, and a member's address is inside the organisation, so the test never exercises External posting. Fix: item 7 asks for the test from an outside address, or item 4 drops the clause.
+2. **(b)** "The joining member" step 3 (accept the shared calendar invitation) isn't in spec l.142. It's reasonable, but carry it into `agora-spec.md` in F12.
+
+### Standards
+
+**Verdict: PASS.** The checker passes ("Valid for Claude and OpenAI").
+
+- Advisory 2 is addressed: the own-calendar rule is stated once, and the Vocabulary claim now holds.
+- Advisory 3 is addressed: "Kind changes nothing" is only in Vocabulary. The `templates.md` line "read every member as `human`" covers a different case, so it isn't a duplicate.
+- Commits name the review item they fix. The slices are small and English-only.
+
+**New advisories (carried to M2)**
+
+1. **Possible Duplicated Code, `prerequisites.md` item 4 step 3.** The intro lists every setting that steps 3.1–3.2 then repeat. Cut the intro to the goal.
+2. **Pointer tension, `prerequisites.md` header.** It says a joining member "walks items 1–3, 5 and 6", while item 4 is also the joiner's guide in shared services mode. Reconcile them in F5.
+3. **Sprawl.** Item 4 is the longest block in the file, and only one mode uses it. If F5–F7 grow it further, move the shared services admin guide to its own reference with one pointer. This is the same move as round 1's advisory 1 for `setup`.
