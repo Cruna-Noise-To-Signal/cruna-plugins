@@ -131,6 +131,7 @@ One platform. As the copy's owner, connected as its assistant account. Say "move
 | Old root trashed by the assistant account; a search for `org.md` finds the new root only; diary entries and documents all present | [ ] |
 | The linked-repo list names each managed `products/` instance (or says none) | [ ] |
 | Verify passes in shared services mode; another member's Join matches their Member section | [ ] |
+| Offboard the mover (on the copy): Agora asks who takes the old address, and it moves to that member's Mail from in the same `org.md` write | [ ] |
 
 Notes:
 

@@ -47,4 +47,4 @@ Dopo i passi dell'amministratore, nella sua app AI con l'accesso al suo account 
    - calendario: **Impostazioni** → il calendario → **Condiviso con** → **×** accanto a lui.
 3. **Il suo account Workspace** (amministratore): sospendilo o eliminalo, a scelta dell'amministratore: Console di amministrazione → **Directory** → **Utenti** → il suo nome → **Sospendi utente** (Suspend user) o **Elimina utente** (Delete user). I file nel Drive condiviso appartengono al drive e restano.
 4. Chiedigli, se è raggiungibile, di scollegare i connettori nel suo client e di eliminare le sue routine Agora.
-5. Aggiorna le tabelle Members e Access in `org.md`.
+5. Aggiorna le tabelle Members e Access in `org.md`. L'indirizzo dismesso dell'assistente nella sua cella Mail from (dopo uno spostamento) passa a quella di un altro membro.

@@ -251,7 +251,7 @@ In their own AI app, signed in as their Workspace account:
 2. Remove them from the shared drive (**Manage members** → **Remove access**), the group (**Members** → **Remove member**) and the calendar's sharing (**Shared with** → **×**).
 3. The admin suspends or deletes their Workspace account (Admin console → **Directory** → **Users** → **Suspend user** or **Delete user**). Files in the shared drive belong to the drive and stay.
 4. Ask them to disconnect their connectors and delete their routines.
-5. Update Members (`removed YYYY-MM-DD`) and Access in `org.md`, and remove their `setup.md` section.
+5. Update Members (`removed YYYY-MM-DD`) and Access in `org.md`, and remove their `setup.md` section. A retired assistant address in their Mail from (after a Move) moves to another member's Mail from, so mail from it stays trusted.
 
 ### Moving a basic root (the old account's Gmail)
 
@@ -383,7 +383,7 @@ Optional, per root (`email: on` in `org.md`), built on the Gmail connector: the 
 
 ### Member mail
 
-Mail whose sender address matches a member's Mail from address (a display-name match alone never counts). After a Move to shared drive, the retired assistant address is added to the Mail from cell of the member who ran the move, so mail from it is trusted as member mail. Member mail always needs attention. Member mail carrying an instruction ("reply saying we accept") gets the reply it asks for drafted and flagged for that member's approval, on its own ledger row, on top of filing or flagging the email itself; never sent.
+Mail whose sender address matches a member's Mail from address (a display-name match alone never counts). After a Move to shared drive, the retired assistant address is added to the Mail from cell of the member who ran the move, so mail from it is trusted as member mail; when that member is offboarded, the address moves to another member's Mail from. Member mail always needs attention. Member mail carrying an instruction ("reply saying we accept") gets the reply it asks for drafted and flagged for that member's approval, on its own ledger row, on top of filing or flagging the email itself; never sent.
 
 ### Filing
 

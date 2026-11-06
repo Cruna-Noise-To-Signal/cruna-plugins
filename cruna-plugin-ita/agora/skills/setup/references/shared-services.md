@@ -69,7 +69,7 @@ Al posto dei passi 1–4 di Uscita in SKILL.md, confermando ogni passo con il pr
 
 Poi i passi 5 e 6 di SKILL.md.
 
-Fatto quando `calendar_owner` nomina un membro attuale diverso da quello che esce, ogni rimozione è controllata o confermata da chi l'ha fatta, le righe Members e Access in `org.md` lo mostrano rimosso, e `setup.md` non ha una sezione per lui. Vai al passo 7 di SKILL.md.
+Fatto quando `calendar_owner` nomina un membro attuale diverso da quello che esce, ogni rimozione è controllata o confermata da chi l'ha fatta, le righe Members e Access in `org.md` lo mostrano rimosso, l'indirizzo dismesso dell'assistente (se c'è) è nella cella Mail from di un membro attuale, e `setup.md` non ha una sezione per lui. Vai al passo 7 di SKILL.md.
 
 ## 7. Verifica
 

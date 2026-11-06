@@ -152,14 +152,14 @@ Run it with the root's owner, signed in as the assistant account where a step ne
 2. Remove their access to the system calendar: Google Calendar (as the assistant account) → Settings → the calendar → Share with specific people → remove them.
 3. Ask the member, if reachable, to disconnect the Drive and Calendar connectors (and Gmail, when email is on) in their client and delete their Agora routines.
 4. When they knew the assistant account's password, have the owner change it and pass the new one to the remaining members.
-5. Update `org.md` (rules → Replace): write `removed YYYY-MM-DD` in their Members Notes, and `removed` under Drive and System calendar in their Access row. Their diary entries, documents and `memories/<slug>.md` stay: they are history.
+5. Update `org.md` (rules → Replace): write `removed YYYY-MM-DD` in their Members Notes, and `removed` under Drive and System calendar in their Access row. When their Mail from cell holds the retired assistant address (Move to shared drive, step 7), move that address to another member's Mail from cell in the same write, asking the owner whose, so mail from it stays member mail. Their diary entries, documents and `memories/<slug>.md` stay: they are history.
 6. Remove their Member section from `setup.md` and set `state` from the boxes left.
 
 Shared services mode: shared-services.md → 6, in place of steps 1–4 and of this Done when. A member who is `calendar_owner` blocks the branch until the calendar is transferred.
 
 **A github member** ("remove pm from Agora") takes one step in place of 1–6: remove its Members row and every Conventions row managed by it (`managed by cruna-pm-github`, its slug under Since), writing `org.md` once (rules → Replace). Its diary entries and to-dos stay. Tell the owner that the repos stay linked in GitHub until a developer unlinks them with `cruna-pm-github`: the next link adds the member back.
 
-Done when the member has no editor access on the folder or calendar, the Members/Access rows in `org.md` show them removed, and `setup.md` has no section for them; for a github member, when `org.md` has no Members row for it and no Conventions row managed by it. Go to step 7.
+Done when the member has no editor access on the folder or calendar, the Members/Access rows in `org.md` show them removed, no removed member's Mail from cell holds the retired assistant address, and `setup.md` has no section for them; for a github member, when `org.md` has no Members row for it and no Conventions row managed by it. Go to step 7.
 
 ## 7. Verify
 

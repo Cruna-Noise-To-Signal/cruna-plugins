@@ -163,6 +163,8 @@ Content written into those files is in the root's language (`it` for this plugin
 | See all event details | Visualizza tutti i dettagli degli eventi (See all event details) |
 | the three ids / Same answer (rule) | i tre id / Stessa risposta |
 | mail filter; received-mail form / sent-mail form | filtro della posta; forma per la posta ricevuta / forma per la posta inviata |
+| list-id (the group address with `@` as `.`); the member's own posts | list-id (identificatore, resta in inglese); i messaggi che il membro stesso ha inviato al gruppo |
+| retired assistant address | indirizzo dismesso dell'assistente |
 | mailbox / your mailbox | casella di posta / la tua casella |
 | email time | ora dell'email |
 | duplicate key / the same email | chiave dei duplicati / la stessa email |

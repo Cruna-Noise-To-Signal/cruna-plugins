@@ -185,6 +185,7 @@ The Move branch, help in both modes and both languages, and the release docs. In
 - [ ] Step 8: the old root is trashed by the assistant account, and searching `org.md` finds the new root only. All diary entries and documents are there.
 - [ ] Steps 9–10: the old account is said to stay, unused, and the linked-repo list names each managed `products/` instance (or "none").
 - [ ] Verify passes in shared services mode. As B, "join Agora" matches B's Member section.
+- [ ] Offboard A on this copy: Agora asks who takes the old assistant address, and it moves from A's Mail from to that member's in the same `org.md` write.
 
 ### 2. Help in both modes
 

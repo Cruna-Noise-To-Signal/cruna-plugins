@@ -47,4 +47,4 @@ After the admin's steps, in their own AI app signed in as their Workspace accoun
    - calendar: **Settings** → the calendar → **Shared with** → **×** beside them.
 3. **Their Workspace account** (admin): suspend or delete it, at the admin's choice: Admin console → **Directory** → **Users** → their name → **Suspend user** or **Delete user**. Files in the shared drive belong to the drive and stay.
 4. Ask them, if reachable, to disconnect the connectors in their client and delete their Agora routines.
-5. Update the Members and Access tables in `org.md`.
+5. Update the Members and Access tables in `org.md`. The retired assistant address in their Mail from cell (after a Move) moves to another member's.

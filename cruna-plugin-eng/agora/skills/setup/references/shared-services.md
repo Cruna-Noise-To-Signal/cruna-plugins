@@ -69,7 +69,7 @@ In place of SKILL.md's Offboard steps 1–4, confirming each step with the owner
 
 Then SKILL.md's steps 5 and 6.
 
-Done when `calendar_owner` names a current member other than the one leaving, each removal is checked or confirmed by the person who did it, the Members and Access rows in `org.md` show them removed, and `setup.md` has no section for them. Go to SKILL.md step 7.
+Done when `calendar_owner` names a current member other than the one leaving, each removal is checked or confirmed by the person who did it, the Members and Access rows in `org.md` show them removed, the retired assistant address (if any) is in a current member's Mail from cell, and `setup.md` has no section for them. Go to SKILL.md step 7.
 
 ## 7. Verify
 

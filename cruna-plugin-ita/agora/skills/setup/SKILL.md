@@ -152,14 +152,14 @@ Eseguilo con il proprietario della radice, con l'accesso come account dell'assis
 2. Togligli l'accesso al calendario di sistema: Google Calendar (come account dell'assistente) → Impostazioni (Settings) → il calendario → Condividi con persone specifiche (Share with specific people) → rimuovilo.
 3. Chiedi al membro, se raggiungibile, di scollegare i connettori di Drive e Calendar (e Gmail, quando l'email è attiva) nella sua app e di eliminare le sue routine di Agora.
 4. Se conosceva la password dell'account dell'assistente, fai cambiare la password al proprietario e fagliela passare ai membri rimasti.
-5. Aggiorna `org.md` (rules → Sostituire): scrivi `rimosso YYYY-MM-DD` nelle Notes della sua riga Members, e `rimosso` sotto Drive e System calendar nella sua riga Access. Le sue voci di diario, i suoi documenti e `memories/<slug>.md` restano: sono storia.
+5. Aggiorna `org.md` (rules → Sostituire): scrivi `rimosso YYYY-MM-DD` nelle Notes della sua riga Members, e `rimosso` sotto Drive e System calendar nella sua riga Access. Quando la sua cella Mail from contiene l'indirizzo dismesso dell'assistente (Sposta su Drive condiviso, passo 7), sposta quell'indirizzo nella cella Mail from di un altro membro nella stessa scrittura, chiedendo al proprietario quale, così la posta da quell'indirizzo resta posta dei membri. Le sue voci di diario, i suoi documenti e `memories/<slug>.md` restano: sono storia.
 6. Togli la sua sezione Member da `setup.md` e imposta `state` in base alle caselle rimaste.
 
 Modalità servizi condivisi: shared-services.md → 6, al posto dei passi 1–4 e di questo Fatto quando. Un membro che è `calendar_owner` blocca il ramo finché il calendario non è trasferito.
 
 **Un membro github** ("togli pm da Agora") richiede un solo passo al posto di 1–6: togli la sua riga Members e ogni riga Conventions gestita da lui (`managed by cruna-pm-github`, con il suo slug sotto Since), scrivendo `org.md` una volta sola (rules → Sostituire). Le sue voci di diario e i suoi to-do restano. Di' al proprietario che i repo restano collegati in GitHub finché uno sviluppatore non li scollega con `cruna-pm-github`: il prossimo collegamento rimette il membro.
 
-Fatto quando il membro non ha più accesso come editor alla cartella né al calendario, le righe Members/Access in `org.md` lo mostrano rimosso, e `setup.md` non ha una sezione per lui; per un membro github, quando `org.md` non ha una sua riga Members né righe Conventions gestite da lui. Vai al passo 7.
+Fatto quando il membro non ha più accesso come editor alla cartella né al calendario, le righe Members/Access in `org.md` lo mostrano rimosso, nessuna cella Mail from di un membro rimosso contiene l'indirizzo dismesso dell'assistente, e `setup.md` non ha una sezione per lui; per un membro github, quando `org.md` non ha una sua riga Members né righe Conventions gestite da lui. Vai al passo 7.
 
 ## 7. Verifica
 
