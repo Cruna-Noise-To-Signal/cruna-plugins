@@ -372,3 +372,50 @@ New M2 work conforms: the duplicate key, the sent-mail forms and the overdue per
 - The smell baseline finds nothing new; the change removes duplication.
 
 **Advisory (optional):** `references/email.md` l.18, "the mail filter in its sent-mail form". Add "(in shared services mode, the one form)".
+
+## M3 - Moving and documenting — round 4
+
+**Result: PASS** (Specs PASS, Standards PASS). This reviews the fixes in e26c99c and 79fe911. Spec advisory 2 below is a latent correctness gap, so it gets a small follow-up revision before close.
+
+### Specs
+
+**Verdict: PASS.** The round 3 MUST is resolved: replies and forwards get their own `outgoing` row, keyed on the draft id and then on the sent id, with By set to the sending member.
+
+**Trace**
+- Client X to the group: A flags it, giving row X with Mailbox=a.
+- A replies with the group in CC: row X becomes `sent`, and a new `outgoing` row holds A's sent id.
+- A's next triage: the sent copy matches the `outgoing` id, so it is skipped.
+- B's next triage: B's copy has a different id. Its duplicate key (A's Email, Date minute, "Re: …") matches the `outgoing` row, so it is skipped.
+
+**Leak check: clean.**
+- The review Email section never lists `outgoing` rows.
+- To-dos join only filed, drafted or sent rows.
+- "Drafts waiting" takes `drafted` only; an unsent draft's `outgoing` row is pruned at 60 days.
+- No false copy merge, the prune is 60 days, the Mailbox column holds the writer's mailbox, and Replace is unchanged.
+
+**Basic mode:** unchanged from 0.6.0. Every clause is gated on shared services, and basic mode writes no `outgoing` rows.
+
+**Consistency and completeness**
+- ENG and ITA match, and the glossary has `outgoing`.
+- agora-spec l.189 and l.411 match the rules, and the manual test has the A/B row.
+- Round 3 advisories are done.
+- The request is complete end to end.
+
+**Advisory**
+1. email.md l.71 "dated with the send time" should be "dated with the sent message's email time (Mailboxes)", to match the duplicate key's Date-header minute.
+2. **Latent gap.** l.17 says "for a row Agora sent, the sender is the Email of the member in By". After a reply, the original row (From = client, outcome `sent`, By = member) also reads as "a row Agora sent". It would then be keyed on the member's address, so B's copy of X misses it. Use "for a row whose From is `to <recipients>`".
+3. review SKILL step 3 lists new ledger rows "by Email section part". Say that `outgoing` rows are left out.
+4. change-log spec.md still says `deliveredto:`; agora-spec records the founder's decision.
+
+### Standards
+
+**Verdict: PASS.**
+- English and Italian change together, with matching word diffs, and the glossary terms are used. `outgoing` is added to the untranslated outcomes in the same commit.
+- agora-spec is updated in the same commits, and both manual tests cover the A/B reply case.
+- 0.7.0, and the checker passes.
+- The Email section selects rows by outcome, so `outgoing` is excluded without a change.
+
+**Advisory**
+1. The `outgoing` rule is written in full in email.md and agora-spec, and both `email` steps partly repeat it.
+2. Say what happens to an unsent draft's `outgoing` row: it is pruned at 60 days.
+3. Say what an `outgoing` row's Date is before the send.
