@@ -228,3 +228,13 @@ Fixes for review M3 round 1, in English then Italian; agora and agora-ita stay a
 - **F5, Offboard**: when the leaving member's Mail from cell holds the retired assistant address, Offboard step 5 moves it to another member's cell, chosen by the owner. The step is shared by both modes, and the Done whens check it.
 - **Advisories**: setup §4b now gives a one-line purpose and points to move.md. agora-spec's forwarding click path now points to move.md step 7. In Italian move.md step 1, `Members` is in backticks.
 - Testing: only skill prose and docs changed, so there was no `tdd` cycle. The hand tests gained an own-post `to:` scenario and an Offboard-the-mover check.
+
+## M3 revision 2
+
+Fixes for review M3 round 2, in English then Italian; agora and agora-ita stay at 0.7.0.
+
+- **F7, mail filter (MUST)**: `-from:me` is gone everywhere. In shared services mode the mail filter is exactly the founder's `(list:<list-id> OR to:<inbox> OR cc:<inbox>)`, one form for received and sent mail, so a member's forward or CC to the group is filed by every member's triage. Agora's own sent mail stays out of triage through its ledger row (id and duplicate key). The tidy-up line in email.md and agora-spec says so.
+- **Advisory 1**: prerequisites item 7 and both manual tests point to rules → The three ids → Mail for the list-id instead of restating the `@`→`.` derivation; agora-spec keeps one statement.
+- **Advisory 2**: glossary row 1 split into "list-id" and "what the member sent to the group".
+- **Advisory 3**: agora-spec and the "Did we answer Mario?" row note that sent mail is found only with the group in To or Cc; Agora always CCs the group, so only hand-sent mail without it is missed.
+- Testing: skill prose and docs only, so no `tdd` cycle.

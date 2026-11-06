@@ -87,7 +87,7 @@ Notes:
 | As B, open A's diary entry's email: found by search in B's mailbox | [ ] | [ ] |
 | As A, "send Mario a reply": from A's address, the group in CC, in A's voice, no assistant signature; sent only after A's yes | [ ] | [ ] |
 | Mario's reply-all lands in the group, so in A's and B's inboxes | [ ] | [ ] |
-| "Did we answer Mario?" as A finds the sent mail (sent-mail form, through `to:`/`cc:` the group); as B, finds it through the group (`list:`) | [ ] | [ ] |
+| "Did we answer Mario?" as A finds the sent mail (sent-mail form, through `to:`/`cc:` the group); as B, finds it through the group (`list:`). Only mail with the group in To or Cc is found: a reply A sends Mario by hand without the group is missed, by design | [ ] | [ ] |
 | As A, mail the group directly with no outside recipient: A's own post is found by `to:<group>`, and B finds it by `list:` | [ ] | [ ] |
 | An email in A's mailbox not sent to the group is never read or filed unless A names it | [ ] | [ ] |
 
