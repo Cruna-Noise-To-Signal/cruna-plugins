@@ -35,7 +35,7 @@ A **connector** is a permission that lets the AI app act inside another service 
   - ChatGPT: Settings → Apps (Connectors) → Google Drive → Connect; same for Google Calendar. Sign in with the assistant account.
   - Already connected with the wrong account: disconnect, then connect again with the assistant account.
   - In a conversation, make sure both connectors are enabled for the chat (the tools or "+" menu).
-  - `org.md` owned by another account while the connectors are the assistant account (a migration that moved only the folder): that owner, in Google Drive, selects the root's files → Share → next to the assistant account, **Transfer ownership**; the assistant account accepts. Or, when the group has Google Workspace, move the root to a shared drive (shared services mode), where every Content manager can trash.
+  - `org.md` owned by another account while the connectors are the assistant account (a migration that moved only the folder): that owner, in Google Drive, selects the root's files → Share → next to the assistant account, **Transfer ownership**; the assistant account accepts. Or, when the group has Google Workspace, move the root to a shared drive (shared services mode, the `setup` skill's Move to shared drive), where every Content manager can trash.
 
 ### Shared services mode
 

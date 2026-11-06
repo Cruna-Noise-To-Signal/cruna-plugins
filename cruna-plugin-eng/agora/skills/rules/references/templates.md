@@ -110,7 +110,7 @@ In shared services mode a Member section carries these boxes instead; each untic
 
 The root's Email box is ticked "(off)" when the root declines email, or when email is on and Gmail is checked and `org.md` and `memories/shared.md` carry the email fields. A Member section has an Email box only when email is on; it is ticked when the member's app has Gmail connected as the account item 7 names (the assistant account, or in shared services mode their own), and their addresses and importance state are recorded.
 
-The Interview section holds each confirmed round under its own heading (The root, Members, Layout convention, First interests and instances) until the Build box is ticked; then it is removed, except the email answers, which stay until every member interviewed has their Mail from cell and Email importance line written (setup step 2d). While a migration runs, a `## Migration` section lists its seven steps as boxes.
+The Interview section holds each confirmed round under its own heading (The root, Members, Layout convention, First interests and instances) until the Build box is ticked; then it is removed, except the email answers, which stay until every member interviewed has their Mail from cell and Email importance line written (setup step 2d). While a migration runs, a `## Migration` section lists its seven steps as boxes; while a move to a shared drive runs, a `## Move to shared drive` section lists its ten steps as boxes (the `setup` skill's `references/move.md`), and step 4's box records the new root's id and, after a copy, the old root's.
 
 ## `inbox.md` (root, curated)
 

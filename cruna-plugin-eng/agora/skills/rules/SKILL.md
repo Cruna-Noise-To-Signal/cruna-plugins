@@ -130,7 +130,7 @@ Drive cannot overwrite a file's content, and allows two files with the same name
 3. Trash every older file with that name in that folder.
 
 A trash refused with a permission error leaves two copies, and names its cause before rules → When something fails:
-- basic mode: the connected account doesn't own the file, and in My Drive only the owner can trash. Fix (prerequisites item 3): reconnect as the assistant account, or have the file's owner transfer it to the assistant account; or, with Google Workspace, move the root to a shared drive.
+- basic mode: the connected account doesn't own the file, and in My Drive only the owner can trash. Fix (prerequisites item 3): reconnect as the assistant account, or have the file's owner transfer it to the assistant account; or, with Google Workspace, move the root to a shared drive (the `setup` skill's Move to shared drive).
 - shared services mode: the member isn't a Content manager of the shared drive (prerequisites item 5).
 
 Once fixed, the duplicate goes as below.

@@ -1,13 +1,13 @@
 ---
 name: setup
-description: Sets up Agora, the shared family or business notebook on Google Drive and Google Calendar. Use when the user wants to start Agora for the first time ("set up Agora", "get started"), when a person joins an existing Agora or an existing member starts using it from another app ("add my wife to Agora", "I'm joining our family Agora", "I installed Agora on ChatGPT too"), when a setup was left halfway ("finish setup"), when a one-person Agora must move to its own assistant account because someone is joining, when the group wants email turned on ("turn on email", "connect Gmail to Agora"), or when someone leaves ("remove Simona from Agora").
+description: Sets up Agora, the shared family or business notebook on Google Drive and Google Calendar. Use when the user wants to start Agora for the first time ("set up Agora", "get started"), when a person joins an existing Agora or an existing member starts using it from another app ("add my wife to Agora", "I'm joining our family Agora", "I installed Agora on ChatGPT too"), when a setup was left halfway ("finish setup"), when a one-person Agora must move to its own assistant account because someone is joining, when an Agora moves to a Google Workspace shared drive ("we have Workspace now", "move Agora to a shared drive"), when the group wants email turned on ("turn on email", "connect Gmail to Agora"), or when someone leaves ("remove Simona from Agora").
 ---
 
 # Agora setup
 
-Setup turns an empty Google Drive and Calendar into a working Agora **root**, brings each member onto it, and takes them off it when they leave. It has five branches: **New root**, **Join**, **Migrate** (always followed by Join), **Email** and **Offboard**. Pick one in step 1 and follow only that branch. Every branch ends with the same **verification**; every branch but Offboard ends with the same "what you can do now" message.
+Setup turns an empty Google Drive and Calendar into a working Agora **root**, brings each member onto it, and takes them off it when they leave. It has six branches: **New root**, **Join**, **Migrate** (always followed by Join), **Move to shared drive** (followed by Join for every other member), **Email** and **Offboard**. Pick one in step 1 and follow only that branch. Every branch ends with the same **verification**; every branch but Offboard ends with the same "what you can do now" message.
 
-**Shared services mode** (rules → Vocabulary → Mode): wherever a step below names it, follow that step's section in [references/shared-services.md](references/shared-services.md) ("shared-services.md → 2b"), which adds to the step or replaces the parts it names. Migrate is basic mode only.
+**Shared services mode** (rules → Vocabulary → Mode): wherever a step below names it, follow that step's section in [references/shared-services.md](references/shared-services.md) ("shared-services.md → 2b"), which adds to the step or replaces the parts it names. Migrate and Move to shared drive start from basic mode only.
 
 **Checklist**: every branch records its progress in `setup.md` (rules → Setup checklist; template in rules → File kinds → templates), so a user can stop halfway and pick up later, in this app or another. Tick a box the moment the step it stands for meets its Done when, write the file by replace (rules → Replace) with a fresh Updated line, and set `state: done` only when every box is ticked. Resuming, start at the first unticked box; step 7 re-checks the ticked ones. A `setup.md` written before email existed has no Email boxes: email is off there; add the root Email box ticked "(off)" the next time you write the file.
 
@@ -21,9 +21,10 @@ Load the `rules` skill. Follow rules → Finding the root, then pick the branch:
 |---|---|
 | No root, and the user is starting fresh | **New root** |
 | No root, but the user says someone already set one up | Their connectors are logged in as the wrong Google account, or, in a Workspace team, the admin hasn't added them to the shared drive yet (item 4, step 2): walk prerequisites item 3, then search again |
-| A root whose `setup.md` says `state: todo`, and the user is finishing setup ("finish setup", "let's carry on") | The branch of the first unticked box that this user can do: Root boxes → **New root**, a Member section → **Join** for that member, Migration → **Migrate** |
+| A root whose `setup.md` says `state: todo`, and the user is finishing setup ("finish setup", "let's carry on") | The branch of the first unticked box that this user can do: Root boxes → **New root**, a Member section → **Join** for that member, Migration → **Migrate**, Move to shared drive → **Move to shared drive** |
 | A root, and the user is joining it or using it from a new app | **Join** |
 | A solo root (one member, `assistant_account` is that member's own account) and someone new is joining | **Migrate**, then **Join** for the newcomer |
+| A basic mode root, and the group now has Google Workspace and wants each member on their own account ("we have Workspace now", "move Agora to a shared drive") | **Move to shared drive** |
 | A root, and the user wants email turned on ("turn on email", "connect Gmail") | **Email** |
 | A root whose `setup.md` has unticked Email boxes, and the user is finishing setup | **Email** for the root box, **Join** for a Member Email box |
 | A root, and a member is leaving ("remove me from Agora", "Simona no longer needs access") | **Offboard** |
@@ -130,6 +131,12 @@ Done when the person is in Members and Access with their real access, the root f
 Run it with the root's owner, before the newcomer joins. Add a Migration section to `setup.md` with one box per step of [references/migration.md](references/migration.md) (`state: todo`), then follow it: create the assistant account, hand it the root folder and the Agora events, reconnect the owner's connectors, and update `org.md`. Tick each step as its Done when holds.
 
 Done when migration's own completion criterion holds and every Migration box is ticked. Then run **Join** for the newcomer.
+
+## 4b. Move to shared drive (basic → shared services)
+
+Run it with the root's owner (the admin, for a team), in their own app. Add a `## Move to shared drive` section to `setup.md` with one box per step of [references/move.md](references/move.md) (`state: todo`), then follow it: the admin's setup, the hand-over from the assistant account, the owner's reconnect, the root moved or copied into the shared drive, `org.md` and `setup.md` switched to shared services mode, the future events copied, mail forwarded, the old root trashed, the old account retired, and the linked repos listed. Tick each step as its Done when holds.
+
+Done when the move's own completion criterion holds and every Move to shared drive box is ticked. Go to step 7; each other member then runs **Join** in their own app.
 
 ## 5. Email (turn on in an existing root)
 
