@@ -1,8 +1,6 @@
 # Agora prerequisites
 
-What must be true for Agora to work, how to check each item, and how to fix it. `setup` walks the list top to bottom (a member joining an existing root walks items 1–3, 5 and 6), and item 7 only in a root with email on (`email: on` in `org.md`); `help` and any failing skill jump to the item that matches the failure.
-
-In shared services mode, item 4 is the manual setup guide for the admin and for each joining member: walk them through its steps as written, one person and one step at a time.
+What must be true for Agora to work, how to check each item, and how to fix it. `setup` walks the list top to bottom (a member joining an existing root walks items 1–3, 5 and 6; in shared services mode, once item 4's steps for them are done), and item 7 only in a root with email on (`email: on` in `org.md`); `help` and any failing skill jump to the item that matches the failure.
 
 **Two modes** (rules → Vocabulary → Mode): an item without a mode named holds for both; otherwise follow the variant for `mode` in `org.md` (missing: basic mode), or, before `org.md` exists, for the mode setup chose.
 
@@ -59,38 +57,9 @@ A **connector** is a permission that lets the AI app act inside another service 
 
 ### Shared services mode: the admin's setup
 
-- **Need**: the organisation's Google Workspace admin has created the three shared services and added every member to each. No connector creates shared drives, groups or calendars, or shares calendars, so every step below is clicks, by the person it names. Agora checks each one with a real call.
-- **Check**: the check each step names. The item is ready when every step's check passed.
-
-**Once per root**, in this order:
-
-1. **Workspace account for each member** (admin). admin.google.com → **Directory** → **Users** → **Add new user** → first name, last name, primary email → **Add new user**. Check: the member signs in with it and item 3's Who check shows it.
-2. **Shared drive** (admin, or a member allowed to create shared drives). drive.google.com → **Shared drives** (left panel) → **New** → name it after the root → **Create**. Open it → **Manage members** → each member's Workspace email → role **Content manager** (the lowest role that can trash) → **Send**. Then copy the address bar's URL (`https://drive.google.com/drive/folders/<id>`) for setup. Check: item 3's Drive check, at the drive's top folder.
-3. **Google Group** (admin). The group is closed to everyone but its members, except that anyone can email it: the settings are label **Mailing**, access type **Restricted**, **Who can join**: Only invited users, and **Who can post** opened to outside senders. Opening Who can post changes the access type from Restricted to **Custom**: that is expected, and Custom is the right final state. Restricted's other settings (only members view conversations and the member list) stay.
-   1. **Let groups accept outside mail** (once per organisation). Admin console → **Apps** → **Google Workspace** → **Groups for Business** → **Sharing settings** → under "Can external users participate in groups?", tick **Group owners can allow incoming email from outside the organization** → **Save**. Leave **Accessing groups from outside this organization** at **Private**. Without the tick, step 3.2 has no outside posting to offer and client mail never reaches the group.
-   2. **Create the group.** Admin console → **Directory** → **Groups** → **Create group** → **Group name** (the root's name), **Group email** (the address members forward and CC to, e.g. `agora@acme.it`), **Group owners**: the admin → **Next** → **Labels**: **Mailing** ticked (the default), **Security** unticked → **Next** → **Access type**: **Restricted** → in the access settings table, row **Who can post**, also tick **External** (the type now reads **Custom**) → **Who can join the group**: **Only invited users** → **Allow external members in the group**: off → **Next** → **Create group**. No **External** box to tick: step 3.1 isn't saved yet, or hasn't reached the group (allow up to 24 hours). The same setting, seen from groups.google.com → the group → **Group settings**, reads **Who can post**: **Anyone on the web**; set it there when the group was created there.
-   3. **Add the members.** groups.google.com → the group → **Members** → **Add members** → each member's Workspace email → **Subscription**: **Each email** → **Directly add members** on → **Add members**. Wait a few minutes before the first email.
-   Check: item 7's shared services check, its test sent from an address outside the organisation.
-4. **Shared calendar** (ideally the admin; whoever creates it is recorded as `calendar_owner`, and offboarding them waits for a transfer). calendar.google.com, signed in with their Workspace account → next to **Other calendars**, **+** → **Create new calendar** → name it after the root, **Time zone** the root's → **Create calendar**. Then **Settings** → under "Settings for my calendars", the new calendar → **Share with specific people or groups** → **Add people and groups** → each member's Workspace email, permission **Make changes to events** (on newer screens, **Make changes and see event details**) → **Send**. Then **Integrate calendar** → copy the **Calendar ID** (`…@group.calendar.google.com`) for setup. Check: item 3's Calendar check.
-5. **Connectors enabled for the organisation** (the AI client's admin), when the plan has one:
-   - Claude Team or Enterprise: an Owner or Primary Owner turns on Google Drive, Google Calendar and Gmail in **Organization settings** → **Connectors**.
-   - ChatGPT Business: a workspace admin enables the Google Drive, Google Calendar and Gmail apps in **Workspace settings** → **Apps**, and turns on write actions for Gmail.
-   Check: each member finds the three connectors in their own list (item 3).
-
-**Per new member, before they join** (the admin, and the calendar owner for the calendar):
-
-1. Step 1: their Workspace account.
-2. Step 2: add them to the shared drive (**Manage members**) as **Content manager**.
-3. Step 3.3: add them to the group, subscription **Each email**.
-4. Step 4: the calendar owner shares the calendar with them at **Make changes to events**.
-5. Step 5, when their AI plan has an organisation admin and the connectors aren't on yet.
-
-**The joining member**, after the admin's steps, in their own AI app signed in as their Workspace account:
-
-1. Install the Agora plugin (item 2).
-2. Connect Google Drive, Google Calendar and Gmail, each signed in as their Workspace account (item 3; Gmail only when the root has email on, item 7).
-3. Accept the shared calendar's invitation email, so the calendar shows on their phone.
-4. Say "join Agora". Their AI checks each admin step with a real call and names the step to redo when one fails.
+- **Need**: the organisation's Google Workspace admin has created the shared drive, the group and the shared calendar, and added every member to each: the steps in [shared-services-setup.md](shared-services-setup.md), the manual setup guide for the admin and for each member, joining and leaving. "Item 4, step N" means its step N.
+- **Check**: the check each of its steps names. Ready when every step's check passed, for the root (Once per root) or for the member joining (Per new member).
+- **Fix**: the failing step, by the person it names.
 
 ## 5. Sharing
 
@@ -147,7 +116,7 @@ Optional: only a root with `email: on` needs it, and it suits business roots bes
 ### Shared services mode
 
 - **Need**: the **Gmail** connector, signed in as the member's own Workspace account, and the member in the group with **Each email** delivery, so group mail lands in their own inbox.
-- **Check**: search `deliveredto:<inbox>` (`inbox` in `org.md`, the group's address) with a real call; it must return results. None yet (a new group): ask the member to send a test email to the group's address, wait a minute, and search again. Still none: the member isn't in the group, their delivery isn't Each email, or, for a test from outside the organisation, outside posting is off (item 4, steps 3.1 and 3.2). On a pass, write `receives mail` in their Access row's Notes.
+- **Check**: search `deliveredto:<inbox>` (`inbox` in `org.md`, the group's address) with a real call; it must return results. None yet (a new group): ask the member to send a test email to the group's address from an address outside the organisation (a personal Gmail, say), so the test also proves outside senders reach the group; wait a minute, and search again. Still none: the member isn't in the group, their delivery isn't Each email, or outside posting is off (item 4, steps 3.1 and 3.2). On a pass, write `receives mail` in their Access row's Notes.
 - **Fix**: the basic mode paths above, signed in as the member's own account; Gmail missing from the connector list: item 4, step 5.
 - **Limits** to tell the member: the connector could reach their whole mailbox, but Agora reads only mail delivered to the group, by its own rule (rules → The three ids); it can't open attachments, only their names; it doesn't label, archive or delete mail.
 
@@ -161,11 +130,4 @@ Remove their editor access on the root folder and the system calendar (as the as
 
 ### Shared services mode
 
-1. **Calendar owner first.** When the member is `calendar_owner`, stop here until the calendar is transferred: a secondary calendar is deleted with its owner's account. The member transfers it to another member of the domain: Google Calendar → **Settings** → the calendar → **Shared with** → the drop-down beside the new owner → **Transfer ownership** → confirm; the new owner accepts from the email within 60 days. When the member can't, the admin transfers it in the Admin console. Then set `calendar_owner` in `org.md` to the new owner's slug. Check: the new owner confirms the calendar is under their "My calendars", and item 3's Calendar check still passes.
-2. **Remove them from the shared services** (admin; the calendar owner for the calendar):
-   - shared drive: open it → **Manage members** → beside them, the role drop-down → **Remove access**;
-   - group: groups.google.com → the group → **Members** → tick them → **Remove member**;
-   - calendar: **Settings** → the calendar → **Shared with** → **×** beside them.
-3. **Their Workspace account** (admin): suspend or delete it, at the admin's choice: Admin console → **Directory** → **Users** → their name → **Suspend user** or **Delete user**. Files in the shared drive belong to the drive and stay.
-4. Ask them, if reachable, to disconnect the connectors in their client and delete their Agora routines.
-5. Update the Members and Access tables in `org.md`.
+Follow [shared-services-setup.md](shared-services-setup.md) → A member leaving: the calendar owner's transfer comes first, and blocks the rest until `calendar_owner` names the new owner.
