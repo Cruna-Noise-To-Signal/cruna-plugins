@@ -59,3 +59,59 @@ Fixes for review M1 round 1 (Specs (a)1, (b)2, (c)3, (c)4; Standards advisories 
 - **F8, own calendar**: stated once in rules → Calendar conventions → The speaker's own calendar, as a per-mode difference (shared services: in full for free time, "what do we have" and Yours; basic: at the Personal calendar level). `ask`, `review` and `schedule` point to it; Vocabulary → Mode now says other per-mode differences are stated once in rules or prerequisites and pointed to. **For F12**: the spec (l.109, l.206) names only free time; `docs/agora/agora-spec.md` should carry the wider rule.
 - **F1, templates**: "a new shared services root is written without `assistant_account`; a root moved from basic keeps it". A Members table without Kind keeps its shape: new rows, the github row included, follow the header's columns, and every member reads as `human`. "Kind changes nothing" now lives only in Vocabulary; `templates.md` and `interview.md` point to it.
 - Left as scheduled: advisory 1 (F5), `deliveredto:` sent mail and advisory 4 (F7), advisory 5 (F12).
+
+## M2 - A team on it
+
+F5, F7 and F9, plus the items carried from the M1 reviews, in the English plugin only (`cruna-plugin-eng/agora/skills/`). No version bump, no Italian, no spec or glossary changes (M3).
+
+### What changed
+
+- **F7 mail filter, sent mail** (`rules/SKILL.md` → The three ids → Mail): the filter now has a received form, `deliveredto:<inbox>`, and a sent-mail form for searches that must also find what was sent. Basic mode: `deliveredto:<inbox> OR from:<inbox>`, so "did we answer Rossi?" finds the assistant's sent mail as on 0.6.0. Shared services mode: `deliveredto:<inbox> OR (from:me {to:<inbox> cc:<inbox>})`; other members' Agora mail reaches the speaker through the group as received mail. `OR`, `{}`, `( )`, `from:me`, `cc:` and `deliveredto:` are all on Google's search-operator page (checked 2026-11-06). The `email` skill's Find uses the sent-mail form when the question is about what was sent.
+- **F7 mailboxes** (`rules/references/email.md` → Mailboxes, new):
+  - a Gmail id belongs to one mailbox;
+  - the **email time** is the received time, or in shared services mode the Date header's time, which every member's copy shares;
+  - **the same email** means the same id in the same mailbox, or the **duplicate key** (sender + email time to the minute + subject) from any mailbox. For a sent row, the sender is the By member. The rare collision is accepted and stated;
+  - an id from another mailbox (ledger row, diary `email:`, to-do `email <id>`) is opened by id first, then by search.
+
+  The following use it: filing names and the "already filed" check, member-mail to-do names and "already added", the ledger skip and merge, and rules → Replace's duplicate diary rule. The ledger writes **Mailbox** (the connected member's slug), and in shared services mode **Date** to the minute. The tidy-up search is "received mail (the received-mail filter)". Solo is basic only. The `email` skill drafts in your own mailbox and addresses and signs per Sender voice. The duplicated Mailbox definition in `templates.md` is now a pointer.
+- **F9 `review`**:
+  - **Recently tidied**: a root `status.md` `**Tidied:**` line under 60 minutes old skips items 1–6 and keeps the line and the earlier flags as found. Step 3.4 writes the line when items 1–6 ran.
+  - **New item 8**, run every time: flags a missing daily review for yesterday, a missing weekly review for the ISO week before the current one, a missing monthly review for the month before, and email triage older than yesterday (`last_tidy_up` is noted before item 3 moves it). All carry the fix "No member's routine has run this: set up the routines". It also runs prerequisites item 3's ownership check, which is basic mode only, as that item says.
+  - Routine prompts are unchanged.
+- **F3 carried items**:
+  - The shared services manual steps (once per root, per new member, the joining member, a member leaving) moved to the new `rules/references/shared-services-setup.md`. Prerequisites item 4 and Offboarding keep one pointer each, and "item 4, step N" still resolves to that file's step N.
+  - Step 3's intro is cut to its goal.
+  - Item 7's test now comes from an address outside the organisation, which agrees with step 3's check and also avoids Gmail not delivering your own group post back to you.
+  - The prerequisites header says a joining member walks items 1–3, 5 and 6 "once item 4's steps for them are done".
+- **F5 `setup`**:
+  - Every shared services parenthetical moved to the new `setup/references/shared-services.md`, one section per step (2a, 2b, 2c, 2e, 3 Join, 6 Offboard, 7 Verify). SKILL.md keeps one pointer per step. Its basic text reads as on 0.6.0, apart from the M1 ownership line and the branch-table row, which now also names "not yet in the shared drive".
+  - **Join**: reads the connected account, finds the root (none found: wrong account, or not in the shared drive yet), and decides which join from Members Email (new member, member named at New root, or existing member on a new app). It then runs every admin check before reporting (Workspace domain, Drive create-then-trash, calendar create-then-delete, item 7, connectors), and each failing box names its item 4 step and who does it. A Drive failure blocks the rest of Join; any other failure is recorded and Join carries on. Join then writes the Members row (Kind, Email = connected account, `domain free/busy`), the Access row with what was proved, memories, the box, the email member part and routines. It shares nothing and creates no interest folder.
+  - **Offboard**: blocked while the member is `calendar_owner`, with no override. Once the transfer is accepted, it updates `calendar_owner` and re-checks the calendar with a real call, then does the removals and SKILL steps 5–6.
+  - Vocabulary → Mode's list of per-mode differences now names the mail filter and mailboxes.
+
+Checker (`cruna-core` `check_plugins.py`): **✔ Valid for Claude and OpenAI**.
+
+### Testing
+
+Not testable by code: the change is skill prose, and the only seam is the member conversation, so no `tdd` cycle was possible. The hand test is in [manual-test.md](manual-test.md) → M2.
+
+### Decisions taken where the spec was silent
+
+- **Email time from the Date header** (shared services mode): the spec's key says "received time", but each mailbox stamps its own received time, which can differ by a minute between copies. The Date header is shared by every copy. Basic mode keeps the received time.
+- **Ledger Date to the minute** in shared services mode, which the duplicate key needs. Basic rows keep the date only.
+- **Diary `email:` ids** resolve by trying the id, then searching. The spec's "the author's mailbox" isn't reliable, because a routine in another member's mailbox can file an entry authored by the forwarding member.
+- **Sent rows in the key**: the sender is the By member. This way, Agora mail a member sent with the group in CC isn't filed again from another member's copy.
+- **Overdue periods**: "previous period" means yesterday, the ISO week before the current one, and the month before the current one. A period is skipped when the oldest file in `reviews/` is dated after it began (a new root).
+- **Triage flag** is checked against `last_tidy_up` as found before this run's tidy-up. It mostly shows that routines had stopped; the next run drops it.
+- **Join, Workspace account box**: proved by the connected account being on `inbox`'s domain.
+- **The admin guide got its own file** (review advisory), since #11 asks for a reference that guides admin and joiner. Offboarding's shared services steps moved with it.
+
+### Left for later milestones / noticed
+
+- **F6**: the Move branch. The "retired old address counts as member mail" rule belongs there.
+- **F10**: `help` should show the same overdue flags and explain both modes. `faq.md` still describes the basic layout only.
+- **F12**: `agora-spec.md` should carry the decisions above, the sent-mail filter, and the new reference files.
+- **To verify live**:
+  - whether `deliveredto:<group>` matches group mail in a member's mailbox at all, or whether `list:<group>` is needed. Google Groups stamps the member's own address in Delivered-To. The founder confirmed only that the operators are accepted;
+  - whether the sent-mail form works on both connectors;
+  - whether the Drive connector can read a shared drive's members, for the Offboard check.

@@ -74,6 +74,7 @@ On the untouched copy of a 0.6.0 basic root, connected as its assistant account:
 
 - [ ] "Verify Agora" or "finish setup" → Verify passes as before, plus the ownership line.
 - [ ] `schedule`, `ask` and a daily `review` with email on behave as on 0.6.0: events on the assistant account's primary calendar, the same email filed and flagged. Any email search that used to find mail and now doesn't is a bug (the `deliveredto:` filter).
+- [ ] A search for sent mail: "did we answer <someone the assistant emailed last week>?" finds the sent message, as on 0.6.0.
 - [ ] Nothing is added to `org.md` (no `mode`, no ids).
 - [ ] Its Members table has no Kind column. Send `Agora add-interest as pm in <root>: products/test — Test: a test` from a chat: the github row it writes has the same columns as the table's header, with no Kind cell.
 
@@ -83,3 +84,79 @@ Same basic copy, now with Google Drive connected as a **different** account that
 
 - [ ] Verify is blocked on item 3, saying the connected account doesn't own `org.md`. It gives the fixes: reconnect as the assistant account, have the owner transfer the files, or move to a shared drive.
 - [ ] "Note that the car was serviced" in any instance. When Replace's trash is refused, Agora says the cause is the account mismatch, not a generic error. Afterwards, reconnect as the owner and let `review` clean up the duplicate.
+
+## M2
+
+A team on the shared services root from M1: a second account joins, mail across two mailboxes, the tidy-up skip and overdue flags, and offboarding the calendar owner. English plugin only, from this branch; version still 0.6.0.
+
+### Before you start
+
+- The shared services root built in M1, email **on**, with A as `calendar_owner`.
+- Account **B** (Workspace, Kind `ai` in Members from the M1 interview, or not yet in Members: run 1 once each way if you can).
+- A second client or browser profile for B, with the `agora` plugin from this branch.
+- A personal address outside the organisation, for test emails.
+- The untouched 0.6.0 basic root copy from M1.
+
+After each step, check Drive, Calendar, Gmail and the files named.
+
+### 1. Join: every admin step missing in turn
+
+Before the admin adds B anywhere, connect B's Drive, Calendar and Gmail as B and say "join Agora".
+
+- [ ] No root found: Agora says B's connectors may be on another account, or the admin hasn't added B to the shared drive yet (item 4, step 2, the admin), and stops. Nothing written anywhere.
+- [ ] Admin adds B to the shared drive as **Viewer** only. "join Agora" again: In the shared drive fails on the trash (not a Content manager), names item 4 step 2 and the admin, and Join writes nothing.
+- [ ] Admin makes B **Content manager**; the calendar isn't shared with B yet and B isn't in the group. "join Agora": Agora lists **both** missing steps at once: Shared calendar (item 4, step 4, the calendar owner by name) and In the group (item 4, step 3.3, the admin). It carries on with the rest.
+- [ ] Nothing was shared by Agora: the root folder and calendar sharing show no change made by B's AI.
+
+### 2. Join: completing
+
+Calendar owner shares the calendar with B at Make changes to events; admin adds B to the group at Each email. B says "finish setup".
+
+- [ ] Agora doesn't ask for B's email: it says the connected account.
+- [ ] New member: the Members round asks Kind and recommends `domain free/busy`. B's Members row has Kind, Email = B's Workspace account; Access row: `content manager`, `can edit`, Client connected, `receives mail` in Notes once the group search passes.
+- [ ] Item 7 with no group mail yet in B's inbox: Agora asks B to send the test from an address **outside the organisation**, then finds it.
+- [ ] `memories/<b>.md` exists; no interest folder was created for B, even in a per-person layout.
+- [ ] B's `setup.md` section: Workspace account, In the shared drive, In the group, Shared calendar, Connectors and plugin, In Members and Access, Email, Routines all ticked (Routines after B confirms them). B is given the three routines with unchanged prompts.
+- [ ] B in a second app ("I installed Agora on ChatGPT too"): existing member on a new app; only Client connected changes.
+
+### 3. Replace across members
+
+- [ ] As B: "Note that the accountant called" in an instance A created. The instance `status.md` (created by A) is replaced: no duplicate left, no permission error.
+
+### 4. Email across two mailboxes
+
+- [ ] From the outside address, send a mail to the group; A forwards it to the group with "file under <instance>". As A: "file the email I forwarded". It's filed; `inbox.md` row has Mailbox = A's slug and a Date with the minute.
+- [ ] As B: "anything from <outside sender>?" Agora finds B's copy and says it's already filed, with the instance. Nothing is filed twice.
+- [ ] As B: open the diary entry's email ("show me that email"): it's found by search in B's mailbox although the id is A's.
+- [ ] Run B's daily routine by hand: the tidy-up doesn't add a second row or diary entry for that email.
+- [ ] As A: "draft a reply to <outside sender> saying we'll call Monday", then "send it". The draft is in A's Gmail, from A's address, the group in **Cc**, written in A's own voice with no "assistant, on behalf of" line. The sent row has Mailbox = A.
+- [ ] As B, after the send: "did we answer <outside sender>?" finds A's reply (the copy reached B through the group). As A, the same question finds it in A's Sent (the sent-mail form of the filter).
+- [ ] Reply from the outside address: it lands in the group, so in both A's and B's inbox.
+
+### 5. Two routines within 60 minutes
+
+- [ ] Run A's daily routine by hand (`Run Agora review: daily for <a> in <root>`). The root `status.md` gets `**Tidied:** <now>`.
+- [ ] Within 60 minutes run B's daily. It skips the tidy-up: `inbox.md` and `last_tidy_up` unchanged, no stale-file rebuilds, the Tidied line unchanged. The review file gets an Update section only if something new happened, and B gets the message.
+- [ ] Delete the Tidied line by hand (replace `status.md`) and run again: the tidy-up runs in full.
+
+### 6. Overdue flags
+
+- [ ] Trash yesterday's daily review file (if any) and set `last_tidy_up` in `inbox.md` to three days ago. Ask "daily review" in a chat. Needs attention shows the missing daily review and "Email wasn't triaged between …", each with "No member's routine has run this: set up the routines".
+- [ ] On a root whose oldest review is today, no missing-period flag appears.
+
+### 7. Offboarding the calendar owner
+
+- [ ] As A (calendar owner): "remove <a> from Agora". Agora says it's blocked until the calendar is transferred, gives the transfer steps, and writes nothing: `org.md`, `setup.md` and sharing unchanged.
+- [ ] Insist ("just remove me"): it still refuses, explaining the calendar would be deleted with A's account.
+- [ ] A transfers the calendar to B; B accepts. "remove <a> from Agora" again: `calendar_owner` becomes B's slug, a test event on the calendar is created and deleted, then the removal steps (shared drive, group, calendar, Workspace account) are each handed to the person they name. Members Notes `removed YYYY-MM-DD`, Access `removed`, A's `setup.md` section gone. Verify passes with `calendar_owner` = B.
+
+### 8. Basic root: unchanged
+
+On the untouched 0.6.0 basic root, as its assistant account:
+
+- [ ] "Did we answer <someone the assistant emailed>?" finds the sent mail (the basic sent-mail form).
+- [ ] A daily review with email on: same mail filed and flagged as on 0.6.0; `inbox.md` rows written with an empty Mailbox and a date only.
+- [ ] Join a person as on 0.6.0: the root folder is shared by Agora, calendar click steps given, no Workspace questions.
+- [ ] Offboard that person as on 0.6.0.
+- [ ] Two reviews within an hour on the basic root: the second one skips the tidy-up once the first wrote `**Tidied:**`.
+- [ ] With Drive connected as an account that doesn't own `org.md`: the daily review flags the mismatch with the fix.

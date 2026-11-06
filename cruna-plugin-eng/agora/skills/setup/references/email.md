@@ -21,7 +21,7 @@ Done when: `org.md` says `email: on`, its root criteria (or none) are recorded, 
 
 Steps 2–3 record answers, for any member who gave them; skip them when the member's addresses and Email importance line are already recorded. Steps 1 and 4 happen only with the member present, in their own app.
 
-1. **Gmail** in this member's app: walk prerequisites item 7 (skip when the root part just did it in the same app).
+1. **Gmail** in this member's app: walk prerequisites item 7 (skip when the root part or Join's checks just did it in the same app).
 2. **Addresses**: every address they write or forward from (interview Members round), in the Mail from column of their Members row. Solo roots skip this: there is no member mail.
 3. **Importance**: their answer to the importance question, as the line `- Email importance: <criteria | no preference>` in `memories/<slug>.md`; `not asked` when skipped.
 4. **`setup.md`**: tick their Email box (shared services mode: and their In the group box, which item 7's check proved; write `receives mail` in their Access row's Notes).
