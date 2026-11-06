@@ -219,3 +219,12 @@ Not testable by code: everything is skill prose and docs, and no `tdd` cycle was
 - The Italian Google UI labels (Admin console, Groups, Calendar, Gmail forwarding) were written from knowledge, not checked against the live Italian UI.
 - `update_file` re-parenting into a shared drive, the copy path at scale, and forwarding into a group are untested live.
 - The live checks still open from M2 (`deliveredto:` vs `list:` for group mail, the sent-mail forms, `owners` metadata) are in the spec and in the manual test's FACT list.
+
+## M3 revision 1
+
+Fixes for review M3 round 1, in English then Italian; agora and agora-ita stay at 0.7.0.
+
+- **F7, mail filter (MUST)**: shared services mode now searches the founder's form from #11 (2026-11-06), `(list:<list-id> OR to:<inbox> OR cc:<inbox>)`, where `<list-id>` is `inbox` with `@` replaced by `.`. It is defined once, in rules → The three ids → Mail. The same form is the sent-mail form, and the received-mail form adds `-from:me`. Prerequisites item 7's check uses the received-mail form, and Join, Verify and Move step 7 reach it through item 7. Also updated: email.md, shared-services.md, agora-spec (now a verified fact, removed from still-to-verify), and both manual tests. Basic mode keeps `deliveredto:<inbox>` and `(deliveredto:<inbox> OR from:<inbox>)`. The old `(or list:<inbox> where the connector needs it)` fallback is dropped, since it used the address rather than the list-id. The remaining `deliveredto` occurrences are all basic mode.
+- **F5, Offboard**: when the leaving member's Mail from cell holds the retired assistant address, Offboard step 5 moves it to another member's cell, chosen by the owner. The step is shared by both modes, and the Done whens check it.
+- **Advisories**: setup §4b now gives a one-line purpose and points to move.md. agora-spec's forwarding click path now points to move.md step 7. In Italian move.md step 1, `Members` is in backticks.
+- Testing: only skill prose and docs changed, so there was no `tdd` cycle. The hand tests gained an own-post `to:` scenario and an Offboard-the-mover check.

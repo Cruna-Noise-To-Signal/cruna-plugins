@@ -134,7 +134,7 @@ Fatto quando vale il criterio di completamento della migrazione stessa e ogni ca
 
 ## 4b. Sposta su Drive condiviso (da base a servizi condivisi)
 
-Eseguilo con il proprietario della radice (l'amministratore, per un team), nella sua app. Aggiungi a `setup.md` una sezione `## Move to shared drive` con una casella per ogni passo di [references/move.md](references/move.md) (`state: todo`), poi seguilo: la configurazione dell'amministratore, il passaggio di consegne dall'account dell'assistente, il ricollegamento del proprietario, la radice spostata o copiata nel Drive condiviso, `org.md` e `setup.md` passati alla modalità servizi condivisi, gli eventi futuri copiati, la posta inoltrata, la vecchia radice cestinata, il vecchio account dismesso e i repo collegati elencati. Spunta ogni passo appena il suo Fatto quando vale.
+Eseguilo con il proprietario della radice (l'amministratore, per un team), nella sua app. Aggiungi a `setup.md` una sezione `## Move to shared drive` con una casella per ogni passo di [references/move.md](references/move.md) (`state: todo`), poi seguilo: porta la radice, i suoi eventi futuri e la sua posta ai servizi condivisi, senza perdere nulla. Spunta ogni passo appena il suo Fatto quando vale.
 
 Fatto quando vale il criterio di completamento dello spostamento stesso e ogni casella Move to shared drive è spuntata. Vai al passo 7; poi ogni altro membro esegue **Unisciti** nella propria app.
 

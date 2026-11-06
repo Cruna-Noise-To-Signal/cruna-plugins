@@ -134,7 +134,7 @@ Done when migration's own completion criterion holds and every Migration box is 
 
 ## 4b. Move to shared drive (basic → shared services)
 
-Run it with the root's owner (the admin, for a team), in their own app. Add a `## Move to shared drive` section to `setup.md` with one box per step of [references/move.md](references/move.md) (`state: todo`), then follow it: the admin's setup, the hand-over from the assistant account, the owner's reconnect, the root moved or copied into the shared drive, `org.md` and `setup.md` switched to shared services mode, the future events copied, mail forwarded, the old root trashed, the old account retired, and the linked repos listed. Tick each step as its Done when holds.
+Run it with the root's owner (the admin, for a team), in their own app. Add a `## Move to shared drive` section to `setup.md` with one box per step of [references/move.md](references/move.md) (`state: todo`), then follow it: it brings the root, its future events and its mail onto shared services, losing nothing. Tick each step as its Done when holds.
 
 Done when the move's own completion criterion holds and every Move to shared drive box is ticked. Go to step 7; each other member then runs **Join** in their own app.
 

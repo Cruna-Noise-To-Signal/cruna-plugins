@@ -255,7 +255,7 @@ In their own AI app, signed in as their Workspace account:
 
 ### Moving a basic root (the old account's Gmail)
 
-Signed in to Gmail as the old assistant account: **Settings** → **See all settings** → **Forwarding and POP/IMAP** → **Add a forwarding address** → the group's address → **Next** → **Proceed**. The confirmation code arrives in the group, so in every member's inbox: enter it → **Verify** → **Forward a copy of incoming mail to** the group, keeping Gmail's copy → **Save Changes**. The rest of the move is in `setup` → Move to shared drive.
+The old assistant account forwards a copy of its incoming mail to the group, set by clicks in its Gmail settings; the click path is in `setup/references/move.md` step 7.
 
 ## Move to shared drive (basic → shared services)
 
