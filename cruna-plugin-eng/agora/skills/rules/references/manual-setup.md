@@ -40,7 +40,7 @@ After the admin's steps, in their own AI app signed in as their Workspace accoun
 
 ## A member leaving
 
-1. **Calendar owner first.** When the member is `calendar_owner`, stop here until the calendar is transferred: a secondary calendar is deleted with its owner's account. The member transfers it to another member of the domain: Google Calendar → **Settings** → the calendar → **Shared with** → the drop-down beside the new owner → **Transfer ownership** → confirm; the new owner accepts from the email within 60 days. When the member can't, the admin transfers it in the Admin console. Then set `calendar_owner` in `org.md` to the new owner's slug. Check: the new owner confirms the calendar is under their "My calendars", and item 3's Calendar check still passes.
+1. **Calendar owner first.** When the member is `calendar_owner`, stop here until the calendar is transferred: a secondary calendar is deleted with its owner's account. The member transfers it to another member of the domain: Google Calendar → **Settings** → the calendar → **Shared with** → the drop-down beside the new owner → **Transfer ownership** → confirm; the new owner accepts from the email within 60 days. When the member can't, the admin transfers it in the Admin console. Then set `calendar_owner` in `org.md` to the new owner's slug (rules → Replace). Check: the new owner confirms the calendar is under their "My calendars", and item 3's Calendar check still passes.
 2. **Remove them from the shared services** (admin; the calendar owner for the calendar):
    - shared drive: open it → **Manage members** → beside them, the role drop-down → **Remove access**;
    - group: groups.google.com → the group → **Members** → tick them → **Remove member**;

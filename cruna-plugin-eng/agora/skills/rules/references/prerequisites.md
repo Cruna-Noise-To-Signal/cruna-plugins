@@ -57,7 +57,7 @@ A **connector** is a permission that lets the AI app act inside another service 
 
 ### Shared services mode: the admin's setup
 
-- **Need**: the organisation's Google Workspace admin has created the shared drive, the group and the shared calendar, and added every member to each: the steps in [shared-services-setup.md](shared-services-setup.md), the manual setup guide for the admin and for each member, joining and leaving. "Item 4, step N" means its step N.
+- **Need**: the organisation's Google Workspace admin has created the shared drive, the group and the shared calendar, and added every member to each: the steps in [manual-setup.md](manual-setup.md), the manual setup guide for the admin and for each member, joining and leaving. "Item 4, step N" means its step N.
 - **Check**: the check each of its steps names. Ready when every step's check passed, for the root (Once per root) or for the member joining (Per new member).
 - **Fix**: the failing step, by the person it names.
 
@@ -130,4 +130,4 @@ Remove their editor access on the root folder and the system calendar (as the as
 
 ### Shared services mode
 
-Follow [shared-services-setup.md](shared-services-setup.md) → A member leaving: the calendar owner's transfer comes first, and blocks the rest until `calendar_owner` names the new owner.
+Follow [manual-setup.md](manual-setup.md) → A member leaving: the calendar owner's transfer comes first, and blocks the rest until `calendar_owner` names the new owner.

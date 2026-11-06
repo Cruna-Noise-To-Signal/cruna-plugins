@@ -1,6 +1,6 @@
 # Setup in shared services mode
 
-What each setup step does when the root is in shared services mode (`mode: shared-services` in `org.md`, rules → Vocabulary → Mode), or when New root chose it. Each section below adds to the step of the same number in SKILL.md, or replaces the steps it names. Nothing here shares a folder or a calendar: in this mode sharing is membership, done by hand by the admin and the calendar owner, and Agora only checks it. The manual steps are the `rules` skill's `references/shared-services-setup.md`; "item 4, step N" means its step N.
+What each setup step does when the root is in shared services mode (`mode: shared-services` in `org.md`, rules → Vocabulary → Mode), or when New root chose it. Each section below adds to the step of the same number in SKILL.md, or replaces the steps it names. Nothing here shares a folder or a calendar: in this mode sharing is membership, done by hand by the admin and the calendar owner, and Agora only checks it. The manual steps are the `rules` skill's `references/manual-setup.md`; "item 4, step N" means its step N.
 
 ## 2a. Prerequisites (New root)
 
@@ -64,7 +64,7 @@ Done when the person is in Members and Access with what their checks proved, the
 
 In place of SKILL.md's Offboard steps 1–4, confirming each step with the owner (the admin, for a team) before you do it or hand it over:
 
-1. **Calendar owner first.** When the member leaving is `calendar_owner`, Offboard is **blocked**: remove nothing and write nothing else until the calendar is transferred (shared-services-setup.md → A member leaving, step 1). Once the new owner has accepted, set `calendar_owner` in `org.md` to their slug (rules → Replace) and check with a real call that a test event on `calendar` is still created and deleted. A request to skip the transfer gets the reason (the calendar is deleted with its owner's account) and the block stays.
+1. **Calendar owner first.** When the member leaving is `calendar_owner`, Offboard is **blocked**: remove nothing and write nothing else until the transfer is done and checked as the `rules` skill's `references/manual-setup.md` → A member leaving, step 1, says, `calendar_owner` included. A request to skip the transfer gets the reason (the calendar is deleted with its owner's account) and the block stays.
 2. **Remove them** from the shared drive, the group and the calendar's sharing, then suspend or delete their Workspace account, and ask them to disconnect their connectors and delete their routines: steps 2–4 of A member leaving, each by the person it names. Where a call can read the result (the shared drive's members, through the Drive connector's permissions), check it; otherwise the person who did it confirms.
 
 Then SKILL.md's steps 5 and 6.
