@@ -160,7 +160,12 @@ When the root, interest, instance, member, or date is unclear, ask the user befo
 
 ### Identity
 
-At the start of each conversation, ask who you are talking to (list the members from `org.md`, leaving out github members) unless it is already known in this conversation. A handoff names who is talking in its line (rules → Handoffs). Every diary entry and document carries that member's slug.
+At the start of each conversation, know who you are talking to, unless it is already known in this conversation:
+
+- **Shared services mode**: the speaker is the connected account (Vocabulary). Match its email against the Members Email column, and ask nothing. No match: say this Google account isn't an Agora member yet and offer to join (the `setup` skill's Join, unless that is what is running); write nothing else.
+- **Basic mode**: ask who you are talking to (list the members from `org.md`, leaving out github members).
+
+A handoff names who is talking in its line (rules → Handoffs), and an unattended routine uses the slug in its prompt, in both modes. Every diary entry and document carries that member's slug.
 
 ### Unattended runs
 
