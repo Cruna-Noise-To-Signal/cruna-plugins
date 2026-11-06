@@ -419,3 +419,24 @@ New M2 work conforms: the duplicate key, the sent-mail forms and the overdue per
 1. The `outgoing` rule is written in full in email.md and agora-spec, and both `email` steps partly repeat it.
 2. Say what happens to an unsent draft's `outgoing` row: it is pruned at 60 days.
 3. Say what an `outgoing` row's Date is before the send.
+
+## M3 - Moving and documenting — round 5
+
+**Result: PASS** (Specs PASS, Standards PASS). This reviews commit 05ec457.
+
+### Specs
+
+**Verdict: PASS.**
+- **Sender rule.** The member in By counts as sender only for a row whose From is `to <recipients>` (email.md l.17–18 EN and IT, agora-spec l.401).
+  - Trace: X's row stays keyed on X after A's reply, so B's copy of X is skipped.
+  - A's reply has an `outgoing` row keyed on A's Email, the Date minute and "Re: …", so B's copy of the reply is skipped too.
+  - Basic mode is unchanged: the Gmail id alone decides, and basic mode writes no `outgoing` rows.
+- **Dating and prune.** An `outgoing` row is dated with the draft's time, then with the sent email time on send. An unsent draft's row is pruned after 60 days.
+- **Review step 3.** It leaves out `outgoing` rows, in EN and IT.
+- **Agreement.** EN, IT and agora-spec agree, and per-file line counts match. 0.7.0, and the checker passes.
+- **Advisory:** agora-spec l.358 doesn't say that review Updates leave out `outgoing` rows. The rules and skill are correct.
+
+### Standards
+
+**Verdict: PASS.** The prefix and F7 tag are right, agora-spec is updated in the same commit, EN and IT change line for line, and there's no new smell.
+- **Advisory:** change-log spec.md still says `deliveredto:` (l.107, l.129, l.187). agora-spec records the founder's later decision (#11, 2026-11-06 14:54) and is the reference for the shared services filter.
