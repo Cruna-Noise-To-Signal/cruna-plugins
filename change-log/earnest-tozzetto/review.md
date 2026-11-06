@@ -242,3 +242,53 @@ New M2 work conforms: the duplicate key, the sent-mail forms and the overdue per
 1. Item 8's first bullet is about 130 words and holds four rules. Split it into a short sub-list.
 2. The oldest file is dated by created time while periods are read from names. If that is intentional, say why in a few words.
 3. Rephrase "A new root had no review to write before its first file" as "A new root has nothing due before its first review file".
+
+## M3 - Moving and documenting — round 1
+
+**Result: FAIL** (Specs FAIL, Standards PASS). This reviews commits a018d4b..620a776, plus a final pass over the whole branch.
+
+### Specs
+
+**Verdict: FAIL.** One must-fix: the founder's latest instruction on #11 isn't implemented. Everything else in M3 meets the spec. The checker passes, and agora and agora-ita are at 0.7.0 in all four manifests and the Claude catalog.
+
+**(a) Missing or partial**
+
+1. **MUST: the shared services mail filter ignores #11's comment of 2026-11-06 14:54.** It says: "use `list:name-of-the-group.company-domain OR to:name-of-the-group@company-domain OR cc:name-of-the-group@company-domain`. The list: part catches what others sent, and the rest catches your own posts, which never get the List-ID header in your mailbox." For Cruna that's `list:assistant.crunasignal.com OR to:assistant@crunasignal.com OR cc:assistant@crunasignal.com`.
+   - The code still uses `deliveredto:<inbox>` (or `list:<inbox>` with the address, not the dotted list-id) in:
+     - rules → The three ids → Mail;
+     - the prerequisites item 7 check;
+     - Join, Verify and Move step 7's Done when;
+     - agora-spec (l.188, l.203);
+     - Italian.
+   - It even lists "deliveredto vs list:" as still to verify live, but the founder has settled it.
+   - Report.md notes that Groups stamps each member's own address in Delivered-To. If so, shared services email, the item 7 check and the Move check all find nothing.
+   - Fix: the shared services received and sent forms become the founder's form. Basic mode stays as it is. Update agora-spec, the manual test FACT list and Italian to match. Spec l.107 is overtaken by the comment.
+2. Everything else checked is present:
+   - every F12 item from report.md and review.md is in agora-spec;
+   - the manual test covers every Testing Decisions scenario, with §12 as the founder's basic non-regression test, sent-mail search included;
+   - the M2 carry-overs are done in both languages;
+   - Italian line counts match, and the only English left is identifiers, box labels and bracketed UI labels.
+
+**(b) Scope creep:** none needing a fix. The hand-over step, filing `landing/` before a copy, and keeping the old account alive follow from the spec's steps.
+
+**(c) The three flagged decisions**
+1. **Old address trusted through the mover's Mail from cell:** accept. It follows grilled-idea ("trust the old address in `email_from`"), and agora-spec states it. Minor risk: if the mover is offboarded, the trust goes with them. One line in Offboard should move it to another member.
+2. **Old root trashed by clicks as the assistant account:** correct. In My Drive the Workspace account can't trash files it doesn't own, and step 8 runs only after the count check and the new `org.md`.
+3. **Manual setup as a section of agora-spec.md:** accept. Both READMEs link to `#manual-setup-shared-services-mode`, and `rules/references/manual-setup.md` ships in both languages.
+
+**End to end (M3 done-when):** met apart from finding 1. Basic mode is unaffected by it.
+
+### Standards
+
+**Verdict: PASS.** There are no must-fix issues in M3 or in the whole-branch pass (39 commits, 50 files).
+- **Versions:** 0.7.0 in both manifests of both languages and in the Claude catalog. The OpenAI catalog has no version field (portable-plugins format). The checker passes.
+- **Frontmatter:** only name and description. The new triggers are in user words.
+- **Spec:** `docs/agora/agora-spec.md` covers modes, Manual setup (the README anchor exists), Move, Mailboxes, overdue flags, and what is still to verify live.
+- **M2 round 3 carry-overs:** all resolved.
+- **Italian mirror:** identical line, heading, step and bullet counts per file. Identifiers stay in English, and UI labels appear in Italian with the English in brackets. The glossary gains about 50 terms.
+- **F6 Move:** resumable, with a Done when per step. It never trashes before the count check.
+
+**Advisory (non-blocking)**
+1. setup `SKILL.md` §4b summarises all ten `move.md` steps. Point to `move.md` with a one-line purpose instead.
+2. The Gmail forwarding click path is in both `move.md` step 7 and agora-spec l.258. The spec could point to the skill.
+3. Italian `move.md` step 1, "ogni membro in Members": set Members in backticks or bold.
