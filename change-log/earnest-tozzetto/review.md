@@ -153,3 +153,56 @@
 3. **Mode-branch claim drifting.** `review` item 8 and its Done-when say "in basic mode, an account mismatch is flagged". Phrase it without the mode ("where prerequisites item 3 applies"), so Vocabulary → Mode stays true.
 4. **Possible Divergent Change, review item 8.** It mixes overdue routines with the ownership check. Split it into two items.
 5. **Spec drift, for F12:** the 60-minute Tidied window, the duplicate key and Mailbox semantics, and the joiner's calendar-invitation step.
+
+## M2 - A team on it — round 2
+
+**Result: FAIL** (Specs FAIL, Standards PASS). This reviews the fixes in 51b9618..3ae0703.
+
+### Specs
+
+**Verdict: FAIL.** (c)1 and (c)3 are resolved. (c)2 is fixed for running roots, but a new root's first run still raises false flags. That is one small must-fix.
+
+**(c)1 Basic dedupe by Gmail id: resolved.** `email.md` → Mailboxes now says "the same duplicate key from **another** mailbox … Basic mode has one mailbox, so there the Gmail id alone decides." Every caller reduces to "same id" in basic mode, so basic non-regression holds:
+- the ledger skip (l.72) and merge (l.75);
+- filing's "already filed" (l.50);
+- the to-do "already added" (l.39);
+- rules' diary-duplicate check (`rules/SKILL.md` l.142).
+
+**(c)2 Overdue flag: mostly resolved.** The walk-through used real dates (2026-11-09 is a Monday):
+- **Mon 07:30:** no false flag.
+- **Tue:** a missed weekly is flagged about a day late, which counts as prompt.
+- **Dec 1, 07:30:** no false flag.
+- **Dec 2:** a missing December file is flagged.
+
+**MUST FIX:** review item 8 raises a false flag on a new root's first run, in both modes.
+- Its exception is "Leave out … a period when the oldest file in `reviews/` is dated after it began".
+- Setup builds `reviews/` empty, so the first daily finds no oldest file.
+- Read literally, it flags yesterday, the current week and the current month.
+- Fix: leave out every period while `reviews/` is empty, or date the root from `org.md`'s creation.
+
+**(c)3:** both sent-mail forms are wrapped in parentheses, and no unwrapped copy is left.
+
+**New, minor**
+1. **`manual-test.md` §6 (l.145), weekly step.** Its "raises no flag" claim doesn't hold every day:
+   - on a Sunday the run writes next week's file;
+   - on a Monday the trashed file is last week's;
+   - on a root younger than the week, the oldest-file rule hides the flag.
+
+   Fix: state the day to run it (Tuesday to Saturday) and the root's age.
+2. The F5 rename is clean, and Offboard keeps only the block.
+
+**(a) Missing:** none in M2. **(b) Scope creep:** none.
+
+### Standards
+
+**Verdict: PASS.** All four round 1 advisories are addressed, and the checker passes.
+1. The guide is renamed to `rules/references/manual-setup.md` and cited by its skill path. Nothing outside `change-log/` still mentions `shared-services-setup`.
+2. setup Offboard step 1 keeps only the block and points to the guide. The guide cites rules → Replace for the `org.md` write.
+3. Item 9 and its Done-when are worded without the mode.
+4. Item 8 covers overdue routines only, item 9 the connected account. The pointers say "items 7–9".
+
+New M2 work conforms: the duplicate key, the sent-mail forms and the overdue period are each defined once.
+
+**Advisory (non-blocking)**
+1. **Possible no-op, item 8:** "Leave out the file this run writes in step 3" only matters on an attended weekly run from Tuesday to Saturday. Say that, or delete it.
+2. **`manual-setup.md` step 1:** "item 3's Calendar check" is ambiguous. Write "prerequisites item 3".
