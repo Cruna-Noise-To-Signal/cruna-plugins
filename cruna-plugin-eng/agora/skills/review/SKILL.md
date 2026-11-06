@@ -17,7 +17,7 @@ Run Agora review: <daily | weekly | monthly> [for <slug>] [in <root name>]
 
 - **Period**: `daily`, `weekly` or `monthly`.
 - **Member** (optional): the slug of the member the message is for, making it personal. Without it, the message is general.
-- **Root** (optional): the root's display name from `org.md`, needed only when the assistant account sees several roots.
+- **Root** (optional): the root's display name from `org.md`, needed only when the connected account sees several roots.
 
 A prompt in this shape means an **unattended run**: nobody is there to answer, so follow rules → Unattended runs (act only on what is unambiguous, flag the rest) and skip the memory step. It writes no to-do event, beyond the add a member's mail asks for (rules → To-dos): what it notices about to-dos becomes a suggestion.
 
@@ -78,7 +78,7 @@ Done when: every folder has been walked; no derived, curated or working file has
 2. **New period** (no file yet): gather, then create the file from the Review template (rules → File kinds → templates):
    - **Looking back**: diary entries created in the look-back window (their file names carry the time) and the Done items they produced, grouped by interest, one line each. Tracker summaries count as diary entries; on weekly and monthly runs, add one line per tracker with the period's totals when they tell something (fewer feeds than usual, spending up).
    - **Still open**: Pending items from the instance statuses, each with who or what it waits on.
-   - **Looking ahead**: system calendar events in the look-ahead window, plus Next items dated inside it, in date order, with their event titles, and a List working file that matters for one of them (the packing list before a trip).
+   - **Looking ahead**: system calendar events (`calendarId = calendar`, rules → The three ids) in the look-ahead window, plus Next items dated inside it, in date order, with their event titles, and a List working file that matters for one of them (the packing list before a trip).
    - **Needs attention**: the flags from step 2 plus every Needs attention item in the instance statuses.
    - **To-dos** (root with `todos/` only): the section references/todos.md → Reviews describes, for the look-back and look-ahead windows, each member's to-dos in `org.md` Members order, then Everyone's. **Suggestions** come from the diary entries created in the look-back window and the emails the ledger lists in it, read as references/todos.md → Suggestions says; each one also goes under Needs attention. Leave out a suggestion that matches an open to-do (possible new) or a closed one (looks done).
    - **Email** (`email: on` only): the Email section of rules → Email → Reviews.
@@ -100,7 +100,7 @@ Built from the review and the statuses. A member's **items** are the items assig
 
 **Personal** (a member named), in this order:
 
-1. **Yours**: the member's items, plus their personal calendar events when `org.md` records it as shared with full details.
+1. **Yours**: the member's items, plus their personal calendar events when `org.md` records it as shared with full details, or when the connected account is the member's own (shared services mode).
 2. **Everyone else**: the other highlights from Looking back and Looking ahead, one line each, starting with Everyone's overdue or due to-dos.
 3. **Needs attention**: as above.
 
