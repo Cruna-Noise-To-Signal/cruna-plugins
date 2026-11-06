@@ -97,3 +97,59 @@
 1. **Possible Duplicated Code, `prerequisites.md` item 4 step 3.** The intro lists every setting that steps 3.1–3.2 then repeat. Cut the intro to the goal.
 2. **Pointer tension, `prerequisites.md` header.** It says a joining member "walks items 1–3, 5 and 6", while item 4 is also the joiner's guide in shared services mode. Reconcile them in F5.
 3. **Sprawl.** Item 4 is the longest block in the file, and only one mode uses it. If F5–F7 grow it further, move the shared services admin guide to its own reference with one pointer. This is the same move as round 1's advisory 1 for `setup`.
+
+## M2 - A team on it — round 1
+
+**Result: FAIL** (Specs FAIL, Standards PASS). This reviews commits 5fe3ef1..f437185 (F5, F7, F9 and the M1 carry-overs).
+
+### Specs
+
+**Verdict: FAIL.** F5, F9 and the M1 carry-overs are covered. One F7 basic-mode regression must be fixed.
+
+**(c) Implemented but wrong**
+
+1. **MUST FIX: the duplicate key changes basic-mode dedupe.** Plan F7 says "Basic-mode email behaviour is unchanged", and spec l.257 says "same results as on 0.6.0".
+   - `rules/references/email.md` → Mailboxes defines "The same email" as "the same Gmail id in the same mailbox, or the same duplicate key from any mailbox". The ledger skip and merge, filing's "already filed" and to-do "already added" all use it.
+   - Basic mode has one mailbox, so two different emails with the same sender, minute and subject (common for notifications) now merge. On 0.6.0 they didn't.
+   - Worse, basic ledger rows keep **Date as a date only**, so the comparison drops to sender + day + subject and silently skips real mail.
+   - Fix: "from **another** mailbox". Basic mode then dedupes by id, as on 0.6.0.
+2. **Minor: the overdue flag lags one period.** Spec l.211–214 asks for "a missing weekly review for last week … monthly review for last month".
+   - Weekly and monthly files are named after the week or month that contains tomorrow (`review` → Periods).
+   - Item 8 checks the file named after the previous period, so a missed run is flagged a whole period late.
+   - The fix must avoid a false positive before that period's routine has run, for example the 07:30 daily run on the 1st.
+3. **Minor:** the basic sent-mail form `deliveredto:<inbox> OR from:<inbox>` has no parentheses, unlike the shared services form. It is correct under Gmail precedence, but wrap it to be safe on both connectors.
+
+**(a) Missing or partial:** none in M2.
+- The Tidied line and skip, the ownership check in review, Join's checks naming the step and who does it, and the calendar-owner block on Offboard match spec l.143–149, l.170–175 and l.209–218.
+- The round 1 `deliveredto:` point is settled, and the round 2 carry-overs are done.
+
+**(b) Scope creep:** none blocking. The Join Workspace-account check by `inbox`'s domain assumes the group is on the members' domain, which is fine.
+
+**Deviations in report.md, both sound, both to F12**
+- **Date header time instead of received time:** every copy shares the Date header. Convert it to the root's timezone for names. It replaces spec l.198.
+- **Diary ids by id first, then search:** robust where "the author's mailbox" isn't. It replaces spec l.200.
+
+**Also for F12:** the sent-mail filter (which widens l.107 and l.199), the Date-to-the-minute ledger rows, the new reference files, and the overdue-period definition.
+
+**Basic non-regression otherwise:** `setup` basic text matches 0.6.0 apart from the intended ownership line, branch hint and pointers. Basic item 7, sender voice, received-time naming and the empty Mailbox column are unchanged.
+
+### Standards
+
+**Verdict: PASS.** The checker passes. Only English changed, and the prefixes and slices are fine.
+
+**M1 carry-overs, all resolved:**
+- the item 7 and item 4 tests agree;
+- the Group intro is cut to its goal;
+- the prerequisites header is reconciled;
+- the item 4 guide moved to `rules/references/shared-services-setup.md`;
+- setup's per-mode parentheticals became one pointer per step into `setup/references/shared-services.md`;
+- the `deliveredto:` sent-mail form is defined once.
+
+**What conforms:** Mailboxes, email time and the duplicate key are defined once in `email.md` → Mailboxes, and callers point to it. Join and Offboard end on checkable Done-whens.
+
+**Advisory (non-blocking)**
+1. **Possible Mysterious Name.** `setup/references/shared-services.md` and `rules/references/shared-services-setup.md` have near-identical names but do different jobs. `setup/.../shared-services.md:67` cites "shared-services-setup.md → A member leaving" with no skill path. Write it as "the `rules` skill's `references/shared-services-setup.md`", or rename the guide (e.g. `manual-setup.md`).
+2. **Duplication, calendar-owner transfer.** setup Offboard step 1 restates the rules guide's transfer and check. Keep only the block in setup.
+3. **Mode-branch claim drifting.** `review` item 8 and its Done-when say "in basic mode, an account mismatch is flagged". Phrase it without the mode ("where prerequisites item 3 applies"), so Vocabulary → Mode stays true.
+4. **Possible Divergent Change, review item 8.** It mixes overdue routines with the ownership check. Split it into two items.
+5. **Spec drift, for F12:** the 60-minute Tidied window, the duplicate key and Mailbox semantics, and the joiner's calendar-invitation step.
