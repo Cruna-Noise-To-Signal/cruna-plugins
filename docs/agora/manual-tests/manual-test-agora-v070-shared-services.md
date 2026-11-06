@@ -88,6 +88,7 @@ Notes:
 | As A, "send Mario a reply": from A's address, the group in CC, in A's voice, no assistant signature; sent only after A's yes | [ ] | [ ] |
 | Mario's reply-all lands in the group, so in A's and B's inboxes | [ ] | [ ] |
 | "Did we answer Mario?" as A finds the sent mail (sent-mail form, through `to:`/`cc:` the group); as B, finds it through the group (`list:`). Only mail with the group in To or Cc is found: a reply A sends Mario by hand without the group is missed, by design | [ ] | [ ] |
+| From the outside address, mail the group a question no member forwards; A's daily flags it. As A, "reply to it saying we'll call Monday", then "send it": its row becomes `sent`, and an `outgoing` row holds A's sent id with Mailbox `<a>`. Run A's daily, delete the Tidied line, run B's daily: neither files nor flags A's reply, and `inbox.md` gains no row for it | [ ] | [ ] |
 | As A, mail the group directly with no outside recipient: A's own post is found by `to:<group>`, and B finds it by `list:` | [ ] | [ ] |
 | An email in A's mailbox not sent to the group is never read or filed unless A names it | [ ] | [ ] |
 

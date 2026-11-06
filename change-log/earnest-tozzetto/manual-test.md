@@ -132,6 +132,7 @@ Calendar owner shares the calendar with B at Make changes to events; admin adds 
 - [ ] As A: "draft a reply to <outside sender> saying we'll call Monday", then "send it". The draft is in A's Gmail, from A's address, the group in **Cc**, written in A's own voice with no "assistant, on behalf of" line. The sent row has Mailbox = A.
 - [ ] As B, after the send: "did we answer <outside sender>?" finds A's reply (the copy reached B through the group). As A, the same question finds it in A's Sent (the filter's `to:`/`cc:` part: A's own post carries no List-ID).
 - [ ] Reply from the outside address: it lands in the group, so in both A's and B's inbox.
+- [ ] From the outside address, mail the group a question no member forwards; run A's daily: it's flagged. As A: "reply to it saying we'll call Monday", then "send it". The flagged row becomes `sent`, and an `outgoing` row holds A's sent id with Mailbox = A. Run A's daily, delete the Tidied line, run B's daily: neither files nor flags A's reply, and `inbox.md` gains no row for it.
 
 ### 5. Two routines within 60 minutes
 

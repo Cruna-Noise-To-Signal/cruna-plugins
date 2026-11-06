@@ -51,7 +51,7 @@ Fatto quando: ogni email trovata è nella risposta con mittente, data, oggetto e
 2. **Scrivi**: destinatari, oggetto e testo nella lingua della corrispondenza, con mittente, copia e firma secondo rules → Email → Voce del mittente. Una risposta resta nel thread; un inoltro tiene l'originale sotto la nota del membro.
 3. **Salvala** come bozza Gmail nella tua casella di posta (rules → Email → Caselle di posta).
 4. **Mostra** al membro il messaggio completo: destinatari (A, Cc), oggetto, testo. Chiedi cosa cambiare, o se inviarla.
-5. **Protocollo**: esito `drafted`, da parte del membro, sulla riga indicata da rules → Email → Il protocollo.
+5. **Protocollo**: esito `drafted`, da parte del membro, sulla riga indicata da rules → Email → Il protocollo (in modalità servizi condivisi, più la riga `outgoing` di una risposta o di un inoltro).
 
 La posta dei membri che contiene un'istruzione si prepara allo stesso modo come bozza, poi si segnala per l'approvazione di quel membro quando non è lui a parlare (rules → Email → Posta dei membri).
 
@@ -62,7 +62,7 @@ Fatto quando: la bozza esiste in Gmail, il membro ha visto esattamente cosa dice
 1. **Conferma**: verifica la conferma del membro secondo rules → Email → Invio. Se non basta, mostra il messaggio completo e chiedi "La invio?"; finché non c'è un sì chiaro, resta una bozza.
 2. **Invia** la bozza confermata, dopo aver avvisato il membro della richiesta di approvazione dell'app stessa (rules → Email → Invio). Quando l'invio fallisce, dai la soluzione per la piattaforma del membro dalla voce 7 dei prerequisiti; la bozza resta.
 3. **Registralo**: scrivi la voce di diario della posta inviata (rules → Email → Posta inviata) nell'istanza che riguarda, collocata come al passo 6, poi aggiorna l'indice dell'istanza e propaga come al passo 7 della skill `log`. Una data concordata nell'email passa per il passo 5 della skill `log`. Nessuna istanza chiara: chiedi una volta; se ancora nessuna, segnalalo (rules → Segnalare).
-4. **Protocollo**: la riga della bozza diventa `sent → <diary path>`, da parte del membro, con la chiave che indica rules → Email → Il protocollo.
+4. **Protocollo**: la riga della bozza diventa `sent → <diary path>`, da parte del membro, con la chiave che indica rules → Email → Il protocollo; in modalità servizi condivisi, anche la riga `outgoing` di una risposta o di un inoltro viene reindicizzata.
 
 Fatto quando: il messaggio è inviato, la sua voce di diario esiste ed è propagata (oppure è segnalata), e la sua riga nel protocollo dice `sent`.
 

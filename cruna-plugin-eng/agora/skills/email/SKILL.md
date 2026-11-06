@@ -51,7 +51,7 @@ Done when: every matching email is in the answer with sender, date, subject and 
 2. **Write**: recipients, subject and body in the language the correspondence uses, sent from, copied and signed per rules → Email → Sender voice. A reply keeps the thread; a forward keeps the original below the member's note.
 3. **Save** it as a Gmail draft in your mailbox (rules → Email → Mailboxes).
 4. **Show** the member the full message: recipients (To, Cc), subject, body. Ask what to change, or whether to send.
-5. **Ledger**: outcome `drafted`, by the member, on the row rules → Email → The ledger names.
+5. **Ledger**: outcome `drafted`, by the member, on the row rules → Email → The ledger names (in shared services mode, plus a reply or forward's `outgoing` row).
 
 Member mail carrying an instruction is drafted the same way, then flagged for that member's approval when they are not the one talking (rules → Email → Member mail).
 
@@ -62,7 +62,7 @@ Done when: the draft exists in Gmail, the member has seen exactly what it says, 
 1. **Confirm**: check the member's confirmation against rules → Email → Sending. Short of one, show the full message and ask "Send this?"; until a clear yes, it stays a draft.
 2. **Send** the confirmed draft, after telling the member about the app's own approval prompt (rules → Email → Sending). When the send fails, give the fix for the member's platform from prerequisites item 7; the draft stays.
 3. **Log it**: write the sent-mail diary entry (rules → Email → Sent mail) in the instance it concerns, placed as in step 6, then refresh the instance index and propagate as in the `log` skill's step 7. A date agreed in the email goes through the `log` skill's step 5. No clear instance: ask once; still none, flag it (rules → Flag).
-4. **Ledger**: the draft's row becomes `sent → <diary path>`, by the member, keyed as rules → Email → The ledger says.
+4. **Ledger**: the draft's row becomes `sent → <diary path>`, by the member, keyed as rules → Email → The ledger says; in shared services mode, a reply or forward's `outgoing` row is rekeyed too.
 
 Done when: the message is sent, its diary entry exists and has propagated (or it is flagged), and its ledger row says `sent`.
 
