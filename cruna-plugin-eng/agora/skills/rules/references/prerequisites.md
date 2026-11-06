@@ -116,9 +116,9 @@ Optional: only a root with `email: on` needs it, and it suits business roots bes
 ### Shared services mode
 
 - **Need**: the **Gmail** connector, signed in as the member's own Workspace account, and the member in the group with **Each email** delivery, so group mail lands in their own inbox.
-- **Check**: search `deliveredto:<inbox>` (`inbox` in `org.md`, the group's address) with a real call; it must return results. None yet (a new group): ask the member to send a test email to the group's address from an address outside the organisation (a personal Gmail, say), so the test also proves outside senders reach the group; wait a minute, and search again. Still none: the member isn't in the group, their delivery isn't Each email, or outside posting is off (item 4, steps 3.1 and 3.2). On a pass, write `receives mail` in their Access row's Notes.
+- **Check**: search with the mail filter's received-mail form, `(list:<list-id> OR to:<inbox> OR cc:<inbox>) -from:me` (`inbox` in `org.md`, the group's address; `<list-id>` is it with `@` replaced by `.`, rules → The three ids → Mail), with a real call; it must return results. None yet (a new group): ask the member to send a test email to the group's address from an address outside the organisation (a personal Gmail, say), so the test also proves outside senders reach the group; wait a minute, and search again. Still none: the member isn't in the group, their delivery isn't Each email, or outside posting is off (item 4, steps 3.1 and 3.2). On a pass, write `receives mail` in their Access row's Notes.
 - **Fix**: the basic mode paths above, signed in as the member's own account; Gmail missing from the connector list: item 4, step 5.
-- **Limits** to tell the member: the connector could reach their whole mailbox, but Agora reads only mail delivered to the group, by its own rule (rules → The three ids); it can't open attachments, only their names; it doesn't label, archive or delete mail.
+- **Limits** to tell the member: the connector could reach their whole mailbox, but Agora reads only the group's mail, by its own rule, the mail filter (rules → The three ids → Mail); it can't open attachments, only their names; it doesn't label, archive or delete mail.
 
 ## Offboarding a member
 

@@ -28,7 +28,7 @@ As A, connectors signed in as A. Say "set up Agora".
 | Paste the Calendar ID: a test event is created and deleted on it (check Calendar's trash/history) | [ ] | [ ] |
 | The root folder is created inside the shared drive; `org.md` has `mode: shared-services`, `drive_id` (the URL id), `root_id` (the folder's id), `calendar`, `calendar_owner: <a>`, `inbox` (the group), no `assistant_account`; Members has Kind | [ ] | [ ] |
 | Sharing makes no sharing call: A's Access row says `content manager` / `can edit`; B's Member section has unticked admin boxes naming who does each | [ ] | [ ] |
-| Email on: item 7's group search; with an empty group, a test email from the outside address, then the search finds it; A's Access Notes `receives mail` | [ ] | [ ] |
+| Email on: item 7's group search uses `(list:<list-id> OR to:<group> OR cc:<group>) -from:me`, the list-id being the group address with `@` as `.`; with an empty group, a test email from the outside address, then the search finds it; A's Access Notes `receives mail` | [ ] | [ ] |
 | Verify passes: `root_id` walks up to `drive_id`, test file and event round trip, `calendar_owner` is a member | [ ] | [ ] |
 
 Notes:
@@ -87,7 +87,8 @@ Notes:
 | As B, open A's diary entry's email: found by search in B's mailbox | [ ] | [ ] |
 | As A, "send Mario a reply": from A's address, the group in CC, in A's voice, no assistant signature; sent only after A's yes | [ ] | [ ] |
 | Mario's reply-all lands in the group, so in A's and B's inboxes | [ ] | [ ] |
-| "Did we answer Mario?" as A finds the sent mail (sent-mail form); as B, finds it through the group | [ ] | [ ] |
+| "Did we answer Mario?" as A finds the sent mail (sent-mail form, through `to:`/`cc:` the group); as B, finds it through the group (`list:`) | [ ] | [ ] |
+| As A, mail the group directly with no outside recipient: A's own post is found by `to:<group>`, and B finds it by `list:` | [ ] | [ ] |
 | An email in A's mailbox not sent to the group is never read or filed unless A names it | [ ] | [ ] |
 
 Notes:
@@ -178,7 +179,7 @@ Notes:
 
 ## FACT
 
-- Does `deliveredto:<group>` match group mail in a member's mailbox, or is `list:<group>` needed?
-- Does the sent-mail filter form work on both connectors?
+- Settled by the founder (#11, 2026-11-06): shared services mode searches `(list:<list-id> OR to:<group> OR cc:<group>)`, not `deliveredto:`. Does this form work on both connectors?
+- Does the basic sent-mail form work on both connectors?
 - Is the primary calendar's id the account's email on ChatGPT?
 - Does the Drive connector expose `owners`, read a shared drive's members, and re-parent a folder into a shared drive?

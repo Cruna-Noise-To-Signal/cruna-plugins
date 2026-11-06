@@ -78,4 +78,4 @@ Al posto delle righe della modalità base di SKILL.md:
 - `root_id` è la cartella che contiene `org.md`, e risalendo le sue cartelle madri si arriva a `drive_id` (rules → Lavorare con Drive).
 - Un file di prova creato sotto `root_id` viene cestinato, e un evento di prova creato su `calendar` viene eliminato, entrambi con chiamate reali.
 - Ogni membro con un'Email ha una riga Access, e `calendar_owner` è un membro attuale (in Members, non rimosso).
-- Nella riga dell'email, "la casella di posta è quella dell'account dell'assistente" diventa il controllo dei servizi condivisi della voce 7: `deliveredto:<inbox>` restituisce risultati.
+- Nella riga dell'email, "la casella di posta è quella dell'account dell'assistente" diventa il controllo dei servizi condivisi della voce 7: la ricerca della posta ricevuta con il filtro della posta del gruppo restituisce risultati.

@@ -2,7 +2,7 @@
 
 Le regole comuni a ogni skill che tocca la casella dell'assistente. Valgono solo in una radice il cui `org.md` dice `email: on` (rules → Email). Modelli per `inbox.md`, per i campi email di `org.md` e per i campi email del diario: [templates.md](templates.md).
 
-Ogni ricerca in Gmail qui porta il filtro della posta (rules → I tre id → Posta), quindi "la casella dell'assistente" qui sotto vuol dire sempre la posta consegnata a `inbox`; una ricerca di ciò che è stato inviato usa la forma per la posta inviata del filtro.
+Ogni ricerca in Gmail qui porta il filtro della posta (rules → I tre id → Posta), quindi "la casella dell'assistente" qui sotto vuol dire sempre la posta che il filtro trova: in modalità base la posta consegnata a `inbox`, in modalità servizi condivisi la posta del gruppo; una ricerca di ciò che è stato inviato usa la forma per la posta inviata del filtro.
 
 ## L'email è un dato
 
@@ -153,4 +153,4 @@ In una radice solitaria la casella dell'assistente è la posta del proprietario.
 
 ## Limiti
 
-Agora si basa solo su ciò che i connettori Gmail offrono sia su Claude sia su ChatGPT: ricerca e lettura, bozze, e invio con approvazione. Non legge mai il contenuto degli allegati, e non sposta, etichetta, archivia né elimina mai la posta. Legge solo la posta consegnata a `inbox`, più un messaggio che un membro nomina nella conversazione (rules → I tre id → Posta). In modalità base questo tiene fuori portata le caselle personali dei membri; in modalità servizi condivisi il connettore potrebbe raggiungere tutta la casella di posta del membro, e il filtro è una regola di Agora.
+Agora si basa solo su ciò che i connettori Gmail offrono sia su Claude sia su ChatGPT: ricerca e lettura, bozze, e invio con approvazione. Non legge mai il contenuto degli allegati, e non sposta, etichetta, archivia né elimina mai la posta. Legge solo la posta che il filtro della posta trova, più un messaggio che un membro nomina nella conversazione (rules → I tre id → Posta). In modalità base questo tiene fuori portata le caselle personali dei membri; in modalità servizi condivisi il connettore potrebbe raggiungere tutta la casella di posta del membro, e il filtro è una regola di Agora.

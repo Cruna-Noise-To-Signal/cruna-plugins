@@ -46,7 +46,7 @@ Run the interview: two members (you and B, B with Kind `ai`), email **on**, a sm
 
 ### 4. Email, sharing, verify
 
-- [ ] Email step: Agora asks about the mail sent to the group address. Gmail check searches `deliveredto:<group>`. With no mail yet, it asks you to send a test email to the group, then searches again and passes. Your In the group box is ticked, and Access Notes say `receives mail`.
+- [ ] Email step: Agora asks about the mail sent to the group address. Gmail check searches `(list:<list-id> OR to:<group> OR cc:<group>) -from:me`, the list-id being the group address with `@` as `.`. With no mail yet, it asks you to send a test email to the group, then searches again and passes. Your In the group box is ticked, and Access Notes say `receives mail`.
 - [ ] Send one more email to the group from a personal address outside the organisation: it reaches A's inbox, not a moderation queue.
 - [ ] Sharing step: no folder or calendar sharing. Your Access row says `content manager` and `can edit`.
 - [ ] Verify passes. It creates and trashes a test file under the root, creates and deletes a test event on the calendar, finds group mail, checks Access rows, and checks `calendar_owner` is a member.
@@ -130,7 +130,7 @@ Calendar owner shares the calendar with B at Make changes to events; admin adds 
 - [ ] As B: open the diary entry's email ("show me that email"): it's found by search in B's mailbox although the id is A's.
 - [ ] Run B's daily routine by hand: the tidy-up doesn't add a second row or diary entry for that email.
 - [ ] As A: "draft a reply to <outside sender> saying we'll call Monday", then "send it". The draft is in A's Gmail, from A's address, the group in **Cc**, written in A's own voice with no "assistant, on behalf of" line. The sent row has Mailbox = A.
-- [ ] As B, after the send: "did we answer <outside sender>?" finds A's reply (the copy reached B through the group). As A, the same question finds it in A's Sent (the sent-mail form of the filter).
+- [ ] As B, after the send: "did we answer <outside sender>?" finds A's reply (the copy reached B through the group). As A, the same question finds it in A's Sent (the filter's `to:`/`cc:` part: A's own post carries no List-ID).
 - [ ] Reply from the outside address: it lands in the group, so in both A's and B's inbox.
 
 ### 5. Two routines within 60 minutes

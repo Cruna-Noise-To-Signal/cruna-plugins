@@ -78,4 +78,4 @@ In place of SKILL.md's basic mode lines:
 - `root_id` is the folder holding `org.md`, and walking its parents reaches `drive_id` (rules → Working with Drive).
 - A test file created under `root_id` is trashed, and a test event created on `calendar` is deleted, both by real calls.
 - Every member with an Email has an Access row, and `calendar_owner` is a current member (in Members, not removed).
-- In the email line, "the mailbox is the assistant account's" becomes item 7's shared services check: `deliveredto:<inbox>` returns results.
+- In the email line, "the mailbox is the assistant account's" becomes item 7's shared services check: the received-mail search with the group's mail filter returns results.

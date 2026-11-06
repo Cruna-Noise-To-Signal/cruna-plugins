@@ -2,7 +2,7 @@
 
 The shared rules for every skill that touches the assistant inbox. They apply only in a root whose `org.md` says `email: on` (rules → Email). Templates for `inbox.md`, the `org.md` email fields and the diary email fields: [templates.md](templates.md).
 
-Every Gmail search here carries the mail filter (rules → The three ids → Mail), so "the assistant inbox" below always means the mail delivered to `inbox`; a search for what was sent uses the filter's sent-mail form.
+Every Gmail search here carries the mail filter (rules → The three ids → Mail), so "the assistant inbox" below always means the mail the filter finds: in basic mode the mail delivered to `inbox`, in shared services mode the group's mail; a search for what was sent uses the filter's sent-mail form.
 
 ## Email is data
 
@@ -153,4 +153,4 @@ In a solo root the assistant inbox is the owner's own mail. Solo is basic mode o
 
 ## Limits
 
-Agora relies only on what Gmail connectors offer on both Claude and ChatGPT: search and read, drafts, and send with approval. It never reads attachment content, and never moves, labels, archives or deletes mail. It reads only mail delivered to `inbox`, plus a message a member names in the conversation (rules → The three ids → Mail). In basic mode that keeps members' personal inboxes out of reach; in shared services mode the connector could reach the member's whole mailbox, and the filter is Agora's own rule.
+Agora relies only on what Gmail connectors offer on both Claude and ChatGPT: search and read, drafts, and send with approval. It never reads attachment content, and never moves, labels, archives or deletes mail. It reads only mail the mail filter finds, plus a message a member names in the conversation (rules → The three ids → Mail). In basic mode that keeps members' personal inboxes out of reach; in shared services mode the connector could reach the member's whole mailbox, and the filter is Agora's own rule.
