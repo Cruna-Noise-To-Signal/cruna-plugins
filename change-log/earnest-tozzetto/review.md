@@ -206,3 +206,39 @@ New M2 work conforms: the duplicate key, the sent-mail forms and the overdue per
 **Advisory (non-blocking)**
 1. **Possible no-op, item 8:** "Leave out the file this run writes in step 3" only matters on an attended weekly run from Tuesday to Saturday. Say that, or delete it.
 2. **`manual-setup.md` step 1:** "item 3's Calendar check" is ambiguous. Write "prerequisites item 3".
+
+## M2 - A team on it — round 3
+
+**Result: PASS** (Specs PASS, Standards PASS). This reviews the fixes in 53ae537 and b68b6f9.
+
+### Specs
+
+**Verdict: PASS.**
+
+**Round 2 MUST FIX resolved.** Item 8 now reads "while `reviews/` is empty, flag no missing file; otherwise leave out every period whose first day is on or before the day the oldest file in `reviews/` was created". The walk-through used a root set up Wed 2026-11-11 afternoon:
+- **Thu 12:** no flag (empty).
+- **Fri 13:** Thu, W46 and November left out.
+- **Sat 14:** a missed Fri daily is flagged.
+- **Mon 16:** W46 left out; it was never due.
+- **Tue 17:** a missed Sunday weekly is flagged.
+- **Dec 1:** November left out, and W49 is checked.
+- **Dec 2:** a missed Dec 1 monthly is flagged.
+
+**Old root with a year of reviews:** nothing is hidden. Replace only re-creates current-period files, so the oldest file never moves forward. Basic mode is unaffected beyond the intended F9 flag.
+
+**Manual test §6 weekly step: resolved** (Tuesday to Saturday, root older than this Monday).
+
+**New, minor (carried to M3)**
+1. A root whose first file is created on the 1st never gets its first monthly flagged. This is the accepted first-run blind spot: note it in the F12 spec.
+2. `manual-test.md` §6 step 1 (trash yesterday's daily) should say "on a root older than two days".
+
+### Standards
+
+**Verdict: PASS.**
+- Advisory 1 is resolved: the step-3 clause now gives its reason (an attended mid-period weekly or monthly run).
+- Advisory 2 is resolved: "prerequisites item 3's Calendar check".
+
+**Advisory (non-blocking, carried to M3)**
+1. Item 8's first bullet is about 130 words and holds four rules. Split it into a short sub-list.
+2. The oldest file is dated by created time while periods are read from names. If that is intentional, say why in a few words.
+3. Rephrase "A new root had no review to write before its first file" as "A new root has nothing due before its first review file".
