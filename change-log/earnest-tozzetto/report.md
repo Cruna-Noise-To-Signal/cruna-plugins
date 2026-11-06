@@ -238,3 +238,11 @@ Fixes for review M3 round 2, in English then Italian; agora and agora-ita stay a
 - **Advisory 2**: glossary row 1 split into "list-id" and "what the member sent to the group".
 - **Advisory 3**: agora-spec and the "Did we answer Mario?" row note that sent mail is found only with the group in To or Cc; Agora always CCs the group, so only hand-sent mail without it is missed.
 - Testing: skill prose and docs only, so no `tdd` cycle.
+
+## M3 revision 3
+
+Fixes for review M3 round 3, in English then Italian; agora and agora-ita stay at 0.7.0.
+
+- **F7, Agora's sent replies (MUST)**: in shared services mode, a reply or forward that goes on a ledgered email's row also gets its own row, outcome `outgoing`, keyed on its draft id and rekeyed to the sent message id on send (dated with the send time, by the sending member). The filter returns that sent mail to every member's triage; the row now matches it by id in the sender's mailbox and by duplicate key in the others, so nobody files or flags it. The Email section never lists `outgoing` rows. Basic mode writes none: its received-mail form, `deliveredto:`, never finds sent mail, so triage and the ledger behave as on 0.6.0. `outgoing` joins the glossary's untranslated outcomes. Both manual tests gained a "reply to a flagged email is not re-triaged by either member" check.
+- **F12, advisories**: shared services text says "search with the mail filter" instead of "received-mail search" (setup shared-services.md, agora-spec item 7 and Manual setup). email.md's Opening line notes the sent-mail form is, in shared services mode, the one form.
+- Testing: skill prose and docs only, so no `tdd` cycle.

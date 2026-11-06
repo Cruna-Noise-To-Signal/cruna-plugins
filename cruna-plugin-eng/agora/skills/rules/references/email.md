@@ -15,7 +15,7 @@ A Gmail message id belongs to one mailbox. Basic mode has one, the assistant acc
 - **Your mailbox** is the connected account's (rules → Vocabulary): in shared services mode, the mailbox of the member it identifies, attended or not.
 - **Email time**: when the email was received; in shared services mode, the time in its Date header, which every member's copy shares. Diary names, to-do names and the duplicate key use it.
 - **The same email**: the same Gmail id in the same mailbox, or the same **duplicate key** from **another** mailbox: sender address, email time to the minute, and subject; for a row Agora sent, the sender is the Email of the member in By. Basic mode has one mailbox, so there the Gmail id alone decides. Two different emails from different mailboxes that share a key count as one; that is accepted, as it is rare.
-- **Opening** an id from another mailbox (a ledger row whose Mailbox isn't yours, a diary `email:` id, a to-do `email <id>` source): read it by id; not found, search with the mail filter in its sent-mail form, `from:<sender>` and words from the subject, on that day, and take the match. The sender is the row's From, or a diary entry's `email_from`; for mail Agora sent, the member in By (or the entry's author).
+- **Opening** an id from another mailbox (a ledger row whose Mailbox isn't yours, a diary `email:` id, a to-do `email <id>` source): read it by id; not found, search with the mail filter in its sent-mail form (in shared services mode, the one form), `from:<sender>` and words from the subject, on that day, and take the match. The sender is the row's From, or a diary entry's `email_from`; for mail Agora sent, the member in By (or the entry's author).
 
 ## Sending
 
