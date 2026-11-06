@@ -132,7 +132,7 @@ last_tidy_up: 2026-11-03
 | 18c2ed02b4a1c877 | 2026-11-02 | Simone <simone@example.com> | add to my to-dos | to-do → simone-20261102_0805 | routine | |
 ```
 
-**Mailbox** is the slug of the member whose mailbox the row's Gmail message id belongs to, written in shared services mode, where each member reads the group's mail in their own mailbox. It is empty in basic mode and in rows written before the column; both mean the assistant account's inbox.
+**Mailbox**, and the Date's form in shared services mode: [email.md](email.md) → The ledger.
 
 ## `index.md` (derived)
 

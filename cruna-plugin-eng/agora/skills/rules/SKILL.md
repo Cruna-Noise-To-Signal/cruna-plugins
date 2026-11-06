@@ -139,7 +139,7 @@ Duplicates found at any time:
 - derived or curated file, or a list: keep the newest, trash the rest;
 - tracker: merge all copies into one (every distinct row, in date/time order), then trash the rest;
 - `inbox.md`: merge as [references/email.md](references/email.md) → The ledger says;
-- `routine-` diary entries with identical content, or diary entries for the same email (same `email` id) with identical content: keep one, trash the rest;
+- `routine-` diary entries with identical content, or diary entries for the same email (references/email.md → Mailboxes) with identical content: keep one, trash the rest;
 - any other source file (diary, uploaded documents): keep all and flag them.
 
 ## Status update rule

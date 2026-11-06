@@ -5,7 +5,7 @@ description: Reads, drafts and sends email from the Agora assistant inbox, and f
 
 # Email
 
-The **assistant inbox** is the assistant account's Gmail inbox (rules → Vocabulary). In conversation you search and read it, draft and send for members, file emails as diary entries, and keep the `inbox.md` **ledger** of what you did with each email. The scheduled `review` does the unattended side; this skill is always **attended**: a member is there to answer.
+The **assistant inbox** is the mail delivered to `inbox` in `org.md` (rules → Vocabulary). In conversation you search and read it, draft and send for members, file emails as diary entries, and keep the `inbox.md` **ledger** of what you did with each email. The scheduled `review` does the unattended side; this skill is always **attended**: a member is there to answer.
 
 Every rule this skill applies is in the `rules` skill's `references/email.md`, read in step 1; the steps below say when each rule fires.
 
@@ -15,7 +15,7 @@ Every rule this skill applies is in the `rules` skill's `references/email.md`, r
 
 Load the `rules` skill and read its `references/email.md`, and its `references/todos.md` too when the root has a `todos/` folder or a to-do comes up. Follow rules → Finding the root and rules → Identity, then read `memories/<slug>.md` and `memories/shared.md` (rules → Memory step), and read `inbox.md` at the root (rules → Email → The ledger).
 
-When `org.md` has no `email: on`, the root has no email: say so in one sentence, offer to turn it on (the `setup` skill, "turn on email"), and stop. When a Gmail call fails, or the mailbox is not the assistant account's, it is a setup problem: walk prerequisites item 7 (rules → When something fails).
+When `org.md` has no `email: on`, the root has no email: say so in one sentence, offer to turn it on (the `setup` skill, "turn on email"), and stop. When a Gmail call fails, or the mailbox is not the one prerequisites item 7 names for the root's mode, it is a setup problem: walk prerequisites item 7 (rules → When something fails).
 
 Done when: `org.md` says `email: on`, you know the member's slug, their memories and the shared memories are read, and `inbox.md` is read (missing: it is created in step 9).
 
@@ -48,8 +48,8 @@ Done when: every matching email is in the answer with sender, date, subject and 
 ### 4. Draft
 
 1. **Source**: for a reply or a forward, read the original email and its thread. Find the instance it concerns, by the same placement as step 6, and read its `status.md` and recent diary for context. Facts you state come from Agora or the thread; anything missing becomes a question to the member, never a guess.
-2. **Write**: recipients, subject and body in the language the correspondence uses, signed per rules → Email → Sender voice. A reply keeps the thread; a forward keeps the original below the member's note.
-3. **Save** it as a Gmail draft in the assistant inbox.
+2. **Write**: recipients, subject and body in the language the correspondence uses, sent from, copied and signed per rules → Email → Sender voice. A reply keeps the thread; a forward keeps the original below the member's note.
+3. **Save** it as a Gmail draft in your mailbox (rules → Email → Mailboxes).
 4. **Show** the member the full message: recipients (To, Cc), subject, body. Ask what to change, or whether to send.
 5. **Ledger**: outcome `drafted`, by the member, on the row rules → Email → The ledger names.
 
