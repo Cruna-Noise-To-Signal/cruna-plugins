@@ -46,7 +46,7 @@ Run the interview: two members (you and B, B with Kind `ai`), email **on**, a sm
 
 ### 4. Email, sharing, verify
 
-- [ ] Email step: Agora asks about the mail sent to the group address. Gmail check searches `(list:<list-id> OR to:<group> OR cc:<group>) -from:me`, the list-id being the group address with `@` as `.`. With no mail yet, it asks you to send a test email to the group, then searches again and passes. Your In the group box is ticked, and Access Notes say `receives mail`.
+- [ ] Email step: Agora asks about the mail sent to the group address. Gmail check searches with the shared services mail filter (rules → The three ids → Mail). With no mail yet, it asks you to send a test email to the group, then searches again and passes. Your In the group box is ticked, and Access Notes say `receives mail`.
 - [ ] Send one more email to the group from a personal address outside the organisation: it reaches A's inbox, not a moderation queue.
 - [ ] Sharing step: no folder or calendar sharing. Your Access row says `content manager` and `can edit`.
 - [ ] Verify passes. It creates and trashes a test file under the root, creates and deletes a test event on the calendar, finds group mail, checks Access rows, and checks `calendar_owner` is a member.

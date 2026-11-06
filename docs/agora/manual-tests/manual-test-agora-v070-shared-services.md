@@ -28,7 +28,7 @@ As A, connectors signed in as A. Say "set up Agora".
 | Paste the Calendar ID: a test event is created and deleted on it (check Calendar's trash/history) | [ ] | [ ] |
 | The root folder is created inside the shared drive; `org.md` has `mode: shared-services`, `drive_id` (the URL id), `root_id` (the folder's id), `calendar`, `calendar_owner: <a>`, `inbox` (the group), no `assistant_account`; Members has Kind | [ ] | [ ] |
 | Sharing makes no sharing call: A's Access row says `content manager` / `can edit`; B's Member section has unticked admin boxes naming who does each | [ ] | [ ] |
-| Email on: item 7's group search uses `(list:<list-id> OR to:<group> OR cc:<group>) -from:me`, the list-id being the group address with `@` as `.`; with an empty group, a test email from the outside address, then the search finds it; A's Access Notes `receives mail` | [ ] | [ ] |
+| Email on: item 7's group search uses the shared services mail filter (rules → The three ids → Mail); with an empty group, a test email from the outside address, then the search finds it; A's Access Notes `receives mail` | [ ] | [ ] |
 | Verify passes: `root_id` walks up to `drive_id`, test file and event round trip, `calendar_owner` is a member | [ ] | [ ] |
 
 Notes:
