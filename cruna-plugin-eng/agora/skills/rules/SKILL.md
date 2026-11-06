@@ -10,13 +10,17 @@ Agora is a shared knowledge base kept by the AI on Google Drive (files) and Goog
 ## Vocabulary
 
 - **Root**: one independent Agora (a family, a small business). Its own folder, members, system calendar, memories and routines.
+- **Mode**: how members reach the root, `mode` in `org.md`. Every skill reaches the root the same way in both (The three ids). Only `setup` and `help` branch on the mode themselves. Every other per-mode difference is stated once, here or in the references (Identity, Replace, Calendar conventions → The speaker's own calendar, the mail filter, email sending and mailboxes, the prerequisites), and the skills it affects point to it.
+  - **Basic shared account mode** (`basic-shared-account`, and the mode whenever `mode` is missing): several people's AI clients sign in to one Google account, the assistant account.
+  - **Shared services mode** (`shared-services`, Google Workspace only): each member's AI client signs in as that member's own Workspace account, and every member reaches the same three shared services: the root folder inside a **shared drive**, a **shared calendar**, and a **Google Group** whose address is the inbox.
+- **Connected account**: the Google account this AI client's connectors sign in as. Its email is the id of the primary calendar in the calendar list.
 - **Interest**: a top-level folder in the root. What an interest *is* (a person, a client, a topic) is the root's **layout convention**, recorded in `org.md`.
 - **Instance**: a folder inside an interest; the unit that holds a diary and documents. Depth is always exactly two: `root/<interest>/<instance>/`. Something smaller than an instance (a single blood test, a single invoice) is a diary entry plus its documents, never a folder.
-- **Member**: a row in `org.md` Members: a person, or a github member. A person's **slug** is their first name, lowercase, ASCII (`simone`).
+- **Member**: a row in `org.md` Members: a person, or a github member. A person's **slug** is their first name, lowercase, ASCII (`simone`). Every member is a user, a Google account with an AI client attached; its **Kind** (`human` or `ai`, missing means `human`) is recorded for the organisation's own reasons and changes nothing in permissions, routines, reviews or to-dos.
 - **Github member**: a member whose Role is `github`, with the slug its handoff lines carry (usually `pm`). An address meaning "this goes to GitHub" through the `cruna-pm-github` plugin, not a person: it may author diary entries and to-do events and own to-dos, and has no calendar, routines, memories file, Access row or `setup.md` section.
 - **Managed instance**: an instance with a Conventions row `managed by cruna-pm-github`. Notes logged there and to-dos for its github member become GitHub requests at the next sync, done by `cruna-pm-github`, never by Agora.
-- **Assistant account**: the Google account the Drive and Calendar connectors (and Gmail, when email is on) are logged in as. A dedicated account when the root has several members; the owner's own account when solo.
-- **Assistant inbox**: the assistant account's Gmail inbox, the only inbox Agora reads. Optional per root (rules → Email).
+- **Assistant account** (basic mode only): the Google account the Drive and Calendar connectors (and Gmail, when email is on) are logged in as. A dedicated account when the root has several members; the owner's own account when solo.
+- **Assistant inbox**: the mail delivered to `inbox` in `org.md`, the only mail Agora reads (The three ids → Mail). Basic mode: the assistant account's own inbox. Shared services mode: the group's mail, as delivered to each member's own mailbox. Optional per root (rules → Email).
 - **Member mail**: an email whose sender address is listed for a member in `org.md`.
 - **Email importance**: the criteria that decide which email needs attention, and the state of asking for them (rules → Email).
 - **To-do**: one action someone has to do, open or closed, owned by a member or by `everyone`, visible to every member (rules → To-dos).
@@ -24,17 +28,30 @@ Agora is a shared knowledge base kept by the AI on Google Drive (files) and Goog
 
 ## Connectors only
 
-Every read and write on Drive and Calendar goes through the tools of the Google Drive and Google Calendar connectors, and every read, draft and send of email through the Gmail connector, logged in as the assistant account, in a root with email on. A browser is never a way in: no opening drive.google.com, calendar.google.com or mail.google.com, no browsing or computer-use tools, even when a connector call fails or a tool seems missing. What a connector tool offers, you do, retrying a failed call. What no connector tool offers (sharing a calendar, for one) becomes click steps for the user, signed in as the account the step names.
+Every read and write on Drive and Calendar goes through the tools of the Google Drive and Google Calendar connectors, and every read, draft and send of email through the Gmail connector, in a root with email on; each connector is signed in as the root's mode requires (prerequisites item 3). A browser is never a way in: no opening drive.google.com, calendar.google.com or mail.google.com, no browsing or computer-use tools, even when a connector call fails or a tool seems missing. What a connector tool offers, you do, retrying a failed call. What no connector tool offers (sharing a calendar, for one) becomes click steps for the user, signed in as the account the step names.
 
 ## Finding the root
 
 1. Search Drive for files named `org.md` whose front-matter has `agora: root`, and for files named `setup.md` whose front-matter has `agora: setup`. Every folder holding either is a root.
 2. None found: the user has no Agora yet. Offer the `setup` skill.
 3. More than one: ask which root, unless the conversation already names it.
-4. Read `org.md` before anything else. It holds the members, layout convention, language, timezone, calendar and Conventions.
-5. A root with `setup.md` but no `org.md` is a setup left halfway: offer the `setup` skill to finish it, and write nothing else there.
+4. Read `org.md` before anything else. It holds the mode, the three ids, the members, layout convention, language, timezone and Conventions.
+5. `root_id` in `org.md` names the root folder for every later Drive call. It must be the folder that holds this `org.md`: when it isn't, the root was copied or moved by hand; tell the member, offer the `setup` skill's Verify, and write nothing there.
+6. A root with `setup.md` but no `org.md` is a setup left halfway: offer the `setup` skill to finish it, and write nothing else there.
 
 Write all content in the language set in `org.md`. Folder names, file names and section headings stay in English exactly as written here.
+
+## The three ids
+
+**Same answer**: the same question gets the same answer from any connected account. So every skill, in both modes, reaches the root's files, calendar and mail only through the three ids in `org.md`:
+
+- **Files**: every Drive call stays under the root folder, `root_id` when present, else the folder Finding the root found. `drive_id` names the drive holding it: the id in a shared drive's URL, or `my-drive` (the default).
+- **Calendar**: every write, and every read of Agora events, uses `calendarId = calendar`, never the client's default calendar (rules → Calendar conventions).
+- **Mail**: every Gmail search carries the **mail filter**; `inbox` defaults to `assistant_account`. A message outside the filter is read or acted on only when a member names that message in the current conversation.
+  - Basic mode: received mail is `deliveredto:<inbox>`. Sent mail carries no Delivered-To header, so a search that should also find what was sent ("did we answer Rossi?") uses the sent-mail form, `(deliveredto:<inbox> OR from:<inbox>)`.
+  - Shared services mode: `(list:<list-id> OR to:<inbox> OR cc:<inbox>)`, where `<list-id>` is `inbox` with its `@` replaced by `.` (`assistant@crunasignal.com` gives `(list:assistant.crunasignal.com OR to:assistant@crunasignal.com OR cc:assistant@crunasignal.com)`). `list:` finds what others sent to the group; `to:` and `cc:` find what the member sent to it, which never carries the List-ID header in their own mailbox. This one form serves received and sent mail alike; Agora's own sent mail stays out of triage through its ledger row ([references/email.md](references/email.md) → The ledger).
+
+The mail filter is Agora's own rule, not a permission boundary: in shared services mode each member's AI can technically reach that member's whole mailbox and calendar. The filter is what keeps Agora's answers to group mail, so apply it on every search.
 
 ## Layout
 
@@ -100,8 +117,9 @@ Events routed to a tracker get no diary entry each. The daily `review` writes on
 
 - **Read** raw content by downloading the file. The text-extraction view escapes Markdown; use it only for PDFs, images and Office files.
 - **Create** Markdown with content type `text/markdown` and conversion to Google Docs disabled, so files stay plain `.md`.
-- **Reference** files by path from the root (`nina/health/documents/…`), never by Drive ID: IDs change on every replace.
+- **Reference** files by path from the root (`nina/health/documents/…`), never by Drive ID: IDs change on every replace. Folders keep theirs; `root_id` and `drive_id` are the only Drive ids Agora records.
 - Look up folders by walking from the root by name, one level at a time.
+- **In a shared drive**, files carry a `sharedDriveId` that differs from `drive_id` (the id of the drive's top folder, from its URL). To check that a file is in the drive, walk its parents up to `drive_id`; never compare it with `sharedDriveId`.
 
 ### Replace
 
@@ -111,11 +129,17 @@ Drive cannot overwrite a file's content, and allows two files with the same name
 2. Create the new version in the same folder.
 3. Trash every older file with that name in that folder.
 
+A trash refused with a permission error leaves two copies, and names its cause before rules → When something fails:
+- basic mode: the connected account doesn't own the file, and in My Drive only the owner can trash. Fix (prerequisites item 3): reconnect as the assistant account, or have the file's owner transfer it to the assistant account; or, with Google Workspace, move the root to a shared drive (the `setup` skill's Move to shared drive).
+- shared services mode: the member isn't a Content manager of the shared drive (prerequisites item 5).
+
+Once fixed, the duplicate goes as below.
+
 Duplicates found at any time:
 - derived or curated file, or a list: keep the newest, trash the rest;
 - tracker: merge all copies into one (every distinct row, in date/time order), then trash the rest;
 - `inbox.md`: merge as [references/email.md](references/email.md) → The ledger says;
-- `routine-` diary entries with identical content, or diary entries for the same email (same `email` id) with identical content: keep one, trash the rest;
+- `routine-` diary entries with identical content, or diary entries for the same email (references/email.md → Mailboxes) with identical content: keep one, trash the rest;
 - any other source file (diary, uploaded documents): keep all and flag them.
 
 ## Status update rule
@@ -138,7 +162,12 @@ When the root, interest, instance, member, or date is unclear, ask the user befo
 
 ### Identity
 
-At the start of each conversation, ask who you are talking to (list the members from `org.md`, leaving out github members) unless it is already known in this conversation. A handoff names who is talking in its line (rules → Handoffs). Every diary entry and document carries that member's slug.
+At the start of each conversation, know who you are talking to, unless it is already known in this conversation:
+
+- **Shared services mode**: the speaker is the connected account (Vocabulary). Match its email against the Members Email column, and ask nothing. No match: say this Google account isn't an Agora member yet and offer to join (the `setup` skill's Join, unless that is what is running); write nothing else.
+- **Basic mode**: ask who you are talking to (list the members from `org.md`, leaving out github members).
+
+A handoff names who is talking in its line (rules → Handoffs), and an unattended routine uses the slug in its prompt, in both modes. Every diary entry and document carries that member's slug.
 
 ### Unattended runs
 
@@ -173,7 +202,8 @@ Every handoff follows these rules; each skill's Handoff section adds its own:
 
 ## Calendar conventions
 
-- The root's **system calendar** is the assistant account's primary calendar (`calendar` in `org.md`, the account's email). Write only there. Members' personal calendars, when shared, are read-only: use them to find free time.
+- The root's **system calendar** is `calendar` in `org.md`, always addressed by that id (`calendarId = calendar`). Basic mode: the assistant account's email, which is its primary calendar's id. Shared services mode: the shared calendar's id. Write only there. Members' personal calendars are read-only: use them to find free time, at the level the Members Personal calendar column records (`free/busy`, `full details`, or `domain free/busy`, Workspace's free/busy read by the member's Email).
+- **The speaker's own calendar**, per mode. Shared services mode: the connected account is the speaker's own (Identity), so their own calendar is read in full, whatever their Personal calendar column says: for free time, for "what do we have" questions, and for Yours in their personal review. Basic mode: only at the level their Personal calendar column records, so its events only at `full details` (free/busy gives busy blocks, no events). An unattended run reads it in full only when its connected account is the member the run is for.
 - Event title: `[<interest>/<instance>] <title>` (`[nina/health] Blood test`).
 - Event description: the instance path and the diary entry that caused the event.
 - Color: the interest's color from `org.md`, when one is set.
@@ -183,7 +213,7 @@ Every handoff follows these rules; each skill's Handoff section adds its own:
 
 A root has email when `org.md` says `email: on`. With `email` absent or `off`, no skill reads or writes mail, `inbox.md` does not exist, and everything works without Gmail. With email on, the assistant inbox works like `landing/`: members forward or CC mail to it, and the AI files what it can place without guessing and flags the rest.
 
-Before any email work, read [references/email.md](references/email.md): the email rules every skill that touches the assistant inbox follows.
+Every Gmail search is filtered as The three ids → Mail says. Before any email work, read [references/email.md](references/email.md): the email rules every skill that touches the assistant inbox follows.
 
 ## To-dos
 

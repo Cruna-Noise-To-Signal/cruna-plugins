@@ -8,7 +8,7 @@ Attiva l'email della radice o la registra come disattivata, e porta ogni membro 
 
 ## Parte radice
 
-1. **Decidi.** Email disattivata (rifiutata nell'intervista, o l'utente cambia idea): scrivi `email: off` nel front-matter di `org.md` (rules → Sostituire), spunta la casella Email della radice "(off)" e fermati. La radice funziona esattamente come prima.
+1. **Decidi.** Email disattivata (rifiutata nell'intervista, o l'utente cambia idea): scrivi `email: off` nel front-matter di `org.md` (rules → Sostituire), spunta la casella Email della radice "(off)" (modalità servizi condivisi: e ogni casella In the group "(email off)") e fermati. La radice funziona esattamente come prima.
 2. **Gmail.** Percorri la voce 7 dei prerequisiti nell'app del membro presente. Bloccata: il passo si ferma qui con la casella non spuntata, che dice cosa si aspetta.
 3. **`org.md`**: `email: on` nel front-matter. I criteri di importanza per tutta la radice registrati come in rules → Email → Dove stanno i criteri; nessuno quando la risposta è stata "nessuna preferenza". Sostituisci `org.md` una volta sola, insieme agli indirizzi della Parte membro quando li hai.
 4. **`memories/shared.md`**: la sua riga Email importance, come indicato in rules → Email → Dove stanno i criteri quando ci sono criteri della radice; `no preference`, oppure `not asked` quando la domanda è stata saltata.
@@ -21,9 +21,9 @@ Fatto quando: `org.md` dice `email: on`, i suoi criteri della radice (o nessuno)
 
 I passi 2–3 registrano risposte, per ogni membro che le ha date; saltali quando gli indirizzi del membro e la sua riga Email importance sono già registrati. I passi 1 e 4 si fanno solo con il membro presente, nella sua app.
 
-1. **Gmail** nell'app di questo membro: percorri la voce 7 dei prerequisiti (salta se la Parte radice l'ha appena fatto nella stessa app).
+1. **Gmail** nell'app di questo membro: percorri la voce 7 dei prerequisiti (salta se la Parte radice o i controlli di Unisciti l'hanno appena fatto nella stessa app).
 2. **Indirizzi**: ogni indirizzo da cui scrive o inoltra (giro Membri dell'intervista), nella colonna Mail from della sua riga Members. Le radici solitarie saltano questo passo: non c'è posta dei membri.
 3. **Importanza**: la sua risposta alla domanda sull'importanza, come riga `- Email importance: <criteria | no preference>` in `memories/<slug>.md`; `not asked` se saltata.
-4. **`setup.md`**: spunta la sua casella Email.
+4. **`setup.md`**: spunta la sua casella Email (modalità servizi condivisi: e la sua casella In the group, che il controllo della voce 7 ha provato; scrivi `riceve la posta` nelle Notes della sua riga Access).
 
 Fatto quando: la voce 7 è pronta nella sua app, la sua cella Mail from è compilata (non in una radice solitaria), il suo file di memorie ha la riga Email importance e la sua casella Email è spuntata; oppure la voce 7 è bloccata e la casella dice cosa si aspetta.

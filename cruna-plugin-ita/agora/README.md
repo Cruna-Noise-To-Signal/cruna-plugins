@@ -8,16 +8,18 @@ Funziona su Claude e ChatGPT. Progetto: [agora-spec.md](https://github.com/Cruna
 
 - Claude o ChatGPT con un piano a pagamento (per le revisioni pianificate).
 - I connettori di Google Drive e Google Calendar, più Gmail se attivi l'email.
-- Un account Google per l'assistente quando lo usa più di una persona (chi lo usa da solo può usare il proprio).
+- Una delle due modalità:
+  - **Modalità account condiviso base** (famiglie, Gmail gratuito): un account Google per l'assistente quando lo usa più di una persona (chi lo usa da solo può usare il proprio); l'AI di tutti accede con quell'account.
+  - **Modalità servizi condivisi** (team su Google Workspace): ogni membro accede con il proprio account Workspace, e l'amministratore crea a mano un Drive condiviso, un calendario condiviso e un gruppo Google. I passi dell'amministratore e di ogni membro che si unisce: [configurazione manuale](https://github.com/Cruna-Noise-To-Signal/cruna-plugins/blob/main/docs/agora/agora-spec.md#manual-setup-shared-services-mode) (in inglese). Un'Agora base può passarci in seguito ("sposta Agora su un Drive condiviso").
 
-La skill `setup` controlla tutto questo e ti guida in ciò che manca.
+La skill `setup` controlla tutto questo e ti guida in ciò che manca, con gli stessi passi di configurazione manuale.
 
 ## Skill
 
 | Skill | Funziona su | Che cosa fa |
 |---|---|---|
 | `rules` | Claude, ChatGPT | Modello dei dati e regole sui file che ogni altra skill segue |
-| `setup` | Claude, ChatGPT | Controlla i prerequisiti, ti intervista, crea le cartelle e il calendario, imposta le routine; aggiunge membri |
+| `setup` | Claude, ChatGPT | Controlla i prerequisiti, ti intervista, crea le cartelle e il calendario, imposta le routine; aggiunge e rimuove membri; sposta un'Agora base su un Drive condiviso |
 | `add-interest` | Claude, ChatGPT | Inizia a seguire un nuovo interesse o una nuova istanza |
 | `log` | Claude, ChatGPT | Registra un aggiornamento nel diario e aggiorna lo stato |
 | `file-document` | Claude, ChatGPT | Archivia un documento dalla cartella `landing/` o indicizza uno già al suo posto |

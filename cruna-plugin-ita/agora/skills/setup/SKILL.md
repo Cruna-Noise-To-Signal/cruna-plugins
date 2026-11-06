@@ -1,11 +1,13 @@
 ---
 name: setup
-description: Configura Agora, il quaderno condiviso di famiglia o di lavoro su Google Drive e Google Calendar. Usala quando l'utente vuole avviare Agora per la prima volta ("configura Agora", "iniziamo"), quando una persona entra in un Agora esistente o un membro inizia a usarlo da un'altra app ("aggiungi mia moglie ad Agora", "entro nell'Agora di famiglia", "ho installato Agora anche su ChatGPT"), quando una configurazione è rimasta a metà ("finisci la configurazione"), quando un Agora di una sola persona deve passare a un proprio account dell'assistente perché entra qualcun altro, quando il gruppo vuole attivare l'email ("attiva l'email", "collega Gmail ad Agora"), o quando qualcuno esce ("togli Simona da Agora", "toglimi da Agora").
+description: Configura Agora, il quaderno condiviso di famiglia o di lavoro su Google Drive e Google Calendar. Usala quando l'utente vuole avviare Agora per la prima volta ("configura Agora", "iniziamo"), quando una persona entra in un Agora esistente o un membro inizia a usarlo da un'altra app ("aggiungi mia moglie ad Agora", "entro nell'Agora di famiglia", "ho installato Agora anche su ChatGPT"), quando una configurazione è rimasta a metà ("finisci la configurazione"), quando un Agora di una sola persona deve passare a un proprio account dell'assistente perché entra qualcun altro, quando un Agora passa a un Drive condiviso di Google Workspace ("ora abbiamo Workspace", "sposta Agora su un Drive condiviso"), quando il gruppo vuole attivare l'email ("attiva l'email", "collega Gmail ad Agora"), o quando qualcuno esce ("togli Simona da Agora", "toglimi da Agora").
 ---
 
 # Configurazione di Agora
 
-La configurazione trasforma un Google Drive e un Calendar vuoti in una **radice** Agora funzionante, vi porta dentro ogni membro e lo toglie quando esce. Ha cinque rami: **Nuova radice**, **Unisciti**, **Migra** (sempre seguito da Unisciti), **Email** e **Uscita**. Scegline uno al passo 1 e segui solo quel ramo. Ogni ramo finisce con la stessa **verifica**; ogni ramo tranne Uscita finisce con lo stesso messaggio "cosa puoi fare ora".
+La configurazione trasforma un Google Drive e un Calendar vuoti in una **radice** Agora funzionante, vi porta dentro ogni membro e lo toglie quando esce. Ha sei rami: **Nuova radice**, **Unisciti**, **Migra** (sempre seguito da Unisciti), **Sposta su Drive condiviso** (seguito da Unisciti per ogni altro membro), **Email** e **Uscita**. Scegline uno al passo 1 e segui solo quel ramo. Ogni ramo finisce con la stessa **verifica**; ogni ramo tranne Uscita finisce con lo stesso messaggio "cosa puoi fare ora".
+
+**Modalità servizi condivisi** (rules → Vocabolario → Modalità): dove un passo qui sotto la nomina, segui la sezione di quel passo in [references/shared-services.md](references/shared-services.md) ("shared-services.md → 2b"), che si aggiunge al passo o ne sostituisce le parti che indica. Migra e Sposta su Drive condiviso partono solo dalla modalità base.
 
 **Checklist**: ogni ramo registra i suoi progressi in `setup.md` (rules → Checklist di configurazione; modello in rules → Tipi di file → modelli), così l'utente può fermarsi a metà e riprendere più tardi, in questa app o in un'altra. Spunta una casella appena il passo che rappresenta soddisfa il suo Fatto quando, scrivi il file per sostituzione (rules → Sostituire) con una nuova riga Updated, e imposta `state: done` solo quando ogni casella è spuntata. Quando riprendi, parti dalla prima casella non spuntata; il passo 7 ricontrolla quelle spuntate. Un `setup.md` scritto prima che esistesse l'email non ha caselle Email: lì l'email è disattivata; aggiungi la casella Email della radice spuntata "(off)" la prossima volta che scrivi il file.
 
@@ -18,10 +20,11 @@ Carica la skill `rules`. Segui rules → Trovare la radice, poi scegli il ramo:
 | Cosa trovi | Ramo |
 |---|---|
 | Nessuna radice, e l'utente parte da zero | **Nuova radice** |
-| Nessuna radice, ma l'utente dice che qualcuno l'ha già creata | I suoi connettori sono collegati all'account Google sbagliato: percorri la voce 3 dei prerequisiti, poi cerca di nuovo |
-| Una radice il cui `setup.md` dice `state: todo`, e l'utente sta finendo la configurazione ("finisci la configurazione", "andiamo avanti") | Il ramo della prima casella non spuntata che questo utente può fare: caselle Root → **Nuova radice**, una sezione Member → **Unisciti** per quel membro, Migration → **Migra** |
+| Nessuna radice, ma l'utente dice che qualcuno l'ha già creata | I suoi connettori sono collegati all'account Google sbagliato oppure, in un team Workspace, l'amministratore non l'ha ancora aggiunto al Drive condiviso (voce 4, passo 2): percorri la voce 3 dei prerequisiti, poi cerca di nuovo |
+| Una radice il cui `setup.md` dice `state: todo`, e l'utente sta finendo la configurazione ("finisci la configurazione", "andiamo avanti") | Il ramo della prima casella non spuntata che questo utente può fare: caselle Root → **Nuova radice**, una sezione Member → **Unisciti** per quel membro, Migration → **Migra**, Move to shared drive → **Sposta su Drive condiviso** |
 | Una radice, e l'utente ci entra o la usa da una nuova app | **Unisciti** |
 | Una radice solitaria (un solo membro, `assistant_account` è l'account personale di quel membro) e sta entrando qualcuno di nuovo | **Migra**, poi **Unisciti** per il nuovo arrivato |
+| Una radice in modalità base, e il gruppo ora ha Google Workspace e vuole ogni membro sul proprio account ("ora abbiamo Workspace", "sposta Agora su un Drive condiviso") | **Sposta su Drive condiviso** |
 | Una radice, e l'utente vuole attivare l'email ("attiva l'email", "collega Gmail") | **Email** |
 | Una radice il cui `setup.md` ha caselle Email non spuntate, e l'utente sta finendo la configurazione | **Email** per la casella della radice, **Unisciti** per una casella Email di un membro |
 | Una radice, e un membro esce ("toglimi da Agora", "Simona non ha più bisogno di accedere") | **Uscita** |
@@ -40,6 +43,13 @@ La checklist dei prerequisiti è il file `references/prerequisites.md` della ski
 
 ### 2a. Prerequisiti
 
+Per prima cosa chiedi: "Il tuo gruppo usa Google Workspace, con account di lavoro sul vostro dominio?" Consiglia sì per un'attività con un proprio dominio, no per una famiglia su Gmail.
+
+- No → **modalità base**: i passi qui sotto.
+- Sì → **modalità servizi condivisi**: segui shared-services.md → 2a al posto dei passi qui sotto.
+
+#### Modalità base
+
 1. Di' all'utente, in due frasi semplici, che cosa farà a mano lungo il percorso: il connettore del calendario non può condividere calendari, quindi condividere il calendario di Agora con ogni membro (e il calendario di ogni membro con Agora) richiede qualche clic in Google Calendar, che guiderai passo passo. Tutto il resto lo fai tu.
 2. Chiedi: "Qualcun altro lo userà con te?"
    - Sì → tutto appartiene a un **account dell'assistente** dedicato (si applica la voce 4).
@@ -53,7 +63,7 @@ Fatto quando le voci 1–4 sono tutte pronte (la voce 4 è saltata se la radice 
 
 Segui [references/interview.md](references/interview.md): nome della radice, lingua, fuso orario, membri, convenzione di struttura, primi interessi e istanze. **Incalza con garbo**: poche domande per giro, ognuna con una risposta consigliata che l'utente può accettare con una parola.
 
-Appena il giro della radice è confermato, crea la cartella radice nel Drive dell'account dell'assistente, con il nome della radice, e al suo interno `setup.md`, con Prerequisites spuntata. Scrivi ogni giro successivo in setup.md → Interview nel momento in cui l'utente lo conferma, e aggiungi una sezione Member per ogni membro che userà la radice (con la casella Connectors and plugin del proprietario spuntata). Quando riprendi, rileggi in una riga i giri confermati e parti dal primo giro mancante.
+Appena il giro della radice è confermato, crea la cartella radice nel Drive dell'account dell'assistente, con il nome della radice, e al suo interno `setup.md`, con Prerequisites spuntata. Scrivi ogni giro successivo in setup.md → Interview nel momento in cui l'utente lo conferma, e aggiungi una sezione Member per ogni membro che userà la radice (con la casella Connectors and plugin del proprietario spuntata). Quando riprendi, rileggi in una riga i giri confermati e parti dal primo giro mancante. Modalità servizi condivisi: shared-services.md → 2b.
 
 Fatto quando l'utente ha confermato il riepilogo alla fine dell'intervista e la casella Interview è spuntata.
 
@@ -69,7 +79,9 @@ Costruisci in quest'ordine dalle risposte in setup.md → Interview, scrivendo o
 6. `index.md` e `status.md` della radice, ricostruiti una volta alla fine della costruzione così da riassumere tutto ciò che sta sotto.
 7. Il **calendario di sistema** è il calendario principale dell'account dell'assistente (rules → Convenzioni del calendario): niente da creare né da cercare. Elenca i calendari e conferma che quello principale riporti l'email dell'account dell'assistente e il fuso orario di `org.md`. Un fuso orario diverso si corregge con un clic dell'utente, con l'accesso a Google Calendar come account dell'assistente: **Impostazioni** (Settings) → **Generali** (General) → **Fuso orario** (Time zone).
 
-Fatto quando ogni elemento qui sopra esiste esattamente una volta e la lista dei calendari mostra il calendario principale dell'account dell'assistente nel fuso orario della radice. Poi spunta Build e togli la sezione Interview da `setup.md` (tieni le risposte sull'email finché il passo 2d non le ha usate); spunta la casella "In Members and Access" di ogni membro.
+Modalità servizi condivisi: shared-services.md → 2c, per gli elementi 2 e 7.
+
+Fatto quando ogni elemento qui sopra esiste esattamente una volta e la lista dei calendari mostra il calendario di sistema nel fuso orario della radice. Poi spunta Build e togli la sezione Interview da `setup.md` (tieni le risposte sull'email finché il passo 2d non le ha usate); spunta la casella "In Members and Access" di ogni membro.
 
 ### 2d. Email
 
@@ -89,6 +101,8 @@ Aggiorna la tabella Access in `org.md` con ciò che ora è vero, e spunta ogni c
 
 Radici solitarie: niente da condividere; segna la riga del proprietario come proprietario e spunta le due caselle di condivisione con "(solo)".
 
+Modalità servizi condivisi: shared-services.md → 2e, al posto dei passi 1–3 e di questo Fatto quando; non si condivide nulla.
+
 Fatto quando i permessi della cartella radice, letti con una chiamata reale, elencano come editor ogni membro con un'email; la tabella Access mostra l'accesso reale di ogni membro a Drive e al calendario; e ogni casella di condivisione è spuntata o dice chi deve ancora farla.
 
 ### 2f. Routine
@@ -101,7 +115,7 @@ Vai al passo 7.
 
 ## 3. Unisciti
 
-Per un nuovo membro, o per un membro esistente su una nuova app. Eseguilo nell'app della persona che entra.
+Per un nuovo membro, o per un membro esistente su una nuova app. Eseguilo nell'app della persona che entra. Modalità servizi condivisi: shared-services.md → 3, al posto dei passi qui sotto e del loro Fatto quando.
 
 1. Percorri le voci 1, 2 e 3, e la voce 7 quando `org.md` dice `email: on`. I connettori si collegano come l'account dell'assistente indicato in `org.md`; la persona riceve la password da chi la custodisce.
 2. Trova la radice (rules → Trovare la radice) e segui rules → Identità. Trova la sua sezione Member in `setup.md`: un nuovo membro ne riceve una ora (tutte le caselle non spuntate tranne Connectors and plugin; una casella Email quando l'email è attiva); un membro esistente su una nuova app ha Connectors and plugin spuntata e Routines non spuntata (ed Email non spuntata, quando l'email è attiva). I passi con le caselle già spuntate sono fatti: saltali.
@@ -118,6 +132,12 @@ Eseguilo con il proprietario della radice, prima che entri il nuovo arrivato. Ag
 
 Fatto quando vale il criterio di completamento della migrazione stessa e ogni casella Migration è spuntata. Poi esegui **Unisciti** per il nuovo arrivato.
 
+## 4b. Sposta su Drive condiviso (da base a servizi condivisi)
+
+Eseguilo con il proprietario della radice (l'amministratore, per un team), nella sua app. Aggiungi a `setup.md` una sezione `## Move to shared drive` con una casella per ogni passo di [references/move.md](references/move.md) (`state: todo`), poi seguilo: porta la radice, i suoi eventi futuri e la sua posta ai servizi condivisi, senza perdere nulla. Spunta ogni passo appena il suo Fatto quando vale.
+
+Fatto quando vale il criterio di completamento dello spostamento stesso e ogni casella Move to shared drive è spuntata. Vai al passo 7; poi ogni altro membro esegue **Unisciti** nella propria app.
+
 ## 5. Email (attivarla in una radice esistente)
 
 Eseguilo con un membro qualsiasi. Segui [references/email.md](references/email.md): fai le domande di Domande sull'email di [references/interview.md](references/interview.md), esegui la Parte radice, poi la Parte membro per ogni membro presente. I membri non presenti fanno la loro Parte membro la prossima volta che eseguono la configurazione ("finisci la configurazione") o Unisciti.
@@ -132,12 +152,14 @@ Eseguilo con il proprietario della radice, con l'accesso come account dell'assis
 2. Togligli l'accesso al calendario di sistema: Google Calendar (come account dell'assistente) → Impostazioni (Settings) → il calendario → Condividi con persone specifiche (Share with specific people) → rimuovilo.
 3. Chiedi al membro, se raggiungibile, di scollegare i connettori di Drive e Calendar (e Gmail, quando l'email è attiva) nella sua app e di eliminare le sue routine di Agora.
 4. Se conosceva la password dell'account dell'assistente, fai cambiare la password al proprietario e fagliela passare ai membri rimasti.
-5. Aggiorna `org.md` (rules → Sostituire): scrivi `rimosso YYYY-MM-DD` nelle Notes della sua riga Members, e `rimosso` sotto Drive e System calendar nella sua riga Access. Le sue voci di diario, i suoi documenti e `memories/<slug>.md` restano: sono storia.
+5. Aggiorna `org.md` (rules → Sostituire): scrivi `rimosso YYYY-MM-DD` nelle Notes della sua riga Members, e `rimosso` sotto Drive e System calendar nella sua riga Access. Quando la sua cella Mail from contiene l'indirizzo dismesso dell'assistente (Sposta su Drive condiviso, passo 7), sposta quell'indirizzo nella cella Mail from di un altro membro nella stessa scrittura, chiedendo al proprietario quale, così la posta da quell'indirizzo resta posta dei membri. Le sue voci di diario, i suoi documenti e `memories/<slug>.md` restano: sono storia.
 6. Togli la sua sezione Member da `setup.md` e imposta `state` in base alle caselle rimaste.
+
+Modalità servizi condivisi: shared-services.md → 6, al posto dei passi 1–4 e di questo Fatto quando. Un membro che è `calendar_owner` blocca il ramo finché il calendario non è trasferito.
 
 **Un membro github** ("togli pm da Agora") richiede un solo passo al posto di 1–6: togli la sua riga Members e ogni riga Conventions gestita da lui (`managed by cruna-pm-github`, con il suo slug sotto Since), scrivendo `org.md` una volta sola (rules → Sostituire). Le sue voci di diario e i suoi to-do restano. Di' al proprietario che i repo restano collegati in GitHub finché uno sviluppatore non li scollega con `cruna-pm-github`: il prossimo collegamento rimette il membro.
 
-Fatto quando il membro non ha più accesso come editor alla cartella né al calendario, le righe Members/Access in `org.md` lo mostrano rimosso, e `setup.md` non ha una sezione per lui; per un membro github, quando `org.md` non ha una sua riga Members né righe Conventions gestite da lui. Vai al passo 7.
+Fatto quando il membro non ha più accesso come editor alla cartella né al calendario, le righe Members/Access in `org.md` lo mostrano rimosso, nessuna cella Mail from di un membro rimosso contiene l'indirizzo dismesso dell'assistente, e `setup.md` non ha una sezione per lui; per un membro github, quando `org.md` non ha una sua riga Members né righe Conventions gestite da lui. Vai al passo 7.
 
 ## 7. Verifica
 
@@ -147,8 +169,10 @@ Controlla la radice con chiamate reali, mai a memoria di ciò che hai costruito:
 - Esistono `index.md` e `status.md` della radice, `landing/`, `reviews/`, `todos/`, `memories/shared.md` e un `memories/<slug>.md` per membro.
 - Ogni interesse in `org.md` e nell'`index.md` della radice ha una cartella con `index.md` e `status.md`; ogni istanza ha `index.md`, `status.md`, `diary/` e `documents/`.
 - Nessun nome di file compare due volte nella stessa cartella (rules → Sostituire).
-- Il calendario principale nella lista dei calendari riporta l'email dell'account dell'assistente, come `calendar` in `org.md`.
-- I permessi della cartella radice elencano come editor ogni membro con un'email (un membro rimosso: per niente).
+- Modalità base (modalità servizi condivisi: shared-services.md → 7 al posto di queste righe):
+  - Il calendario principale nella lista dei calendari riporta l'email dell'account dell'assistente, come `calendar` in `org.md`.
+  - L'account connesso è proprietario di `org.md` (voce 3 dei prerequisiti).
+  - I permessi della cartella radice elencano come editor ogni membro con un'email (un membro rimosso: per niente).
 - Quando `org.md` dice `email: on`: una ricerca in Gmail risponde, e la casella di posta è quella dell'account dell'assistente (voce 7 dei prerequisiti); `inbox.md` esiste una volta sola nella radice; `memories/shared.md` ha una riga Email importance; ogni membro che usa la radice ha i suoi indirizzi in Mail from (non in una radice solitaria).
 - `setup.md` ha una sezione Member per ogni membro che usa la radice, ogni casella spuntata esattamente quando ciò che rappresenta passa i controlli qui sopra (o, per la condivisione dei calendari e le routine, la persona l'ha confermato), e `state` è `done` esattamente quando ogni casella è spuntata.
 

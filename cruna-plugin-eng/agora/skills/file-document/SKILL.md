@@ -59,7 +59,7 @@ Done when: the file has exactly one existing destination instance, or is flagged
 
 The Agora name is `<slug>-YYYYMMDD_HHMM_<original-name>.<ext>`:
 
-- **slug**: the uploader. Match the file owner's email from Drive metadata against the members in `org.md`; when it matches nobody (or the file is owned by the assistant account), use the slug from step 1.
+- **slug**: the uploader. Match the file owner's email from Drive metadata (in a shared drive, which owns its files: the account that uploaded it) against the members' Email in `org.md`; when it matches nobody (or the file is owned by the assistant account), use the slug from step 1.
 - **YYYYMMDD_HHMM**: the file's creation time on Drive (its upload time), in the root's timezone.
 - **original-name**: the original name without its extension, lowercase, spaces and underscores turned into hyphens, ASCII only (`Esami Sangue Nina.PDF` → `esami-sangue-nina`). **ext**: the original extension, lowercase.
 

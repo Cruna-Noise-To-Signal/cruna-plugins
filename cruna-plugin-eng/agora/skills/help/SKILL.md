@@ -1,6 +1,6 @@
 ---
 name: help
-description: Explains Agora, the shared notebook a family or small team keeps on Google Drive and Calendar through the AI, and fixes it when it misbehaves. Use when someone asks what Agora can do or how it works, asks a how-do-I question about it (where are my files, who can see what, adding a document from the phone, keeping track of frequent things or printable lists, to-dos, products and pm from GitHub, email, routines, adding a person, leaving), or says Agora isn't working, can't see something, or shows an error.
+description: Explains Agora, the shared notebook a family or small team keeps on Google Drive and Calendar through the AI, and fixes it when it misbehaves. Use when someone asks what Agora can do or how it works, asks a how-do-I question about it (where are my files, who can see what, the two modes and moving to a shared drive, adding a document from the phone, keeping track of frequent things or printable lists, to-dos, products and pm from GitHub, email, routines, adding a person, leaving), or says Agora isn't working, can't see something, or shows an error.
 ---
 
 # Help
@@ -40,29 +40,33 @@ Say in one sentence what Agora is: everyone tells the AI what happens, the AI ke
 | "File the email I forwarded you" / "draft a reply to Mario" | The email is saved with the right topic; a reply is written and sent only after you say yes | `email` |
 | "Set up Agora" / "add my husband to Agora" | Setup, or bringing a new person in | `setup` |
 
-Add one line about routines: once set up, a daily, a weekly and a monthly review arrive on their own. Show the email example only when `org.md` says `email: on`; otherwise, in a business root, one line saying email can be turned on. When Members has a github member (rules → Vocabulary), add one line on **products from GitHub**: `products` follows the software built on GitHub, and a note on a product or a to-do for `pm` (its slug) becomes a GitHub request at the next sync (faq.md → What is `products` and who is pm?).
+Add one line on how members reach it, for the root's mode (rules → Vocabulary → Mode; no root: both, in one line each): basic mode, everyone's AI signs in to the root's own Google account; shared services mode, each member uses their own work account, and the team shares a shared drive, a calendar and a group address. Add one line about routines: once set up, a daily, a weekly and a monthly review arrive on their own. Show the email example only when `org.md` says `email: on`; otherwise, in a business root, one line saying email can be turned on. When Members has a github member (rules → Vocabulary), add one line on **products from GitHub**: `products` follows the software built on GitHub, and a note on a product or a to-do for `pm` (its slug) becomes a GitHub request at the next sync (faq.md → What is `products` and who is pm?).
 
 Done when: the member has the one-sentence summary and the examples, in under 12 lines, with no skill names.
 
 ### 2b. FAQ
 
-Answer from [references/faq.md](references/faq.md), filling in the real names from `org.md` when a root exists (root folder, members, assistant account, calendar). When the question is not there, answer from the `rules` skill if it settles it; otherwise say you're not sure and offer to check by troubleshooting.
+Answer from [references/faq.md](references/faq.md), filling in the real names from `org.md` when a root exists (root folder, members, assistant account or group address, calendar). When the question is not there, answer from the `rules` skill if it settles it; otherwise say you're not sure and offer to check by troubleshooting.
 
 Done when: the question is answered in a few lines, or you said plainly that you don't know.
 
 ### 2c. Troubleshoot
 
-The fixes live in the `rules` skill's prerequisites checklist (rules → When something fails). Match the symptom to its items, then work through them in order:
+The fixes live in the `rules` skill's prerequisites checklist (rules → When something fails), each item in the variant for the root's mode. Before matching, read the root `status.md` Needs attention: a flag the `review` tidy-up raised about overdue routines or the connected account (its items 8 and 9) often answers the symptom; show it with its fix. Then match the symptom to its items and work through them in order:
 
 | Symptom | Prerequisites items |
 |---|---|
 | You can't find Agora, my files, or a folder | 3 (Drive), then 4, then 5 |
 | Events don't show on my phone, or you can't add events | 3 (Calendar), then 5 |
 | "Permission denied", "access", "not allowed" errors | 3, then 5 |
-| My daily / weekly / monthly review never arrived | 6, then 1 |
+| Duplicate files that won't go away, or a trash refused | basic mode: 3 (the connected account doesn't own `org.md`); shared services mode: 3 (Drive), then 5 (not a Content manager of the shared drive, item 4 step 2) |
+| Agora says I'm not a member yet (shared services mode) | 3 (Who: connected as another account), else offer the `setup` skill's **Join** |
+| Agora can't add events to the shared calendar (shared services mode) | 3 (Calendar), then 4 step 4 (the calendar owner shares it at Make changes to events) |
+| Group mail doesn't show up (shared services mode, email on) | 7 (the group search returns nothing), then 4 steps 3.1–3.3 |
+| My daily / weekly / monthly review never arrived, or "no member's routine has run" | 6, then 1 |
 | Agora isn't in my app | 2 |
 | You can't see the inbox, an email I sent you, or can't send (email on) | 7 |
-| A new member can't use it | that member runs items 1–3, 5 and 6 (and 7 when email is on): offer the `setup` skill's **Join** branch |
+| A new member can't use it | that member runs items 1–3, 5 and 6 (and 7 when email is on; in shared services mode, after item 4's steps for them): offer the `setup` skill's **Join** branch |
 | Setup was left halfway, or `setup.md` says `state: todo` | none: offer the `setup` skill, which resumes at the first unticked box |
 
 1. Run each matching item's **check** with a real call, exactly as the checklist describes.

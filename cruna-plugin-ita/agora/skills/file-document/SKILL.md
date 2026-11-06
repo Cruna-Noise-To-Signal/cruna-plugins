@@ -59,7 +59,7 @@ Fatto quando: il file ha esattamente un'istanza di destinazione esistente, oppur
 
 Il nome Agora è `<slug>-YYYYMMDD_HHMM_<nome-originale>.<ext>`:
 
-- **slug**: chi l'ha caricato. Confronta l'email del proprietario del file nei metadati Drive con i membri in `org.md`; quando non corrisponde a nessuno (o il file appartiene all'account dell'assistente), usa lo slug del passo 1.
+- **slug**: chi l'ha caricato. Confronta l'email del proprietario del file nei metadati Drive (in un Drive condiviso, che è proprietario dei suoi file: l'account che l'ha caricato) con la colonna Email dei membri in `org.md`; quando non corrisponde a nessuno (o il file appartiene all'account dell'assistente), usa lo slug del passo 1.
 - **YYYYMMDD_HHMM**: la data di creazione del file su Drive (il momento del caricamento), nel fuso orario della radice.
 - **nome-originale**: il nome originale senza estensione, minuscolo, con spazi e trattini bassi trasformati in trattini, solo ASCII (`Esami Sangue Nina.PDF` → `esami-sangue-nina`). **ext**: l'estensione originale, minuscola.
 
