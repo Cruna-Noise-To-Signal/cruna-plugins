@@ -132,3 +132,19 @@ Fixes for review "M2 - A team on it — round 1". English plugin only; skill pro
 
 - Review deviations, both to `agora-spec.md`: email time from the Date header converted to the root's timezone for names (replaces spec l.198); diary ids resolved by id first, then search (replaces spec l.200).
 - Spec drift to carry: the sent-mail filter (widens l.107 and l.199) and its parenthesised forms; ledger Date to the minute in shared services mode; the new reference files (`setup/references/shared-services.md`, `rules/references/manual-setup.md`); the overdue-period definition above (spec l.211–214); the 60-minute Tidied window; the duplicate key and Mailbox semantics (key only across another mailbox); the joiner's calendar-invitation step (review advisory 5).
+
+## M2 revision 2
+
+Fixes for review "M2 - A team on it — round 2". English plugin only; skill prose, so no `tdd` cycle; the hand test is updated.
+
+- **F9, new root** (MUST): item 8 flags no missing file while `reviews/` is empty, and otherwise leaves out every period whose first day is on or before the day the oldest file in `reviews/` was created. It uses the created time because weekly and monthly names don't show when they were written. Walk-through for a root set up on Wed 2026-11-11 afternoon:
+  - Thu 07:30 daily: `reviews/` is empty, so no flag.
+  - Fri: the oldest file was created Thu, so Thu, W46 and November are left out.
+  - Mon 16: Sun 15 is checked and passes. W46 is still left out.
+  - Tue 17: W47 is checked, so a missed Sunday weekly is flagged.
+  - Dec 1: November is left out. Dec 2: a missed December monthly is flagged.
+  - Fri 13 missed: flagged Sat. Only the very first daily can't be flagged.
+- **F9, own-file clause**: kept, with the reason given in one clause: an attended weekly or monthly run in the middle of its period writes the very file item 8 checks.
+- **F5**: manual-setup.md Offboard step 1 now says "prerequisites item 3's Calendar check".
+- manual-test.md §6: the weekly step runs Tuesday to Saturday, on a root whose oldest review was created before that Monday. The new-root step now covers an empty `reviews/` and the next day.
+- For F12: carry the new-root exclusion into `agora-spec.md` along with the overdue-period definition.

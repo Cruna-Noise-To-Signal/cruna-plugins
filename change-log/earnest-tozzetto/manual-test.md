@@ -142,9 +142,9 @@ Calendar owner shares the calendar with B at Make changes to events; admin adds 
 ### 6. Overdue flags
 
 - [ ] Trash yesterday's daily review file (if any) and set `last_tidy_up` in `inbox.md` to three days ago. Ask "daily review" in a chat. Needs attention shows the missing daily review and "Email wasn't triaged between …", each with "No member's routine has run this: set up the routines".
-- [ ] Trash the weekly review named after the current ISO week (or, on a Monday, last week's) and ask "daily review" again: the missing weekly review is flagged. Ask "weekly review" instead: it writes that week's file and raises no flag for it.
+- [ ] On a Tuesday to Saturday, on a root whose oldest review file was created before this week's Monday: trash the weekly review named after the current ISO week and ask "daily review" again: the missing weekly review is flagged. Ask "weekly review" instead: it writes that week's file and raises no flag for it.
 - [ ] On the 1st, before the monthly routine has run, a daily review raises no missing-monthly flag.
-- [ ] On a root whose oldest review is today, no missing-period flag appears.
+- [ ] On a new root with `reviews/` still empty, a daily review raises no missing-period flag. Run it again the next day: the oldest file was created yesterday, so still no missing-period flag.
 
 ### 7. Offboarding the calendar owner
 
