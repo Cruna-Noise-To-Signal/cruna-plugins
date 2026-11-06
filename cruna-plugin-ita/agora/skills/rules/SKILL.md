@@ -10,13 +10,17 @@ Agora è una base di conoscenza condivisa tenuta dall'AI su Google Drive (file) 
 ## Vocabolario
 
 - **Radice**: un Agora indipendente (una famiglia, una piccola impresa). Ha la sua cartella, i suoi membri, il suo calendario di sistema, le sue memorie e le sue routine.
+- **Modalità**: come i membri raggiungono la radice, `mode` in `org.md`. Ogni skill raggiunge la radice allo stesso modo in entrambe (I tre id). Solo `setup` e `help` si diramano da sé in base alla modalità. Ogni altra differenza tra le modalità è scritta una volta sola, qui o nei riferimenti (Identità, Sostituire, Convenzioni del calendario → Il calendario di chi parla, il filtro della posta, l'invio delle email e le caselle di posta, i prerequisiti), e le skill che ne sono toccate rimandano lì.
+  - **Modalità account condiviso base** (`basic-shared-account`, ed è la modalità ogni volta che `mode` manca): i client AI di più persone accedono a un solo account Google, l'account dell'assistente.
+  - **Modalità servizi condivisi** (`shared-services`, solo Google Workspace): il client AI di ogni membro accede con l'account Workspace di quel membro, e ogni membro raggiunge gli stessi tre servizi condivisi: la cartella radice dentro un **Drive condiviso**, un **calendario condiviso** e un **gruppo Google** il cui indirizzo è la casella.
+- **Account connesso**: l'account Google con cui accedono i connettori di questo client AI. La sua email è l'id del calendario principale nell'elenco dei calendari.
 - **Interesse**: una cartella di primo livello nella radice. Che cosa *sia* un interesse (una persona, un cliente, un argomento) lo stabilisce la **convenzione di struttura** della radice, registrata in `org.md`.
 - **Istanza**: una cartella dentro un interesse; l'unità che contiene un diario e dei documenti. La profondità è sempre esattamente due: `root/<interest>/<instance>/`. Qualcosa di più piccolo di un'istanza (un singolo esame del sangue, una singola fattura) è una voce di diario con i suoi documenti, mai una cartella.
-- **Membro**: una riga di Members in `org.md`: una persona o un membro github. Lo **slug** di una persona è il suo nome di battesimo, minuscolo, ASCII (`simone`).
+- **Membro**: una riga di Members in `org.md`: una persona o un membro github. Lo **slug** di una persona è il suo nome di battesimo, minuscolo, ASCII (`simone`). Ogni membro è un utente, un account Google con un client AI collegato; il suo **Kind** (`human` o `ai`; se manca vale `human`) è registrato per ragioni dell'organizzazione e non cambia nulla in permessi, routine, revisioni o to-do.
 - **Membro github**: un membro il cui Role è `github`, con lo slug che portano le sue righe di handoff (di solito `pm`). Un indirizzo che vuol dire "questo va a GitHub" tramite il plugin `cruna-pm-github`, non una persona: può scrivere voci di diario ed eventi to-do ed essere responsabile di to-do, e non ha calendario, routine, file di memorie, riga in Access né sezione in `setup.md`.
 - **Istanza gestita**: un'istanza con una riga in Conventions `managed by cruna-pm-github`. Le note registrate lì e i to-do per il suo membro github diventano richieste GitHub alla prossima sincronizzazione, fatta da `cruna-pm-github`, mai da Agora.
-- **Account dell'assistente**: l'account Google con cui sono collegati i connettori di Drive e Calendar (e Gmail, quando l'email è attiva). Un account dedicato quando la radice ha più membri; l'account del proprietario quando è da solo.
-- **Casella dell'assistente**: la casella Gmail dell'account dell'assistente, l'unica casella che Agora legge. Facoltativa per ogni radice (rules → Email).
+- **Account dell'assistente** (solo modalità base): l'account Google con cui sono collegati i connettori di Drive e Calendar (e Gmail, quando l'email è attiva). Un account dedicato quando la radice ha più membri; l'account del proprietario quando è da solo.
+- **Casella dell'assistente**: la posta consegnata a `inbox` in `org.md`, l'unica posta che Agora legge (I tre id → Posta). Modalità base: la casella dell'account dell'assistente. Modalità servizi condivisi: la posta del gruppo, come arriva nella casella di posta di ogni membro. Facoltativa per ogni radice (rules → Email).
 - **Posta dei membri**: un'email il cui indirizzo del mittente è elencato per un membro in `org.md`.
 - **Importanza delle email**: i criteri che decidono quale email richiede attenzione, e lo stato della richiesta di quei criteri (rules → Email).
 - **To-do**: un'azione che qualcuno deve fare, aperta o chiusa, il cui responsabile è un membro o `everyone`, visibile a ogni membro (rules → To-do).
@@ -24,17 +28,30 @@ Agora è una base di conoscenza condivisa tenuta dall'AI su Google Drive (file) 
 
 ## Solo connettori
 
-Ogni lettura e scrittura su Drive e Calendar passa dagli strumenti dei connettori Google Drive e Google Calendar, e ogni lettura, bozza e invio di email dal connettore Gmail, collegato con l'account dell'assistente, in una radice con l'email attiva. Il browser non è mai una strada: niente apertura di drive.google.com, calendar.google.com o mail.google.com, niente strumenti di navigazione o di uso del computer, anche quando una chiamata al connettore fallisce o uno strumento sembra mancare. Ciò che uno strumento del connettore offre, lo fai tu, riprovando una chiamata fallita. Ciò che nessuno strumento del connettore offre (condividere un calendario, per esempio) diventa una serie di passi da cliccare per l'utente, con l'accesso all'account indicato nel passo.
+Ogni lettura e scrittura su Drive e Calendar passa dagli strumenti dei connettori Google Drive e Google Calendar, e ogni lettura, bozza e invio di email dal connettore Gmail, in una radice con l'email attiva; ogni connettore accede come richiede la modalità della radice (prerequisiti voce 3). Il browser non è mai una strada: niente apertura di drive.google.com, calendar.google.com o mail.google.com, niente strumenti di navigazione o di uso del computer, anche quando una chiamata al connettore fallisce o uno strumento sembra mancare. Ciò che uno strumento del connettore offre, lo fai tu, riprovando una chiamata fallita. Ciò che nessuno strumento del connettore offre (condividere un calendario, per esempio) diventa una serie di passi da cliccare per l'utente, con l'accesso all'account indicato nel passo.
 
 ## Trovare la radice
 
 1. Cerca su Drive i file chiamati `org.md` il cui front-matter contiene `agora: root`, e i file chiamati `setup.md` il cui front-matter contiene `agora: setup`. Ogni cartella che ne contiene uno è una radice.
 2. Nessuno trovato: l'utente non ha ancora un Agora. Proponi la skill `setup`.
 3. Più di uno: chiedi quale radice, a meno che la conversazione non la indichi già.
-4. Leggi `org.md` prima di qualsiasi altra cosa. Contiene i membri, la convenzione di struttura, la lingua, il fuso orario, il calendario e le Convenzioni.
-5. Una radice con `setup.md` ma senza `org.md` è una configurazione lasciata a metà: proponi la skill `setup` per finirla, e non scrivere nient'altro lì.
+4. Leggi `org.md` prima di qualsiasi altra cosa. Contiene la modalità, i tre id, i membri, la convenzione di struttura, la lingua, il fuso orario e le Convenzioni.
+5. `root_id` in `org.md` indica la cartella radice per ogni chiamata successiva a Drive. Deve essere la cartella che contiene questo `org.md`: quando non lo è, la radice è stata copiata o spostata a mano; dillo al membro, proponi la Verifica della skill `setup`, e non scrivere nulla lì.
+6. Una radice con `setup.md` ma senza `org.md` è una configurazione lasciata a metà: proponi la skill `setup` per finirla, e non scrivere nient'altro lì.
 
 Scrivi tutti i contenuti nella lingua indicata in `org.md`. Nomi di cartelle, nomi di file e titoli di sezione restano in inglese esattamente come scritti qui.
+
+## I tre id
+
+**Stessa risposta**: la stessa domanda riceve la stessa risposta da qualsiasi account connesso. Quindi ogni skill, in entrambe le modalità, raggiunge i file, il calendario e la posta della radice solo attraverso i tre id in `org.md`:
+
+- **File**: ogni chiamata a Drive resta sotto la cartella radice, `root_id` quando c'è, altrimenti la cartella trovata da Trovare la radice. `drive_id` indica il drive che la contiene: l'id nell'URL di un Drive condiviso, oppure `my-drive` (il valore predefinito).
+- **Calendario**: ogni scrittura, e ogni lettura di eventi Agora, usa `calendarId = calendar`, mai il calendario predefinito del client (rules → Convenzioni del calendario).
+- **Posta**: ogni ricerca in Gmail porta il **filtro della posta**; `inbox` vale per default `assistant_account`. Un messaggio fuori dal filtro si legge o si tratta solo quando un membro nomina quel messaggio nella conversazione in corso.
+  - Posta ricevuta: `deliveredto:<inbox>` (oppure `list:<inbox>` dove il connettore lo richiede).
+  - La posta inviata non ha l'intestazione Delivered-To, quindi una ricerca che deve trovare anche ciò che è stato inviato ("abbiamo risposto a Rossi?") allarga il filtro alla posta che Agora invia. Modalità base: `(deliveredto:<inbox> OR from:<inbox>)`. Modalità servizi condivisi: `(deliveredto:<inbox> OR (from:me {to:<inbox> cc:<inbox>}))`, la posta di chi parla con il gruppo in A o in Cc; ciò che altri membri hanno inviato così arriva a chi parla attraverso il gruppo, come posta ricevuta.
+
+Il filtro della posta è una regola di Agora, non un limite di permessi: in modalità servizi condivisi l'AI di ogni membro può tecnicamente raggiungere tutta la casella di posta e tutto il calendario di quel membro. Il filtro è ciò che tiene le risposte di Agora sulla posta del gruppo, quindi applicalo a ogni ricerca.
 
 ## Struttura
 
@@ -100,8 +117,9 @@ Gli eventi indirizzati a un registro non ricevono una voce di diario ciascuno. L
 
 - **Leggi** il contenuto grezzo scaricando il file. La vista di estrazione del testo applica l'escape al Markdown; usala solo per PDF, immagini e file Office.
 - **Crea** il Markdown con tipo di contenuto `text/markdown` e con la conversione in Google Docs disattivata, così i file restano `.md` semplici.
-- **Riferisci** i file con il percorso dalla radice (`nina/salute/documents/…`), mai con l'ID di Drive: gli ID cambiano a ogni sostituzione.
+- **Riferisci** i file con il percorso dalla radice (`nina/salute/documents/…`), mai con l'ID di Drive: gli ID cambiano a ogni sostituzione. Le cartelle mantengono il loro; `root_id` e `drive_id` sono gli unici id di Drive che Agora registra.
 - Cerca le cartelle scendendo dalla radice per nome, un livello alla volta.
+- **In un Drive condiviso**, i file portano un `sharedDriveId` diverso da `drive_id` (l'id della cartella principale del drive, preso dal suo URL). Per controllare che un file sia nel drive, risali le sue cartelle madri fino a `drive_id`; non confrontarlo mai con `sharedDriveId`.
 
 ### Sostituire
 
@@ -111,11 +129,17 @@ Drive non può sovrascrivere il contenuto di un file e ammette due file con lo s
 2. Crea la nuova versione nella stessa cartella.
 3. Sposta nel cestino ogni file più vecchio con quel nome in quella cartella.
 
+Uno spostamento nel cestino rifiutato con un errore di permessi lascia due copie, e ne nomina la causa prima di rules → Quando qualcosa non funziona:
+- modalità base: l'account connesso non è proprietario del file, e in Il mio Drive (My Drive) solo il proprietario può spostarlo nel cestino. Correzione (prerequisiti voce 3): ricollegati con l'account dell'assistente, oppure fai trasferire il file dal suo proprietario all'account dell'assistente; oppure, con Google Workspace, sposta la radice su un Drive condiviso (Sposta su Drive condiviso della skill `setup`).
+- modalità servizi condivisi: il membro non è Gestore contenuti (Content manager) del Drive condiviso (prerequisiti voce 5).
+
+Una volta corretto, il duplicato si tratta come sotto.
+
 Duplicati trovati in qualsiasi momento:
 - file derivato o curato, o una lista: tieni il più recente, sposta nel cestino gli altri;
 - registro: unisci tutte le copie in una (ogni riga distinta, in ordine di data e ora), poi sposta nel cestino le altre;
 - `inbox.md`: unisci come dice [references/email.md](references/email.md) → Il protocollo;
-- voci di diario `routine-` con contenuto identico, o voci di diario per la stessa email (stesso id `email`) con contenuto identico: tienine una, sposta nel cestino le altre;
+- voci di diario `routine-` con contenuto identico, o voci di diario per la stessa email (references/email.md → Caselle di posta) con contenuto identico: tienine una, sposta nel cestino le altre;
 - qualsiasi altro file sorgente (diario, documenti caricati): tienili tutti e segnalali.
 
 ## Regola di aggiornamento dello stato
@@ -138,7 +162,12 @@ Quando la radice, l'interesse, l'istanza, il membro o la data non sono chiari, c
 
 ### Identità
 
-All'inizio di ogni conversazione, chiedi con chi stai parlando (elenca i membri da `org.md`, tranne i membri github), a meno che non sia già noto in questa conversazione. Un handoff dice chi sta parlando nella sua riga (rules → Handoff). Ogni voce di diario e ogni documento porta lo slug di quel membro.
+All'inizio di ogni conversazione, sappi con chi stai parlando, a meno che non sia già noto in questa conversazione:
+
+- **Modalità servizi condivisi**: chi parla è l'account connesso (Vocabolario). Confronta la sua email con la colonna Email di Members, e non chiedere nulla. Nessuna corrispondenza: di' che questo account Google non è ancora un membro di Agora e proponi di unirsi (Unisciti della skill `setup`, a meno che non sia proprio quella in esecuzione); non scrivere nient'altro.
+- **Modalità base**: chiedi con chi stai parlando (elenca i membri da `org.md`, tranne i membri github).
+
+Un handoff dice chi sta parlando nella sua riga (rules → Handoff), e una routine non presidiata usa lo slug nel suo prompt, in entrambe le modalità. Ogni voce di diario e ogni documento porta lo slug di quel membro.
 
 ### Esecuzioni non presidiate
 
@@ -173,7 +202,8 @@ Ogni handoff segue queste regole; la sezione Handoff di ogni skill aggiunge le s
 
 ## Convenzioni del calendario
 
-- Il **calendario di sistema** della radice è il calendario principale dell'account dell'assistente (`calendar` in `org.md`, l'email dell'account). Scrivi solo lì. I calendari personali dei membri, quando condivisi, sono in sola lettura: usali per trovare il tempo libero.
+- Il **calendario di sistema** della radice è `calendar` in `org.md`, sempre indicato con quell'id (`calendarId = calendar`). Modalità base: l'email dell'account dell'assistente, che è l'id del suo calendario principale. Modalità servizi condivisi: l'id del calendario condiviso. Scrivi solo lì. I calendari personali dei membri sono in sola lettura: usali per trovare il tempo libero, al livello registrato nella colonna Personal calendar di Members (`libero/occupato`, `tutti i dettagli`, oppure `libero/occupato del dominio`, il libero/occupato di Workspace letto tramite l'Email del membro).
+- **Il calendario di chi parla**, per modalità. Modalità servizi condivisi: l'account connesso è quello di chi parla (Identità), quindi il suo calendario si legge per intero, qualunque cosa dica la sua colonna Personal calendar: per il tempo libero, per le domande del tipo "che cosa abbiamo in programma", e per la parte Yours della sua revisione personale. Modalità base: solo al livello registrato nella sua colonna Personal calendar, quindi i suoi eventi solo con `tutti i dettagli` (libero/occupato dà blocchi occupati, non eventi). Un'esecuzione non presidiata lo legge per intero solo quando il suo account connesso è il membro per cui gira l'esecuzione.
 - Titolo dell'evento: `[<interest>/<instance>] <title>` (`[nina/salute] Esame del sangue`).
 - Descrizione dell'evento: il percorso dell'istanza e la voce di diario che ha originato l'evento.
 - Colore: il colore dell'interesse indicato in `org.md`, quando è impostato.
@@ -183,7 +213,7 @@ Ogni handoff segue queste regole; la sezione Handoff di ogni skill aggiunge le s
 
 Una radice ha l'email quando `org.md` dice `email: on`. Con `email` assente o `off`, nessuna skill legge o scrive posta, `inbox.md` non esiste, e tutto funziona senza Gmail. Con l'email attiva, la casella dell'assistente funziona come `landing/`: i membri le inoltrano la posta o la mettono in copia (CC), e l'AI archivia ciò che può collocare senza tirare a indovinare e segnala il resto.
 
-Prima di qualsiasi lavoro sulle email, leggi [references/email.md](references/email.md): le regole sulle email che ogni skill che tocca la casella dell'assistente segue.
+Ogni ricerca in Gmail è filtrata come dice I tre id → Posta. Prima di qualsiasi lavoro sulle email, leggi [references/email.md](references/email.md): le regole sulle email che ogni skill che tocca la casella dell'assistente segue.
 
 ## To-do
 

@@ -159,8 +159,8 @@ Content written into those files is in the root's language (`it` for this plugin
 | admin (Workspace, AI client) | amministratore |
 | calendar owner | proprietario del calendario |
 | Content manager (shared drive role) | Gestore contenuti (Content manager) |
-| Make changes to events (calendar permission) | Apportare modifiche agli eventi (Make changes to events) |
-| See all event details | Visualizzare tutti i dettagli degli eventi (See all event details) |
+| Make changes to events (calendar permission) | Apporta modifiche agli eventi (Make changes to events) |
+| See all event details | Visualizza tutti i dettagli degli eventi (See all event details) |
 | the three ids / Same answer (rule) | i tre id / Stessa risposta |
 | mail filter; received-mail form / sent-mail form | filtro della posta; forma per la posta ricevuta / forma per la posta inviata |
 | mailbox / your mailbox | casella di posta / la tua casella |
@@ -186,6 +186,20 @@ Content written into those files is in the root's language (`it` for this plugin
 | flag text "Email wasn't triaged between <last_tidy_up> and today." | "L'email non è stata smistata tra <last_tidy_up> e oggi." |
 | "join Agora" (user phrase) | "unisciti ad Agora" |
 | "move Agora to a shared drive" / "we have Workspace now" (user phrases) | "sposta Agora su un Drive condiviso" / "ora abbiamo Workspace" |
+| The three ids' parts: Files / Calendar / Mail | File / Calendario / Posta (`rules → I tre id → Posta`) |
+| prerequisites item 3 checks: Who / Drive / Calendar | Chi / Drive / Calendar |
+| item 4, step N (manual-setup.md) | voce 4, passo N |
+| `setup.md` box notes: (admin) / (calendar owner: <slug>) | (amministratore) / (proprietario del calendario: <slug>) |
+| `setup.md` Move box note: old root `<id>` | vecchia radice `<id>` |
+| Personal calendar `full details` / `free/busy` | `tutti i dettagli` / `libero/occupato` |
+| work account | account di lavoro |
+| ownership check | controllo di proprietà |
+| reconnect | ricollegarsi / ricollegamento |
+| Join's step "Which join" | Quale ingresso |
+| review tidy-up items | punti (punto 8, punti 1–6) |
+| Workspace free/busy | il libero/occupato di Workspace |
+| Group settings: Each email; outside posting; Admin console | Ogni email; pubblicazione dall'esterno; Console di amministrazione (Admin console) |
+| Google UI labels used | Il mio Drive (My Drive), Sposta nel cestino (Move to trash), Gestisci membri (Manage members), Integra calendario (Integrate calendar), ID calendario (Calendar ID), Condiviso con (Shared with), Trasferisci la proprietà (Transfer ownership), Condividi con persone specifiche o gruppi (Share with specific people or groups), Aggiungi persone e gruppi, Fuso orario, Utenti, Aggiungi nuovo utente, Gruppi, Crea gruppo, Limitato (Restricted), Personalizzato (Custom), Esterno (External), Chi può pubblicare, Chi può unirsi al gruppo, Solo utenti invitati, Chiunque sul Web, Rimuovi accesso, Rimuovi membro, Sospendi utente, Elimina utente; Gmail: Inoltro e POP/IMAP, Aggiungi un indirizzo di inoltro, Inoltra una copia della posta in arrivo a, Salva modifiche. Calendar permissions in the imperative, as Google shows them: Apporta modifiche agli eventi, Visualizza tutti i dettagli degli eventi |
 
 Interest and instance slugs and working-file names are content, so they follow the root's language (`famiglia`, `nina/salute`, `greta-pannolini.csv`).
 

@@ -10,8 +10,13 @@ agora: root
 name: <Nome visualizzato della radice>
 language: <it | en | …>
 timezone: <Europe/Rome>
-assistant_account: <assistente@gmail.com | account del proprietario>
-calendar: <email dell'account dell'assistente: il suo calendario principale è il calendario di sistema>
+mode: <basic-shared-account | shared-services>
+drive_id: <my-drive | l'id nell'URL del Drive condiviso>
+root_id: <l'id della cartella radice>
+assistant_account: <modalità base: assistente@gmail.com | account del proprietario>
+calendar: <modalità base: l'email dell'account dell'assistente, l'id del suo calendario principale | modalità servizi condivisi: l'id del calendario condiviso>
+calendar_owner: <modalità servizi condivisi: slug del membro che ha creato il calendario condiviso>
+inbox: <modalità base: l'email dell'account dell'assistente | modalità servizi condivisi: l'indirizzo del gruppo>
 layout: <che cosa è un interesse, es. "un interesse per persona, più `famiglia` per le cose condivise">
 email: <on | off>
 ---
@@ -20,10 +25,10 @@ email: <on | off>
 
 ## Members
 
-| Slug | Name | Email | Mail from | Role | Birthday | Personal calendar | Notes |
-|---|---|---|---|---|---|---|---|
-| simone | Simone | simone@example.com | simone@example.com, simone@acme.it | genitore | 1989-03-28 | libero/occupato | preferisce risposte brevi |
-| pm | PM (GitHub) | | | github | | | indirizzo per GitHub tramite cruna-pm-github |
+| Slug | Name | Email | Mail from | Role | Kind | Birthday | Personal calendar | Notes |
+|---|---|---|---|---|---|---|---|---|
+| simone | Simone | simone@example.com | simone@example.com, simone@acme.it | genitore | human | 1989-03-28 | libero/occupato | preferisce risposte brevi |
+| pm | PM (GitHub) | | | github | | | | indirizzo per GitHub tramite cruna-pm-github |
 
 ## Interests
 
@@ -45,9 +50,13 @@ email: <on | off>
 | simone | editor | può modificare | Claude | routine attive |
 ```
 
-`email` assente significa `off`. **Email** è l'account Google personale con cui sono condivisi la cartella e il calendario. **Mail from** (solo con l'email attiva) elenca ogni indirizzo da cui il membro scrive o inoltra: la posta da questi indirizzi è posta dei membri (rules → Email). I criteri email validi per tutta la radice sono righe di Conventions, scritte come in [email.md](email.md) → Dove stanno i criteri.
+`email` assente significa `off`. I campi da `mode` a `inbox` possono mancare, ciascuno, e uno che manca si legge come modalità base: `mode` è `basic-shared-account`, `drive_id` è `my-drive`, la radice si trova con Trovare la radice, e `inbox` è `assistant_account`; `calendar_owner` esiste solo in modalità servizi condivisi. Così un `org.md` scritto prima di questi campi si legge esattamente come prima. Una nuova radice in modalità servizi condivisi si scrive senza `assistant_account`; una radice spostata dalla modalità base lo conserva per memoria.
 
-Una riga di un **membro github** (rules → Vocabolario) la scrive solo l'handoff `add-interest`, come la riga `pm` qui sopra: Role `github`, Name "PM (GitHub)", Email, Mail from, Birthday e Personal calendar vuoti; non ha riga in Access. Lo stesso handoff scrive la riga gestita di Conventions, Where `products/<instance>`, con lo slug del membro al posto di `pm`. Il marcatore `managed by cruna-pm-github` resta in inglese; il testo dopo i suoi `: ` è nella lingua della radice.
+**Email**: in modalità base, l'account Google personale con cui sono condivisi la cartella e il calendario; in modalità servizi condivisi, l'account Workspace del membro, con cui accedono i suoi connettori e che lo identifica (rules → Identità). **Kind**: rules → Vocabolario → Membro. Una tabella Members scritta prima della colonna Kind mantiene la sua forma: scrivi ogni nuova riga, anche quella github, con le colonne che ha la sua intestazione, e leggi ogni membro al suo interno come `human`. **Personal calendar**: `libero/occupato` o `tutti i dettagli` condivisi con l'account dell'assistente (modalità base); `libero/occupato del dominio` come predefinito in modalità servizi condivisi, oppure `tutti i dettagli` quando il membro condivide di più. **Mail from** (solo con l'email attiva) elenca ogni indirizzo da cui il membro scrive o inoltra: la posta da questi indirizzi è posta dei membri (rules → Email). I criteri email validi per tutta la radice sono righe di Conventions, scritte come in [email.md](email.md) → Dove stanno i criteri.
+
+Una riga di un **membro github** (rules → Vocabolario) la scrive solo l'handoff `add-interest`, come la riga `pm` qui sopra, nelle colonne dell'intestazione della tabella: Role `github`, Name "PM (GitHub)", Email, Mail from, Kind, Birthday e Personal calendar vuoti; non ha riga in Access. Lo stesso handoff scrive la riga gestita di Conventions, Where `products/<instance>`, con lo slug del membro al posto di `pm`. Il marcatore `managed by cruna-pm-github` resta in inglese; il testo dopo i suoi `: ` è nella lingua della radice.
+
+In modalità servizi condivisi le colonne di Access registrano ciò che i controlli con una chiamata reale hanno dimostrato (prerequisiti voci 3, 5 e 7): Drive `gestore contenuti`, System calendar `può modificare`, e `riceve la posta` in Notes una volta che la ricerca sul gruppo restituisce la sua posta.
 
 ## `setup.md` (radice, curato)
 
@@ -85,9 +94,23 @@ state: <todo | done>
 - <risposte confermate, una riga ciascuna>
 ```
 
-La sezione Interview contiene ogni giro confermato sotto il suo titolo (The root, Members, Layout convention, First interests and instances) La casella Email della radice si spunta con "(off)" quando la radice rifiuta l'email, oppure quando l'email è attiva, Gmail è verificato e `org.md` e `memories/shared.md` contengono i campi email. Una sezione Member ha una casella Email solo quando l'email è attiva; si spunta quando l'app del membro ha Gmail collegato con l'account dell'assistente, e i suoi indirizzi e il suo stato dell'invito sull'importanza sono registrati.
+In modalità servizi condivisi una sezione Member porta invece queste caselle; ognuna non spuntata dice chi la fa (l'amministratore, il proprietario del calendario, il membro). Workspace account, In the shared drive e Shared calendar si spuntano quando i controlli della voce 3 del membro passano nella sua app; In the group quando passa il controllo della voce 7, oppure "(email off)" in una radice con l'email disattivata.
 
-La sezione Interview contiene ogni giro confermato sotto il suo titolo (The root, Members, Layout convention, First interests and instances) finché la casella Build non è spuntata; poi viene tolta, tranne le risposte sulle email, che restano finché ogni membro intervistato non ha la sua cella Mail from e la sua riga Email importance scritte (passo 2d di setup). Mentre è in corso una migrazione, una sezione `## Migration` elenca i suoi sette passi come caselle.
+```markdown
+## Member: marta
+- [ ] Workspace account (amministratore)
+- [ ] In the shared drive (amministratore)
+- [ ] In the group (amministratore)
+- [ ] Shared calendar (proprietario del calendario: simone)
+- [ ] Connectors and plugin
+- [ ] In Members and Access, with a memories file
+- [ ] Email
+- [ ] Routines
+```
+
+La casella Email della radice si spunta con "(off)" quando la radice rifiuta l'email, oppure quando l'email è attiva, Gmail è verificato e `org.md` e `memories/shared.md` contengono i campi email. Una sezione Member ha una casella Email solo quando l'email è attiva; si spunta quando l'app del membro ha Gmail collegato con l'account indicato dalla voce 7 (l'account dell'assistente, oppure in modalità servizi condivisi il suo), e i suoi indirizzi e il suo stato dell'invito sull'importanza sono registrati.
+
+La sezione Interview contiene ogni giro confermato sotto il suo titolo (The root, Members, Layout convention, First interests and instances) finché la casella Build non è spuntata; poi viene tolta, tranne le risposte sulle email, che restano finché ogni membro intervistato non ha la sua cella Mail from e la sua riga Email importance scritte (passo 2d di setup). Mentre è in corso una migrazione, una sezione `## Migration` elenca i suoi sette passi come caselle; mentre è in corso uno spostamento su un Drive condiviso, una sezione `## Move to shared drive` elenca i suoi dieci passi come caselle (`references/move.md` della skill `setup`), e la casella del passo 4 registra l'id della nuova radice e, dopo una copia, quello della vecchia radice.
 
 ## `inbox.md` (radice, curato)
 
@@ -101,13 +124,15 @@ last_tidy_up: 2026-11-03
 
 # Inbox
 
-| Message id | Date | From | Subject | Outcome | By |
-|---|---|---|---|---|---|
-| 18c2f0a9b7e4d311 | 2026-11-03 | Mario Rossi <mario@acme.it> | Preventivo approvato | filed → acme/sito-2026/diary/simone-20261103_0912.md | routine |
-| 18c2ef11a0c3b920 | 2026-11-02 | to mario@acme.it | Re: Data del kickoff | sent → acme/sito-2026/diary/simone-20261102_1640.md | simone |
-| 18c2ee70d1f2a004 | 2026-11-02 | Newsletter <news@shop.com> | Black Friday | ignored | routine |
-| 18c2ed02b4a1c877 | 2026-11-02 | Simone <simone@example.com> | aggiungi ai miei to-do | to-do → simone-20261102_0805 | routine |
+| Message id | Date | From | Subject | Outcome | By | Mailbox |
+|---|---|---|---|---|---|---|
+| 18c2f0a9b7e4d311 | 2026-11-03 | Mario Rossi <mario@acme.it> | Preventivo approvato | filed → acme/sito-2026/diary/simone-20261103_0912.md | routine | |
+| 18c2ef11a0c3b920 | 2026-11-02 | to mario@acme.it | Re: Data del kickoff | sent → acme/sito-2026/diary/simone-20261102_1640.md | simone | |
+| 18c2ee70d1f2a004 | 2026-11-02 | Newsletter <news@shop.com> | Black Friday | ignored | routine | |
+| 18c2ed02b4a1c877 | 2026-11-02 | Simone <simone@example.com> | aggiungi ai miei to-do | to-do → simone-20261102_0805 | routine | |
 ```
+
+**Mailbox**, e la forma di Date in modalità servizi condivisi: [email.md](email.md) → Il protocollo.
 
 ## `index.md` (derivato)
 
@@ -173,7 +198,13 @@ Stesse sezioni a ogni livello. Non omettere nulla; scrivi "—" sotto una sezion
 
 Le righe `To-do:` sono i to-do aperti legati a un'istanza ([todos.md](todos.md) → Nello stato).
 
-Lo `status.md` della radice aggiunge, dopo Next:
+Lo `status.md` della radice aggiunge una riga subito sotto Last updated, una volta che il riordino della `review` l'ha scritta: quando il riordino è finito l'ultima volta. Solo il riordino la scrive; ogni altra ricostruzione la mantiene com'era, e uno `status.md` della radice senza di essa va bene.
+
+```markdown
+**Tidied:** 2026-10-28 07:31
+```
+
+Lo `status.md` della radice aggiunge anche, dopo Next:
 
 ```markdown
 ## Latest reviews
