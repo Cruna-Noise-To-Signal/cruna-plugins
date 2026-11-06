@@ -142,13 +142,15 @@ Calendar owner shares the calendar with B at Make changes to events; admin adds 
 ### 6. Overdue flags
 
 - [ ] Trash yesterday's daily review file (if any) and set `last_tidy_up` in `inbox.md` to three days ago. Ask "daily review" in a chat. Needs attention shows the missing daily review and "Email wasn't triaged between …", each with "No member's routine has run this: set up the routines".
+- [ ] Trash the weekly review named after the current ISO week (or, on a Monday, last week's) and ask "daily review" again: the missing weekly review is flagged. Ask "weekly review" instead: it writes that week's file and raises no flag for it.
+- [ ] On the 1st, before the monthly routine has run, a daily review raises no missing-monthly flag.
 - [ ] On a root whose oldest review is today, no missing-period flag appears.
 
 ### 7. Offboarding the calendar owner
 
 - [ ] As A (calendar owner): "remove <a> from Agora". Agora says it's blocked until the calendar is transferred, gives the transfer steps, and writes nothing: `org.md`, `setup.md` and sharing unchanged.
 - [ ] Insist ("just remove me"): it still refuses, explaining the calendar would be deleted with A's account.
-- [ ] A transfers the calendar to B; B accepts. "remove <a> from Agora" again: `calendar_owner` becomes B's slug, a test event on the calendar is created and deleted, then the removal steps (shared drive, group, calendar, Workspace account) are each handed to the person they name. Members Notes `removed YYYY-MM-DD`, Access `removed`, A's `setup.md` section gone. Verify passes with `calendar_owner` = B.
+- [ ] A transfers the calendar to B; B accepts. "remove <a> from Agora" again: `calendar_owner` becomes B's slug, B confirms the calendar is under their "My calendars" and the Calendar check (test event created and deleted) passes, then the removal steps (shared drive, group, calendar, Workspace account) are each handed to the person they name. Members Notes `removed YYYY-MM-DD`, Access `removed`, A's `setup.md` section gone. Verify passes with `calendar_owner` = B.
 
 ### 8. Basic root: unchanged
 

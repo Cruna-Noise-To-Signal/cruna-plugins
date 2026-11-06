@@ -115,3 +115,20 @@ Not testable by code: the change is skill prose, and the only seam is the member
   - whether `deliveredto:<group>` matches group mail in a member's mailbox at all, or whether `list:<group>` is needed. Google Groups stamps the member's own address in Delivered-To. The founder confirmed only that the operators are accepted;
   - whether the sent-mail form works on both connectors;
   - whether the Drive connector can read a shared drive's members, for the Offboard check.
+
+## M2 revision 1
+
+Fixes for review "M2 - A team on it — round 1". English plugin only; skill prose, so no `tdd` cycle (no code seam); the hand test is updated.
+
+- **F7, duplicate key** (MUST): "the same email" is now the same Gmail id in the same mailbox, or the same duplicate key from **another** mailbox. Basic mode has one mailbox, so it dedupes by id exactly as on 0.6.0. The ledger skip and merge, filing's "already filed", the to-do "already added" and rules' diary-duplicate check all point to that definition and read correctly in both modes.
+- **F7, sent-mail filter**: both forms are wrapped in parentheses, `(deliveredto:<inbox> OR from:<inbox>)` included.
+- **F9, overdue flag**: review item 8 now checks, per period, the file named after the day, ISO week and month containing **yesterday**. Under the "containing tomorrow" naming, each file is written by the end of its period's first day (weekly on the Sunday evening before, monthly on the 1st), so a missed run is flagged the next day rather than a period late, and the 07:30 daily on the 1st (or a Monday) raises no false flag. The file the run itself writes in step 3 is left out.
+- **F9, item split**: the ownership check is its own item 9, phrased without the mode ("where that item has one"); items 7–9 run every time, and the Done when follows.
+- **F5, naming**: the rules guide is renamed `rules/references/manual-setup.md`; setup's reference cites it as "the `rules` skill's `references/manual-setup.md`".
+- **F5, Offboard**: setup's step 1 keeps only the block and points to the guide's step 1 for the transfer, `calendar_owner` and the check; the guide now names rules → Replace for the `org.md` write.
+- manual-test.md → M2: section 6 gains the weekly and 1st-of-month checks; section 7's transfer check follows the guide.
+
+### For F12 (M3)
+
+- Review deviations, both to `agora-spec.md`: email time from the Date header converted to the root's timezone for names (replaces spec l.198); diary ids resolved by id first, then search (replaces spec l.200).
+- Spec drift to carry: the sent-mail filter (widens l.107 and l.199) and its parenthesised forms; ledger Date to the minute in shared services mode; the new reference files (`setup/references/shared-services.md`, `rules/references/manual-setup.md`); the overdue-period definition above (spec l.211–214); the 60-minute Tidied window; the duplicate key and Mailbox semantics (key only across another mailbox); the joiner's calendar-invitation step (review advisory 5).

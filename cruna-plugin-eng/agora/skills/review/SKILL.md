@@ -47,7 +47,7 @@ Done when: `org.md` is read; for a personal message, the member's slug is known 
 
 The tidy-up is **idempotent**: a second run on an unchanged root changes nothing, so members' routines running at the same time are harmless. Walk the root once, listing each folder's children, and use that listing for every check below. Every check below leaves out the bridge file (rules → Layout).
 
-**Recently tidied**: when the root `status.md` has a `**Tidied:**` line less than 60 minutes old, another run has just tidied: skip items 1–6, and keep that line and the root's earlier flags as found. A root `status.md` without the line tidies as usual. Items 7 and 8 run every time.
+**Recently tidied**: when the root `status.md` has a `**Tidied:**` line less than 60 minutes old, another run has just tidied: skip items 1–6, and keep that line and the root's earlier flags as found. A root `status.md` without the line tidies as usual. Items 7–9 run every time.
 
 Before item 1, note `last_tidy_up` from `inbox.md` (email on) for item 8: item 3 moves it to today.
 
@@ -71,14 +71,14 @@ Before item 1, note `last_tidy_up` from `inbox.md` (email on) for item 8: item 3
    - an interest or root `index.md` whose rows differ from its child folders, or whose Last activity differs from a child's newest entry.
    Write `routine` as the author of the Last updated line in unattended runs. The root `status.md` is rebuilt once, in step 3.
 7. **Old daily reviews.** Trash every `reviews/*-daily.md` dated more than 30 days before today. Weekly and monthly reviews are the long-term record and stay.
-8. **Overdue routines and the connected account.** Flag each of these, with the fix "No member's routine has run this: set up the routines (the `setup` skill, routines)":
-   - no daily review for yesterday, no weekly review for the ISO week before the current one, no monthly review for the month before the current one: list `reviews/` by name. Leave a period out when the oldest file in `reviews/` is dated after it began: the root is newer than that period.
+8. **Overdue routines.** Flag each of these, with the fix "No member's routine has run this: set up the routines (the `setup` skill, routines)":
+   - a missing review file, for each period the one named after the day, ISO week and month containing **yesterday** (Periods): list `reviews/` by name. A file is written by the end of its period's first day (the weekly routine runs the evening before, the monthly on the 1st), so a routine that hasn't run yet today raises nothing. Leave out the file this run writes in step 3, and a period when the oldest file in `reviews/` is dated after it began: the root is newer than that period.
    - email on and the `last_tidy_up` you noted older than yesterday: "Email wasn't triaged between <last_tidy_up> and today."
-   Also run the ownership check of prerequisites item 3 (the `rules` skill's `references/prerequisites.md`; basic mode only, as that item says), and flag a connected account that doesn't own `org.md`, with that item's fix: every Replace it makes leaves a duplicate.
+9. **The connected account.** Run the ownership check of prerequisites item 3 (the `rules` skill's `references/prerequisites.md`) where that item has one, and flag a connected account that doesn't own `org.md`, with that item's fix: every Replace it makes leaves a duplicate.
 
 Collect every flag you raise in this step, and every flag `file-document` returns, for the root's Needs attention (step 3.4).
 
-Done when: the tidy-up was skipped as recently tidied, with items 7 and 8 done; or every folder has been walked; no derived, curated or working file has a duplicate; every file in `landing/` and every unindexed document is either filed or flagged, and no working file was renamed or moved; (email on) every email the search returned has exactly one ledger row and none is older than 60 days; on a daily run, every tracker with rows on the day looked back on has its summary entry; (root with `todos/`) `todo.md` exists once and matches the fold of `todos/`, every orphan event is flagged, and on a monthly run no to-do closed more than 90 days ago has an event left in `todos/`; no instance or interest derived file is older than its sources; no daily review is older than 30 days; and every overdue routine and, in basic mode, an account mismatch is flagged.
+Done when: the tidy-up was skipped as recently tidied, with items 7–9 done; or every folder has been walked; no derived, curated or working file has a duplicate; every file in `landing/` and every unindexed document is either filed or flagged, and no working file was renamed or moved; (email on) every email the search returned has exactly one ledger row and none is older than 60 days; on a daily run, every tracker with rows on the day looked back on has its summary entry; (root with `todos/`) `todo.md` exists once and matches the fold of `todos/`, every orphan event is flagged, and on a monthly run no to-do closed more than 90 days ago has an event left in `todos/`; no instance or interest derived file is older than its sources; no daily review is older than 30 days; every overdue routine is flagged; and a connected account that fails prerequisites item 3's ownership check is flagged.
 
 ### 3. Write the shared review
 
