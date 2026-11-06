@@ -162,3 +162,46 @@ On the untouched 0.6.0 basic root, as its assistant account:
 - [ ] Offboard that person as on 0.6.0.
 - [ ] Two reviews within an hour on the basic root: the second one skips the tidy-up once the first wrote `**Tidied:**`.
 - [ ] With Drive connected as an account that doesn't own `org.md`: the daily review flags the mismatch with the fix.
+
+## M3
+
+The Move branch, help in both modes and both languages, and the release docs. Install `agora` and `agora-ita` 0.7.0 from this branch. The full release test is `docs/agora/manual-tests/manual-test-agora-v070-shared-services.md`; this is the short pass for M3.
+
+### Before you start
+
+- A **copy** of a basic root (0.6.0, email on) with a few diary entries, documents, a future `[interest/instance]` event, a recurring one, and, if you have one, a `products/` instance managed by `cruna-pm-github`.
+- The M1/M2 setup: `cruna-shared-resources`, Workspace accounts A and B, a test group and a shared calendar created by A.
+- Access to the copy's assistant account (Drive, Calendar and Gmail), and an outside address.
+
+### 1. Move to shared drive
+
+- [ ] Connected as the copy's assistant account, say "move Agora to a shared drive". `setup.md` gets `## Move to shared drive` with ten boxes, and step 1 lists the admin's steps.
+- [ ] Step 2: the root folder's permissions list A's Workspace account as editor, and you get the click steps to share the calendar with A. Stop and say "finish setup" later: the move resumes at step 3.
+- [ ] Step 3: reconnect as A. The Who, Drive and Calendar checks pass, and the old calendar shows in A's calendar list.
+- [ ] Step 4: `landing/` is filed first. Note whether it moved or copied. A copy lists every folder in both trees, and no original is trashed.
+- [ ] Step 5: in the new root, `org.md` has `mode: shared-services`, `drive_id`, `root_id` (the new folder, which holds `org.md`), `calendar`, `calendar_owner` and `inbox`, and `assistant_account` is still there. Members Email are Workspace accounts, and `setup.md` has the shared services boxes.
+- [ ] Step 6: each future event, and the recurring series once, is on the new calendar with the same title, time, description and colour. The old calendar is unchanged.
+- [ ] Step 7: forwarding is set by clicks, and the code arrives in the group. A mail from outside to the old address shows in the group search, and the old address is in A's Mail from.
+- [ ] Step 8: the old root is trashed by the assistant account, and searching `org.md` finds the new root only. All diary entries and documents are there.
+- [ ] Steps 9–10: the old account is said to stay, unused, and the linked-repo list names each managed `products/` instance (or "none").
+- [ ] Verify passes in shared services mode. As B, "join Agora" matches B's Member section.
+
+### 2. Help in both modes
+
+- [ ] On the shared services root, "where are my files?" says **Shared drives**, and on the basic root it says **Shared with me**, each with no word about the other mode.
+- [ ] "What kinds of Agora are there?" with no root answers both modes.
+- [ ] As a non-member account on the shared services root, "Agora says I'm not a member" gives the reconnect or Join answer.
+- [ ] On a root with a missing yesterday's daily (older than two days), "my review never arrived" shows the overdue flag first.
+- [ ] On the basic root with Drive connected as a non-owner, "duplicate files won't go away" runs item 3 and names the mismatch.
+
+### 3. Italian
+
+- [ ] With `agora-ita`, `aiuto`: "dove sono i miei file?" answers for the root's mode, using "Drive condiviso".
+- [ ] With `agora-ita` on the shared services root, "unisciti ad Agora" as B runs Join in Italian. `org.md` keys, `mode`, Kind, Mailbox and the `setup.md` box labels stay in English, and Access values read `gestore contenuti` / `può modificare`.
+- [ ] Read `cruna-plugin-ita/agora/skills/rules/references/manual-setup.md` against the Italian Google Admin, Groups and Calendar screens, and note any label that differs.
+
+### 4. Release docs
+
+- [ ] `docs/agora/agora-spec.md` → Manual setup matches the plugin's `rules/references/manual-setup.md`.
+- [ ] The v0.7.0 manual test's section 12 (the founder's basic non-regression, with the sent-mail search) is ready to run.
+- [ ] `python3 <cruna-core>/skills/portable-plugins/scripts/check_plugins.py .` prints "Valid for Claude and OpenAI", and both manifests in both languages and the Claude catalog say 0.7.0.

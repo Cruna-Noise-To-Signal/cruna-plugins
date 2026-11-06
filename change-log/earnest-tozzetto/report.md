@@ -148,3 +148,74 @@ Fixes for review "M2 - A team on it — round 2". English plugin only; skill pro
 - **F5**: manual-setup.md Offboard step 1 now says "prerequisites item 3's Calendar check".
 - manual-test.md §6: the weekly step runs Tuesday to Saturday, on a root whose oldest review was created before that Monday. The new-root step now covers an empty `reviews/` and the next day.
 - For F12: carry the new-root exclusion into `agora-spec.md` along with the overdue-period definition.
+
+## M3 - Moving and documenting
+
+F6, F10, F11 and F12, plus the M2 round 3 carry-overs. Agora and agora-ita are now 0.7.0.
+
+### What changed
+
+- **F6 Move to shared drive** (`setup/references/move.md`, new; `setup/SKILL.md` step 4b, the branch table, the description; `templates.md` → the `## Move to shared drive` section). Ten boxes, resumable:
+  1. the admin's setup;
+  2. hand-over as the assistant account: the Drive connector shares the root with the owner's Workspace account, and the calendar share is clicks;
+  3. the owner reconnects as their Workspace account;
+  4. the root goes into the shared drive: `landing/` is filed first, then move (when the connected account owns every file) or rebuild-and-copy, with a per-folder count check;
+  5. `org.md` and `setup.md` switch to shared services mode;
+  6. future events are copied, and the old calendar is left alone;
+  7. forwarding by clicks, and the old address goes into the mover's Mail from;
+  8. the old root is trashed by the assistant account (clicks);
+  9. the old account is retired but kept alive for forwarding;
+  10. the linked-repo list.
+
+  rules → Replace and prerequisites item 3 now point to the branch.
+- **F10 help**:
+  - the tour has a line per mode;
+  - the FAQ has per-mode Basic / Shared services pairs (where are my files, who sees what, phone upload, email, add a person, leave, cost) and three new answers (which kind of Agora, "not a member yet", moving to a shared drive);
+  - Troubleshoot reads the review's overdue and connected-account flags first, and maps the shared services failures to their items (account mismatch, not a Content manager, calendar refused, group search empty).
+- **F11 Italian**: the whole English diff since 004ce41 is carried into `cruna-plugin-ita/agora`. Three translator subagents worked from the glossary; I checked line counts per file (all equal to English) and spot-read the result. The glossary gains:
+  - the mode terms;
+  - every new identifier, kept in English;
+  - the Italian Access values (`gestore contenuti`, `può modificare`, `riceve la posta`, `libero/occupato del dominio`);
+  - the new pointer headings and the Google UI labels.
+
+  The calendar permission is now the imperative "Apporta modifiche agli eventi" everywhere, as in the existing files.
+- **F12**:
+  - `agora-spec.md` is rewritten around the modes. Its new sections:
+    - Modes, accounts and calendar (The three ids, the ownership check, identity, the speaker's own calendar as the wider rule);
+    - Manual setup for admin, per new member, joiner (calendar-invitation step included) and leaving, with the Group settings (Mailing / Restricted → Custom with External);
+    - Move to shared drive;
+    - Email → Mailboxes (duplicate key from another mailbox, Date-header time, ids first then search, Date-to-the-minute rows, why not `Message-ID`);
+    - Routines (60-minute Tidied, the overdue period with the new-root exclusion and the created-time reason, the accepted first-monthly blind spot, item 9);
+    - the prerequisites per mode, the new reference files, verified platform facts (ChatGPT `deliveredto:`/`list:`, writes by calendar id, the two drive ids), the still-to-verify list, the release checks (v0.7.0 test and the founder's basic test with a sent-mail search), and Out of scope.
+  - The v0.7.0 manual test has 12 scenarios, and section 12 is the founder's non-regression test.
+  - Both READMEs name the modes and link the spec's Manual setup.
+  - 0.7.0 is set in four manifests and the Claude catalog (the OpenAI catalog carries no version).
+- **M2 carry-overs**:
+  - review item 8's first bullet is now a sub-list;
+  - the created time has its reason;
+  - the wording is now "A new root has nothing due before its first review file";
+  - manual-test §6 step 1 now runs "on a root older than two days".
+
+  All are in English and Italian.
+
+Checker: **✔ Valid for Claude and OpenAI**.
+
+### Testing
+
+Not testable by code: everything is skill prose and docs, and no `tdd` cycle was possible. The hand tests are in [manual-test.md](manual-test.md) → M3 and `docs/agora/manual-tests/manual-test-agora-v070-shared-services.md`.
+
+### Decisions taken where the spec was silent
+
+- **Retired address trusted through Mail from**: the old address goes in the Mail from cell of the member who ran the move, rather than in Notes or Conventions. Existing member-mail rules then apply unchanged, and the filed author is that member.
+- **Old root trashed by clicks**: the Workspace account can't trash files the assistant account owns in My Drive.
+- **Hand-over step**: the Workspace account needs read access to the old root and calendar, so the assistant account shares them before the reconnect.
+- **`landing/` filed before a copy**: a copy resets Drive creation times, which name documents. After a copy, the overdue check's oldest-file date restarts at the move, which can only hide flags.
+- **The old account is kept alive**: forwarding needs it.
+- **Members stay away from step 4 to step 5**: during that window two `org.md` files exist.
+- **The Manual setup lives in `agora-spec.md`**: it is a spec section, linked from both READMEs, rather than a separate doc.
+
+### Open / unverified
+
+- The Italian Google UI labels (Admin console, Groups, Calendar, Gmail forwarding) were written from knowledge, not checked against the live Italian UI.
+- `update_file` re-parenting into a shared drive, the copy path at scale, and forwarding into a group are untested live.
+- The live checks still open from M2 (`deliveredto:` vs `list:` for group mail, the sent-mail forms, `owners` metadata) are in the spec and in the manual test's FACT list.
