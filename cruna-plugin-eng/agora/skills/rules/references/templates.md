@@ -94,7 +94,7 @@ state: <todo | done>
 - <confirmed answers, one line each>
 ```
 
-In shared services mode a Member section carries these boxes instead; each unticked one names who does it (the admin, the calendar owner, the member), and the first four are ticked when the member's own checks pass (prerequisites items 3–5):
+In shared services mode a Member section carries these boxes instead; each unticked one names who does it (the admin, the calendar owner, the member). Workspace account, In the shared drive and Shared calendar are ticked when the member's item 3 checks pass in their own app; In the group when item 7's check passes, or "(email off)" in a root with email off.
 
 ```markdown
 ## Member: marta

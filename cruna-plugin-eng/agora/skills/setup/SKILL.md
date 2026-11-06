@@ -40,6 +40,13 @@ The prerequisites checklist is the `rules` skill's `references/prerequisites.md`
 
 ### 2a. Prerequisites
 
+First ask: "Does your group use Google Workspace, with work accounts on your own domain?" Recommend yes for a business with its own domain, no for a family on Gmail.
+
+- No → **basic mode**: the steps below.
+- Yes → **shared services mode**: follow Shared services mode below instead, and the shared services lines of steps 2b–2f and 7.
+
+#### Basic mode
+
 1. Tell the user, in two plain sentences, what they will do by hand along the way: the calendar connector can't share calendars, so sharing the Agora calendar with each member (and each member's own calendar with Agora) is a few clicks in Google Calendar, which you'll guide step by step. Everything else you do yourself.
 2. Ask: "Will anyone else use this with you?"
    - Yes → a dedicated **assistant account** owns everything (item 4 applies).
@@ -49,11 +56,25 @@ The prerequisites checklist is the `rules` skill's `references/prerequisites.md`
 
 Done when items 1–4 are each ready (item 4 skipped when solo).
 
+#### Shared services mode
+
+Each member signs in as their own Workspace account, and every member reaches the same shared drive, shared calendar and group (rules → Vocabulary → Mode).
+
+1. Tell the user, in two plain sentences, what happens by hand: their Workspace admin creates the shared drive, the group and the shared calendar and adds each member, following steps you give; you check each one with a real call, and Agora never shares anything itself.
+2. Walk item 1, item 2, then item 4 (shared services: the admin's setup, the once-per-root steps). Then item 3 (shared services): its Who check gives the user's Workspace account, which becomes their Email in Members; its Drive and Calendar checks are steps 3 and 4, once you hold the ids.
+3. **Shared drive.** Ask for the shared drive's URL (item 4, step 2). Take the id from it yourself: the path segment after `/folders/`, without any `?…` query. Check it with a real call: create a test file in that folder, then trash it. Not found or refused: the user isn't a Content manager of that drive, or the URL is another folder's; walk item 4, step 2 again.
+4. **Shared calendar.** Ask for the Calendar ID (item 4, step 4) and who created the calendar (their slug, once the Members round settles it, is `calendar_owner`). Check it with a real call: create a test event on that id, then delete it. Agora never creates this calendar.
+5. **Group.** Ask for the group's address (item 4, step 3).
+
+Hold the drive id, the Calendar ID, the calendar's creator and the group address for the root round: they go in `setup.md` → Interview → The root, and later in `org.md` as `drive_id`, `calendar`, `calendar_owner` and `inbox`.
+
+Done when items 1–4 are each ready, the drive's create-then-trash and the calendar's create-then-delete checks passed, and you hold the four values above.
+
 ### 2b. Interview
 
 Follow [references/interview.md](references/interview.md): root name, language, timezone, members, layout convention, first interests and instances. **Grill gently**: a few questions per round, each with a recommended answer the user can accept with one word.
 
-As soon as the root round is confirmed, create the root folder in the assistant account's Drive, named after the root display name, and `setup.md` in it, with Prerequisites ticked. Write each later round to setup.md → Interview the moment the user confirms it, and add a Member section for every member who will use the root (the owner's Connectors and plugin box ticked). Resuming, read the confirmed rounds back in one line and start at the first missing round.
+As soon as the root round is confirmed, create the root folder in the assistant account's Drive (shared services mode: inside the shared drive, with `drive_id` as its parent; its id becomes `root_id`), named after the root display name, and `setup.md` in it, with Prerequisites ticked. Write each later round to setup.md → Interview the moment the user confirms it, and add a Member section for every member who will use the root (the owner's Connectors and plugin box ticked; shared services mode: the template's shared services boxes, with the owner's Workspace account, In the shared drive and Shared calendar ticked too, since step 2a's checks passed in their app). Resuming, read the confirmed rounds back in one line and start at the first missing round.
 
 Done when the user has confirmed the summary at the end of the interview and the Interview box is ticked.
 
@@ -62,14 +83,15 @@ Done when the user has confirmed the summary at the end of the interview and the
 Build in this order from the answers in setup.md → Interview, writing every file from its template (rules → File kinds → templates) in the root's language, and following rules → Working with Drive. Resuming, skip what verification shows is already there.
 
 1. Root folder: it exists since the interview.
-2. `org.md`, with `agora: root` in its front-matter, every member in Members, the layout convention, and one Access row per member (Drive and calendar "pending" until step 2e).
+2. `org.md`, with `agora: root` in its front-matter, every member in Members, the layout convention, and one Access row per member (Drive and calendar "pending" until step 2e). Shared services mode: the front-matter also has `mode: shared-services`, `drive_id`, `root_id`, `calendar` (the Calendar ID), `calendar_owner` and `inbox` (the group's address), and no `assistant_account`.
 3. `landing/`, `reviews/`, `todos/` (empty: `todo.md` comes with the first to-do), `memories/` with `shared.md` and one `<slug>.md` per member (title line only, plus anything durable the interview revealed).
 4. The Interests table in `org.md`, every interest from the interview with its description and color (colors as in `add-interest` step 5), written once (rules → Replace).
 5. Each interest and instance from the interview, built with step 4 of the `add-interest` skill, then the interest level of its step 6 (each interest's `index.md` and `status.md`, rolled up from its instances). You already hold the root and the answers, so skip its questions.
 6. Root `index.md` and `status.md`, rebuilt once at the end of the build so they roll up everything below.
 7. The **system calendar** is the assistant account's own primary calendar (rules → Calendar conventions): nothing to create or search for. List calendars and confirm the primary one carries the assistant account's email and the timezone in `org.md`. A different timezone is a click fix for the user, signed in to Google Calendar as the assistant account: **Settings** → **General** → **Time zone**.
+   Shared services mode: the system calendar is the Calendar ID from step 2a, created by hand and never by Agora. Confirm in the calendar list that its timezone is the one in `org.md`; a different one is a click fix for the calendar owner: **Settings** → the calendar → **Time zone**.
 
-Done when every item above exists exactly once and the calendar list shows the assistant account's primary calendar in the root's timezone. Then tick Build and remove the Interview section from `setup.md` (keep the email answers until step 2d has used them); tick each member's "In Members and Access" box.
+Done when every item above exists exactly once and the calendar list shows the system calendar in the root's timezone (basic mode: the assistant account's primary calendar). Then tick Build and remove the Interview section from `setup.md` (keep the email answers until step 2d has used them); tick each member's "In Members and Access" box.
 
 ### 2d. Email
 
@@ -89,7 +111,9 @@ Update the Access table in `org.md` with what is now true, and tick each sharing
 
 Solo roots: nothing to share; mark the owner's row as owner and tick both sharing boxes "(solo)".
 
-Done when the root folder's permissions, read with a real call, list every member with an email as editor; the Access table shows each member's real Drive and calendar access; and every sharing box is ticked or names who still has to do it.
+Shared services mode: nothing to share, and the Drive connector never shares the root folder. Item 5 is checks only, and each member's checks run in their own app: the owner's passed in step 2a, so write `content manager` and `can edit` in their Access row. Every other member's admin boxes stay unticked, naming who does each (item 4, per new member), until they run Join.
+
+Done when the root folder's permissions, read with a real call, list every member with an email as editor (shared services mode: the owner's checks passed); the Access table shows each member's real Drive and calendar access; and every sharing box is ticked or names who still has to do it.
 
 ### 2f. Routines
 
@@ -103,14 +127,14 @@ Go to step 7.
 
 For a new member, or an existing member on a new app. Run it in the joining person's own app.
 
-1. Walk items 1, 2 and 3, and item 7 when `org.md` says `email: on`. The connectors log in as the assistant account in `org.md`; the person gets its password from whoever keeps it.
+1. Walk items 1, 2 and 3, and item 7 when `org.md` says `email: on`. Basic mode: the connectors log in as the assistant account in `org.md`; the person gets its password from whoever keeps it. Shared services mode: they log in as the person's own Workspace account.
 2. Find the root (rules → Finding the root) and follow rules → Identity. Find their Member section in `setup.md`: a new member gets one now (all boxes unticked but Connectors and plugin; an Email box when email is on); an existing member on a new app gets Connectors and plugin ticked and Routines unticked (and Email unticked, when email is on). Steps whose boxes are already ticked are done: skip them.
-3. **New member only**: interview them with the Members round of [references/interview.md](references/interview.md) (just for themselves). Add them to Members and Access in `org.md`, create `memories/<slug>.md`, and walk item 5 for them as in step 2e: share the root folder yourself until its permissions list them, then guide the click steps that share the system calendar with their personal Google account and their personal calendar with the assistant account at the level they choose.
+3. **New member only**: interview them with the Members round of [references/interview.md](references/interview.md) (just for themselves). Add them to Members and Access in `org.md`, create `memories/<slug>.md`, and walk item 5 for them as in step 2e: share the root folder yourself until its permissions list them, then guide the click steps that share the system calendar with their personal Google account and their personal calendar with the assistant account at the level they choose. Shared services mode: item 5 is checks only, as in step 2e; nothing is shared.
 4. **Existing member, new app**: update their Access row ("Client connected").
 5. **Email on**: run the member part of [references/email.md](references/email.md) for them (a new member was asked the email questions in step 3).
 6. Give them their routines from [references/routines.md](references/routines.md) and walk item 6.
 
-Done when the person is in Members and Access with their real access, the root folder's permissions list them as editor (new member), they have a memories file, item 6 is ready or blocked, (email on) their Email box is ticked or names what is waiting, and each of these is ticked in their Member section. Go to step 7.
+Done when the person is in Members and Access with their real access, the root folder's permissions list them as editor (new member, basic mode), they have a memories file, item 6 is ready or blocked, (email on) their Email box is ticked or names what is waiting, and each of these is ticked in their Member section. Go to step 7.
 
 ## 4. Migrate (solo → dedicated account)
 
@@ -135,6 +159,8 @@ Run it with the root's owner, signed in as the assistant account where a step ne
 5. Update `org.md` (rules → Replace): write `removed YYYY-MM-DD` in their Members Notes, and `removed` under Drive and System calendar in their Access row. Their diary entries, documents and `memories/<slug>.md` stay: they are history.
 6. Remove their Member section from `setup.md` and set `state` from the boxes left.
 
+Shared services mode: follow prerequisites → Offboarding a member → Shared services mode in place of steps 1–4, the calendar owner's transfer first, then steps 5 and 6.
+
 **A github member** ("remove pm from Agora") takes one step in place of 1–6: remove its Members row and every Conventions row managed by it (`managed by cruna-pm-github`, its slug under Since), writing `org.md` once (rules → Replace). Its diary entries and to-dos stay. Tell the owner that the repos stay linked in GitHub until a developer unlinks them with `cruna-pm-github`: the next link adds the member back.
 
 Done when the member has no editor access on the folder or calendar, the Members/Access rows in `org.md` show them removed, and `setup.md` has no section for them; for a github member, when `org.md` has no Members row for it and no Conventions row managed by it. Go to step 7.
@@ -147,9 +173,15 @@ Check the root with real calls, never from memory of what you built:
 - Root `index.md` and `status.md`, `landing/`, `reviews/`, `todos/`, `memories/shared.md` and one `memories/<slug>.md` per member exist.
 - Every interest in `org.md` and in the root `index.md` has a folder with `index.md` and `status.md`; every instance has `index.md`, `status.md`, `diary/` and `documents/`.
 - No file name appears twice in the same folder (rules → Replace).
-- The calendar list's primary calendar carries the assistant account's email, as `calendar` in `org.md` does.
-- The root folder's permissions list every member with an email as editor (a removed member: not at all).
-- When `org.md` says `email: on`: a Gmail search returns, and the mailbox is the assistant account's (prerequisites item 7); `inbox.md` exists once at the root; `memories/shared.md` has an Email importance line; every member using the root has addresses in Mail from (not solo).
+- Basic mode:
+  - The calendar list's primary calendar carries the assistant account's email, as `calendar` in `org.md` does.
+  - The connected account owns `org.md` (prerequisites item 3).
+  - The root folder's permissions list every member with an email as editor (a removed member: not at all).
+- Shared services mode:
+  - `root_id` is the folder holding `org.md`, and walking its parents reaches `drive_id` (rules → Working with Drive).
+  - A test file created under `root_id` is trashed, and a test event created on `calendar` is deleted, both by real calls.
+  - Every member with an Email has an Access row, and `calendar_owner` is a current member (in Members, not removed).
+- When `org.md` says `email: on`: a Gmail search returns, and the mailbox is the assistant account's (prerequisites item 7; shared services mode: `deliveredto:<inbox>` returns results); `inbox.md` exists once at the root; `memories/shared.md` has an Email importance line; every member using the root has addresses in Mail from (not solo).
 - `setup.md` has a Member section for every member who uses the root, each box ticked exactly when what it stands for passes the checks above (or, for calendar sharing and routines, the person confirmed it), and `state` is `done` exactly when every box is ticked.
 
 Fix what fails and check again. Done when every line passes; then tick Verify.

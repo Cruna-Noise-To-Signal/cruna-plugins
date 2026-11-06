@@ -18,8 +18,9 @@ For each person who will use or be tracked by the root:
 - **Name** (the slug follows rules → Vocabulary).
 - **Role** in the group (parent, child, partner, owner, employee, accountant).
 - **Birthday** (optional; useful for age-related reminders).
-- **Personal Google account email**, for members who will use the root, so the folder and calendar can be shared with them.
-- **Personal calendar sharing**: free/busy only (recommended: enough to find free time) or full details.
+- **Personal Google account email**, for members who will use the root, so the folder and calendar can be shared with them. Shared services mode: their **Workspace account** instead, the one their connectors will sign in as (the owner's is the account item 3 found).
+- **Personal calendar sharing**: free/busy only (recommended: enough to find free time) or full details. Shared services mode: `domain free/busy` (recommended: Workspace already shows it), or full details if they will share more.
+- **Kind** (shared services mode): `human` or `ai`, whether a person or an AI uses the account. Recommend `human`; it changes nothing in how Agora treats them.
 - **How they will use it**: their own AI app (Claude or ChatGPT), or only through others (a child tracked but not using it).
 
 Recommend: list the people the user has already mentioned and ask only for what's missing.
@@ -50,7 +51,7 @@ Ask whether they already keep track of anything in a sheet or a note (feeds, nap
 
 Asked in rounds 1 and 2 for a new root, and on their own when an existing root turns email on or a member joins a root with email on.
 
-- **Root**: "Should the assistant have its own email inbox? Members forward or CC it mail to keep, it drafts and sends emails for you (only after you confirm each one), and the reviews report on it." Say it suits a business best. Recommend yes for a business, no for a family.
+- **Root**: "Should the assistant have its own email inbox? Members forward or CC it mail to keep, it drafts and sends emails for you (only after you confirm each one), and the reviews report on it." Say it suits a business best. Recommend yes for a business, no for a family. Shared services mode: the inbox is the group's address, and each member's AI reads the group's mail in their own mailbox; ask "Should Agora handle the mail sent to <group address>?", recommending yes.
 - **Root, when yes**: what counts as important email for the whole group (recommend from the root's kind: "anything from a client"; "no preference" is a fine answer).
 - **Each member, when yes**:
   - every **email address** they write or forward from (recommend their Google account email plus any work address they mentioned); skip in a solo root;
