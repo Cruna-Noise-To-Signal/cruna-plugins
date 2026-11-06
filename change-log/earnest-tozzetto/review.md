@@ -292,3 +292,44 @@ New M2 work conforms: the duplicate key, the sent-mail forms and the overdue per
 1. setup `SKILL.md` §4b summarises all ten `move.md` steps. Point to `move.md` with a one-line purpose instead.
 2. The Gmail forwarding click path is in both `move.md` step 7 and agora-spec l.258. The spec could point to the skill.
 3. Italian `move.md` step 1, "ogni membro in Members": set Members in backticks or bold.
+
+## M3 - Moving and documenting — round 2
+
+**Result: FAIL** (Specs FAIL, Standards PASS). This reviews the fixes in 40d2ba8, 9897eee and 22af709.
+
+### Specs
+
+**Verdict: FAIL.** One must-fix: the `-from:me` the fixer added. Everything else asked for is implemented.
+
+**What conforms**
+- **Founder's filter (#11, 14:54):** defined once in rules → The three ids → Mail, in both languages, with the founder's example. email.md, prerequisites item 7, setup shared-services §7, manual-setup, agora-spec l.189/l.520 and both manual tests use it or point to it.
+- **`deliveredto` grep:** no `deliveredto` is left in shared services text. Basic mode keeps `deliveredto:<inbox>` / `(deliveredto:<inbox> OR from:<inbox>)` word for word.
+- **#11:** no comments after 14:54.
+- **Offboard:** step 5 moves the retired assistant address to another member's Mail from cell. Both Done whens check it, in both languages, in agora-spec l.254, and with a manual-test row.
+- **Advisory:** change-log spec.md l.107/129/187/199 still say `deliveredto:`, but agora-spec records the founder's later decision.
+
+**MUST FIX: `-from:me` on the received-mail form** (rules SKILL.md l.52, prerequisites.md l.119, ENG+ITA; agora-spec l.189; manual test l.31)
+- It undoes the founder's stated reason, "to enable the same response no matter the account".
+  - When member A forwards or CCs a client email to the group, A's triage drops it, while B's files it.
+  - Forwarded and CC'd member mail is the main thing triage files (email.md l.47, l.119), so the result depends on whose routine runs. If only A runs reviews, A's forwards are never filed.
+  - Basic mode's `deliveredto:` keeps member forwards as received mail, so excluding them is a regression.
+- Spec l.194 doesn't justify it: that rule covers every member's Mail from, not only the connected account's.
+- It isn't needed: Agora-sent mail already has a ledger row (email.md l.70–72), keyed by id and by the duplicate key, so triage skips it in every mailbox.
+- **Fix:** drop `-from:me` everywhere. In shared services the received-mail and sent-mail forms then become the same.
+- **Item 7 / Move step 7:** not broken. The outside-sender test still proves External posting.
+
+**Scope:** nothing else in e313f09..HEAD went beyond the round 1 findings.
+
+### Standards
+
+**Verdict: PASS.** The checker passes, 0.7.0 is unchanged, the Italian mirror has identical line counts, and frontmatter is unchanged.
+- Round 1 advisories 1–3 are done:
+  - setup §4b points to `move.md`;
+  - the agora-spec forwarding paragraph points to `move.md` step 7;
+  - Italian `Members` is in backticks.
+- The glossary adds "list-id" and "indirizzo dismesso dell'assistente". agora-spec is updated in the same commits as each behaviour change.
+
+**Advisory (non-blocking)**
+1. **Possible Duplicated Code:** the `@`→`.` list-id derivation is spelled out in rules, `prerequisites.md` item 7 and agora-spec, and half-repeated in the manual test. Prerequisites should point to rules → The three ids → Mail.
+2. **Glossary row 1** holds two terms ("list-id …; the member's own posts"). Split it.
+3. **Sent-mail limit:** the shared services sent-mail form only finds mail with the group in To or Cc. A member's reply to an outside client that leaves the group out isn't found. Agora always CCs the group, so this only affects mail a member sends by hand. Note it in agora-spec and in the manual test's "Did we answer Mario?" row.
