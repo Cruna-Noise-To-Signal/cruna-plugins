@@ -20,7 +20,7 @@ For each person who will use or be tracked by the root:
 - **Birthday** (optional; useful for age-related reminders).
 - **Personal Google account email**, for members who will use the root, so the folder and calendar can be shared with them. Shared services mode: their **Workspace account** instead, the one their connectors will sign in as (the owner's is the account item 3 found).
 - **Personal calendar sharing**: free/busy only (recommended: enough to find free time) or full details. Shared services mode: `domain free/busy` (recommended: Workspace already shows it), or full details if they will share more.
-- **Kind** (shared services mode): `human` or `ai`, whether a person or an AI uses the account. Recommend `human`; it changes nothing in how Agora treats them.
+- **Kind** (shared services mode): `human` or `ai`, whether a person or an AI uses the account. Recommend `human` (rules → Vocabulary → Member).
 - **How they will use it**: their own AI app (Claude or ChatGPT), or only through others (a child tracked but not using it).
 
 Recommend: list the people the user has already mentioned and ask only for what's missing.
