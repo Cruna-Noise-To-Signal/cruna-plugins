@@ -246,3 +246,10 @@ Fixes for review M3 round 3, in English then Italian; agora and agora-ita stay a
 - **F7, Agora's sent replies (MUST)**: in shared services mode, a reply or forward that goes on a ledgered email's row also gets its own row, outcome `outgoing`, keyed on its draft id and rekeyed to the sent message id on send (dated with the send time, by the sending member). The filter returns that sent mail to every member's triage; the row now matches it by id in the sender's mailbox and by duplicate key in the others, so nobody files or flags it. The Email section never lists `outgoing` rows. Basic mode writes none: its received-mail form, `deliveredto:`, never finds sent mail, so triage and the ledger behave as on 0.6.0. `outgoing` joins the glossary's untranslated outcomes. Both manual tests gained a "reply to a flagged email is not re-triaged by either member" check.
 - **F12, advisories**: shared services text says "search with the mail filter" instead of "received-mail search" (setup shared-services.md, agora-spec item 7 and Manual setup). email.md's Opening line notes the sent-mail form is, in shared services mode, the one form.
 - Testing: skill prose and docs only, so no `tdd` cycle.
+
+## M3 revision 4
+
+Advisories from review M3 round 4, in English then Italian, and agora-spec; agora and agora-ita stay at 0.7.0.
+
+- **F7**: the duplicate key and Opening take the member in By as sender only for a row whose From is `to <recipients>`, so an original row that became `sent` stays keyed on the client. An `outgoing` row is dated with the draft's time, then on send with the sent message's email time; an unsent draft's row is pruned after 60 days. The review's Update section leaves out `outgoing` rows.
+- Testing: skill prose and docs only, so no `tdd` cycle.
