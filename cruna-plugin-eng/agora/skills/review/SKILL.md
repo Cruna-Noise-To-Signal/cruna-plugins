@@ -100,7 +100,7 @@ Built from the review and the statuses. A member's **items** are the items assig
 
 **Personal** (a member named), in this order:
 
-1. **Yours**: the member's items, plus their personal calendar events when `org.md` records it as shared with full details, or when the connected account is the member's own (shared services mode).
+1. **Yours**: the member's items, plus their personal calendar events, at the level rules → Calendar conventions → The speaker's own calendar gives.
 2. **Everyone else**: the other highlights from Looking back and Looking ahead, one line each, starting with Everyone's overdue or due to-dos.
 3. **Needs attention**: as above.
 

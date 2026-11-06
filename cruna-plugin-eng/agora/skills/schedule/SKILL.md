@@ -48,7 +48,7 @@ Done when: you have the action, the exact title, start and end (or the all-day d
 
 ### 4. Check for clashes
 
-For timed events, read the system calendar and the busy times of the members the event concerns (all members when unclear), at the level `org.md` → Members → Personal calendar records: a calendar shared with the assistant account (`free/busy` or `full details`), or Workspace free/busy read by the member's Email (`domain free/busy`). When the connected account is the speaker's own (shared services mode), read their own calendar in full too. Free/busy shows only busy blocks; that is enough. When something overlaps, say who is busy and propose the nearest free slot.
+For timed events, read the system calendar and the busy times of the members the event concerns (all members when unclear), at the level `org.md` → Members → Personal calendar records: a calendar shared with the assistant account (`free/busy` or `full details`), or Workspace free/busy read by the member's Email (`domain free/busy`). Read the speaker's own calendar as rules → Calendar conventions → The speaker's own calendar says. Free/busy shows only busy blocks; that is enough. When something overlaps, say who is busy and propose the nearest free slot.
 
 Done when: the time is clash-free, or the member chose it knowing the clash.
 

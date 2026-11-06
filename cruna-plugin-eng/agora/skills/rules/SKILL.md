@@ -10,7 +10,7 @@ Agora is a shared knowledge base kept by the AI on Google Drive (files) and Goog
 ## Vocabulary
 
 - **Root**: one independent Agora (a family, a small business). Its own folder, members, system calendar, memories and routines.
-- **Mode**: how members reach the root, `mode` in `org.md`. Every skill reaches the root the same way in both (The three ids). Only `setup` and `help` branch on the mode themselves; every other per-mode difference is named here and in the prerequisites (Identity, Replace, email sending).
+- **Mode**: how members reach the root, `mode` in `org.md`. Every skill reaches the root the same way in both (The three ids). Only `setup` and `help` branch on the mode themselves. Every other per-mode difference is stated once, here or in the prerequisites (Identity, Replace, Calendar conventions → The speaker's own calendar, email sending), and the skills it affects point to it.
   - **Basic shared account mode** (`basic-shared-account`, and the mode whenever `mode` is missing): several people's AI clients sign in to one Google account, the assistant account.
   - **Shared services mode** (`shared-services`, Google Workspace only): each member's AI client signs in as that member's own Workspace account, and every member reaches the same three shared services: the root folder inside a **shared drive**, a **shared calendar**, and a **Google Group** whose address is the inbox.
 - **Connected account**: the Google account this AI client's connectors sign in as. Its email is the id of the primary calendar in the calendar list.
@@ -201,6 +201,7 @@ Every handoff follows these rules; each skill's Handoff section adds its own:
 ## Calendar conventions
 
 - The root's **system calendar** is `calendar` in `org.md`, always addressed by that id (`calendarId = calendar`). Basic mode: the assistant account's email, which is its primary calendar's id. Shared services mode: the shared calendar's id. Write only there. Members' personal calendars are read-only: use them to find free time, at the level the Members Personal calendar column records (`free/busy`, `full details`, or `domain free/busy`, Workspace's free/busy read by the member's Email).
+- **The speaker's own calendar**, per mode. Shared services mode: the connected account is the speaker's own (Identity), so their own calendar is read in full, whatever their Personal calendar column says: for free time, for "what do we have" questions, and for Yours in their personal review. Basic mode: only at the level their Personal calendar column records, so its events only at `full details` (free/busy gives busy blocks, no events). An unattended run reads it in full only when its connected account is the member the run is for.
 - Event title: `[<interest>/<instance>] <title>` (`[nina/health] Blood test`).
 - Event description: the instance path and the diary entry that caused the event.
 - Color: the interest's color from `org.md`, when one is set.
