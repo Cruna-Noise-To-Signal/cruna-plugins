@@ -14,6 +14,8 @@ These are identifiers shared by both language versions and by the files on Drive
 - To-do identifiers, parsed by the skills and shared by both language versions: the front-matter `agora: todo` and `agora: todo-list`; the actions `add`, `done`, `reopen`, `assign`, `edit`, `remove`; the keys `action`, `author`, `created`, `owner`, `due`, `interest`, `instance`, `source`, `todo`, `text`, `filter`, `count`, `todos`; the values `everyone` and `none`, and the source form `email <Gmail message id>`; the `todo.md` title `# To-dos` and headings `## <Name>` (the member's Name from `org.md`), `## Everyone`, `## Recently done`; the review heading `## To-dos`; the `status.md` Pending line prefix `To-do:`; the ledger outcome `to-do → <id>`. The to-do text, the line contents after those markers, the parts of the review's To-dos section and a `remove` event's `filter` are content, in the root's language.
 - GitHub bridge identifiers, shared with `cruna-pm-github`: the handoff lines (rules → Handoffs: `Agora log as …`, `Agora todo as …`, `Agora add-interest as …`, with their `edit`, `text`, `done`, `github:` and ` — ` separators) and the result lines `agora: ok — …` and `agora: failed — …`, which stay in English word for word, as do the reasons and descriptions in them; the Role value `github`; the interest `products` (its folder name, even in an Italian root); the diary key `github:` and its refs (`#8`, `PR #9`, `v2026.11.12`); the Conventions marker `managed by cruna-pm-github` (the text after its `: ` is content); the bridge file name `YYYY-MM-DD_hh_mm_last-check.md`; the slug `pm`.
 
+- Shared services identifiers (0.7.0), shared by both language versions: the `org.md` fields `mode` and its values `basic-shared-account` and `shared-services`, `drive_id` and its value `my-drive`, `root_id`, `inbox`, `calendar_owner`; the Members column `Kind` and its values `human` and `ai`; the `inbox.md` column `Mailbox`; the root `status.md` line `**Tidied:** YYYY-MM-DD HH:MM`; in `setup.md`, the boxes `Workspace account`, `In the shared drive`, `In the group`, `Shared calendar`, the section `## Move to shared drive` and its box values `(email off)`, `(already)`, `(moved)`, `(none)`; the Gmail search operators (`deliveredto:`, `list:`, `from:me`, `to:`, `cc:`, `OR`, `{ }`); the reference file names `references/manual-setup.md`, `references/shared-services.md`, `references/move.md`.
+
 Content written into those files is in the root's language (`it` for this plugin's default).
 
 ## Terms
@@ -146,6 +148,44 @@ Content written into those files is in the root's language (`it` for this plugin
 | "PM (GitHub)" / "address for GitHub through cruna-pm-github" (Members row) | "PM (GitHub)" / "indirizzo per GitHub tramite cruna-pm-github" |
 | "notes and to-dos for pm become GitHub requests" (managed Convention text) | "note e to-do per pm diventano richieste GitHub" |
 | "noted; it becomes a GitHub request at the next sync" (`log` reply) | "annotato; diventerà una richiesta GitHub alla prossima sincronizzazione" |
+| mode | modalità |
+| basic shared account mode (`basic-shared-account`); short: basic mode | modalità account condiviso base; in breve: modalità base |
+| shared services mode (`shared-services`) | modalità servizi condivisi |
+| shared drive | Drive condiviso (pl. Drive condivisi) |
+| shared calendar | calendario condiviso |
+| Google Group / group address | gruppo Google / indirizzo del gruppo |
+| connected account | account connesso |
+| Workspace account / Google Workspace | account Workspace / Google Workspace |
+| admin (Workspace, AI client) | amministratore |
+| calendar owner | proprietario del calendario |
+| Content manager (shared drive role) | Gestore contenuti (Content manager) |
+| Make changes to events (calendar permission) | Apportare modifiche agli eventi (Make changes to events) |
+| See all event details | Visualizzare tutti i dettagli degli eventi (See all event details) |
+| the three ids / Same answer (rule) | i tre id / Stessa risposta |
+| mail filter; received-mail form / sent-mail form | filtro della posta; forma per la posta ricevuta / forma per la posta inviata |
+| mailbox / your mailbox | casella di posta / la tua casella |
+| email time | ora dell'email |
+| duplicate key / the same email | chiave dei duplicati / la stessa email |
+| speaker / the speaker's own calendar | chi parla / il calendario di chi parla |
+| `domain free/busy` (Personal calendar value) | `libero/occupato del dominio` |
+| `content manager` (Access Drive value) | `gestore contenuti` |
+| `can edit` (Access System calendar value) | `può modificare` |
+| `receives mail` (Access Notes) | `riceve la posta` |
+| real-call check / create-then-trash / create-then-delete | controllo con una chiamata reale / crea e poi cestina / crea e poi elimina |
+| test file / test event | file di prova / evento di prova |
+| manual setup (guide) | configurazione manuale |
+| setup branch Move to shared drive | Sposta su Drive condiviso |
+| move / copy (the root) / count check | spostare / copiare (la radice) / controllo del conteggio |
+| hand-over (from the assistant account) | passaggio di consegne |
+| old root / old account / retired | vecchia radice / vecchio account / dismesso |
+| forwarding (Gmail) | inoltro |
+| linked repo | repo collegato |
+| recently tidied (review) | riordinata da poco |
+| overdue routines (review item) | routine in ritardo |
+| flag text "No member's routine has run this: set up the routines (the `setup` skill, routines)" | "Nessuna routine dei membri l'ha eseguito: configura le routine (la skill `setup`, routine)" |
+| flag text "Email wasn't triaged between <last_tidy_up> and today." | "L'email non è stata smistata tra <last_tidy_up> e oggi." |
+| "join Agora" (user phrase) | "unisciti ad Agora" |
+| "move Agora to a shared drive" / "we have Workspace now" (user phrases) | "sposta Agora su un Drive condiviso" / "ora abbiamo Workspace" |
 
 Interest and instance slugs and working-file names are content, so they follow the root's language (`famiglia`, `nina/salute`, `greta-pannolini.csv`).
 
@@ -181,6 +221,9 @@ Pointers are written `rules → <heading>` using exactly these Italian headings.
 | Handoffs | Handoff |
 | Handoffs → Check, then write | Handoff → Controlla, poi scrivi |
 | Handoff (section in `log`, `todo`, `add-interest`) | Handoff |
+| The three ids | I tre id |
+| Vocabulary → Mode | Vocabolario → Modalità |
+| Calendar conventions → The speaker's own calendar | Convenzioni del calendario → Il calendario di chi parla |
 
 `rules` headings in `references/email.md` (pointed to as `rules → Email → <heading>`):
 
@@ -203,6 +246,7 @@ Pointers are written `rules → <heading>` using exactly these Italian headings.
 | Chat lines | Righe in chat |
 | Solo roots | Radici solitarie |
 | Limits | Limiti |
+| Mailboxes | Caselle di posta |
 
 `rules` headings in `references/todos.md` (pointed to as `references/todos.md → <heading>`):
 
@@ -221,6 +265,18 @@ Pointers are written `rules → <heading>` using exactly these Italian headings.
 | Reviews | Revisioni |
 | Remove | Rimozione |
 | Archive | Archivio |
+
+Other headings added in 0.7.0 (pointer targets):
+
+| English heading | Italian heading |
+|---|---|
+| prerequisites: Basic mode / Shared services mode (item variants) | Modalità base / Modalità servizi condivisi |
+| prerequisites item 4: Assistant account, or the admin's setup; Basic mode: assistant account; Shared services mode: the admin's setup | Account dell'assistente, o la configurazione dell'amministratore; Modalità base: account dell'assistente; Modalità servizi condivisi: la configurazione dell'amministratore |
+| `manual-setup.md`: Shared services: the manual setup (title); Once per root; Per new member, before they join; The joining member; A member leaving | Servizi condivisi: la configurazione manuale; Una volta per radice; Per ogni nuovo membro, prima che si unisca; Il membro che si unisce; Un membro che esce |
+| `shared-services.md`: Setup in shared services mode (title); sections keep their step numbers and setup's names (2a. Prerequisiti, 3. Unisciti, …) | Configurazione in modalità servizi condivisi |
+| `move.md`: Move a basic root to a shared drive (title); Steps | Spostare una radice base su un Drive condiviso; Passi |
+| setup step 4b. Move to shared drive (basic → shared services) | 4b. Sposta su Drive condiviso (da base a servizi condivisi) |
+| help FAQ: Which kind of Agora do we have?; Agora says I'm not a member yet; How do we move to a shared drive? | Che tipo di Agora abbiamo?; Agora dice che non sono ancora un membro; Come passiamo a un Drive condiviso? |
 
 Prerequisite items keep their numbers ("voce 3").
 
