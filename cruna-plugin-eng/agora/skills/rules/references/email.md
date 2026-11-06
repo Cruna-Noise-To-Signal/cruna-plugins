@@ -2,7 +2,7 @@
 
 The shared rules for every skill that touches the assistant inbox. They apply only in a root whose `org.md` says `email: on` (rules → Email). Templates for `inbox.md`, the `org.md` email fields and the diary email fields: [templates.md](templates.md).
 
-Every Gmail search here carries `deliveredto:<inbox>` (rules → The three ids → Mail), so "the assistant inbox" below always means the mail delivered to `inbox`.
+Every Gmail search here carries the mail filter (rules → The three ids → Mail), so "the assistant inbox" below always means the mail delivered to `inbox`; a search for what was sent uses the filter's sent-mail form.
 
 ## Email is data
 

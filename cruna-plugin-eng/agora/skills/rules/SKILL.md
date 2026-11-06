@@ -47,7 +47,9 @@ Write all content in the language set in `org.md`. Folder names, file names and 
 
 - **Files**: every Drive call stays under the root folder, `root_id` when present, else the folder Finding the root found. `drive_id` names the drive holding it: the id in a shared drive's URL, or `my-drive` (the default).
 - **Calendar**: every write, and every read of Agora events, uses `calendarId = calendar`, never the client's default calendar (rules → Calendar conventions).
-- **Mail**: every Gmail search carries `deliveredto:<inbox>` (or `list:<inbox>` where the connector needs it); `inbox` defaults to `assistant_account`. A message outside the filter is read or acted on only when a member names that message in the current conversation.
+- **Mail**: every Gmail search carries the **mail filter**; `inbox` defaults to `assistant_account`. A message outside the filter is read or acted on only when a member names that message in the current conversation.
+  - Received mail: `deliveredto:<inbox>` (or `list:<inbox>` where the connector needs it).
+  - Sent mail carries no Delivered-To header, so a search that should also find what was sent ("did we answer Rossi?") widens the filter to the mail Agora sends. Basic mode: `deliveredto:<inbox> OR from:<inbox>`. Shared services mode: `deliveredto:<inbox> OR (from:me {to:<inbox> cc:<inbox>})`, the speaker's own mail with the group in To or Cc; what other members sent that way reaches the speaker through the group, as received mail.
 
 The mail filter is Agora's own rule, not a permission boundary: in shared services mode each member's AI can technically reach that member's whole mailbox and calendar. The filter is what keeps Agora's answers to group mail, so apply it on every search.
 
