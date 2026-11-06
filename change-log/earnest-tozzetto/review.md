@@ -333,3 +333,42 @@ New M2 work conforms: the duplicate key, the sent-mail forms and the overdue per
 1. **Possible Duplicated Code:** the `@`→`.` list-id derivation is spelled out in rules, `prerequisites.md` item 7 and agora-spec, and half-repeated in the manual test. Prerequisites should point to rules → The three ids → Mail.
 2. **Glossary row 1** holds two terms ("list-id …; the member's own posts"). Split it.
 3. **Sent-mail limit:** the shared services sent-mail form only finds mail with the group in To or Cc. A member's reply to an outside client that leaves the group out isn't found. Agora always CCs the group, so this only affects mail a member sends by hand. Note it in agora-spec and in the manual test's "Did we answer Mario?" row.
+
+## M3 - Moving and documenting — round 3
+
+**Result: FAIL** (Specs FAIL, Standards PASS). This reviews the fixes in a8d7ea7, 2d0d5d4 and a157280.
+
+### Specs
+
+**Verdict: FAIL.** The checker passes, the version is 0.7.0, ENG and ITA line counts match, and #11 has no newer comments.
+
+**What conforms**
+- No `-from:me` is left anywhere.
+- The shared services filter is exactly the founder's `(list:<list-id> OR to:<inbox> OR cc:<inbox>)`, one form for received and sent mail, defined once in rules (ENG and ITA). Callers point to it.
+- The filter has no account-specific term, so every account gets the same answer.
+- Basic mode is word for word unchanged.
+- Advisories 1–3 are done.
+- grilled-idea.md is fully covered.
+
+**(c) MUST FIX: Agora-sent replies are not kept out of triage by the ledger.** rules SKILL.md l.52, email.md l.116 and agora-spec l.189 claim "Agora's own sent mail is kept out of triage by its ledger row (id, and the duplicate key across mailboxes)".
+- That holds for "any other email" (email.md l.71), which gets its own row keyed to the sent id.
+- It doesn't hold for email.md l.70: a reply or forward to an email whose row isn't `filed` goes on that email's row, and "the row keeps the original message id".
+  - The sent reply's id is in no row, and its duplicate key (sender A, reply time, "Re: …") matches no row.
+  - With `-from:me` gone, A's triage finds it through `cc:<inbox>` and B's through `list:`. Both treat it as CC'd member mail: it is filed (usually caught by the diary-name check) or flagged as needing attention.
+- **Fix:** in shared services mode, record the sent reply's own id as well. Either give it its own `sent → <diary path>` row, or have triage skip mail whose id or key matches a `sent` diary entry. Update agora-spec in the same commit, in both languages.
+
+**(a) Missing:** none. **(b) Scope creep:** none.
+
+**Advisory**
+- "received-mail search" still appears for shared services in setup/references/shared-services.md l.81 and agora-spec l.225 and l.324. Say "search with the mail filter".
+- change-log spec.md still says `deliveredto:`. agora-spec records the founder's decision.
+
+### Standards
+
+**Verdict: PASS.**
+- Round 2 advisories 1 (list-id derivation only in rules and agora-spec; callers point) and 2 (glossary rows split) are done.
+- The ENG/ITA mirror holds (230/156/133 lines), the glossary terms are used, and agora-spec is updated in the same commit.
+- 0.7.0 is in both manifests and both catalogs, and the checker passes.
+- The smell baseline finds nothing new; the change removes duplication.
+
+**Advisory (optional):** `references/email.md` l.18, "the mail filter in its sent-mail form". Add "(in shared services mode, the one form)".
