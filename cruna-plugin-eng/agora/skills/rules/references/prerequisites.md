@@ -2,6 +2,8 @@
 
 What must be true for Agora to work, how to check each item, and how to fix it. `setup` walks the list top to bottom (a member joining an existing root walks items 1–3, 5 and 6), and item 7 only in a root with email on (`email: on` in `org.md`); `help` and any failing skill jump to the item that matches the failure.
 
+In shared services mode, item 4 is the manual setup guide for the admin and for each joining member: walk them through its steps as written, one person and one step at a time.
+
 **Two modes** (rules → Vocabulary → Mode): an item without a mode named holds for both; otherwise follow the variant for `mode` in `org.md` (missing: basic mode), or, before `org.md` exists, for the mode setup chose.
 
 **Check with a real call** wherever one exists. Each item ends **ready** (the check passed) or **blocked** (it failed, the fix is given, and the user is waiting on it). Never mark an item ready on the user's word alone when a call can confirm it. Blocked is only for a fix the user must do by hand (clicks, a password, a plan); a fix the connectors can do is yours: retry a failed call until the check passes.
@@ -64,17 +66,31 @@ A **connector** is a permission that lets the AI app act inside another service 
 
 1. **Workspace account for each member** (admin). admin.google.com → **Directory** → **Users** → **Add new user** → first name, last name, primary email → **Add new user**. Check: the member signs in with it and item 3's Who check shows it.
 2. **Shared drive** (admin, or a member allowed to create shared drives). drive.google.com → **Shared drives** (left panel) → **New** → name it after the root → **Create**. Open it → **Manage members** → each member's Workspace email → role **Content manager** (the lowest role that can trash) → **Send**. Then copy the address bar's URL (`https://drive.google.com/drive/folders/<id>`) for setup. Check: item 3's Drive check, at the drive's top folder.
-3. **Google Group** (admin).
-   1. Let outside senders post: Admin console → **Apps** → **Google Workspace** → **Groups for Business** → **Sharing settings** → tick **Group owners can allow incoming email from outside the organization** → **Save**. Without it, mail from clients waits in a moderation queue.
-   2. groups.google.com → **Create group** → **Group name** and **Group email** (the address members forward and CC to, e.g. `agora@acme.it`) → **Next** → **Who can join group**: Only invited users; **Who can post**: Anyone on the web → **Next** → add each member's Workspace email as a member, subscription **Each email**, **Directly add members** on → **Create group**. Wait a few minutes before the first email.
-   Check: item 7's shared services check.
+3. **Google Group** (admin). The group is closed to everyone but its members, except that anyone can email it: the settings are label **Mailing**, access type **Restricted**, **Who can join**: Only invited users, and **Who can post** opened to outside senders. Opening Who can post changes the access type from Restricted to **Custom**: that is expected, and Custom is the right final state. Restricted's other settings (only members view conversations and the member list) stay.
+   1. **Let groups accept outside mail** (once per organisation). Admin console → **Apps** → **Google Workspace** → **Groups for Business** → **Sharing settings** → under "Can external users participate in groups?", tick **Group owners can allow incoming email from outside the organization** → **Save**. Leave **Accessing groups from outside this organization** at **Private**. Without the tick, step 3.2 has no outside posting to offer and client mail never reaches the group.
+   2. **Create the group.** Admin console → **Directory** → **Groups** → **Create group** → **Group name** (the root's name), **Group email** (the address members forward and CC to, e.g. `agora@acme.it`), **Group owners**: the admin → **Next** → **Labels**: **Mailing** ticked (the default), **Security** unticked → **Next** → **Access type**: **Restricted** → in the access settings table, row **Who can post**, also tick **External** (the type now reads **Custom**) → **Who can join the group**: **Only invited users** → **Allow external members in the group**: off → **Next** → **Create group**. No **External** box to tick: step 3.1 isn't saved yet, or hasn't reached the group (allow up to 24 hours). The same setting, seen from groups.google.com → the group → **Group settings**, reads **Who can post**: **Anyone on the web**; set it there when the group was created there.
+   3. **Add the members.** groups.google.com → the group → **Members** → **Add members** → each member's Workspace email → **Subscription**: **Each email** → **Directly add members** on → **Add members**. Wait a few minutes before the first email.
+   Check: item 7's shared services check, its test sent from an address outside the organisation.
 4. **Shared calendar** (ideally the admin; whoever creates it is recorded as `calendar_owner`, and offboarding them waits for a transfer). calendar.google.com, signed in with their Workspace account → next to **Other calendars**, **+** → **Create new calendar** → name it after the root, **Time zone** the root's → **Create calendar**. Then **Settings** → under "Settings for my calendars", the new calendar → **Share with specific people or groups** → **Add people and groups** → each member's Workspace email, permission **Make changes to events** (on newer screens, **Make changes and see event details**) → **Send**. Then **Integrate calendar** → copy the **Calendar ID** (`…@group.calendar.google.com`) for setup. Check: item 3's Calendar check.
 5. **Connectors enabled for the organisation** (the AI client's admin), when the plan has one:
    - Claude Team or Enterprise: an Owner or Primary Owner turns on Google Drive, Google Calendar and Gmail in **Organization settings** → **Connectors**.
    - ChatGPT Business: a workspace admin enables the Google Drive, Google Calendar and Gmail apps in **Workspace settings** → **Apps**, and turns on write actions for Gmail.
    Check: each member finds the three connectors in their own list (item 3).
 
-**Per new member, before they join**: steps 1, 2 (Content manager), 3.2 (added to the group, Each email) and 4 (the calendar owner shares the calendar at Make changes to events), and step 5 when their plan needs it. Then the member connects Google Drive, Google Calendar and Gmail as themselves, installs the plugin, and says "join Agora".
+**Per new member, before they join** (the admin, and the calendar owner for the calendar):
+
+1. Step 1: their Workspace account.
+2. Step 2: add them to the shared drive (**Manage members**) as **Content manager**.
+3. Step 3.3: add them to the group, subscription **Each email**.
+4. Step 4: the calendar owner shares the calendar with them at **Make changes to events**.
+5. Step 5, when their AI plan has an organisation admin and the connectors aren't on yet.
+
+**The joining member**, after the admin's steps, in their own AI app signed in as their Workspace account:
+
+1. Install the Agora plugin (item 2).
+2. Connect Google Drive, Google Calendar and Gmail, each signed in as their Workspace account (item 3; Gmail only when the root has email on, item 7).
+3. Accept the shared calendar's invitation email, so the calendar shows on their phone.
+4. Say "join Agora". Their AI checks each admin step with a real call and names the step to redo when one fails.
 
 ## 5. Sharing
 
@@ -131,7 +147,7 @@ Optional: only a root with `email: on` needs it, and it suits business roots bes
 ### Shared services mode
 
 - **Need**: the **Gmail** connector, signed in as the member's own Workspace account, and the member in the group with **Each email** delivery, so group mail lands in their own inbox.
-- **Check**: search `deliveredto:<inbox>` (`inbox` in `org.md`, the group's address) with a real call; it must return results. None yet (a new group): ask the member to send a test email to the group's address, wait a minute, and search again. Still none: the member isn't in the group, their delivery isn't Each email, or outside posting is off (item 4, step 3). On a pass, write `receives mail` in their Access row's Notes.
+- **Check**: search `deliveredto:<inbox>` (`inbox` in `org.md`, the group's address) with a real call; it must return results. None yet (a new group): ask the member to send a test email to the group's address, wait a minute, and search again. Still none: the member isn't in the group, their delivery isn't Each email, or, for a test from outside the organisation, outside posting is off (item 4, steps 3.1 and 3.2). On a pass, write `receives mail` in their Access row's Notes.
 - **Fix**: the basic mode paths above, signed in as the member's own account; Gmail missing from the connector list: item 4, step 5.
 - **Limits** to tell the member: the connector could reach their whole mailbox, but Agora reads only mail delivered to the group, by its own rule (rules → The three ids); it can't open attachments, only their names; it doesn't label, archive or delete mail.
 
