@@ -10,7 +10,7 @@ Agora is a shared knowledge base kept by the AI on Google Drive (files) and Goog
 ## Vocabulary
 
 - **Root**: one independent Agora (a family, a small business). Its own folder, members, system calendar, memories and routines.
-- **Mode**: how members reach the root, `mode` in `org.md`. Every skill reaches it the same way in both (The three ids); only `setup`, `help` and Identity tell them apart.
+- **Mode**: how members reach the root, `mode` in `org.md`. Every skill reaches the root the same way in both (The three ids). Only `setup` and `help` branch on the mode themselves; every other per-mode difference is named here and in the prerequisites (Identity, Replace, email sending).
   - **Basic shared account mode** (`basic-shared-account`, and the mode whenever `mode` is missing): several people's AI clients sign in to one Google account, the assistant account.
   - **Shared services mode** (`shared-services`, Google Workspace only): each member's AI client signs in as that member's own Workspace account, and every member reaches the same three shared services: the root folder inside a **shared drive**, a **shared calendar**, and a **Google Group** whose address is the inbox.
 - **Connected account**: the Google account this AI client's connectors sign in as. Its email is the id of the primary calendar in the calendar list.
