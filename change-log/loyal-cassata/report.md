@@ -12,6 +12,7 @@ Request #10. Spec: [spec.md](spec.md). Plan: [plan.md](plan.md). Hand checks: [m
 - Auth (round 2): the org policy disables deploy keys, so the workflow authenticates as an org GitHub App ("Cruna plugins mirror", Contents read/write, installed on the mirror only). A first step fails with a clear `::error::` when the `MIRROR_APP_ID` variable or `MIRROR_APP_PRIVATE_KEY` secret is missing; `actions/create-github-app-token@v1` then mints a one-hour token limited to `cruna-plugins-mirror`, revoked when the job ends. Push and check go over HTTPS with that token. (Round 1 used an SSH deploy key with a pinned GitHub host key; that code is gone.)
 - Push: `git push --force` of `refs/remotes/origin/main:refs/heads/main`, `refs/remotes/origin/dev:refs/heads/dev`, `'refs/tags/v*:refs/tags/v*'`.
 - Self-check: compares `git ls-remote` of the mirror's `main` and `dev` with local `origin/main` / `origin/dev`, prints one line per branch, fails on any mismatch or missing branch.
+- First run after merge (2026-11-07): `main` and tags reached the mirror, `dev` was rejected because the App lacked the Workflows permission; fixed by adding Workflows (read and write) to the App and `permission-workflows: write` to the token.
 - Push and self-check share one step, so the mirror URL is defined once.
 
 **F2 - AGENTS.md**: new "Private mirror" section, one paragraph: name, why (Claude for Business accepts only private marketplaces), written only by the workflow, every change goes to this repo. README and plugin READMEs untouched.

@@ -7,7 +7,7 @@ Hand checks for `.github/workflows/mirror.yml`. Public repo: `Cruna-Noise-To-Sig
 1. https://github.com/organizations/Cruna-Noise-To-Signal/settings/apps > **New GitHub App**.
 2. Name `Cruna plugins mirror`; Homepage URL `https://github.com/Cruna-Noise-To-Signal/cruna-plugins`.
 3. Webhook: untick **Active**.
-4. Repository permissions: **Contents: Read and write** (Metadata: Read-only is added automatically). Nothing else.
+4. Repository permissions: **Contents: Read and write** and **Workflows: Read and write** (Metadata: Read-only is added automatically). Nothing else. Without Workflows, GitHub rejects the push of any branch that contains `.github/workflows/mirror.yml`.
 5. Where can this GitHub App be installed: **Only on this account**. Create.
 6. On the App's page, note the **App ID**. Under **Private keys**, **Generate a private key**: a `.pem` file downloads.
 7. Left menu > **Install App** > Cruna-Noise-To-Signal > **Only select repositories** > `cruna-plugins-mirror` > Install.
