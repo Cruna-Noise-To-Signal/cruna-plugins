@@ -1,0 +1,82 @@
+# Copies main, dev and the v* release tags to the private mirror
+# Cruna-Noise-To-Signal/cruna-plugins-mirror, which the Cruna Claude organization
+# uses as its plugin marketplace (Claude for Business accepts only private ones).
+# The mirror is written only by this workflow: every run overwrites its refs.
+# It authenticates as the org's GitHub App "Cruna plugins mirror", installed on the
+# mirror only, with Contents and Workflows read and write.
+# Spec: change-log/loyal-cassata/spec.md
+
+name: Mirror
+
+on:
+  push:
+    branches: [main, dev]
+    tags: ['v*']
+  workflow_dispatch:
+
+# One sync at a time, in order: a dev push followed by a release lands in order.
+concurrency:
+  group: mirror
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  mirror:
+    # Forks of this public repository never run the sync.
+    if: github.repository == 'Cruna-Noise-To-Signal/cruna-plugins'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check the GitHub App settings
+        env:
+          APP_ID: ${{ vars.MIRROR_APP_ID }}
+          APP_KEY: ${{ secrets.MIRROR_APP_PRIVATE_KEY }}
+        run: |
+          if [ -z "$APP_ID" ] || [ -z "$APP_KEY" ]; then
+            echo "::error::The variable MIRROR_APP_ID or the secret MIRROR_APP_PRIVATE_KEY is missing. Add the mirror GitHub App's ID as an Actions variable and its private key as an Actions secret of this repository."
+            exit 1
+          fi
+
+      # A token valid for one hour, limited to the mirror; revoked when the job ends.
+      - name: Get a token for the mirror
+        id: app
+        uses: actions/create-github-app-token@v1
+        with:
+          app-id: ${{ vars.MIRROR_APP_ID }}
+          private-key: ${{ secrets.MIRROR_APP_PRIVATE_KEY }}
+          repositories: cruna-plugins-mirror
+          permission-contents: write
+          # Pushing a commit that touches .github/workflows/ needs this too.
+          permission-workflows: write
+
+      # fetch-depth 0 fetches every branch (as refs/remotes/origin/*) and every tag.
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Push main, dev and v* tags to the mirror
+        env:
+          MIRROR: https://x-access-token:${{ steps.app.outputs.token }}@github.com/Cruna-Noise-To-Signal/cruna-plugins-mirror.git
+        run: |
+          # A glob refspec that matches no tag is skipped, so this works with zero v* tags.
+          git push --force "$MIRROR" \
+            refs/remotes/origin/main:refs/heads/main \
+            refs/remotes/origin/dev:refs/heads/dev \
+            'refs/tags/v*:refs/tags/v*'
+
+          # The mirror must now match the public main and dev.
+          status=0
+          for branch in main dev; do
+            want=$(git rev-parse "refs/remotes/origin/$branch")
+            got=$(git ls-remote "$MIRROR" "refs/heads/$branch" | cut -f1)
+            if [ "$got" = "$want" ]; then
+              echo "$branch: mirror at $got, matches"
+            else
+              echo "::error::$branch: mirror at '${got:-missing}', public at $want"
+              status=1
+            fi
+          done
+          exit "$status"
