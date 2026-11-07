@@ -3,7 +3,7 @@
 # uses as its plugin marketplace (Claude for Business accepts only private ones).
 # The mirror is written only by this workflow: every run overwrites its refs.
 # It authenticates as the org's GitHub App "Cruna plugins mirror", installed on the
-# mirror only, with Contents read and write.
+# mirror only, with Contents and Workflows read and write.
 # Spec: change-log/loyal-cassata/spec.md
 
 name: Mirror
@@ -48,6 +48,8 @@ jobs:
           private-key: ${{ secrets.MIRROR_APP_PRIVATE_KEY }}
           repositories: cruna-plugins-mirror
           permission-contents: write
+          # Pushing a commit that touches .github/workflows/ needs this too.
+          permission-workflows: write
 
       # fetch-depth 0 fetches every branch (as refs/remotes/origin/*) and every tag.
       - uses: actions/checkout@v4
