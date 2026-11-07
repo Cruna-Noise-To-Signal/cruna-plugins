@@ -26,7 +26,7 @@ Guidelines: Hard dependencies noted; otherwise parallelizable.
 - Triggers only on push to `main`, push to `dev`, push of a `v*` tag and manual dispatch; no `pull_request` trigger.
 - Skips when the repository is not `Cruna-Noise-To-Signal/cruna-plugins`.
 - One sync at a time, queued, never cancelled.
-- Reads the deploy key only from the `MIRROR_DEPLOY_KEY` secret; pushes over SSH with GitHub's host key verified.
+- Authenticates as the mirror GitHub App (`MIRROR_APP_ID` variable, `MIRROR_APP_PRIVATE_KEY` secret) with a token limited to the mirror; pushes over HTTPS. (Changed from a deploy key in review round 2: the org policy disables deploy keys.)
 - Force-pushes `main`, `dev` and all `v*` tags to `Cruna-Noise-To-Signal/cruna-plugins-mirror`.
 - Fails the run when the mirror's `main` or `dev` commit differs from the public one after the push.
 - Fails with a clear message when the secret is missing.
@@ -49,7 +49,7 @@ Guidelines: Hard dependencies noted; otherwise parallelizable.
 ### F3 - Manual setup recorded
 **Capability:** The one-time manual steps from the spec recorded in the `pm-setup` issue with `pm manual add`, one key each (spec: Manual setup).
 **Acceptance:**
-- Five entries: create mirror repo; deploy key on the mirror; `MIRROR_DEPLOY_KEY` secret on the public repo; first manual run after the workflow reaches `dev`; mirror added as org marketplace in the Claude admin.
+- Five entries: create mirror repo; GitHub App created and installed on the mirror only; `MIRROR_APP_ID` variable and `MIRROR_APP_PRIVATE_KEY` secret on the public repo; first manual run after the workflow reaches `dev`; mirror added as org marketplace in the Claude admin.
 - Each entry is self-contained (exact repo name, settings, secret name).
 - `manual-test.md` in the change-log folder lists the acceptance checks from spec Testing Decisions.
 **Deps:** none.
@@ -72,4 +72,4 @@ F1, F2 and F3 are independent. M2 needs M1 merged into `dev` (workflow present o
 - Before the first release after the merge, the mirror's `main` is only as current as the public `main`, which is fine: the first manual run copies it.
 - Deleted tags or branches are not propagated (out of scope); a deleted `v*` tag stays in the mirror.
 - A workflow in the public repository is visible to everyone; it contains no secret, only the mirror's name.
-- The deploy key has write access to the mirror only; rotate it by replacing both halves if it is ever exposed.
+- The App can write only to the mirror; if its private key is ever exposed, generate a new one in the App settings, replace the secret, and delete the old key.

@@ -2,6 +2,8 @@
 # Cruna-Noise-To-Signal/cruna-plugins-mirror, which the Cruna Claude organization
 # uses as its plugin marketplace (Claude for Business accepts only private ones).
 # The mirror is written only by this workflow: every run overwrites its refs.
+# It authenticates as the org's GitHub App "Cruna plugins mirror", installed on the
+# mirror only, with Contents read and write.
 # Spec: change-log/loyal-cassata/spec.md
 
 name: Mirror
@@ -26,35 +28,35 @@ jobs:
     if: github.repository == 'Cruna-Noise-To-Signal/cruna-plugins'
     runs-on: ubuntu-latest
     timeout-minutes: 10
-    env:
-      MIRROR: git@github.com:Cruna-Noise-To-Signal/cruna-plugins-mirror.git
     steps:
+      - name: Check the GitHub App settings
+        env:
+          APP_ID: ${{ vars.MIRROR_APP_ID }}
+          APP_KEY: ${{ secrets.MIRROR_APP_PRIVATE_KEY }}
+        run: |
+          if [ -z "$APP_ID" ] || [ -z "$APP_KEY" ]; then
+            echo "::error::The variable MIRROR_APP_ID or the secret MIRROR_APP_PRIVATE_KEY is missing. Add the mirror GitHub App's ID as an Actions variable and its private key as an Actions secret of this repository."
+            exit 1
+          fi
+
+      # A token valid for one hour, limited to the mirror; revoked when the job ends.
+      - name: Get a token for the mirror
+        id: app
+        uses: actions/create-github-app-token@v1
+        with:
+          app-id: ${{ vars.MIRROR_APP_ID }}
+          private-key: ${{ secrets.MIRROR_APP_PRIVATE_KEY }}
+          repositories: cruna-plugins-mirror
+
       # fetch-depth 0 fetches every branch (as refs/remotes/origin/*) and every tag.
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
           persist-credentials: false
 
-      - name: Load the mirror deploy key
-        id: key
-        env:
-          MIRROR_DEPLOY_KEY: ${{ secrets.MIRROR_DEPLOY_KEY }}
-        run: |
-          if [ -z "$MIRROR_DEPLOY_KEY" ]; then
-            echo "::error::Secret MIRROR_DEPLOY_KEY is missing. Add the private half of the mirror's deploy key (write access on Cruna-Noise-To-Signal/cruna-plugins-mirror) as an Actions secret of this repository."
-            exit 1
-          fi
-          dir="$RUNNER_TEMP/mirror-ssh"
-          mkdir -p "$dir"
-          chmod 700 "$dir"
-          printf '%s\n' "$MIRROR_DEPLOY_KEY" > "$dir/key"
-          chmod 600 "$dir/key"
-          # GitHub's published host key (api.github.com/meta), so the host is verified, not trusted on first use.
-          echo 'github.com ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOMqqnkVzrm0SdG6UOoqKLsabgH5C9okWi0dh2l9GKJl' > "$dir/known_hosts"
-          echo "GIT_SSH_COMMAND=ssh -i $dir/key -o IdentitiesOnly=yes -o UserKnownHostsFile=$dir/known_hosts -o StrictHostKeyChecking=yes" >> "$GITHUB_ENV"
-
       - name: Push main, dev and v* tags to the mirror
-        id: push
+        env:
+          MIRROR: https://x-access-token:${{ steps.app.outputs.token }}@github.com/Cruna-Noise-To-Signal/cruna-plugins-mirror.git
         run: |
           # A glob refspec that matches no tag is skipped, so this works with zero v* tags.
           git push --force "$MIRROR" \
@@ -62,9 +64,7 @@ jobs:
             refs/remotes/origin/dev:refs/heads/dev \
             'refs/tags/v*:refs/tags/v*'
 
-      - name: Check the mirror matches main and dev
-        id: check
-        run: |
+          # The mirror must now match the public main and dev.
           status=0
           for branch in main dev; do
             want=$(git rev-parse "refs/remotes/origin/$branch")
@@ -77,7 +77,3 @@ jobs:
             fi
           done
           exit "$status"
-
-      - name: Remove the deploy key
-        if: always()
-        run: rm -rf "$RUNNER_TEMP/mirror-ssh"
