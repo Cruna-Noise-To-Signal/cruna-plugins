@@ -42,13 +42,13 @@ Decidi l'azione (creare, modificare, eliminare) e il tipo:
 
 Risolvi ogni data rispetto a oggi nel fuso orario della radice: "martedì prossimo", "tra due settimane", "il 3". Quando una data o un orario può significare due cose, o un appuntamento non ha orario, chiedi, offrendo un valore predefinito concreto ("martedì 4 nov o martedì 11 nov?", "alle 10:00 come al solito?"). Ciò che si ripete ("ogni giovedì") diventa un evento ricorrente.
 
-Per modificare ed eliminare, **trova** l'evento esistente: cerca nel calendario di sistema il prefisso di titolo `[<interest>/<instance>]` intorno alla data indicata. Più corrispondenze: chiedi quale, elencandole con le date. Nessuna: dillo e offri di crearlo.
+Per modificare ed eliminare, **trova** l'evento esistente: cerca nel calendario di sistema (`calendarId = calendar`, rules → I tre id) il prefisso di titolo `[<interest>/<instance>]` intorno alla data indicata. Più corrispondenze: chiedi quale, elencandole con le date. Nessuna: dillo e offri di crearlo.
 
 Fatto quando: hai l'azione, il titolo esatto, inizio e fine (o la data per tutto il giorno) nel fuso orario della radice e, per modifica ed eliminazione, l'unico evento a cui si applica.
 
 ### 4. Controlla le sovrapposizioni
 
-Per gli eventi con orario, leggi il calendario di sistema e i calendari personali dei membri coinvolti (tutti i membri quando non è chiaro) condivisi con l'account dell'assistente (`org.md`, colonna Personal calendar). I calendari condivisi solo come libero/occupato mostrano solo i blocchi occupati; basta così. Quando qualcosa si sovrappone, di' chi è occupato e proponi il primo spazio libero più vicino.
+Per gli eventi con orario, leggi il calendario di sistema e gli orari occupati dei membri coinvolti (tutti i membri quando non è chiaro), al livello che registra `org.md` → Members → Personal calendar: un calendario condiviso con l'account dell'assistente (`libero/occupato` o `tutti i dettagli`), oppure il libero/occupato di Workspace letto tramite la colonna Email del membro (`libero/occupato del dominio`). Leggi il calendario di chi parla come dice rules → Convenzioni del calendario → Il calendario di chi parla. Il libero/occupato mostra solo i blocchi occupati; basta così. Quando qualcosa si sovrappone, di' chi è occupato e proponi il primo spazio libero più vicino.
 
 Fatto quando: l'orario non ha sovrapposizioni, oppure il membro l'ha scelto conoscendo la sovrapposizione.
 
@@ -60,7 +60,7 @@ Fatto quando: il membro ha confermato esattamente questo evento.
 
 ### 6. Scrivi l'evento
 
-Solo sul calendario di sistema:
+Solo sul calendario di sistema, indicato come `calendarId = calendar` da `org.md` e mai come calendario predefinito (rules → I tre id):
 
 - **Titolo**: `[<interest>/<instance>] <titolo>`, nella lingua della radice.
 - **Descrizione**: il percorso dell'istanza e il percorso della voce di diario (Diretta: il percorso che fissi al passo 7; su consegna: quello di chi ti chiama).

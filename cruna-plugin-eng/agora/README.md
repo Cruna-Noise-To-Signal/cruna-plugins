@@ -8,16 +8,18 @@ Works on Claude and ChatGPT. Design: [agora-spec.md](https://github.com/Cruna-No
 
 - Claude or ChatGPT on a paid plan (for scheduled reviews).
 - The Google Drive and Google Calendar connectors, plus Gmail if you turn email on.
-- A Google account for the assistant when more than one person uses it (solo users can use their own).
+- One of two modes:
+  - **Basic shared account mode** (families, free Gmail): a Google account for the assistant when more than one person uses it (solo users can use their own); everyone's AI signs in to it.
+  - **Shared services mode** (teams on Google Workspace): each member signs in as their own Workspace account, and the admin creates a shared drive, a shared calendar and a Google Group by hand. The admin's and each joining member's steps: [Manual setup](https://github.com/Cruna-Noise-To-Signal/cruna-plugins/blob/main/docs/agora/agora-spec.md#manual-setup-shared-services-mode). A basic Agora can move to it later ("move Agora to a shared drive").
 
-The `setup` skill checks all of this and walks you through what's missing.
+The `setup` skill checks all of this and walks you through what's missing, with the same manual setup steps.
 
 ## Skills
 
 | Skill | Works on | What it does |
 |---|---|---|
 | `rules` | Claude, ChatGPT | Data model and file rules every other skill follows |
-| `setup` | Claude, ChatGPT | Checks prerequisites, interviews you, builds the folders and calendar, sets up routines; adds members |
+| `setup` | Claude, ChatGPT | Checks prerequisites, interviews you, builds the folders and calendar, sets up routines; adds and removes members; moves a basic Agora to a shared drive |
 | `add-interest` | Claude, ChatGPT | Starts tracking a new interest or instance |
 | `log` | Claude, ChatGPT | Records an update in the diary and refreshes the status |
 | `file-document` | Claude, ChatGPT | Files a document from the landing folder or indexes one already in place |

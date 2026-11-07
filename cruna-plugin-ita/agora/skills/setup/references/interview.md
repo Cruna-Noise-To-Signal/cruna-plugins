@@ -18,8 +18,9 @@ Per ogni persona che userà la radice o che vi sarà seguita:
 - **Nome** (lo slug segue rules → Vocabolario).
 - **Ruolo** nel gruppo (genitore, figlio, partner, titolare, dipendente, commercialista).
 - **Compleanno** (facoltativo; utile per i promemoria legati all'età).
-- **Email dell'account Google personale**, per i membri che useranno la radice, così si possono condividere con loro la cartella e il calendario.
-- **Condivisione del calendario personale**: solo libero/occupato (consigliato: basta per trovare tempo libero) o tutti i dettagli.
+- **Email dell'account Google personale**, per i membri che useranno la radice, così si possono condividere con loro la cartella e il calendario. Modalità servizi condivisi: invece il suo **account Workspace**, quello con cui accederanno i suoi connettori (quello del proprietario è l'account trovato dalla voce 3).
+- **Condivisione del calendario personale**: solo libero/occupato (consigliato: basta per trovare tempo libero) o tutti i dettagli. Modalità servizi condivisi: `libero/occupato del dominio` (consigliato: Workspace lo mostra già), o tutti i dettagli se vuole condividere di più.
+- **Kind** (modalità servizi condivisi): `human` o `ai`, cioè se l'account lo usa una persona o un'AI. Consiglia `human` (rules → Vocabolario → Membro).
 - **Come lo useranno**: con la propria app di AI (Claude o ChatGPT), o solo tramite altri (un bambino seguito che non lo usa).
 
 Consiglia: elenca le persone che l'utente ha già nominato e chiedi solo ciò che manca.
@@ -50,7 +51,7 @@ Chiedi se tengono già traccia di qualcosa in un foglio o in una nota (poppate, 
 
 Fatte nei giri 1 e 2 per una nuova radice, e da sole quando una radice esistente attiva l'email o un membro entra in una radice con l'email attiva.
 
-- **Radice**: "Vuoi che l'assistente abbia una sua casella email? I membri gli inoltrano o mettono in copia le email da conservare, lui prepara e invia email per voi (solo dopo che avete confermato ognuna), e le revisioni ne danno conto." Di' che è più adatta a un'attività. Consiglia sì per un'attività, no per una famiglia.
+- **Radice**: "Vuoi che l'assistente abbia una sua casella email? I membri gli inoltrano o mettono in copia le email da conservare, lui prepara e invia email per voi (solo dopo che avete confermato ognuna), e le revisioni ne danno conto." Di' che è più adatta a un'attività. Consiglia sì per un'attività, no per una famiglia. Modalità servizi condivisi: la casella è l'indirizzo del gruppo, e l'AI di ogni membro legge la posta del gruppo nella propria casella di posta; chiedi "Vuoi che Agora gestisca la posta inviata a <indirizzo del gruppo>?", consigliando sì.
 - **Radice, se sì**: che cosa conta come email importante per tutto il gruppo (consiglia in base al tipo di radice: "qualsiasi cosa da un cliente"; "nessuna preferenza" va benissimo).
 - **Ogni membro, se sì**:
   - ogni **indirizzo email** da cui scrive o inoltra (consiglia l'email del suo account Google più qualsiasi indirizzo di lavoro che ha nominato); salta in una radice solitaria;

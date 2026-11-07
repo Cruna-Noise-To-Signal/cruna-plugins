@@ -1,18 +1,35 @@
 # FAQ di Agora
 
-Risposte per i membri, in parole semplici. Sostituisci le parti `<…>` con i nomi reali da `org.md`. Tieni ogni risposta in poche righe.
+Risposte per i membri, in parole semplici. Sostituisci le parti `<…>` con i nomi reali da `org.md`. Tieni ogni risposta in poche righe. Una coppia **Base** / **Servizi condivisi** è una risposta per modalità: dai quella della radice (`mode` in `org.md`; se manca, è base); senza radice, entrambe.
+
+## Che tipo di Agora abbiamo?
+
+Ce ne sono due, e `org.md` dice quale:
+
+- **Base**: l'app di AI di ognuno accede a un solo account Google tenuto per Agora (`<account dell'assistente>`), e la cartella e il calendario sono condivisi con l'account personale di ciascuno. Funziona con Gmail gratuito: è la configurazione per le famiglie.
+- **Servizi condivisi**: per un gruppo con Google Workspace. Ognuno accede con il proprio account di lavoro, nessuno condivide una password, e il gruppo condivide un Drive condiviso, un calendario e un indirizzo email del gruppo. Agora sa chi sei dal tuo account.
+
+Un Agora base può passare ai servizi condivisi quando il gruppo prende Workspace: di' "sposta Agora su un Drive condiviso".
 
 ## Dove sono i miei file?
 
-In una cartella di Google Drive chiamata `<nome della radice>`, di proprietà di `<account dell'assistente>` e condivisa con ogni membro. Apri l'app Google Drive o drive.google.com con il tuo account Google → **Condivisi con me** (Shared with me) → `<nome della radice>` (in un Agora solo tuo, sul tuo account, è in **Il mio Drive** (My Drive)). Dentro c'è una cartella per `<interesse, secondo la convenzione di struttura>` e, in ognuna, una cartella per argomento con i suoi appunti (`diary`) e i suoi file (`documents`). Ogni `status.md` è un riassunto da un minuto di come stanno le cose.
+In una cartella di Google Drive chiamata `<nome della radice>`.
+
+- **Base**: è di proprietà di `<account dell'assistente>` e condivisa con ogni membro. Apri l'app Google Drive o drive.google.com con il tuo account Google → **Condivisi con me** (Shared with me) → `<nome della radice>` (in un Agora solo tuo, sul tuo account, è in **Il mio Drive** (My Drive)).
+- **Servizi condivisi**: è nel Drive condiviso del gruppo. Apri Google Drive con il tuo account di lavoro → **Drive condivisi** (Shared drives) → il Drive condiviso del tuo gruppo → `<nome della radice>`.
+
+Dentro c'è una cartella per `<interesse, secondo la convenzione di struttura>` e, in ognuna, una cartella per argomento con i suoi appunti (`diary`) e i suoi file (`documents`). Ogni `status.md` è un riassunto da un minuto di come stanno le cose.
 
 ## Chi vede cosa?
 
-Tutti in `<nome della radice>` vedono tutto nella cartella e nel calendario condiviso di Agora, comprese le note che Agora tiene sulle preferenze di ciascuno (`memories`). Il tuo calendario Google personale resta tuo: Agora lo vede solo se l'hai condiviso, e solo al livello che hai scelto (solo gli orari occupati, o tutti i dettagli). La cartella e il calendario sono condivisi solo con i membri elencati in `org.md`.
+Tutti in `<nome della radice>` vedono tutto nella cartella e nel calendario condiviso di Agora, comprese le note che Agora tiene sulle preferenze di ciascuno (`memories`).
+
+- **Base**: il tuo calendario Google personale resta tuo: Agora lo vede solo se l'hai condiviso, e solo al livello che hai scelto (solo gli orari occupati, o tutti i dettagli). La cartella e il calendario sono condivisi solo con i membri elencati in `org.md`.
+- **Servizi condivisi**: il Drive condiviso, il calendario e il gruppo contengono solo i membri che l'amministratore ha aggiunto. La tua AI legge per intero il tuo calendario quando pianifica per te; per tutti gli altri vede solo gli orari occupati, a meno che non condividano di più. Tecnicamente la tua AI potrebbe vedere tutta la tua posta, ma Agora legge solo la posta inviata all'indirizzo del gruppo: è una regola di Agora, non un blocco.
 
 ## Come aggiungo un documento dal telefono?
 
-1. Apri l'app Google Drive → **Condivisi con me** → `<nome della radice>` → `landing`.
+1. Apri l'app Google Drive → `<nome della radice>` (dove si trova: vedi "Dove sono i miei file?") → `landing`.
 2. Tocca **+** → **Carica** (Upload), e scegli il file o la foto.
 3. Di' ad Agora "ho messo <cos'è> in landing". Lo archivia al posto giusto.
 
@@ -56,11 +73,11 @@ Diglielo, iniziando con "d'ora in poi": "d'ora in poi metti le poppate di Greta 
 
 ## Agora sa leggere e inviare email?
 
-Quando l'email è attiva (di' "attiva l'email"; è più adatta alle aziende), Agora ha la sua casella: `<account dell'assistente>`. Inoltragli o mettilo in copia (CC) sulle email che contano, e Agora salva ciascuna nell'argomento giusto, o ti chiede dove va. Chiedi "novità da Acme?", "prepara una bozza di risposta a Mario", "archivia questa email sotto clienti/acme". Agora prepara bozze quando vuoi, ma invia solo dopo che hai visto il messaggio esatto e hai detto sì in chat; poi è la tua app a chiederti di approvare anche l'invio. Le revisioni non inviano mai nulla.
+Quando l'email è attiva (di' "attiva l'email"; è più adatta alle aziende), Agora legge un solo indirizzo: `<account dell'assistente>` in un Agora base, l'indirizzo del gruppo `<indirizzo del gruppo>` in uno a servizi condivisi. Inoltragli o mettilo in copia (CC) sulle email che contano, e Agora salva ciascuna nell'argomento giusto, o ti chiede dove va. Con i servizi condivisi, la posta che Agora invia per te parte dal tuo indirizzo, con il gruppo in copia (CC) così che il gruppo veda le risposte. Chiedi "novità da Acme?", "prepara una bozza di risposta a Mario", "archivia questa email sotto clienti/acme". Agora prepara bozze quando vuoi, ma invia solo dopo che hai visto il messaggio esatto e hai detto sì in chat; poi è la tua app a chiederti di approvare anche l'invio. Le revisioni non inviano mai nulla.
 
 ## Che cosa non sa fare Agora con l'email?
 
-Legge solo la sua casella, mai la tua. Vede il nome di un allegato ma non può aprirlo né salvarlo: salva tu il file in `landing` e di' "archiviato", e Agora lo collega all'email. Non etichetta, non archivia in Gmail e non elimina la posta. Quando l'invio non riesce, di' "l'email non funziona" e Agora controlla la tua configurazione.
+Legge solo la posta inviata al suo indirizzo (base: la sua casella, mai la tua; servizi condivisi: la posta del gruppo, anche se la tua AI è connessa alla tua casella di posta). Vede il nome di un allegato ma non può aprirlo né salvarlo: salva tu il file in `landing` e di' "archiviato", e Agora lo collega all'email. Non etichetta, non archivia in Gmail e non elimina la posta. Quando l'invio non riesce, di' "l'email non funziona" e Agora controlla la tua configurazione.
 
 ## Come decide Agora quali email sono importanti?
 
@@ -82,7 +99,16 @@ No. Agora tiene una checklist della configurazione in `setup.md`, nella cartella
 
 ## Come aggiungo una persona?
 
-Di' "aggiungi <nome> ad Agora". Agora ti guida: lo aggiunge a `org.md`, condivide con lui la cartella e il calendario e lo aiuta a collegare la sua app di AI.
+- **Base**: di' "aggiungi <nome> ad Agora". Agora ti guida: lo aggiunge a `org.md`, condivide con lui la cartella e il calendario e lo aiuta a collegare la sua app di AI.
+- **Servizi condivisi**: prima l'amministratore di Workspace gli dà un account di lavoro e lo aggiunge al Drive condiviso, al gruppo e al calendario (Agora dà all'amministratore i clic esatti). Poi la nuova persona collega la sua app di AI con il suo account di lavoro e dice "unisciti ad Agora": la sua AI controlla ogni passo e dice cosa manca e chi lo sistema.
+
+## Agora dice che non sono ancora un membro
+
+In un Agora a servizi condivisi, la tua AI ti riconosce dall'account Google con cui è connessa. O è connessa con un altro account (uno personale, per esempio): ricollega Google Drive, Calendar e Gmail con il tuo account di lavoro. Oppure non ti sei ancora unito: di' "unisciti ad Agora".
+
+## Come passiamo a un Drive condiviso?
+
+Quando il gruppo di un Agora base prende Google Workspace, di' "sposta Agora su un Drive condiviso". Agora guida il proprietario e l'amministratore: l'amministratore crea il Drive condiviso, il calendario e il gruppo, Agora sposta o copia ogni file e copia gli eventi futuri, la posta del vecchio account viene inoltrata al gruppo, e poi ognuno si unisce con il proprio account di lavoro. Non si perde nulla; il vecchio calendario resta com'era.
 
 ## Posso modificare i file da solo?
 
@@ -99,9 +125,9 @@ Diglielo: "è sbagliato, l'appuntamento è venerdì". Salva la correzione e aggi
 ## Come mi fermo o esco?
 
 - **Sospendere le revisioni**: sospendi o elimina le tue tre attività pianificate nella tua app di AI.
-- **Uscire**: chiedi al proprietario, oppure di' "toglimi da Agora". Il tuo accesso alla cartella e al calendario viene rimosso e la tua app viene scollegata. Ciò che hai scritto resta, come parte della storia comune.
+- **Uscire**: chiedi al proprietario, oppure di' "toglimi da Agora". Il tuo accesso alla cartella e al calendario viene rimosso e la tua app viene scollegata (servizi condivisi: l'amministratore ti toglie dal Drive condiviso, dal gruppo e dal calendario; se il calendario l'hai creato tu, prima passa a qualcun altro). Ciò che hai scritto resta, come parte della storia comune.
 - **Fermare Agora del tutto**: elimina le attività pianificate di tutti e scollega i connettori di Google Drive e Calendar (e Gmail). La cartella e il calendario restano in Google, leggibili come normali file, finché non li elimini.
 
 ## Costa qualcosa?
 
-Le revisioni pianificate richiedono un piano a pagamento su Claude o ChatGPT. Google Drive e Calendar sono gratuiti; l'account Google gratuito offre 15 GB, più che sufficienti per i documenti.
+Le revisioni pianificate richiedono un piano a pagamento su Claude o ChatGPT. Base: Google Drive e Calendar sono gratuiti; l'account Google gratuito offre 15 GB, più che sufficienti per i documenti. I servizi condivisi richiedono Google Workspace per ogni membro, un piano Google a pagamento.

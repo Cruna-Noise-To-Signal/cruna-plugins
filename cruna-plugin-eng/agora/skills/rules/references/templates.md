@@ -10,8 +10,13 @@ agora: root
 name: <Root display name>
 language: <en | it | …>
 timezone: <Europe/Rome>
-assistant_account: <assistant@gmail.com | owner's own account>
-calendar: <assistant account email: its primary calendar is the system calendar>
+mode: <basic-shared-account | shared-services>
+drive_id: <my-drive | the id in the shared drive's URL>
+root_id: <the root folder's id>
+assistant_account: <basic mode: assistant@gmail.com | owner's own account>
+calendar: <basic mode: the assistant account's email, its primary calendar's id | shared services mode: the shared calendar's id>
+calendar_owner: <shared services mode: slug of the member who created the shared calendar>
+inbox: <basic mode: the assistant account's email | shared services mode: the group's address>
 layout: <what an interest is, e.g. "one interest per person, plus `family` for shared things">
 email: <on | off>
 ---
@@ -20,10 +25,10 @@ email: <on | off>
 
 ## Members
 
-| Slug | Name | Email | Mail from | Role | Birthday | Personal calendar | Notes |
-|---|---|---|---|---|---|---|---|
-| simone | Simone | simone@example.com | simone@example.com, simone@acme.it | parent | 1989-03-28 | free/busy | prefers short answers |
-| pm | PM (GitHub) | | | github | | | address for GitHub through cruna-pm-github |
+| Slug | Name | Email | Mail from | Role | Kind | Birthday | Personal calendar | Notes |
+|---|---|---|---|---|---|---|---|---|
+| simone | Simone | simone@example.com | simone@example.com, simone@acme.it | parent | human | 1989-03-28 | free/busy | prefers short answers |
+| pm | PM (GitHub) | | | github | | | | address for GitHub through cruna-pm-github |
 
 ## Interests
 
@@ -45,9 +50,13 @@ email: <on | off>
 | simone | editor | can edit | Claude | routines on |
 ```
 
-`email` absent means `off`. **Email** is the personal Google account the folder and calendar are shared with. **Mail from** (email on only) lists every address the member writes or forwards from: mail from these is member mail (rules → Email). Root-wide email criteria are Conventions rows, written as in [email.md](email.md) → Where criteria live.
+`email` absent means `off`. The fields `mode` to `inbox` may each be missing, and a missing one reads as basic mode: `mode` is `basic-shared-account`, `drive_id` is `my-drive`, the root is found by Finding the root, and `inbox` is `assistant_account`; `calendar_owner` exists only in shared services mode. So an `org.md` written before these fields reads exactly as before. A new shared services root is written without `assistant_account`; a root moved from basic mode keeps it for the record.
 
-A **github member** row (rules → Vocabulary) is written only by the `add-interest` handoff, as the `pm` row above: Role `github`, Name "PM (GitHub)", Email, Mail from, Birthday and Personal calendar empty; it gets no Access row. The same handoff writes the managed Conventions row, Where `products/<instance>`, with the member's slug in place of `pm`.
+**Email**: basic mode, the personal Google account the folder and calendar are shared with; shared services mode, the member's Workspace account, which their connectors sign in as and which identifies them (rules → Identity). **Kind**: rules → Vocabulary → Member. A Members table written before the Kind column keeps its shape: write every new row, the github row too, with the columns its header has, and read every member in it as `human`. **Personal calendar**: `free/busy` or `full details` shared with the assistant account (basic mode); `domain free/busy` by default in shared services mode, or `full details` when the member shares more. **Mail from** (email on only) lists every address the member writes or forwards from: mail from these is member mail (rules → Email). Root-wide email criteria are Conventions rows, written as in [email.md](email.md) → Where criteria live.
+
+A **github member** row (rules → Vocabulary) is written only by the `add-interest` handoff, as the `pm` row above, in the columns of the table's header: Role `github`, Name "PM (GitHub)", Email, Mail from, Kind, Birthday and Personal calendar empty; it gets no Access row. The same handoff writes the managed Conventions row, Where `products/<instance>`, with the member's slug in place of `pm`.
+
+In shared services mode the Access columns record what the real-call checks proved (prerequisites items 3, 5 and 7): Drive `content manager`, System calendar `can edit`, and `receives mail` in Notes once the group search returns their mail.
 
 ## `setup.md` (root, curated)
 
@@ -85,9 +94,23 @@ state: <todo | done>
 - <confirmed answers, one line each>
 ```
 
-The root's Email box is ticked "(off)" when the root declines email, or when email is on and Gmail is checked and `org.md` and `memories/shared.md` carry the email fields. A Member section has an Email box only when email is on; it is ticked when the member's app has Gmail connected as the assistant account, and their addresses and importance state are recorded.
+In shared services mode a Member section carries these boxes instead; each unticked one names who does it (the admin, the calendar owner, the member). Workspace account, In the shared drive and Shared calendar are ticked when the member's item 3 checks pass in their own app; In the group when item 7's check passes, or "(email off)" in a root with email off.
 
-The Interview section holds each confirmed round under its own heading (The root, Members, Layout convention, First interests and instances) until the Build box is ticked; then it is removed, except the email answers, which stay until every member interviewed has their Mail from cell and Email importance line written (setup step 2d). While a migration runs, a `## Migration` section lists its seven steps as boxes.
+```markdown
+## Member: marta
+- [ ] Workspace account (admin)
+- [ ] In the shared drive (admin)
+- [ ] In the group (admin)
+- [ ] Shared calendar (calendar owner: simone)
+- [ ] Connectors and plugin
+- [ ] In Members and Access, with a memories file
+- [ ] Email
+- [ ] Routines
+```
+
+The root's Email box is ticked "(off)" when the root declines email, or when email is on and Gmail is checked and `org.md` and `memories/shared.md` carry the email fields. A Member section has an Email box only when email is on; it is ticked when the member's app has Gmail connected as the account item 7 names (the assistant account, or in shared services mode their own), and their addresses and importance state are recorded.
+
+The Interview section holds each confirmed round under its own heading (The root, Members, Layout convention, First interests and instances) until the Build box is ticked; then it is removed, except the email answers, which stay until every member interviewed has their Mail from cell and Email importance line written (setup step 2d). While a migration runs, a `## Migration` section lists its seven steps as boxes; while a move to a shared drive runs, a `## Move to shared drive` section lists its ten steps as boxes (the `setup` skill's `references/move.md`), and step 4's box records the new root's id and, after a copy, the old root's.
 
 ## `inbox.md` (root, curated)
 
@@ -101,13 +124,15 @@ last_tidy_up: 2026-11-03
 
 # Inbox
 
-| Message id | Date | From | Subject | Outcome | By |
-|---|---|---|---|---|---|
-| 18c2f0a9b7e4d311 | 2026-11-03 | Mario Rossi <mario@acme.it> | Quote approved | filed → acme/website-2026/diary/simone-20261103_0912.md | routine |
-| 18c2ef11a0c3b920 | 2026-11-02 | to mario@acme.it | Re: Kickoff date | sent → acme/website-2026/diary/simone-20261102_1640.md | simone |
-| 18c2ee70d1f2a004 | 2026-11-02 | Newsletter <news@shop.com> | Black Friday | ignored | routine |
-| 18c2ed02b4a1c877 | 2026-11-02 | Simone <simone@example.com> | add to my to-dos | to-do → simone-20261102_0805 | routine |
+| Message id | Date | From | Subject | Outcome | By | Mailbox |
+|---|---|---|---|---|---|---|
+| 18c2f0a9b7e4d311 | 2026-11-03 | Mario Rossi <mario@acme.it> | Quote approved | filed → acme/website-2026/diary/simone-20261103_0912.md | routine | |
+| 18c2ef11a0c3b920 | 2026-11-02 | to mario@acme.it | Re: Kickoff date | sent → acme/website-2026/diary/simone-20261102_1640.md | simone | |
+| 18c2ee70d1f2a004 | 2026-11-02 | Newsletter <news@shop.com> | Black Friday | ignored | routine | |
+| 18c2ed02b4a1c877 | 2026-11-02 | Simone <simone@example.com> | add to my to-dos | to-do → simone-20261102_0805 | routine | |
 ```
+
+**Mailbox**, and the Date's form in shared services mode: [email.md](email.md) → The ledger.
 
 ## `index.md` (derived)
 
@@ -173,7 +198,13 @@ Same sections at every level. Omit nothing; write "—" under an empty section.
 
 The `To-do:` lines are the open to-dos attached to an instance ([todos.md](todos.md) → In status).
 
-Root `status.md` adds, after Next:
+Root `status.md` adds a line right under Last updated, once the `review` tidy-up has written it: when the tidy-up last finished. Only the tidy-up writes it; every other rebuild keeps it as found, and a root `status.md` without it is fine.
+
+```markdown
+**Tidied:** 2026-10-28 07:31
+```
+
+Root `status.md` also adds, after Next:
 
 ```markdown
 ## Latest reviews

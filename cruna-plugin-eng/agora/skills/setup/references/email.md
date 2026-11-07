@@ -8,7 +8,7 @@ Turns the root's email on or records it as off, and brings each member onto it. 
 
 ## Root part
 
-1. **Decide.** Email off (declined in the interview, or the user changes their mind): write `email: off` in the `org.md` front-matter (rules → Replace), tick the root Email box "(off)", and stop. The root works exactly as before.
+1. **Decide.** Email off (declined in the interview, or the user changes their mind): write `email: off` in the `org.md` front-matter (rules → Replace), tick the root Email box "(off)" (shared services mode: and every In the group box "(email off)"), and stop. The root works exactly as before.
 2. **Gmail.** Walk prerequisites item 7 in the app of the member present. Blocked: the step stops here with the box unticked, naming what is waiting.
 3. **`org.md`**: `email: on` in the front-matter. Root-wide importance criteria recorded as in rules → Email → Where criteria live; none when the answer was "no preference". Replace `org.md` once, together with the member part's addresses when you have them.
 4. **`memories/shared.md`**: its Email importance line, as set under rules → Email → Where criteria live when there are root criteria; `no preference`, or `not asked` when the question was skipped.
@@ -21,9 +21,9 @@ Done when: `org.md` says `email: on`, its root criteria (or none) are recorded, 
 
 Steps 2–3 record answers, for any member who gave them; skip them when the member's addresses and Email importance line are already recorded. Steps 1 and 4 happen only with the member present, in their own app.
 
-1. **Gmail** in this member's app: walk prerequisites item 7 (skip when the root part just did it in the same app).
+1. **Gmail** in this member's app: walk prerequisites item 7 (skip when the root part or Join's checks just did it in the same app).
 2. **Addresses**: every address they write or forward from (interview Members round), in the Mail from column of their Members row. Solo roots skip this: there is no member mail.
 3. **Importance**: their answer to the importance question, as the line `- Email importance: <criteria | no preference>` in `memories/<slug>.md`; `not asked` when skipped.
-4. **`setup.md`**: tick their Email box.
+4. **`setup.md`**: tick their Email box (shared services mode: and their In the group box, which item 7's check proved; write `receives mail` in their Access row's Notes).
 
 Done when: item 7 is ready in their app, their Mail from cell is filled (not solo), their memories file has its Email importance line, and their Email box is ticked; or item 7 is blocked and the box names what is waiting.

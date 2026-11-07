@@ -1,18 +1,35 @@
 # Agora FAQ
 
-Answers for members, in plain words. Replace the `<…>` parts with the real names from `org.md`. Keep each answer to a few lines.
+Answers for members, in plain words. Replace the `<…>` parts with the real names from `org.md`. Keep each answer to a few lines. A **Basic** / **Shared services** pair is one answer per mode: give the root's (`mode` in `org.md`, missing means basic); with no root, both.
+
+## Which kind of Agora do we have?
+
+There are two, and `org.md` says which:
+
+- **Basic**: everyone's AI app signs in to one Google account kept for the Agora (`<assistant account>`), and the folder and calendar are shared with each person's own account. It works with free Gmail: the families' setup.
+- **Shared services**: for a team with Google Workspace. Each person signs in as their own work account, nobody shares a password, and the team shares a shared drive, one calendar and a group email address. Agora knows who you are from your account.
+
+A basic Agora can move to shared services when the team gets Workspace: say "move Agora to a shared drive".
 
 ## Where are my files?
 
-In a Google Drive folder called `<root name>`, owned by `<assistant account>` and shared with every member. Open the Google Drive app or drive.google.com with your own Google account → **Shared with me** → `<root name>` (in a solo Agora on your own account, it's in **My Drive**). Inside there is one folder per `<interest, per the layout convention>`, and in each, one folder per topic with its notes (`diary`) and files (`documents`). Each `status.md` is a one-minute summary of where things stand.
+In a Google Drive folder called `<root name>`.
+
+- **Basic**: it's owned by `<assistant account>` and shared with every member. Open the Google Drive app or drive.google.com with your own Google account → **Shared with me** → `<root name>` (in a solo Agora on your own account, it's in **My Drive**).
+- **Shared services**: it's in the team's shared drive. Open Google Drive with your work account → **Shared drives** → your team's shared drive → `<root name>`.
+
+Inside there is one folder per `<interest, per the layout convention>`, and in each, one folder per topic with its notes (`diary`) and files (`documents`). Each `status.md` is a one-minute summary of where things stand.
 
 ## Who can see what?
 
-Everyone in `<root name>` can see everything in the folder and on the shared Agora calendar, including the notes Agora keeps about each person's preferences (`memories`). Your own Google calendar stays yours: Agora sees it only if you shared it, and only at the level you chose (busy times only, or full details). The folder and calendar are shared only with the members listed in `org.md`.
+Everyone in `<root name>` can see everything in the folder and on the shared Agora calendar, including the notes Agora keeps about each person's preferences (`memories`).
+
+- **Basic**: your own Google calendar stays yours: Agora sees it only if you shared it, and only at the level you chose (busy times only, or full details). The folder and calendar are shared only with the members listed in `org.md`.
+- **Shared services**: the shared drive, calendar and group hold only the members the admin added. Your AI reads your own calendar in full when it plans for you; for everyone else it sees only busy times, unless they share more. Your AI could technically see all your mail, but Agora reads only the mail sent to the group address: that's Agora's own rule, not a lock.
 
 ## How do I add a document from my phone?
 
-1. Open the Google Drive app → **Shared with me** → `<root name>` → `landing`.
+1. Open the Google Drive app → `<root name>` (where it is: see "Where are my files?") → `landing`.
 2. Tap **+** → **Upload**, and pick the file or photo.
 3. Tell Agora "I put the <what it is> in landing". It files it in the right place.
 
@@ -56,11 +73,11 @@ Tell it, starting with "from now on": "from now on, put Greta's feeds in a file"
 
 ## Can Agora read and send email?
 
-When email is turned on (say "turn on email"; it suits businesses best), Agora has its own inbox: `<assistant account>`. Forward or CC it the emails that matter, and Agora saves each in the right topic, or asks you where it goes. Ask "anything from Acme?", "draft a reply to Mario", "file this email under clients/acme". Agora writes drafts whenever you like, but sends only after you've seen the exact message and said yes in the chat; your app then asks you to approve the send too. Reviews never send anything.
+When email is turned on (say "turn on email"; it suits businesses best), Agora reads one address: `<assistant account>` in a basic Agora, the group address `<group address>` in a shared services one. Forward or CC it the emails that matter, and Agora saves each in the right topic, or asks you where it goes. In shared services, mail Agora sends for you goes from your own address, with the group in CC so the team sees the replies. Ask "anything from Acme?", "draft a reply to Mario", "file this email under clients/acme". Agora writes drafts whenever you like, but sends only after you've seen the exact message and said yes in the chat; your app then asks you to approve the send too. Reviews never send anything.
 
 ## What can't Agora do with email?
 
-It reads only its own inbox, never yours. It sees an attachment's name but can't open or save it: save the file to `landing` yourself and say "filed", and Agora links it to the email. It doesn't label, archive or delete mail. When sending fails, say "email isn't working" and Agora checks your setup.
+It reads only the mail sent to its address (basic: its own inbox, never yours; shared services: the group's mail, even though your AI is connected to your own mailbox). It sees an attachment's name but can't open or save it: save the file to `landing` yourself and say "filed", and Agora links it to the email. It doesn't label, archive or delete mail. When sending fails, say "email isn't working" and Agora checks your setup.
 
 ## How does Agora decide which email is important?
 
@@ -82,7 +99,16 @@ No. Agora keeps a checklist of setup in `setup.md`, in the `<root name>` folder.
 
 ## How do I add a person?
 
-Say "add <name> to Agora". Agora walks you through it: adding them to `org.md`, sharing the folder and calendar with them, and helping them connect their own AI app.
+- **Basic**: say "add <name> to Agora". Agora walks you through it: adding them to `org.md`, sharing the folder and calendar with them, and helping them connect their own AI app.
+- **Shared services**: first your Workspace admin gives them a work account and adds them to the shared drive, the group and the calendar (Agora gives the admin the exact clicks). Then the new person connects their own AI app with their work account and says "join Agora": their AI checks each step and says what is missing and who fixes it.
+
+## Agora says I'm not a member yet
+
+In a shared services Agora, your AI knows you by the Google account it's connected with. Either it's connected with another account (a personal one, say): reconnect Google Drive, Calendar and Gmail with your work account. Or you haven't joined yet: say "join Agora".
+
+## How do we move to a shared drive?
+
+When a basic Agora's team gets Google Workspace, say "move Agora to a shared drive". Agora walks the owner and the admin through it: the admin creates the shared drive, calendar and group, Agora moves or copies every file and copies the future events, the old account's mail is forwarded to the group, and then each person joins with their own work account. Nothing is lost; the old calendar stays as it was.
 
 ## Can I edit the files myself?
 
@@ -99,9 +125,9 @@ Tell it: "that's wrong, the appointment is on Friday". It saves the correction a
 ## How do I stop or leave?
 
 - **Pause the reviews**: pause or delete your three scheduled tasks in your AI app.
-- **Leave**: ask the owner, or say "remove me from Agora". Your access to the folder and calendar is removed and your app is disconnected. What you wrote stays, as part of the shared history.
+- **Leave**: ask the owner, or say "remove me from Agora". Your access to the folder and calendar is removed and your app is disconnected (shared services: the admin removes you from the shared drive, group and calendar; if you created the calendar, it's handed to someone else first). What you wrote stays, as part of the shared history.
 - **Stop Agora entirely**: delete everyone's scheduled tasks and disconnect the Google Drive and Calendar connectors (and Gmail). The folder and calendar stay in Google, readable as plain files, until you delete them.
 
 ## Does it cost anything?
 
-The scheduled reviews need a paid plan on Claude or ChatGPT. Google Drive and Calendar are free; the free Google account holds 15 GB, plenty for documents.
+The scheduled reviews need a paid plan on Claude or ChatGPT. Basic: Google Drive and Calendar are free; the free Google account holds 15 GB, plenty for documents. Shared services needs Google Workspace for every member, a paid Google plan.

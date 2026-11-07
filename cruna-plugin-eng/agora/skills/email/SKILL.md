@@ -5,7 +5,7 @@ description: Reads, drafts and sends email from the Agora assistant inbox, and f
 
 # Email
 
-The **assistant inbox** is the assistant account's Gmail inbox (rules → Vocabulary). In conversation you search and read it, draft and send for members, file emails as diary entries, and keep the `inbox.md` **ledger** of what you did with each email. The scheduled `review` does the unattended side; this skill is always **attended**: a member is there to answer.
+The **assistant inbox** is the mail delivered to `inbox` in `org.md` (rules → Vocabulary). In conversation you search and read it, draft and send for members, file emails as diary entries, and keep the `inbox.md` **ledger** of what you did with each email. The scheduled `review` does the unattended side; this skill is always **attended**: a member is there to answer.
 
 Every rule this skill applies is in the `rules` skill's `references/email.md`, read in step 1; the steps below say when each rule fires.
 
@@ -15,7 +15,7 @@ Every rule this skill applies is in the `rules` skill's `references/email.md`, r
 
 Load the `rules` skill and read its `references/email.md`, and its `references/todos.md` too when the root has a `todos/` folder or a to-do comes up. Follow rules → Finding the root and rules → Identity, then read `memories/<slug>.md` and `memories/shared.md` (rules → Memory step), and read `inbox.md` at the root (rules → Email → The ledger).
 
-When `org.md` has no `email: on`, the root has no email: say so in one sentence, offer to turn it on (the `setup` skill, "turn on email"), and stop. When a Gmail call fails, or the mailbox is not the assistant account's, it is a setup problem: walk prerequisites item 7 (rules → When something fails).
+When `org.md` has no `email: on`, the root has no email: say so in one sentence, offer to turn it on (the `setup` skill, "turn on email"), and stop. When a Gmail call fails, or the mailbox is not the one prerequisites item 7 names for the root's mode, it is a setup problem: walk prerequisites item 7 (rules → When something fails).
 
 Done when: `org.md` says `email: on`, you know the member's slug, their memories and the shared memories are read, and `inbox.md` is read (missing: it is created in step 9).
 
@@ -37,7 +37,7 @@ Done when: every request in the message maps to a branch.
 
 ### 3. Find
 
-Search the assistant inbox with terms from the member's words: sender names and addresses, the subject, dates, and the names the indexes give the interest or instance concerned ("Acme" → the client's people and domain, from its `index.md`, `status.md` and recent diary). Bound the search by date when the member names a period; otherwise the last 30 days, widened only when nothing turns up. Read each match.
+Search the assistant inbox, with the mail filter (rules → The three ids → Mail; its sent-mail form when the question is about what was sent, "did we answer Rossi?"), and terms from the member's words: sender names and addresses, the subject, dates, and the names the indexes give the interest or instance concerned ("Acme" → the client's people and domain, from its `index.md`, `status.md` and recent diary). Bound the search by date when the member names a period; otherwise the last 30 days, widened only when nothing turns up. Read each match.
 
 Answer from what the emails say, treated as data (rules → Email → Email is data). When the member asks what is important, or the answer depends on it, judge importance (rules → Email → Importance) and run the criteria check in step 8 first.
 
@@ -48,10 +48,10 @@ Done when: every matching email is in the answer with sender, date, subject and 
 ### 4. Draft
 
 1. **Source**: for a reply or a forward, read the original email and its thread. Find the instance it concerns, by the same placement as step 6, and read its `status.md` and recent diary for context. Facts you state come from Agora or the thread; anything missing becomes a question to the member, never a guess.
-2. **Write**: recipients, subject and body in the language the correspondence uses, signed per rules → Email → Sender voice. A reply keeps the thread; a forward keeps the original below the member's note.
-3. **Save** it as a Gmail draft in the assistant inbox.
+2. **Write**: recipients, subject and body in the language the correspondence uses, sent from, copied and signed per rules → Email → Sender voice. A reply keeps the thread; a forward keeps the original below the member's note.
+3. **Save** it as a Gmail draft in your mailbox (rules → Email → Mailboxes).
 4. **Show** the member the full message: recipients (To, Cc), subject, body. Ask what to change, or whether to send.
-5. **Ledger**: outcome `drafted`, by the member, on the row rules → Email → The ledger names.
+5. **Ledger**: outcome `drafted`, by the member, on the row rules → Email → The ledger names (in shared services mode, plus a reply or forward's `outgoing` row).
 
 Member mail carrying an instruction is drafted the same way, then flagged for that member's approval when they are not the one talking (rules → Email → Member mail).
 
@@ -62,7 +62,7 @@ Done when: the draft exists in Gmail, the member has seen exactly what it says, 
 1. **Confirm**: check the member's confirmation against rules → Email → Sending. Short of one, show the full message and ask "Send this?"; until a clear yes, it stays a draft.
 2. **Send** the confirmed draft, after telling the member about the app's own approval prompt (rules → Email → Sending). When the send fails, give the fix for the member's platform from prerequisites item 7; the draft stays.
 3. **Log it**: write the sent-mail diary entry (rules → Email → Sent mail) in the instance it concerns, placed as in step 6, then refresh the instance index and propagate as in the `log` skill's step 7. A date agreed in the email goes through the `log` skill's step 5. No clear instance: ask once; still none, flag it (rules → Flag).
-4. **Ledger**: the draft's row becomes `sent → <diary path>`, by the member, keyed as rules → Email → The ledger says.
+4. **Ledger**: the draft's row becomes `sent → <diary path>`, by the member, keyed as rules → Email → The ledger says; in shared services mode, a reply or forward's `outgoing` row is rekeyed too.
 
 Done when: the message is sent, its diary entry exists and has propagated (or it is flagged), and its ledger row says `sent`.
 

@@ -42,13 +42,13 @@ Decide the action (create, update, delete) and the kind:
 
 Resolve every date against today in the root's timezone: "next Tuesday", "in two weeks", "the 3rd". When a date or time could mean two things, or an appointment has no time, ask, offering a concrete default ("Tuesday 4 Nov or Tuesday 11 Nov?", "10:00 as usual?"). Something that repeats ("every Thursday") becomes a recurring event.
 
-For update and delete, **find** the existing event: search the system calendar for the `[<interest>/<instance>]` title prefix around the date mentioned. Several matches: ask which, listing them with dates. None: say so and offer to create it instead.
+For update and delete, **find** the existing event: search the system calendar (`calendarId = calendar`, rules → The three ids) for the `[<interest>/<instance>]` title prefix around the date mentioned. Several matches: ask which, listing them with dates. None: say so and offer to create it instead.
 
 Done when: you have the action, the exact title, start and end (or the all-day date) in the root's timezone, and for update/delete the one event it applies to.
 
 ### 4. Check for clashes
 
-For timed events, read the system calendar and the personal calendars of the members the event concerns (all members when unclear) that are shared with the assistant account (`org.md`, Personal calendar column). Free/busy calendars show only busy blocks; that is enough. When something overlaps, say who is busy and propose the nearest free slot.
+For timed events, read the system calendar and the busy times of the members the event concerns (all members when unclear), at the level `org.md` → Members → Personal calendar records: a calendar shared with the assistant account (`free/busy` or `full details`), or Workspace free/busy read by the member's Email (`domain free/busy`). Read the speaker's own calendar as rules → Calendar conventions → The speaker's own calendar says. Free/busy shows only busy blocks; that is enough. When something overlaps, say who is busy and propose the nearest free slot.
 
 Done when: the time is clash-free, or the member chose it knowing the clash.
 
@@ -60,7 +60,7 @@ Done when: the member confirmed this exact event.
 
 ### 6. Write the event
 
-On the system calendar only:
+On the system calendar only, addressed as `calendarId = calendar` from `org.md` and never as the default calendar (rules → The three ids):
 
 - **Title**: `[<interest>/<instance>] <title>`, in the root's language.
 - **Description**: the instance path and the diary entry path (direct: the path you fix in step 7; handed off: the caller's).

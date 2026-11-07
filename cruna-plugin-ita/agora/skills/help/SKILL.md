@@ -1,6 +1,6 @@
 ---
 name: help
-description: Spiega Agora, il quaderno condiviso che una famiglia o un piccolo gruppo tiene su Google Drive e Calendar tramite l'AI, e lo sistema quando non funziona bene. Usala quando qualcuno chiede cosa sa fare Agora o come funziona ("cosa sai fare?", "come funziona Agora?"), fa una domanda su come fare qualcosa (dove sono i miei file, chi vede cosa, aggiungere un documento dal telefono, tenere traccia di cose frequenti o di liste da stampare, i to-do, i prodotti e pm da GitHub, l'email, le routine, aggiungere una persona, uscire), o dice che Agora non funziona, non vede qualcosa o mostra un errore ("Agora non funziona", "non vedi il calendario").
+description: Spiega Agora, il quaderno condiviso che una famiglia o un piccolo gruppo tiene su Google Drive e Calendar tramite l'AI, e lo sistema quando non funziona bene. Usala quando qualcuno chiede cosa sa fare Agora o come funziona ("cosa sai fare?", "come funziona Agora?"), fa una domanda su come fare qualcosa (dove sono i miei file, chi vede cosa, le due modalità e il passaggio a un Drive condiviso, aggiungere un documento dal telefono, tenere traccia di cose frequenti o di liste da stampare, i to-do, i prodotti e pm da GitHub, l'email, le routine, aggiungere una persona, uscire), o dice che Agora non funziona, non vede qualcosa o mostra un errore ("Agora non funziona", "non vedi il calendario").
 ---
 
 # Aiuto
@@ -40,29 +40,33 @@ Di' in una frase che cos'è Agora: ognuno racconta all'AI cosa succede, l'AI lo 
 | "Archivia l'email che ti ho inoltrato" / "prepara una bozza di risposta a Mario" | L'email viene salvata nell'argomento giusto; una risposta viene scritta e inviata solo dopo il tuo sì | `email` |
 | "Configura Agora" / "aggiungi mio marito ad Agora" | La configurazione, o l'ingresso di una nuova persona | `setup` |
 
-Aggiungi una riga sulle routine: una volta configurate, una revisione giornaliera, una settimanale e una mensile arrivano da sole. Mostra l'esempio dell'email solo quando `org.md` dice `email: on`; altrimenti, in una radice aziendale, una riga che dice che l'email si può attivare. Quando Members ha un membro github (rules → Vocabolario), aggiungi una riga sui **prodotti da GitHub**: `products` segue il software costruito su GitHub, e una nota su un prodotto o un to-do per `pm` (il suo slug) diventa una richiesta GitHub alla prossima sincronizzazione (faq.md → Che cos'è `products` e chi è pm?).
+Aggiungi una riga su come i membri lo raggiungono, secondo la modalità della radice (rules → Vocabolario → Modalità; senza radice: entrambe, una riga ciascuna): in modalità base, l'AI di ognuno accede all'account Google della radice; in modalità servizi condivisi, ogni membro usa il proprio account di lavoro, e il gruppo condivide un Drive condiviso, un calendario e un indirizzo del gruppo. Aggiungi una riga sulle routine: una volta configurate, una revisione giornaliera, una settimanale e una mensile arrivano da sole. Mostra l'esempio dell'email solo quando `org.md` dice `email: on`; altrimenti, in una radice aziendale, una riga che dice che l'email si può attivare. Quando Members ha un membro github (rules → Vocabolario), aggiungi una riga sui **prodotti da GitHub**: `products` segue il software costruito su GitHub, e una nota su un prodotto o un to-do per `pm` (il suo slug) diventa una richiesta GitHub alla prossima sincronizzazione (faq.md → Che cos'è `products` e chi è pm?).
 
 Fatto quando: il membro ha il riassunto in una frase e gli esempi, in meno di 12 righe, senza nomi di skill.
 
 ### 2b. FAQ
 
-Rispondi da [references/faq.md](references/faq.md), inserendo i nomi reali da `org.md` quando esiste una radice (cartella radice, membri, account dell'assistente, calendario). Quando la domanda non c'è, rispondi dalla skill `rules` se la risolve; altrimenti di' che non sei sicuro e proponi di verificare con la risoluzione dei problemi.
+Rispondi da [references/faq.md](references/faq.md), inserendo i nomi reali da `org.md` quando esiste una radice (cartella radice, membri, account dell'assistente o indirizzo del gruppo, calendario). Quando la domanda non c'è, rispondi dalla skill `rules` se la risolve; altrimenti di' che non sei sicuro e proponi di verificare con la risoluzione dei problemi.
 
 Fatto quando: la domanda ha una risposta in poche righe, oppure hai detto chiaramente che non lo sai.
 
 ### 2c. Risoluzione dei problemi
 
-Le soluzioni stanno nella checklist dei prerequisiti della skill `rules` (rules → Quando qualcosa non funziona). Abbina il sintomo alle sue voci, poi percorrile in ordine:
+Le soluzioni stanno nella checklist dei prerequisiti della skill `rules` (rules → Quando qualcosa non funziona), ogni voce nella variante per la modalità della radice. Prima di abbinare, leggi Needs attention dello `status.md` della radice: una segnalazione che il riordino della `review` ha sollevato sulle routine in ritardo o sull'account connesso (i suoi punti 8 e 9) spesso risponde al sintomo; mostrala con la sua soluzione. Poi abbina il sintomo alle sue voci e percorrile in ordine:
 
 | Sintomo | Voci dei prerequisiti |
 |---|---|
 | Non trovi Agora, i miei file o una cartella | 3 (Drive), poi 4, poi 5 |
 | Gli eventi non compaiono sul mio telefono, o non riesci ad aggiungere eventi | 3 (Calendar), poi 5 |
 | Errori "autorizzazione negata", "accesso", "non consentito" | 3, poi 5 |
-| La mia revisione giornaliera / settimanale / mensile non è mai arrivata | 6, poi 1 |
+| File doppi che non se ne vanno, o un cestino rifiutato | modalità base: 3 (l'account connesso non è proprietario di `org.md`); modalità servizi condivisi: 3 (Drive), poi 5 (non è Gestore contenuti (Content manager) del Drive condiviso, voce 4 passo 2) |
+| Agora dice che non sono ancora un membro (modalità servizi condivisi) | 3 (Chi: connesso con un altro account), altrimenti proponi il ramo **Unisciti** della skill `setup` |
+| Agora non riesce ad aggiungere eventi al calendario condiviso (modalità servizi condivisi) | 3 (Calendar), poi voce 4 passo 4 (il proprietario del calendario lo condivide con Apporta modifiche agli eventi (Make changes to events)) |
+| La posta del gruppo non compare (modalità servizi condivisi, email attiva) | 7 (la ricerca del gruppo non restituisce nulla), poi voce 4 passi 3.1–3.3 |
+| La mia revisione giornaliera / settimanale / mensile non è mai arrivata, o "nessuna routine dei membri l'ha eseguito" | 6, poi 1 |
 | Agora non c'è nella mia app | 2 |
 | Non vedi la casella, un'email che ti ho inviato, o non riesci a inviare (email attiva) | 7 |
-| Un nuovo membro non riesce a usarlo | quel membro percorre le voci 1–3, 5 e 6 (e 7 quando l'email è attiva): proponi il ramo **Unisciti** della skill `setup` |
+| Un nuovo membro non riesce a usarlo | quel membro percorre le voci 1–3, 5 e 6 (e 7 quando l'email è attiva; in modalità servizi condivisi, dopo i passi della voce 4 che lo riguardano): proponi il ramo **Unisciti** della skill `setup` |
 | La configurazione è rimasta a metà, o `setup.md` dice `state: todo` | nessuna: proponi la skill `setup`, che riprende dalla prima casella non spuntata |
 
 1. Esegui il **controllo** di ogni voce corrispondente con una chiamata reale, esattamente come lo descrive la checklist.
