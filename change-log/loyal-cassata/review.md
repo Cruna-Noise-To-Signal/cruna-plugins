@@ -27,3 +27,26 @@ VERDICT: PASS. No `guidelines` skill; judged against AGENTS.md, `cruna-core:writ
   4. Possible Duplicated Code: `main`/`dev` appear in both the push refspecs and the check loop; the org/repo name in the guard and in `MIRROR`. Borderline for an 83-line file.
   5. Deleted tags/branches aren't propagated: out of scope per spec, noted in report.
 - No other baseline smells; each commit is one logical change.
+
+---
+
+# Round 2 — after switching to a GitHub App (0a5c668)
+
+Result: **PASS** on both axes. Small follow-ups applied in the same commit as this review: token narrowed with `permission-contents: write`; AGENTS.md now says "never edit the mirror" outright; manual-test step 6 no longer promises runs are never cancelled; plan F1 acceptance says "App variable or secret".
+
+## Specs
+
+VERDICT: PASS. `actions/create-github-app-token@v1` gets `app-id`, `private-key` and `repositories: cruna-plugins-mirror` (owner defaults to the repo owner); the token is masked and revoked in the post step; the missing-settings check runs first and covers variable and secret; HTTPS push and `ls-remote` with `x-access-token` are the standard pattern, and `persist-credentials: false` keeps checkout credentials out of the way. Triggers, fork guard, concurrency, refspecs and self-check unchanged. Docs and issue #1 consistent (`mirror:repo` done; `mirror:app`, `mirror:secret`, `mirror:first-run`, `mirror:claude-admin` open; no `mirror:deploy-key`); remaining "deploy key" mentions are labelled history.
+- Carried over and now fixed: AGENTS.md "never edit"; "never cancelled" wording.
+- Advisory: `create-github-app-token@v1` is a major tag; `@v2` is current.
+
+## Standards
+
+VERDICT: PASS. Spec, plan, report and manual test updated with the code; `GITHUB_TOKEN` stays read-only and all writes go through the App token scoped to the mirror; secret and token passed via `env`, no template injection; fork guard, no `pull_request`, `persist-credentials: false`, timeout kept; round-1 host-key advisory resolved.
+- Advisories (not applied, none blocking):
+  1. The token sits in the push URL, so it is on git's command line (log-masked; low risk on an ephemeral hosted runner). Alternative: plain URL plus an auth header via `http.extraheader`.
+  2. Pin `create-github-app-token` and `checkout` by commit SHA, since the former now receives the App private key.
+  3. Applied: `permission-contents: write`.
+  4. Possible Duplicated Code: App variable/secret referenced in the check and the action; mirror name in `repositories:` and the URL. The check's clearer error justifies it.
+  5. Push and self-check share one step; the `::error::` lines still say which part failed.
+  6. Applied: plan wording "variable or secret".

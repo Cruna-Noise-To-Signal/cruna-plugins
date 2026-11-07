@@ -25,4 +25,4 @@ First stop for any plugin or skill work is the `cruna-core` plugin (from the `cr
 
 ## Private mirror
 
-`Cruna-Noise-To-Signal/cruna-plugins-mirror` is a private, read-only copy of this repo's `main`, `dev` and `v*` tags, and is the Cruna Claude organization's marketplace, because Claude for Business accepts only private marketplaces. `.github/workflows/mirror.yml` writes it on every push to those refs and overwrites whatever is there, so every change goes to this repo and reaches the mirror through the workflow. The public README and plugin READMEs stay addressed to clients and leave the mirror out.
+`Cruna-Noise-To-Signal/cruna-plugins-mirror` is a private, read-only copy of this repo's `main`, `dev` and `v*` tags, and is the Cruna Claude organization's marketplace, because Claude for Business accepts only private marketplaces. `.github/workflows/mirror.yml` writes it on every push to those refs and overwrites whatever is there, so never edit the mirror: every change goes to this repo and reaches the mirror through the workflow. The public README and plugin READMEs stay addressed to clients and leave the mirror out.

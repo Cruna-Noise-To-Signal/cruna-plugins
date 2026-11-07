@@ -47,6 +47,7 @@ jobs:
           app-id: ${{ vars.MIRROR_APP_ID }}
           private-key: ${{ secrets.MIRROR_APP_PRIVATE_KEY }}
           repositories: cruna-plugins-mirror
+          permission-contents: write
 
       # fetch-depth 0 fetches every branch (as refs/remotes/origin/*) and every tag.
       - uses: actions/checkout@v4

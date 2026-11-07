@@ -56,7 +56,7 @@ Then tick `mirror:first-run` in issue #1.
 ## 6. A release follows, with its tag
 
 1. Run the normal release (`dev` into `main`, tag `vYYYY.MM.DD`).
-2. Expected: Mirror runs for the push to `main` and for the tag push; they run one after another (never cancelled) and both go green.
+2. Expected: Mirror runs for the push to `main` and for the tag push; they run one after another and go green. With several pushes in quick succession GitHub may cancel a waiting run; that's fine, because the run that goes ahead pushes the latest state.
 3. Repeat the step 4 diff: empty output; the new tag is on the mirror and points at the same commit.
 
 ## 7. Forks do not run it

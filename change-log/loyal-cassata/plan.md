@@ -29,7 +29,7 @@ Guidelines: Hard dependencies noted; otherwise parallelizable.
 - Authenticates as the mirror GitHub App (`MIRROR_APP_ID` variable, `MIRROR_APP_PRIVATE_KEY` secret) with a token limited to the mirror; pushes over HTTPS. (Changed from a deploy key in review round 2: the org policy disables deploy keys.)
 - Force-pushes `main`, `dev` and all `v*` tags to `Cruna-Noise-To-Signal/cruna-plugins-mirror`.
 - Fails the run when the mirror's `main` or `dev` commit differs from the public one after the push.
-- Fails with a clear message when the secret is missing.
+- Fails with a clear message when the App variable or secret is missing.
 **Deps:** none to write; needs F3 done to run.
 **Touchpoints:** GitHub Actions on the public repository; the mirror repository.
 
