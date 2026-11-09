@@ -61,6 +61,10 @@ jobs:
         env:
           MIRROR: https://x-access-token:${{ steps.app.outputs.token }}@github.com/Cruna-Noise-To-Signal/cruna-plugins-mirror.git
         run: |
+          # On a tag push, checkout leaves the pushed tag as a lightweight tag;
+          # re-fetch every tag so annotated tags reach the mirror with their message.
+          git fetch --force --tags origin
+
           # A glob refspec that matches no tag is skipped, so this works with zero v* tags.
           git push --force "$MIRROR" \
             refs/remotes/origin/main:refs/heads/main \

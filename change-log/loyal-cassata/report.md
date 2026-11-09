@@ -13,6 +13,7 @@ Request #10. Spec: [spec.md](spec.md). Plan: [plan.md](plan.md). Hand checks: [m
 - Push: `git push --force` of `refs/remotes/origin/main:refs/heads/main`, `refs/remotes/origin/dev:refs/heads/dev`, `'refs/tags/v*:refs/tags/v*'`.
 - Self-check: compares `git ls-remote` of the mirror's `main` and `dev` with local `origin/main` / `origin/dev`, prints one line per branch, fails on any mismatch or missing branch.
 - First run after merge (2026-11-07): `main` and tags reached the mirror, `dev` was rejected because the App lacked the Workflows permission; fixed by adding Workflows (read and write) to the App and `permission-workflows: write` to the token.
+- Release v2026.11.07 (2026-11-07): the tag-push run copied `v2026.11.07` to the mirror as a lightweight tag, because `actions/checkout` replaces the triggering annotated tag with a lightweight one; fixed by re-fetching all tags before the push.
 - Push and self-check share one step, so the mirror URL is defined once.
 
 **F2 - AGENTS.md**: new "Private mirror" section, one paragraph: name, why (Claude for Business accepts only private marketplaces), written only by the workflow, every change goes to this repo. README and plugin READMEs untouched.
