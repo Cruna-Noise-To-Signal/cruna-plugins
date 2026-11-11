@@ -26,3 +26,9 @@ First stop for any plugin or skill work is the `cruna-core` plugin (from the `cr
 ## Private mirror
 
 `Cruna-Noise-To-Signal/cruna-plugins-mirror` is a private, read-only copy of this repo's `main`, `dev` and `v*` tags, and is the Cruna Claude organization's marketplace, because Claude for Business accepts only private marketplaces. `.github/workflows/mirror.yml` writes it on every push to those refs and overwrites whatever is there, so never edit the mirror: every change goes to this repo and reaches the mirror through the workflow. The public README and plugin READMEs stay addressed to clients and leave the mirror out.
+
+## Agora
+This repo reports to Agora (see `.agora/pm.yml`). Run `cruna-pm-github:agora-sync`:
+- when a session starts and the product's newest `*_last-check.md` in Agora is more than a day old;
+- after a PR is merged into dev, a release, or a drop.
+If the Drive connector or the agora plugin is missing, skip it without comment.

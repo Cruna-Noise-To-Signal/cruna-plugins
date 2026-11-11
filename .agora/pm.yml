@@ -1,0 +1,10 @@
+# Links this repo to an Agora vault (cruna-pm-github agora-sync).
+vault:
+  drive_id: 0ADIlOXCmQ0lTUk9PVA           # the shared drive's id (from its URL), or my-drive; as in the root's org.md
+  root: Cruna Agora Test                  # Agora root name (as in its org.md); handoff lines name it
+  root_id: 1_WnNqXYppSZS7UXySXGXksRm-vtupddx  # Agora root folder id; the sync opens the root by it
+product:
+  instance: cruna-plugins                 # folder under products/
+  name: Cruna plugins                     # display name
+github:
+  member: pm                              # Agora member meaning "goes to GitHub"

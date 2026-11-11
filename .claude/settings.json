@@ -1,10 +1,21 @@
 {
+  "enabledPlugins": {
+    "cruna-core@cruna-development-plugins": true,
+    "cruna-pm-github@cruna-development-plugins": true,
+    "agora@cruna-plugins": true
+  },
   "extraKnownMarketplaces": {
     "cruna-development-plugins": {
-      "source": { "source": "github", "repo": "Cruna-Noise-To-Signal/cruna-development-plugins" }
+      "source": {
+        "source": "github",
+        "repo": "Cruna-Noise-To-Signal/cruna-development-plugins"
+      }
+    },
+    "cruna-plugins": {
+      "source": {
+        "source": "github",
+        "repo": "Cruna-Noise-To-Signal/cruna-plugins"
+      }
     }
-  },
-  "enabledPlugins": {
-    "cruna-core@cruna-development-plugins": true
   }
 }
