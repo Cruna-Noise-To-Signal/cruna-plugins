@@ -37,3 +37,7 @@ The `setup` skill checks all of this and walks you through what's missing, with 
 - **ChatGPT**: install `agora` from the Plugins page (a workspace admin may need to publish it first).
 
 Then say: "Set up Agora".
+
+## License
+
+Apache License 2.0: see [LICENSE](LICENSE).
