@@ -37,3 +37,7 @@ La skill `setup` controlla tutto questo e ti guida in ciò che manca, con gli st
 - **ChatGPT**: installa `agora-ita` dalla pagina Plugin (potrebbe servire che un amministratore del workspace lo pubblichi prima).
 
 Poi scrivi: «Configura Agora».
+
+## Licenza
+
+Apache License 2.0: vedi [LICENSE](LICENSE).

@@ -6,8 +6,8 @@ Public plugins by [Cruna](https://crunasignal.com) for **Claude** and **ChatGPT*
 
 | Plugin | Language | Version | What it does |
 |---|---|---|---|
-| [`agora`](cruna-plugin-eng/agora/) | English | 0.6.0 | A shared, AI-kept knowledge base on Google Drive and Google Calendar for families and small teams |
-| [`agora-ita`](cruna-plugin-ita/agora/) | Italiano | 0.6.0 | La stessa cosa, in italiano |
+| [`agora`](cruna-plugin-eng/agora/) | English | 0.7.1 | A shared, AI-kept knowledge base on Google Drive and Google Calendar for families and small teams |
+| [`agora-ita`](cruna-plugin-ita/agora/) | Italiano | 0.7.1 | La stessa cosa, in italiano |
 
 Both versions read and write the same Drive files, so people using different languages can share one Agora.
 
@@ -63,6 +63,7 @@ Then say **"Set up Agora"** (or **"Configura Agora"**).
 | [`bin/cruna-zip`](bin/cruna-zip) | Bundles a plugin into `<plugin-name>.zip` for upload |
 | [`docs/agora/`](docs/agora/) | Agora design docs (below) |
 | [`AGENTS.md`](AGENTS.md) | Rules for anyone (human or AI) changing this repo |
+| [`LICENSE`](LICENSE) | Apache License 2.0; each plugin folder carries a copy |
 
 Inside each plugin: `.claude-plugin/plugin.json` (Claude manifest), `plugin.json` (OpenAI manifest), `README.md`, and `skills/<skill>/SKILL.md` with optional `references/` and `agents/openai.yaml`.
 
@@ -85,3 +86,7 @@ Inside each plugin: `.claude-plugin/plugin.json` (Claude manifest), `plugin.json
 ## Contributing
 
 Read [`AGENTS.md`](AGENTS.md) first. In short: change the English plugin first and carry the change into Italian with the glossary; keep `name` and `version` identical across both manifests and both catalogs; bump the version on every change; update the spec when behaviour changes; run the portable-plugins checker before committing.
+
+## License
+
+The repository and every plugin in it are licensed under the [Apache License 2.0](LICENSE). Each plugin folder carries its own copy of the license, so it travels with an installed plugin or a zip. The license grants no rights to the Cruna name or logo.
