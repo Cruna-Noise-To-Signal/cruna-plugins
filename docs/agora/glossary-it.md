@@ -198,6 +198,7 @@ Content written into those files is in the root's language (`it` for this plugin
 | work account | account di lavoro |
 | ownership check | controllo di proprietà |
 | reconnect | ricollegarsi / ricollegamento |
+| License (README heading; the license name `Apache License 2.0` and the file `LICENSE` stay in English) | Licenza |
 | Join's step "Which join" | Quale ingresso |
 | review tidy-up items | punti (punto 8, punti 1–6) |
 | Workspace free/busy | il libero/occupato di Workspace |
